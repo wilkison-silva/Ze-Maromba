@@ -1,4 +1,4 @@
-package br.com.trainingjourney.ui.theme
+package br.com.trainingjourney.core_ui.ui.theme
 
 import android.app.Activity
 import android.os.Build

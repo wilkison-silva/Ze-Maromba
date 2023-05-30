@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Training Journey</string>
+    <string name="comece_a_sua_jornada_de_treinos">Comece a sua jornada de treinos</string>
+    <string name="description_screen_get_started">Você pode alcançar seus objetivos de uma forma conveniente e simples</string>
+    <string name="button_title_get_started">Vamos começar</string>
 </resources>

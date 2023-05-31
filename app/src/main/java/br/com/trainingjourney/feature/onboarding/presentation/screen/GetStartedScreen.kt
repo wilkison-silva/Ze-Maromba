@@ -97,7 +97,7 @@ fun GetStartedScreen(
 @Composable
 fun GetStartedScreenPreviewPixel5() {
     GetStartedScreen(
-        title = stringResource(R.string.comece_a_sua_jornada_de_treinos),
+        title = stringResource(R.string.start_your_training_journey),
         description = stringResource(R.string.description_screen_get_started),
         buttonTitle = stringResource(R.string.button_title_get_started),
         onButtonClick = { },
@@ -116,7 +116,7 @@ fun GetStartedScreenPreviewPixel5() {
 @Composable
 fun GetStartedScreenPreviewNexus4() {
     GetStartedScreen(
-        title = stringResource(R.string.comece_a_sua_jornada_de_treinos),
+        title = stringResource(R.string.start_your_training_journey),
         description = stringResource(R.string.description_screen_get_started),
         buttonTitle = stringResource(R.string.button_title_get_started),
         onButtonClick = { },

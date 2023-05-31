@@ -40,7 +40,6 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserOriginationNameScreen(
-    modifier: Modifier,
     title: String,
     name: String,
     onNameChanged: (newName: String) -> Unit,
@@ -51,7 +50,8 @@ fun UserOriginationNameScreen(
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     Column(
-        modifier = modifier
+        modifier = Modifier
+            .fillMaxSize()
             .background(color = WhiteF5)
     ) {
         Spacer(modifier = Modifier.height(150.dp))
@@ -148,7 +148,6 @@ fun UserOriginationNameScreenPreviewPixel5() {
         mutableStateOf("Wilkison")
     }
     UserOriginationNameScreen(
-        modifier = Modifier.fillMaxSize(),
         title = "Como podemos chamar você?",
         name = name.value,
         onNameChanged = {
@@ -174,7 +173,6 @@ fun UserOriginationNameScreenPreviewNexus4() {
         mutableStateOf("Wilkison")
     }
     UserOriginationNameScreen(
-        modifier = Modifier.fillMaxSize(),
         title = "Como podemos chamar você?",
         name = name.value,
         onNameChanged = {

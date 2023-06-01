@@ -22,8 +22,10 @@ object CoreDataModule {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "training_journey"
-        ).build()
+            AppDatabase.databaseName
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

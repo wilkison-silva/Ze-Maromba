@@ -1,4 +1,4 @@
-package br.com.trainingjourney.feature.training_origination.domain.model
+package br.com.zemaromba.feature.training_origination.domain.model
 
 enum class MuscleGroup {
     CHEST,
@@ -7,7 +7,9 @@ enum class MuscleGroup {
     TRAPEZIUS,
     BICEPS,
     FOREARM,
-    TIGHTS,
+    QUADRICEPS,
+    HAMSTRINGS,
+    ADDUCTORS,
     GLUTES,
     CALVES,
     ABDOMEN,

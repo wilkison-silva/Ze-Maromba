@@ -7,7 +7,7 @@ import br.com.zemaromba.core_data.local.dao.ExerciseDao
 import br.com.zemaromba.core_data.local.dao.MuscleGroupDao
 import br.com.zemaromba.core_data.model.ExerciseData
 import br.com.zemaromba.core_data.model.MuscleGroupData
-import br.com.trainingjourney.feature.training_origination.domain.model.MuscleGroup
+import br.com.zemaromba.feature.training_origination.domain.model.MuscleGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch

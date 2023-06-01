@@ -1,4 +1,4 @@
-package br.com.trainingjourney.feature.training_origination.domain.model
+package br.com.zemaromba.feature.training_origination.domain.model
 
 data class Set(
     val quantity: Int,
@@ -6,5 +6,6 @@ data class Set(
     val exercise: Exercise,
     val weight: Double,
     val observation: String,
-    val completed: Boolean
+    val completed: Boolean,
+    val restingTime: Double
 )

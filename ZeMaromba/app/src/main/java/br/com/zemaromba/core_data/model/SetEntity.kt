@@ -2,9 +2,26 @@ package br.com.zemaromba.core_data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Set")
+@Entity(
+    tableName = "Set",
+    foreignKeys = [
+        ForeignKey(
+            entity = ExerciseEntity::class,
+            parentColumns = arrayOf("exercise_id"),
+            childColumns = arrayOf("exercise_id"),
+            onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = TrainingEntity::class,
+            parentColumns = arrayOf("training_id"),
+            childColumns = arrayOf("training_id"),
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
 data class SetEntity(
     @PrimaryKey
     var id: Long = 0,

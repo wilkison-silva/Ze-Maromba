@@ -9,6 +9,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.relations.ExercisesWithMuscles
+import br.com.zemaromba.core_data.model.relations.SetWithExercise
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -29,5 +30,9 @@ interface ExerciseDao {
     @Transaction
     @Query("SELECT * FROM Exercise")
     fun getExercisesWithMuscleGroups(): Flow<List<ExercisesWithMuscles>>
+
+    @Transaction
+    @Query("SELECT * FROM Exercise")
+    fun getSetWithExercise(): Flow<List<SetWithExercise>>
 
 }

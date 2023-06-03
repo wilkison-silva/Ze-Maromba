@@ -4,6 +4,8 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import br.com.zemaromba.core_data.local.dao.ExerciseDao
 import br.com.zemaromba.core_data.local.dao.MuscleGroupDao
+import br.com.zemaromba.core_data.local.dao.SetDao
+import br.com.zemaromba.core_data.local.dao.TrainingDao
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.MuscleGroupEntity
 import br.com.zemaromba.core_data.model.SetEntity
@@ -25,6 +27,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract val exerciseDao: ExerciseDao
     abstract val muscleGroupDao: MuscleGroupDao
+    abstract val setDao: SetDao
+    abstract val trainingDao: TrainingDao
 
     companion object {
         const val databaseVersion = 1

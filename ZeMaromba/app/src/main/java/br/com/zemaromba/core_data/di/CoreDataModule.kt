@@ -5,6 +5,8 @@ import androidx.room.Room
 import br.com.zemaromba.core_data.local.AppDatabase
 import br.com.zemaromba.core_data.local.dao.ExerciseDao
 import br.com.zemaromba.core_data.local.dao.MuscleGroupDao
+import br.com.zemaromba.core_data.local.dao.SetDao
+import br.com.zemaromba.core_data.local.dao.TrainingDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,6 +40,18 @@ object CoreDataModule {
     @Singleton
     fun provideMuscleGroupDao(appDatabase: AppDatabase) : MuscleGroupDao {
         return appDatabase.muscleGroupDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetDao(appDatabase: AppDatabase) : SetDao {
+        return appDatabase.setDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrainingDao(appDatabase: AppDatabase) : TrainingDao {
+        return appDatabase.trainingDao
     }
 
 }

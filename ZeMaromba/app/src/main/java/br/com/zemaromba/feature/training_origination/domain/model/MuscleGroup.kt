@@ -10,6 +10,7 @@ enum class MuscleGroup {
     QUADRICEPS,
     HAMSTRINGS,
     ADDUCTORS,
+    ABDUCTORS,
     GLUTES,
     CALVES,
     ABDOMEN,

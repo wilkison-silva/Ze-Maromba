@@ -22,7 +22,7 @@ import br.com.zemaromba.feature.home.presentation.screen.HomeScreen
 import br.com.zemaromba.feature.onboarding.presentation.OnBoardingRouter
 import br.com.zemaromba.feature.onboarding.presentation.screen.GetStartedScreen
 import br.com.zemaromba.feature.onboarding.presentation.screen.UserOriginationNameScreen
-import br.com.trainingjourney.feature.onboarding.presentation.viewmodel.TesteViewModel
+import br.com.zemaromba.feature.onboarding.presentation.viewmodel.TesteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

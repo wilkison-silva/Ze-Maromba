@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "sets")
-data class SetData(
+@Entity(tableName = "Set")
+data class SetEntity(
     @PrimaryKey
     var id: Long = 0,
     @ColumnInfo(name = "exercise_id")

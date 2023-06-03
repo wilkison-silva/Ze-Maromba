@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.relations.ExercisesWithMuscles
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +19,9 @@ interface ExerciseDao {
 
     @Delete
     suspend fun delete(exerciseEntity: ExerciseEntity)
+
+    @Update
+    suspend fun update(exerciseEntity: ExerciseEntity)
 
     @Query("SELECT * FROM Exercise")
     fun getAll(): Flow<List<ExerciseEntity>>

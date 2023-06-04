@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,61 +29,71 @@ import br.com.zemaromba.R
 @Composable
 fun GetStartedScreen(
     title: String,
+    loadingScreen: Boolean,
     description: String,
     buttonTitle: String,
     onButtonClick: () -> Unit,
     modifier: Modifier,
 ) {
-    Box(
-        modifier = modifier
-    ) {
-        Image(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentScale = ContentScale.Crop,
-            painter = painterResource(id = R.drawable.image_exercise_welcome),
-            contentDescription = ""
-        )
-        Text(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(start = 20.dp, top = 20.dp, end = 20.dp),
-            text = title,
-            lineHeight = 40.sp,
-            color = Color.White,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-        Text(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(start = 20.dp, top = 200.dp, end = 20.dp),
-            text = description,
-            color = Color.LightGray,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
-            textAlign = TextAlign.Center
-        )
-        Button(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Green80,
-            ),
-            onClick = {
-                onButtonClick()
-            }
+    if (loadingScreen) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(
+                color = Green80,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
+    } else {
+        Box(
+            modifier = modifier
         ) {
+            Image(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                painter = painterResource(id = R.drawable.image_exercise_welcome),
+                contentDescription = ""
+            )
             Text(
-                text = buttonTitle,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(start = 20.dp, top = 20.dp, end = 20.dp),
+                text = title,
+                lineHeight = 40.sp,
                 color = Color.White,
-                fontSize = 18.sp,
+                fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
+            Text(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(start = 20.dp, top = 200.dp, end = 20.dp),
+                text = description,
+                color = Color.LightGray,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center
+            )
+            Button(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Green80,
+                ),
+                onClick = {
+                    onButtonClick()
+                }
+            ) {
+                Text(
+                    text = buttonTitle,
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }
@@ -98,6 +110,7 @@ fun GetStartedScreen(
 fun GetStartedScreenPreviewPixel5() {
     GetStartedScreen(
         title = stringResource(R.string.start_your_training_journey),
+        loadingScreen = false,
         description = stringResource(R.string.description_screen_get_started),
         buttonTitle = stringResource(R.string.button_title_get_started),
         onButtonClick = { },
@@ -117,6 +130,7 @@ fun GetStartedScreenPreviewPixel5() {
 fun GetStartedScreenPreviewNexus4() {
     GetStartedScreen(
         title = stringResource(R.string.start_your_training_journey),
+        loadingScreen = false,
         description = stringResource(R.string.description_screen_get_started),
         buttonTitle = stringResource(R.string.button_title_get_started),
         onButtonClick = { },

@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -42,10 +44,11 @@ import kotlinx.coroutines.delay
 fun UserOriginationNameScreen(
     title: String,
     name: String,
+    loadingScreen: Boolean,
     onNameChanged: (newName: String) -> Unit,
     messageWarning: String,
     buttonTitle: String,
-    onNextButtonClick: (name: String) -> Unit
+    onNextButtonClick: () -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
@@ -120,16 +123,24 @@ fun UserOriginationNameScreen(
                 containerColor = Green80,
             ),
             onClick = {
-                onNextButtonClick(name)
+                onNextButtonClick()
             }
         ) {
-            Text(
-                text = buttonTitle,
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
+            if (loadingScreen) {
+                CircularProgressIndicator(
+                    color = WhiteF5,
+                    modifier = Modifier.size(25.dp),
+                    strokeWidth = 3.dp
+                )
+            } else {
+                Text(
+                    text = buttonTitle,
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }
@@ -150,6 +161,7 @@ fun UserOriginationNameScreenPreviewPixel5() {
     UserOriginationNameScreen(
         title = "Como podemos chamar você?",
         name = name.value,
+        loadingScreen = true,
         onNameChanged = {
             name.value = it
         },
@@ -175,6 +187,7 @@ fun UserOriginationNameScreenPreviewNexus4() {
     UserOriginationNameScreen(
         title = "Como podemos chamar você?",
         name = name.value,
+        loadingScreen = false,
         onNameChanged = {
             name.value = it
         },

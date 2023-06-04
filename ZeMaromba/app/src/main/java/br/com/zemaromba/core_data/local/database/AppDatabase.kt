@@ -1,11 +1,11 @@
-package br.com.zemaromba.core_data.local
+package br.com.zemaromba.core_data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import br.com.zemaromba.core_data.local.dao.ExerciseDao
-import br.com.zemaromba.core_data.local.dao.MuscleGroupDao
-import br.com.zemaromba.core_data.local.dao.SetDao
-import br.com.zemaromba.core_data.local.dao.TrainingDao
+import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
+import br.com.zemaromba.core_data.local.database.dao.MuscleGroupDao
+import br.com.zemaromba.core_data.local.database.dao.SetDao
+import br.com.zemaromba.core_data.local.database.dao.TrainingDao
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.MuscleGroupEntity
 import br.com.zemaromba.core_data.model.SetEntity

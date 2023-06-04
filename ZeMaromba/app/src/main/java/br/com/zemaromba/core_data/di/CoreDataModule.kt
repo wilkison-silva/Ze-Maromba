@@ -2,11 +2,13 @@ package br.com.zemaromba.core_data.di
 
 import android.content.Context
 import androidx.room.Room
-import br.com.zemaromba.core_data.local.AppDatabase
-import br.com.zemaromba.core_data.local.dao.ExerciseDao
-import br.com.zemaromba.core_data.local.dao.MuscleGroupDao
-import br.com.zemaromba.core_data.local.dao.SetDao
-import br.com.zemaromba.core_data.local.dao.TrainingDao
+import br.com.zemaromba.core_data.local.database.AppDatabase
+import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
+import br.com.zemaromba.core_data.local.database.dao.MuscleGroupDao
+import br.com.zemaromba.core_data.local.database.dao.SetDao
+import br.com.zemaromba.core_data.local.database.dao.TrainingDao
+import br.com.zemaromba.core_data.local.datastore.UserDataStoreImpl
+import br.com.zemaromba.core_domain.datastore.UserDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,6 +54,12 @@ object CoreDataModule {
     @Singleton
     fun provideTrainingDao(appDatabase: AppDatabase) : TrainingDao {
         return appDatabase.trainingDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDataStore(@ApplicationContext context: Context) : UserDataStore {
+        return UserDataStoreImpl(context = context)
     }
 
 }

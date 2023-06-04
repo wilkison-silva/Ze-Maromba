@@ -1,15 +1,12 @@
-package br.com.zemaromba.core_data.local.dao
+package br.com.zemaromba.core_data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
-import br.com.zemaromba.core_data.model.SetEntity
 import br.com.zemaromba.core_data.model.TrainingEntity
-import br.com.zemaromba.core_data.model.relations.SetWithExercise
 import kotlinx.coroutines.flow.Flow
 
 @Dao

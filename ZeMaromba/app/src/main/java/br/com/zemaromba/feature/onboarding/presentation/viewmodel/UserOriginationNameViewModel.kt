@@ -22,7 +22,7 @@ class UserOriginationNameViewModel @Inject constructor(
     fun onEvent(event: UserOriginationNameEvents) {
         when (event) {
             is UserOriginationNameEvents.OnSaveName -> {
-                _state.update { it.copy(loadingScreen = true) }
+                _state.update { it.copy(showLoadingOnButton = true) }
                 viewModelScope.launch {
                     userDataStore.saveName(name = event.name)
                     delay(1000)
@@ -49,6 +49,6 @@ sealed class UserOriginationNameEvents {
 
 data class UserOriginationNameState(
     val name: String = "",
-    val loadingScreen: Boolean = false,
+    val showLoadingOnButton: Boolean = false,
     val nameSaved: Boolean = false
 )

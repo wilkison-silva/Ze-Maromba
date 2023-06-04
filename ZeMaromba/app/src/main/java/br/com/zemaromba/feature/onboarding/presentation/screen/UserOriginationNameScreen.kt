@@ -37,14 +37,14 @@ import androidx.compose.ui.unit.sp
 import br.com.trainingjourney.core_ui.ui.theme.Black20
 import br.com.trainingjourney.core_ui.ui.theme.Green80
 import br.com.trainingjourney.core_ui.ui.theme.WhiteF5
+import br.com.zemaromba.feature.onboarding.presentation.viewmodel.UserOriginationNameState
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserOriginationNameScreen(
+    state: UserOriginationNameState,
     title: String,
-    name: String,
-    loadingScreen: Boolean,
     onNameChanged: (newName: String) -> Unit,
     messageWarning: String,
     buttonTitle: String,
@@ -77,7 +77,7 @@ fun UserOriginationNameScreen(
                 .padding(horizontal = 30.dp)
                 .focusRequester(focusRequester)
                 .fillMaxWidth(),
-            value = name,
+            value = state.name,
             singleLine = true,
             onValueChange = {
                 onNameChanged(it)
@@ -126,7 +126,7 @@ fun UserOriginationNameScreen(
                 onNextButtonClick()
             }
         ) {
-            if (loadingScreen) {
+            if (state.showLoadingOnButton) {
                 CircularProgressIndicator(
                     color = WhiteF5,
                     modifier = Modifier.size(25.dp),
@@ -159,9 +159,8 @@ fun UserOriginationNameScreenPreviewPixel5() {
         mutableStateOf("Wilkison")
     }
     UserOriginationNameScreen(
+        state = UserOriginationNameState(name = "Wilkison"),
         title = "Como podemos chamar você?",
-        name = name.value,
-        loadingScreen = true,
         onNameChanged = {
             name.value = it
         },
@@ -185,9 +184,8 @@ fun UserOriginationNameScreenPreviewNexus4() {
         mutableStateOf("Wilkison")
     }
     UserOriginationNameScreen(
+        state = UserOriginationNameState(name = "Wilkison"),
         title = "Como podemos chamar você?",
-        name = name.value,
-        loadingScreen = false,
         onNameChanged = {
             name.value = it
         },

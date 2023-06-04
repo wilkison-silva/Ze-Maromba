@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,17 +24,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.trainingjourney.core_ui.ui.theme.Green80
 import br.com.zemaromba.R
+import br.com.zemaromba.feature.onboarding.presentation.viewmodel.GetStartedState
 
 @Composable
 fun GetStartedScreen(
+    state: GetStartedState,
     title: String,
-    loadingScreen: Boolean,
     description: String,
     buttonTitle: String,
-    onButtonClick: () -> Unit,
-    modifier: Modifier,
+    onButtonClick: () -> Unit
 ) {
-    if (loadingScreen) {
+    if (state.loadingScreen) {
         Box(modifier = Modifier.fillMaxSize()) {
             CircularProgressIndicator(
                 color = Green80,
@@ -44,7 +43,7 @@ fun GetStartedScreen(
         }
     } else {
         Box(
-            modifier = modifier
+            modifier = Modifier.fillMaxSize()
         ) {
             Image(
                 modifier = Modifier
@@ -109,12 +108,11 @@ fun GetStartedScreen(
 @Composable
 fun GetStartedScreenPreviewPixel5() {
     GetStartedScreen(
+        state = GetStartedState(loadingScreen = false),
         title = stringResource(R.string.start_your_training_journey),
-        loadingScreen = false,
         description = stringResource(R.string.description_screen_get_started),
         buttonTitle = stringResource(R.string.button_title_get_started),
-        onButtonClick = { },
-        modifier = Modifier.fillMaxSize()
+        onButtonClick = { }
     )
 }
 
@@ -129,11 +127,10 @@ fun GetStartedScreenPreviewPixel5() {
 @Composable
 fun GetStartedScreenPreviewNexus4() {
     GetStartedScreen(
+        state = GetStartedState(loadingScreen = false),
         title = stringResource(R.string.start_your_training_journey),
-        loadingScreen = false,
         description = stringResource(R.string.description_screen_get_started),
         buttonTitle = stringResource(R.string.button_title_get_started),
         onButtonClick = { },
-        modifier = Modifier.fillMaxSize()
     )
 }

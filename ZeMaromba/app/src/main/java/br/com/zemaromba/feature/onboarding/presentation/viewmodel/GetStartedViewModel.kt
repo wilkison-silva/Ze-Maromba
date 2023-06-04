@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
+class GetStartedViewModel @Inject constructor(
     private val userDataStore: UserDataStore
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(MainActivityState())
+    private val _state = MutableStateFlow(GetStartedState())
     val state = _state.asStateFlow()
 
     init {
@@ -45,7 +45,7 @@ class MainActivityViewModel @Inject constructor(
     }
 }
 
-data class MainActivityState(
+data class GetStartedState(
     val userNameIsValid: Boolean = false,
     val loadingScreen: Boolean = false,
     val userName: String = ""

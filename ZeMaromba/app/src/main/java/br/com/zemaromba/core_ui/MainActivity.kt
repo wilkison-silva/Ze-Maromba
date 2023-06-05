@@ -1,4 +1,4 @@
-package br.com.zemaromba
+package br.com.zemaromba.core_ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

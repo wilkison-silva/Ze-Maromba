@@ -7,6 +7,7 @@ import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.MuscleGroupEntity
 
 @Entity(
+    tableName = "ExerciseAndMuscleGroup",
     primaryKeys = ["exercise_id", "muscle_group_id"],
     foreignKeys = [
         ForeignKey(
@@ -21,8 +22,7 @@ import br.com.zemaromba.core_data.model.MuscleGroupEntity
             childColumns = arrayOf("muscle_group_id"),
             onDelete = ForeignKey.CASCADE
         )
-    ],
-    tableName = "ExerciseAndMuscleGroup"
+    ]
 )
 data class ExerciseAndMuscleGroupCrossRefEntity(
     @ColumnInfo(name = "exercise_id")

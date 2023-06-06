@@ -9,11 +9,11 @@ import br.com.zemaromba.core_data.model.cross_references.ExerciseAndMuscleGroupC
 
 data class MusclesWithExercises(
     @Embedded
-    val muscleGroupEntity: MuscleGroupEntity,
+    val muscleGroup: MuscleGroupEntity,
     @Relation(
         parentColumn = "muscle_group_id",
         entityColumn = "exercise_id",
         associateBy = Junction(ExerciseAndMuscleGroupCrossRefEntity::class)
     )
-    val exerciseData: List<ExerciseEntity>
+    val exerciseList: List<ExerciseEntity>
 )

@@ -25,9 +25,9 @@ import androidx.room.PrimaryKey
 data class SetEntity(
     @PrimaryKey
     var id: Long = 0,
-    @ColumnInfo(name = "exercise_id")
+    @ColumnInfo(name = "exercise_id", index = true)
     val exerciseId: Long,
-    @ColumnInfo(name = "training_id")
+    @ColumnInfo(name = "training_id", index = true)
     val training_id: Long,
     @ColumnInfo(name = "quantity")
     val quantity: Int,

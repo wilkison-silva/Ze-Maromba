@@ -7,10 +7,10 @@ import br.com.zemaromba.core_data.model.SetEntity
 
 data class SetWithExercise(
     @Embedded
-    val exerciseEntity: ExerciseEntity,
+    val exercise: ExerciseEntity,
     @Relation(
         parentColumn = "exercise_id",
         entityColumn = "exercise_id"
     )
-    val setEntity: SetEntity
+    val set: SetEntity
 )

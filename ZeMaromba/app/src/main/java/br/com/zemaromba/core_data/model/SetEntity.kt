@@ -23,7 +23,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class SetEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
     @ColumnInfo(name = "exercise_id", index = true)
     val exerciseId: Long,

@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class TrainingEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "training_id")
     var id: Long = 0,
     @ColumnInfo(name = "training_plan_id", index = true)

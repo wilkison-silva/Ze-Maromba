@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "TrainingPlan")
 data class TrainingPlanEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "training_plan_id")
     var id: Long = 0,
     @ColumnInfo(name = "name")

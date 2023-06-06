@@ -4,8 +4,14 @@ import android.app.Application
 import br.com.zemaromba.core_data.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
 import br.com.zemaromba.core_data.local.database.dao.MuscleGroupDao
+import br.com.zemaromba.core_data.local.database.dao.SetDao
+import br.com.zemaromba.core_data.local.database.dao.TrainingDao
+import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.MuscleGroupEntity
+import br.com.zemaromba.core_data.model.SetEntity
+import br.com.zemaromba.core_data.model.TrainingEntity
+import br.com.zemaromba.core_data.model.TrainingPlanEntity
 import br.com.zemaromba.core_data.model.cross_references.ExerciseAndMuscleGroupCrossRefEntity
 import br.com.zemaromba.feature.training_origination.domain.model.MuscleGroup
 import dagger.hilt.android.HiltAndroidApp
@@ -25,6 +31,15 @@ class AppApplication : Application() {
 
     @Inject
     lateinit var exerciseAndMuscleDao: ExerciseAndMuscleDao
+
+    @Inject
+    lateinit var setDao: SetDao
+
+    @Inject
+    lateinit var trainingDao: TrainingDao
+
+    @Inject
+    lateinit var trainingPlanDao: TrainingPlanDao
 
     override fun onCreate() {
         super.onCreate()
@@ -87,6 +102,61 @@ class AppApplication : Application() {
                     )
                 )
 
+                trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrão em 60 dias"))
+                trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrona em 60 dias"))
+
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 1,
+                        name = "Peitoral e Bíceps Monstros - Semana 1"
+                    )
+                )
+
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 2,
+                        name = "Coxas Duronas - Semana 1"
+                    )
+                )
+
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 1,
+                        training_id = 1,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 12.0,
+                        observation = "Sem forçar a articulação",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 2,
+                        training_id = 1,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 12.0,
+                        observation = "Segurar o triângulo corretamente",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 5,
+                        training_id = 1,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 10.0,
+                        observation = "Não fazer rosca direta",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
             }
         }
     }

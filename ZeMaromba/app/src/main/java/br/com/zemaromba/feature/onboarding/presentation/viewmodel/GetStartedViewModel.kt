@@ -1,6 +1,5 @@
 package br.com.zemaromba.feature.onboarding.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
@@ -10,7 +9,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -43,14 +41,6 @@ class GetStartedViewModel @Inject constructor(
                             loadingScreen = false
                         )
                     }
-                }
-            }
-        }
-        viewModelScope.launch {
-            Log.i("Testando", "aqui!")
-            exerciseDao.getExercisesWithMuscleGroups().collect {
-                it.forEach {
-                    Log.i("Testando", "${it.exercise} -> ${it.muscleGroupList}")
                 }
             }
         }

@@ -2,6 +2,7 @@ package br.com.zemaromba.feature.home.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import br.com.zemaromba.core_domain.datastore.UserDataStore
+import br.com.zemaromba.feature.training_origination.domain.model.TrainingPlan
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,5 +18,6 @@ class HomeScreenViewModel @Inject constructor(
 }
 
 data class HomeState(
-    val userName: String = ""
+    val userName: String = "",
+    val trainingsPlan: List<TrainingPlan> = emptyList()
 )

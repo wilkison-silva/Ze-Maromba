@@ -34,9 +34,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.trainingjourney.core_ui.ui.theme.Black20
-import br.com.trainingjourney.core_ui.ui.theme.Green80
-import br.com.trainingjourney.core_ui.ui.theme.WhiteF5
+import br.com.zemaromba.core_ui.ui.theme.Black20
+import br.com.zemaromba.core_ui.ui.theme.Green80
+import br.com.zemaromba.core_ui.ui.theme.WhiteF5
 import br.com.zemaromba.feature.onboarding.presentation.viewmodel.UserOriginationNameState
 import kotlinx.coroutines.delay
 

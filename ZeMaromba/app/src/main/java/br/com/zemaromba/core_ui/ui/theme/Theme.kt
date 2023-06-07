@@ -14,6 +14,13 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import br.com.zemaromba.core_ui.ui.theme.Black20
+import br.com.zemaromba.core_ui.ui.theme.Pink40
+import br.com.zemaromba.core_ui.ui.theme.Pink80
+import br.com.zemaromba.core_ui.ui.theme.Purple40
+import br.com.zemaromba.core_ui.ui.theme.Purple80
+import br.com.zemaromba.core_ui.ui.theme.PurpleGrey40
+import br.com.zemaromba.core_ui.ui.theme.PurpleGrey80
 import br.com.zemaromba.core_ui.ui.theme.Typography
 
 private val DarkColorScheme = darkColorScheme(

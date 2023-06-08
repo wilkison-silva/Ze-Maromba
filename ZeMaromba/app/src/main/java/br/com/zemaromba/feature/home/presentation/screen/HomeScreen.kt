@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 
 @Composable
 fun HomeScreen(
@@ -41,7 +42,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(all = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -51,7 +52,7 @@ fun HomeScreen(
                 Text(
                     text = "Olá, $userName!",
                     lineHeight = 40.sp,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start
@@ -87,7 +88,7 @@ fun HomeScreen(
                             .requiredSize(width = 200.dp, height = 150.dp)
                             .shadow(elevation = 2.dp, RoundedCornerShape(size = 10.dp))
                             .background(
-                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                color = MaterialTheme.colorScheme.primaryContainer,
                                 shape = RoundedCornerShape(size = 10.dp)
                             )
                             .clickable {
@@ -101,7 +102,7 @@ fun HomeScreen(
                                 .padding(start = 20.dp, end = 20.dp),
                             text = "Monstro do lala na academia",
                             lineHeight = 20.sp,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -141,7 +142,7 @@ fun HomeScreen(
                             .requiredSize(width = 200.dp, height = 150.dp)
                             .shadow(elevation = 2.dp, RoundedCornerShape(size = 10.dp))
                             .background(
-                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                color = MaterialTheme.colorScheme.primaryContainer,
                                 shape = RoundedCornerShape(size = 10.dp)
                             )
                             .clickable {
@@ -155,7 +156,7 @@ fun HomeScreen(
                                 .padding(start = 20.dp, end = 20.dp),
                             text = "Exercício topzeira",
                             lineHeight = 20.sp,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -180,10 +181,30 @@ fun HomeScreen(
 )
 @Composable
 fun HomeScreenPreviewPixel5() {
-    HomeScreen(
-        userName = "Wilkison",
-        trainingsPlansQuantity = 10
-    )
+    ZeMarombaTheme {
+        HomeScreen(
+            userName = "Wilkison",
+            trainingsPlansQuantity = 10
+        )
+    }
+}
+
+@Preview(
+    name = "pixel_5",
+    device = "spec:parent=pixel_5",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+fun HomeScreenPreviewPixel5DarkMode() {
+    ZeMarombaTheme {
+        HomeScreen(
+            userName = "Wilkison",
+            trainingsPlansQuantity = 10
+        )
+    }
 }
 
 @Preview(
@@ -196,8 +217,28 @@ fun HomeScreenPreviewPixel5() {
 )
 @Composable
 fun HomeScreenPreviewNexus4() {
-    HomeScreen(
-        userName = "Wilkison",
-        trainingsPlansQuantity = 10
-    )
+    ZeMarombaTheme {
+        HomeScreen(
+            userName = "Wilkison",
+            trainingsPlansQuantity = 10
+        )
+    }
+}
+
+@Preview(
+    name = "Nexus 4",
+    device = "id:Nexus 4",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+fun HomeScreenPreviewNexus4DarkMode() {
+    ZeMarombaTheme {
+        HomeScreen(
+            userName = "Wilkison",
+            trainingsPlansQuantity = 10
+        )
+    }
 }

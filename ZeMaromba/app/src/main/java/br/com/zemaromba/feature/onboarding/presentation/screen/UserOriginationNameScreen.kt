@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.onboarding.presentation.viewmodel.UserOriginationNameState
 import kotlinx.coroutines.delay
 
@@ -150,16 +151,45 @@ fun UserOriginationNameScreenPreviewPixel5() {
     val name = remember {
         mutableStateOf("Wilkison")
     }
-    UserOriginationNameScreen(
-        state = UserOriginationNameState(name = "Wilkison"),
-        title = "Como podemos chamar você?",
-        onNameChanged = {
-            name.value = it
-        },
-        messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
-        buttonTitle = "Avançar",
-        onNextButtonClick = { }
-    )
+    ZeMarombaTheme {
+        UserOriginationNameScreen(
+            state = UserOriginationNameState(name = "Wilkison"),
+            title = "Como podemos chamar você?",
+            onNameChanged = {
+                name.value = it
+            },
+            messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
+            buttonTitle = "Avançar",
+            onNextButtonClick = { }
+        )
+    }
+}
+
+@Preview(
+    name = "pixel_5",
+    device = "spec:parent=pixel_5",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+fun UserOriginationNameScreenPreviewPixel5DarkMode() {
+    val name = remember {
+        mutableStateOf("Wilkison")
+    }
+    ZeMarombaTheme {
+        UserOriginationNameScreen(
+            state = UserOriginationNameState(name = "Wilkison"),
+            title = "Como podemos chamar você?",
+            onNameChanged = {
+                name.value = it
+            },
+            messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
+            buttonTitle = "Avançar",
+            onNextButtonClick = { }
+        )
+    }
 }
 
 @Preview(
@@ -175,14 +205,43 @@ fun UserOriginationNameScreenPreviewNexus4() {
     val name = remember {
         mutableStateOf("Wilkison")
     }
-    UserOriginationNameScreen(
-        state = UserOriginationNameState(name = "Wilkison"),
-        title = "Como podemos chamar você?",
-        onNameChanged = {
-            name.value = it
-        },
-        messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
-        buttonTitle = "Avançar",
-        onNextButtonClick = { }
-    )
+    ZeMarombaTheme {
+        UserOriginationNameScreen(
+            state = UserOriginationNameState(name = "Wilkison"),
+            title = "Como podemos chamar você?",
+            onNameChanged = {
+                name.value = it
+            },
+            messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
+            buttonTitle = "Avançar",
+            onNextButtonClick = { }
+        )
+    }
+}
+
+@Preview(
+    name = "Nexus 4",
+    device = "id:Nexus 4",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+fun UserOriginationNameScreenPreviewNexus4DarkMode() {
+    val name = remember {
+        mutableStateOf("Wilkison")
+    }
+    ZeMarombaTheme {
+        UserOriginationNameScreen(
+            state = UserOriginationNameState(name = "Wilkison"),
+            title = "Como podemos chamar você?",
+            onNameChanged = {
+                name.value = it
+            },
+            messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
+            buttonTitle = "Avançar",
+            onNextButtonClick = { }
+        )
+    }
 }

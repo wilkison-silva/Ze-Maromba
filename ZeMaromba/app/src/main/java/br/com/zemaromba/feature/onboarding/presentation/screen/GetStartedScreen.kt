@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.onboarding.presentation.viewmodel.GetStartedState
 
 @Composable
@@ -36,9 +37,10 @@ fun GetStartedScreen(
     onButtonClick: () -> Unit
 ) {
     if (state.loadingScreen) {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         ) {
             CircularProgressIndicator(
                 color = MaterialTheme.colorScheme.onBackground,
@@ -105,19 +107,41 @@ fun GetStartedScreen(
     name = "pixel_5",
     device = "spec:parent=pixel_5",
     apiLevel = 33,
-    showSystemUi = false,
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
 fun GetStartedScreenPreviewPixel5() {
-    GetStartedScreen(
-        state = GetStartedState(loadingScreen = false),
-        title = stringResource(R.string.start_your_training_journey),
-        description = stringResource(R.string.description_screen_get_started),
-        buttonTitle = stringResource(R.string.button_title_get_started),
-        onButtonClick = { }
-    )
+    ZeMarombaTheme {
+        GetStartedScreen(
+            state = GetStartedState(loadingScreen = false),
+            title = stringResource(R.string.start_your_training_journey),
+            description = stringResource(R.string.description_screen_get_started),
+            buttonTitle = stringResource(R.string.button_title_get_started),
+            onButtonClick = { }
+        )
+    }
+}
+
+@Preview(
+    name = "pixel_5",
+    device = "spec:parent=pixel_5",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+fun GetStartedScreenPreviewPixel5DarkMode() {
+    ZeMarombaTheme {
+        GetStartedScreen(
+            state = GetStartedState(loadingScreen = false),
+            title = stringResource(R.string.start_your_training_journey),
+            description = stringResource(R.string.description_screen_get_started),
+            buttonTitle = stringResource(R.string.button_title_get_started),
+            onButtonClick = { }
+        )
+    }
 }
 
 @Preview(
@@ -130,11 +154,34 @@ fun GetStartedScreenPreviewPixel5() {
 )
 @Composable
 fun GetStartedScreenPreviewNexus4() {
-    GetStartedScreen(
-        state = GetStartedState(loadingScreen = false),
-        title = stringResource(R.string.start_your_training_journey),
-        description = stringResource(R.string.description_screen_get_started),
-        buttonTitle = stringResource(R.string.button_title_get_started),
-        onButtonClick = { },
-    )
+    ZeMarombaTheme {
+        GetStartedScreen(
+            state = GetStartedState(loadingScreen = false),
+            title = stringResource(R.string.start_your_training_journey),
+            description = stringResource(R.string.description_screen_get_started),
+            buttonTitle = stringResource(R.string.button_title_get_started),
+            onButtonClick = { },
+        )
+    }
+}
+
+@Preview(
+    name = "Nexus 4",
+    device = "id:Nexus 4",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Composable
+fun GetStartedScreenPreviewNexus4DarkMode() {
+    ZeMarombaTheme {
+        GetStartedScreen(
+            state = GetStartedState(loadingScreen = false),
+            title = stringResource(R.string.start_your_training_journey),
+            description = stringResource(R.string.description_screen_get_started),
+            buttonTitle = stringResource(R.string.button_title_get_started),
+            onButtonClick = { },
+        )
+    }
 }

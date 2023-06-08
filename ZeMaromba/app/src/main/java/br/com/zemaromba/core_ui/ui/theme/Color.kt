@@ -24,8 +24,8 @@ object DarkMode {
     val Surface = Color(0xFF1f1b16)
     val OnSurface = Color(0xFFebe1d9)
     val Outline = Color(0xFF9d8e81)
-    val SurfaceVariant = Color(0xFFf1dfd0)
-    val OnSurfaceVariant = Color(0xFF50453a)
+    val SurfaceVariant = Color(0xFF50453a)
+    val OnSurfaceVariant = Color(0xFFd4c4b5)
 }
 
 object LightMode {

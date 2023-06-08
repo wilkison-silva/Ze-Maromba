@@ -15,6 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -34,9 +35,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.zemaromba.core_ui.ui.theme.Black20
-import br.com.zemaromba.core_ui.ui.theme.Green80
-import br.com.zemaromba.core_ui.ui.theme.WhiteF5
 import br.com.zemaromba.feature.onboarding.presentation.viewmodel.UserOriginationNameState
 import kotlinx.coroutines.delay
 
@@ -55,14 +53,14 @@ fun UserOriginationNameScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = WhiteF5)
+            .background(color = MaterialTheme.colorScheme.surface)
     ) {
         Spacer(modifier = Modifier.height(150.dp))
         Text(
             modifier = Modifier.padding(horizontal = 20.dp),
             text = title,
             lineHeight = 40.sp,
-            color = Black20,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
@@ -82,12 +80,6 @@ fun UserOriginationNameScreen(
             onValueChange = {
                 onNameChanged(it)
             },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                textColor = Black20,
-                containerColor = Color.Transparent,
-                cursorColor = Black20,
-                focusedBorderColor = Black20
-            ),
             textStyle = TextStyle.Default.copy(
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp
@@ -101,7 +93,7 @@ fun UserOriginationNameScreen(
             label = {
                 Text(
                     text = "Seu nome",
-                    color = Black20
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         )
@@ -109,7 +101,7 @@ fun UserOriginationNameScreen(
         Text(
             modifier = Modifier.padding(horizontal = 20.dp),
             text = messageWarning,
-            color = Color.Gray,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center
@@ -120,7 +112,8 @@ fun UserOriginationNameScreen(
                 .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
                 .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Green80,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ),
             onClick = {
                 onNextButtonClick()
@@ -128,14 +121,13 @@ fun UserOriginationNameScreen(
         ) {
             if (state.showLoadingOnButton) {
                 CircularProgressIndicator(
-                    color = WhiteF5,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.size(25.dp),
                     strokeWidth = 3.dp
                 )
             } else {
                 Text(
                     text = buttonTitle,
-                    color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center

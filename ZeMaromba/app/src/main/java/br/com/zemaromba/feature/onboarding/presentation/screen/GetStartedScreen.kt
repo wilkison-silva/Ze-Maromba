@@ -2,6 +2,7 @@ package br.com.zemaromba.feature.onboarding.presentation.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.zemaromba.core_ui.ui.theme.Green80
 import br.com.zemaromba.R
 import br.com.zemaromba.feature.onboarding.presentation.viewmodel.GetStartedState
 
@@ -35,9 +36,12 @@ fun GetStartedScreen(
     onButtonClick: () -> Unit
 ) {
     if (state.loadingScreen) {
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+        ) {
             CircularProgressIndicator(
-                color = Green80,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -79,7 +83,8 @@ fun GetStartedScreen(
                     .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
                     .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Green80,
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 onClick = {
                     onButtonClick()
@@ -87,7 +92,6 @@ fun GetStartedScreen(
             ) {
                 Text(
                     text = buttonTitle,
-                    color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center

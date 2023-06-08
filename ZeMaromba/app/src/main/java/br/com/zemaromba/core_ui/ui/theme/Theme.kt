@@ -1,74 +1,79 @@
-package br.com.trainingjourney.core_ui.ui.theme
+package br.com.zemaromba.core_ui.ui.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import br.com.zemaromba.core_ui.ui.theme.Black20
-import br.com.zemaromba.core_ui.ui.theme.Pink40
-import br.com.zemaromba.core_ui.ui.theme.Pink80
-import br.com.zemaromba.core_ui.ui.theme.Purple40
-import br.com.zemaromba.core_ui.ui.theme.Purple80
-import br.com.zemaromba.core_ui.ui.theme.PurpleGrey40
-import br.com.zemaromba.core_ui.ui.theme.PurpleGrey80
-import br.com.zemaromba.core_ui.ui.theme.Typography
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val DarkColorScheme = lightColorScheme(
+    primary = DarkMode.Primary,
+    onPrimary = DarkMode.OnPrimary,
+    primaryContainer = DarkMode.PrimaryContainer,
+    onPrimaryContainer = DarkMode.OnPrimaryContainer,
+    secondary = DarkMode.Secondary,
+    onSecondary = DarkMode.OnSecondary,
+    secondaryContainer = DarkMode.SecondaryContainer,
+    onSecondaryContainer = DarkMode.OnSecondaryContainer,
+    tertiary = DarkMode.Tertiary,
+    onTertiary = DarkMode.OnTertiary,
+    tertiaryContainer = DarkMode.TertiaryContainer,
+    onTertiaryContainer = DarkMode.OnTertiaryContainer,
+    error = DarkMode.Error,
+    onError = DarkMode.OnError,
+    errorContainer = DarkMode.ErrorContainer,
+    onErrorContainer = DarkMode.OnErrorContainer,
+    background = DarkMode.Background,
+    onBackground = DarkMode.OnBackground,
+    surface = DarkMode.Surface,
+    onSurface = DarkMode.OnSurface,
+    outline = DarkMode.Outline,
+    surfaceVariant = DarkMode.SurfaceVariant,
+    onSurfaceVariant = DarkMode.OnSurfaceVariant
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = LightMode.Primary,
+    onPrimary = LightMode.OnPrimary,
+    primaryContainer = LightMode.PrimaryContainer,
+    onPrimaryContainer = LightMode.OnPrimaryContainer,
+    secondary = LightMode.Secondary,
+    onSecondary = LightMode.OnSecondary,
+    secondaryContainer = LightMode.SecondaryContainer,
+    onSecondaryContainer = LightMode.OnSecondaryContainer,
+    tertiary = LightMode.Tertiary,
+    onTertiary = LightMode.OnTertiary,
+    tertiaryContainer = LightMode.TertiaryContainer,
+    onTertiaryContainer = LightMode.OnTertiaryContainer,
+    error = LightMode.Error,
+    onError = LightMode.OnError,
+    errorContainer = LightMode.ErrorContainer,
+    onErrorContainer = LightMode.OnErrorContainer,
+    background = LightMode.Background,
+    onBackground = LightMode.OnBackground,
+    surface = LightMode.Surface,
+    onSurface = LightMode.OnSurface,
+    outline = LightMode.Outline,
+    surfaceVariant = LightMode.SurfaceVariant,
+    onSurfaceVariant = LightMode.OnSurfaceVariant
 )
 
 @Composable
 fun ZeMarombaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = Black20.toArgb()
-            window.navigationBarColor = Black20.toArgb()
+            window.statusBarColor = colorScheme.primaryContainer.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
-            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = false
         }
     }
 

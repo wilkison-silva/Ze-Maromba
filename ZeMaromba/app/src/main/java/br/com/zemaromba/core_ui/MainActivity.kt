@@ -3,13 +3,9 @@ package br.com.zemaromba.core_ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import br.com.trainingjourney.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.home.presentation.router.HomeRouter
 import br.com.zemaromba.feature.home.presentation.router.homeGraph
 import br.com.zemaromba.feature.onboarding.presentation.router.OnBoardingRouter
@@ -22,33 +18,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ZeMarombaTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = OnBoardingRouter.OnBoardingGraph.route
                 ) {
-                    val navController = rememberNavController()
-                    NavHost(
+                    onBoardingGraph(
                         navController = navController,
-                        startDestination = OnBoardingRouter.OnBoardingGraph.route
-                    ) {
-                        onBoardingGraph(
-                            navController = navController,
-                            onFinishOnBoarding = { userName: String ->
-                                navController.navigate(
-                                    route = HomeRouter
-                                        .HomeGraph
-                                        .getRouteWithUserName(userName = userName)
-                                ) {
-                                    popUpTo(OnBoardingRouter.OnBoardingGraph.route) {
-                                        inclusive = true
-                                    }
+                        onFinishOnBoarding = { userName: String ->
+                            navController.navigate(
+                                route = HomeRouter
+                                    .HomeGraph
+                                    .getRouteWithUserName(userName = userName)
+                            ) {
+                                popUpTo(OnBoardingRouter.OnBoardingGraph.route) {
+                                    inclusive = true
                                 }
                             }
-                        )
-                        homeGraph(
-                            navController = navController,
-                        )
-                    }
+                        }
+                    )
+                    homeGraph(
+                        navController = navController,
+                    )
                 }
             }
         }

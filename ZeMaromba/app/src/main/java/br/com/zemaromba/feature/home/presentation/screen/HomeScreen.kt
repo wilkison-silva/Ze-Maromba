@@ -15,19 +15,17 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.zemaromba.core_ui.ui.theme.Black20
-import br.com.zemaromba.core_ui.ui.theme.Green80
-import br.com.zemaromba.core_ui.ui.theme.WhiteF5
 
 @Composable
 fun HomeScreen(
@@ -37,13 +35,13 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(WhiteF5)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .background(Green80)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(all = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -53,7 +51,7 @@ fun HomeScreen(
                 Text(
                     text = "Olá, $userName!",
                     lineHeight = 40.sp,
-                    color = WhiteF5,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start
@@ -63,7 +61,8 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(20.dp))
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.Start
         ) {
             Text(
@@ -71,7 +70,7 @@ fun HomeScreen(
                     .padding(start = 20.dp),
                 text = "Seus Treinos",
                 lineHeight = 40.sp,
-                color = Black20,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -79,15 +78,16 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(20.dp))
             LazyRow(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp)
+                    .fillMaxWidth(),
             ) {
                 items(trainingsPlansQuantity.toInt()) {
+                    Spacer(modifier = Modifier.width(20.dp))
                     Column(
                         modifier = Modifier
                             .requiredSize(width = 200.dp, height = 150.dp)
+                            .shadow(elevation = 2.dp, RoundedCornerShape(size = 10.dp))
                             .background(
-                                color = Color.Gray,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
                                 shape = RoundedCornerShape(size = 10.dp)
                             )
                             .clickable {
@@ -101,7 +101,7 @@ fun HomeScreen(
                                 .padding(start = 20.dp, end = 20.dp),
                             text = "Monstro do lala na academia",
                             lineHeight = 20.sp,
-                            color = Black20,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -110,19 +110,21 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.width(20.dp))
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
         }
         Spacer(modifier = Modifier.height(20.dp))
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.Start
         ) {
             Text(
                 modifier = Modifier
                     .padding(start = 20.dp),
-                text = "Seus Exercícios",
+                text = "Seus exercícios",
                 lineHeight = 40.sp,
-                color = Black20,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -130,15 +132,16 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(20.dp))
             LazyRow(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp)
+                    .fillMaxWidth(),
             ) {
                 items(trainingsPlansQuantity.toInt()) {
+                    Spacer(modifier = Modifier.width(20.dp))
                     Column(
                         modifier = Modifier
                             .requiredSize(width = 200.dp, height = 150.dp)
+                            .shadow(elevation = 2.dp, RoundedCornerShape(size = 10.dp))
                             .background(
-                                color = Color.Gray,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
                                 shape = RoundedCornerShape(size = 10.dp)
                             )
                             .clickable {
@@ -150,9 +153,9 @@ fun HomeScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(start = 20.dp, end = 20.dp),
-                            text = "Monstro do lala na academia",
+                            text = "Exercício topzeira",
                             lineHeight = 20.sp,
-                            color = Black20,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -161,7 +164,9 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.width(20.dp))
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
         }
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 

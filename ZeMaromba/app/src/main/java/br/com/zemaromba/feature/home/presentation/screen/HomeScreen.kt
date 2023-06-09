@@ -1,7 +1,6 @@
 package br.com.zemaromba.feature.home.presentation.screen
 
 import android.content.res.Configuration
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,9 +17,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -28,7 +28,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -50,21 +49,21 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.surface)
             .verticalScroll(state = verticalScrollState)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.surface)
                 .padding(all = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = "Olá, $userName!",
-                color = MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start
@@ -72,7 +71,7 @@ fun HomeScreen(
             Icon(
                 painter = painterResource(id = R.drawable.ic_account_profile_picture),
                 contentDescription = "",
-                tint = MaterialTheme.colorScheme.onBackground
+                tint = MaterialTheme.colorScheme.onSurface
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -82,24 +81,35 @@ fun HomeScreen(
                 .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.Start
         ) {
-            Text(
+            Card(
                 modifier = Modifier
-                    .padding(start = 20.dp),
-                text = "Meus Treinos",
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(5.dp))
-            Text(
-                modifier = Modifier
-                    .padding(start = 20.dp),
-                text = "Personalize seus treinos",
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal,
-                fontStyle = FontStyle.Italic
-            )
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                shape = MaterialTheme.shapes.small,
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                )
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(start = 20.dp, top = 20.dp),
+                    text = "Meus Treinos",
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    modifier = Modifier
+                        .padding(start = 20.dp, bottom = 20.dp),
+                    text = "Personalize seus treinos",
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontStyle = FontStyle.Italic
+                )
+            }
             Spacer(modifier = Modifier.height(20.dp))
             LazyRow(modifier = Modifier.fillMaxWidth()) {
                 items(trainingsPlansQuantity.toInt()) {
@@ -110,8 +120,8 @@ fun HomeScreen(
                             .clickable {
 
                             },
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.15f)),
-                        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.secondaryContainer)
+                        shape = MaterialTheme.shapes.small,
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
                     ) {
                         Column(
                             modifier = Modifier.fillMaxSize(),
@@ -123,7 +133,7 @@ fun HomeScreen(
                                     .padding(start = 20.dp, end = 20.dp),
                                 text = "Monstro do lala na academia",
                                 lineHeight = 20.sp,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center,
@@ -135,11 +145,11 @@ fun HomeScreen(
                 }
             }
             Spacer(modifier = Modifier.height(40.dp))
-            OutlinedButton(
+            Button(
                 modifier = Modifier
                     .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
                     .fillMaxWidth(),
-                shape = RoundedCornerShape(4.dp),
+                shape = MaterialTheme.shapes.small,
                 onClick = {
 
                 }
@@ -181,39 +191,46 @@ fun HomeScreen(
             LazyRow(modifier = Modifier.fillMaxWidth()) {
                 items(trainingsPlansQuantity.toInt()) {
                     Spacer(modifier = Modifier.width(20.dp))
-                    Column(
+                    Card(
                         modifier = Modifier
                             .requiredSize(width = 200.dp, height = 100.dp)
-                            .background(
-                                color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.15f),
-                                shape = RoundedCornerShape(size = 10.dp)
-                            )
                             .clickable {
 
                             },
-                        verticalArrangement = Arrangement.Center
+                        shape = MaterialTheme.shapes.small,
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
                     ) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp),
-                            text = "Monstro do lala na academia",
-                            lineHeight = 20.sp,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                        )
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 20.dp, end = 20.dp),
+                                text = "Exercício topzeira",
+                                lineHeight = 20.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+
                     }
                     Spacer(modifier = Modifier.width(20.dp))
                 }
             }
             Spacer(modifier = Modifier.height(40.dp))
-            OutlinedButton(
+            Button(
                 modifier = Modifier
                     .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
                     .fillMaxWidth(),
-                shape = RoundedCornerShape(4.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary
+                ),
+                shape = MaterialTheme.shapes.small,
                 onClick = {
 
                 }

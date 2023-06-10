@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -106,6 +105,30 @@ fun GetStartedScreen(
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
 )
+@Preview(
+    name = "pixel_5",
+    device = "spec:parent=pixel_5",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Preview(
+    name = "Nexus 4",
+    device = "id:Nexus 4",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
+)
+@Preview(
+    name = "Nexus 4",
+    device = "id:Nexus 4",
+    apiLevel = 33,
+    showSystemUi = false,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
+)
 @Composable
 fun GetStartedScreenPreviewPixel5() {
     ZeMarombaTheme {
@@ -115,69 +138,6 @@ fun GetStartedScreenPreviewPixel5() {
             description = stringResource(R.string.description_screen_get_started),
             buttonTitle = stringResource(R.string.button_title_get_started),
             onButtonClick = { }
-        )
-    }
-}
-
-@Preview(
-    name = "pixel_5",
-    device = "spec:parent=pixel_5",
-    apiLevel = 33,
-    showSystemUi = false,
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
-)
-@Composable
-fun GetStartedScreenPreviewPixel5DarkMode() {
-    ZeMarombaTheme {
-        GetStartedScreen(
-            state = GetStartedState(loadingScreen = false),
-            title = stringResource(R.string.start_your_training_journey),
-            description = stringResource(R.string.description_screen_get_started),
-            buttonTitle = stringResource(R.string.button_title_get_started),
-            onButtonClick = { }
-        )
-    }
-}
-
-@Preview(
-    name = "Nexus 4",
-    device = "id:Nexus 4",
-    apiLevel = 33,
-    showSystemUi = false,
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
-)
-@Composable
-fun GetStartedScreenPreviewNexus4() {
-    ZeMarombaTheme {
-        GetStartedScreen(
-            state = GetStartedState(loadingScreen = false),
-            title = stringResource(R.string.start_your_training_journey),
-            description = stringResource(R.string.description_screen_get_started),
-            buttonTitle = stringResource(R.string.button_title_get_started),
-            onButtonClick = { },
-        )
-    }
-}
-
-@Preview(
-    name = "Nexus 4",
-    device = "id:Nexus 4",
-    apiLevel = 33,
-    showSystemUi = false,
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
-)
-@Composable
-fun GetStartedScreenPreviewNexus4DarkMode() {
-    ZeMarombaTheme {
-        GetStartedScreen(
-            state = GetStartedState(loadingScreen = false),
-            title = stringResource(R.string.start_your_training_journey),
-            description = stringResource(R.string.description_screen_get_started),
-            buttonTitle = stringResource(R.string.button_title_get_started),
-            onButtonClick = { },
         )
     }
 }

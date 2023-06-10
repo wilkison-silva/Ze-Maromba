@@ -18,7 +18,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -146,25 +144,6 @@ fun UserOriginationNameScreen(
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
 )
-@Composable
-fun UserOriginationNameScreenPreviewPixel5() {
-    val name = remember {
-        mutableStateOf("Wilkison")
-    }
-    ZeMarombaTheme {
-        UserOriginationNameScreen(
-            state = UserOriginationNameState(name = "Wilkison"),
-            title = "Como podemos chamar você?",
-            onNameChanged = {
-                name.value = it
-            },
-            messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
-            buttonTitle = "Avançar",
-            onNextButtonClick = { }
-        )
-    }
-}
-
 @Preview(
     name = "pixel_5",
     device = "spec:parent=pixel_5",
@@ -173,25 +152,6 @@ fun UserOriginationNameScreenPreviewPixel5() {
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
-@Composable
-fun UserOriginationNameScreenPreviewPixel5DarkMode() {
-    val name = remember {
-        mutableStateOf("Wilkison")
-    }
-    ZeMarombaTheme {
-        UserOriginationNameScreen(
-            state = UserOriginationNameState(name = "Wilkison"),
-            title = "Como podemos chamar você?",
-            onNameChanged = {
-                name.value = it
-            },
-            messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
-            buttonTitle = "Avançar",
-            onNextButtonClick = { }
-        )
-    }
-}
-
 @Preview(
     name = "Nexus 4",
     device = "id:Nexus 4",
@@ -200,25 +160,6 @@ fun UserOriginationNameScreenPreviewPixel5DarkMode() {
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
 )
-@Composable
-fun UserOriginationNameScreenPreviewNexus4() {
-    val name = remember {
-        mutableStateOf("Wilkison")
-    }
-    ZeMarombaTheme {
-        UserOriginationNameScreen(
-            state = UserOriginationNameState(name = "Wilkison"),
-            title = "Como podemos chamar você?",
-            onNameChanged = {
-                name.value = it
-            },
-            messageWarning = "Não se preocupe, você poderá mudar esta informação depois",
-            buttonTitle = "Avançar",
-            onNextButtonClick = { }
-        )
-    }
-}
-
 @Preview(
     name = "Nexus 4",
     device = "id:Nexus 4",
@@ -228,7 +169,7 @@ fun UserOriginationNameScreenPreviewNexus4() {
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun UserOriginationNameScreenPreviewNexus4DarkMode() {
+fun UserOriginationNameScreenPreview() {
     val name = remember {
         mutableStateOf("Wilkison")
     }

@@ -36,10 +36,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.feature.home.presentation.model.MenuHome
 
 @Composable
 fun HomeScreen(
-    userName: String
+    userName: String,
+    onNavigate: (menu: MenuHome) -> Unit
 ) {
 
     val verticalScrollState = rememberScrollState()
@@ -51,10 +53,10 @@ fun HomeScreen(
             .verticalScroll(state = verticalScrollState)
     ) {
         Surface(
-            tonalElevation = 5.dp,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+                .height(100.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant
         ) {
             Row(
                 modifier = Modifier.padding(all = 20.dp),
@@ -78,7 +80,7 @@ fun HomeScreen(
                             append("$userName!")
                         }
                     },
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start
@@ -86,7 +88,7 @@ fun HomeScreen(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_account_profile_picture),
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -111,7 +113,7 @@ fun HomeScreen(
                 title = "Exercícios",
                 description = "Exercícios para compor seus treinos da sua maneira",
                 onClick = {
-
+                    onNavigate(MenuHome.EXERCISES)
                 }
             )
         }
@@ -219,10 +221,13 @@ fun MenuCardItem(
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun HomeScreenPreviewPixel5() {
+fun HomeScreenPreview() {
     ZeMarombaTheme {
         HomeScreen(
-            userName = "Wilkison"
+            userName = "Wilkison",
+            onNavigate = {
+                
+            }
         )
     }
 }

@@ -1,4 +1,4 @@
-package br.com.zemaromba.feature.training_origination.domain.model
+package br.com.zemaromba.core_domain.model
 
 enum class MuscleGroup {
     CHEST,

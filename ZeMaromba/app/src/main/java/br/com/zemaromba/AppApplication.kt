@@ -13,7 +13,7 @@ import br.com.zemaromba.core_data.model.SetEntity
 import br.com.zemaromba.core_data.model.TrainingEntity
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
 import br.com.zemaromba.core_data.model.cross_references.ExerciseAndMuscleGroupCrossRefEntity
-import br.com.zemaromba.feature.training_origination.domain.model.MuscleGroup
+import br.com.zemaromba.core_domain.model.MuscleGroup
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope

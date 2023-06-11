@@ -5,10 +5,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import br.com.zemaromba.feature.home.presentation.model.MenuHome
 import br.com.zemaromba.feature.home.presentation.screen.HomeScreen
 
 fun NavGraphBuilder.homeGraph(
     navController: NavController,
+    navigateTo: (menu: MenuHome) -> Unit
 ) {
     navigation(
         startDestination = HomeRouter.HomeScreen.route,
@@ -24,7 +26,12 @@ fun NavGraphBuilder.homeGraph(
                     ?.getString(HomeRouter.HomeGraph.Params.userName)
                     .orEmpty()
             }
-            HomeScreen(userName = userName)
+            HomeScreen(
+                userName = userName,
+                onNavigate = {
+                    navigateTo(it)
+                }
+            )
         }
     }
 }

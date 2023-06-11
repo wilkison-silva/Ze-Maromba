@@ -1,4 +1,4 @@
-package br.com.zemaromba.feature.training_origination.domain.model
+package br.com.zemaromba.core_domain.model
 
 data class Training(
     val name: String,

@@ -42,7 +42,6 @@ fun SearchBar(
     val focusManager = LocalFocusManager.current
     Box(
         modifier = modifier
-            .padding(horizontal = 20.dp, vertical = 20.dp)
             .background(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = MaterialTheme.shapes.extraLarge

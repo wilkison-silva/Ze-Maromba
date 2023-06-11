@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -26,6 +27,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -35,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.core_ui.components.chips.FilterChipsGroup
 import br.com.zemaromba.core_ui.components.search_bar.SearchBar
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 
@@ -105,11 +109,46 @@ fun ExercisesListscreen(
             SearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 0.dp),
+                    .padding(horizontal = 20.dp, vertical = 20.dp),
                 hint = "Ex: Bíceps na polia",
                 onTextChanged = {
 
                 }
+            )
+            Text(
+                modifier = Modifier.padding(start = 20.dp),
+                text = "Filtrar por:",
+                color = MaterialTheme.colorScheme.onSurface
+            )
+
+            val chipsTitle = remember {
+                mutableStateOf(listOf("Todos", "Grupo muscular", "Favoritos"))
+            }
+            val selectedChips = remember {
+                mutableStateOf(listOf(true, false, false))
+            }
+            FilterChipsGroup(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                chips = chipsTitle.value,
+                selectedChips = selectedChips.value,
+                onSelected = {
+                    selectedChips.value =
+                        selectedChips
+                            .value
+                            .map { false }
+                            .toMutableList()
+                            .apply {
+                                this[it] = !this[it]
+                            }
+                }
+            )
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 10.dp),
+                thickness = 2.dp
             )
         }
     }

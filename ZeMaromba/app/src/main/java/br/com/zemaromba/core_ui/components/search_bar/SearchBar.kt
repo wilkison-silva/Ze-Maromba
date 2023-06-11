@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,13 +45,13 @@ fun SearchBar(
         modifier = modifier
             .background(
                 color = MaterialTheme.colorScheme.surfaceVariant,
-                shape = MaterialTheme.shapes.extraLarge
+                shape = CircleShape
             )
     ) {
         Icon(
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(start = 20.dp, top = 10.dp, bottom = 10.dp),
+                .padding(start = 20.dp, top = 5.dp, bottom = 5.dp),
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = "",
             tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -59,7 +60,7 @@ fun SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterStart)
-                .padding(start = 45.dp, end = 20.dp),
+                .padding(start = 45.dp, end = 60.dp),
             value = text.value,
             onValueChange = {
                 onTextChanged(it)
@@ -84,7 +85,7 @@ fun SearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterStart)
-                    .padding(start = 60.dp, end = 20.dp),
+                    .padding(start = 60.dp, end = 60.dp),
                 text = hint,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -92,7 +93,7 @@ fun SearchBar(
     }
 }
 
-@Preview()
+@Preview
 @Composable
 fun SearchBarPreview() {
     val text = remember {

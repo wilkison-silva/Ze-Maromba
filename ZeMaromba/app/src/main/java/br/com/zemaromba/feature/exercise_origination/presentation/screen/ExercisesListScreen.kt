@@ -3,6 +3,7 @@ package br.com.zemaromba.feature.exercise_origination.presentation.screen
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -150,88 +152,28 @@ fun ExercisesListscreen(
                     .padding(horizontal = 20.dp, vertical = 10.dp),
                 thickness = 2.dp
             )
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.padding(bottom = 20.dp)
+            ) {
+                items(10) {
+                    ExerciseCardItem(
+                        exerciseName = "Bíceps concentrado",
+                        muscleGroups = "Bíceps, Antebraço",
+                        favoriteIcon = if (it.mod(2) == 0) R.drawable.ic_star_filled
+                        else R.drawable.ic_star_border
+                    )
+                }
+            }
         }
     }
-
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(MaterialTheme.colorScheme.surface)
-//            .verticalScroll(state = verticalScrollState)
-//    ) {
-//        Surface(
-//            tonalElevation = 5.dp,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(100.dp)
-//        ) {
-//            Row(
-//                modifier = Modifier.padding(all = 20.dp),
-//                verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                Text(
-//                    text = buildAnnotatedString {
-//                        withStyle(
-//                            style = SpanStyle(
-//                                fontWeight = FontWeight.Light,
-//                            )
-//                        ) {
-//                            append("Olá, ")
-//                        }
-//                        withStyle(
-//                            style = SpanStyle(
-//                                fontWeight = FontWeight.Bold,
-//                            )
-//                        ) {
-//                            append("$userName!")
-//                        }
-//                    },
-//                    color = MaterialTheme.colorScheme.onSurface,
-//                    fontSize = 28.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    textAlign = TextAlign.Start
-//                )
-//                Icon(
-//                    painter = painterResource(id = R.drawable.ic_account_profile_picture),
-//                    contentDescription = "",
-//                    tint = MaterialTheme.colorScheme.onSurface
-//                )
-//            }
-//        }
-//        Spacer(modifier = Modifier.height(20.dp))
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .background(MaterialTheme.colorScheme.background),
-//            horizontalAlignment = Alignment.Start
-//        ) {
-//            MenuCardItem(
-//                icon = R.drawable.ic_training_plan_calendar,
-//                title = "Meus Treinos",
-//                description = "Personalize seus treinos de acordo com suas necessidades",
-//                onClick = {
-//
-//                }
-//            )
-//            Spacer(modifier = Modifier.height(20.dp))
-//            MenuCardItem(
-//                icon = R.drawable.ic_dumbell,
-//                title = "Exercícios",
-//                description = "Exercícios para compor seus treinos da sua maneira",
-//                onClick = {
-//
-//                }
-//            )
-//        }
-//    }
 }
 
 @Composable
-fun MenuCardItem(
-    icon: Int,
-    title: String,
-    description: String,
+fun ExerciseCardItem(
+    exerciseName: String,
+    muscleGroups: String,
+    favoriteIcon: Int,
     onClick: () -> Unit = {}
 ) {
     Card(
@@ -259,14 +201,8 @@ fun MenuCardItem(
                         end = 20.dp
                     )
                 ) {
-                    Icon(
-                        painter = painterResource(id = icon),
-                        contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.width(20.dp))
                     Text(
-                        text = title,
+                        text = exerciseName,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
@@ -276,7 +212,7 @@ fun MenuCardItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 20.dp, end = 60.dp, bottom = 20.dp),
-                    text = description,
+                    text = muscleGroups,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Light,
@@ -284,7 +220,7 @@ fun MenuCardItem(
                 )
             }
             Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
+                painter = painterResource(id = favoriteIcon),
                 contentDescription = "",
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier

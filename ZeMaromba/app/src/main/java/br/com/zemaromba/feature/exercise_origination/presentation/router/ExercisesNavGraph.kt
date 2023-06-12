@@ -1,10 +1,14 @@
 package br.com.zemaromba.feature.exercise_origination.presentation.router
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import br.com.zemaromba.feature.exercise_origination.presentation.screen.ExerciseManagementScreen
 import br.com.zemaromba.feature.exercise_origination.presentation.screen.ExercisesListscreen
+import br.com.zemaromba.feature.exercise_origination.presentation.screen.MuscleGroupCheckBox
 
 fun NavGraphBuilder.exerciseGraph(
     navController: NavController,
@@ -21,7 +25,94 @@ fun NavGraphBuilder.exerciseGraph(
                     navController.popBackStack()
                 },
                 onNavigateToNewExercise = {
-
+                    navController.navigate(ExerciseRouter.ExerciseManagementScreen.route)
+                }
+            )
+        }
+        composable(
+            route = ExerciseRouter.ExerciseManagementScreen.route
+        ) {
+            val name = remember {
+                mutableStateOf("")
+            }
+            val muscleGroups = remember {
+                mutableStateOf(
+                    listOf(
+                        MuscleGroupCheckBox(
+                            name = "Peitoral",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Dorsal",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Trapézio",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Bíceps",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Antebraço",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Quadríceps",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Abdomen",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Posteriores",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Adultores",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Abdutores",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Glúteos",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Panturrilhas",
+                            isSelected = false
+                        ),
+                        MuscleGroupCheckBox(
+                            name = "Lombar",
+                            isSelected = false
+                        ),
+//                MuscleGroupCheckBox(
+//                    name = "Abdomen",
+//                    isSelected = false
+//                ),
+                    )
+                )
+            }
+            ExerciseManagementScreen(
+                name = name.value,
+                muscleGroups = muscleGroups.value,
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onChangeName = {
+                    name.value = it
+                },
+                onMuscleGroupSelection = { id, isSelected ->
+                    muscleGroups.value =
+                        muscleGroups.value
+                            .toMutableList()
+                            .apply {
+                                this[id] = this[id].copy(isSelected = isSelected)
+                            }
                 }
             )
         }

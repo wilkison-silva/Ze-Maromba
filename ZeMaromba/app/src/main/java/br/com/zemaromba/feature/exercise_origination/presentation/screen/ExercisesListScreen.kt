@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
@@ -27,7 +28,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,12 +58,8 @@ fun ExercisesListscreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                ),
                 navigationIcon = {
                     IconButton(
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp),
                         onClick = {
                             onNavigateBack()
                         },
@@ -107,6 +103,7 @@ fun ExercisesListscreen(
             modifier = Modifier
                 .padding(paddingValues = contentPadding)
                 .fillMaxWidth()
+                .verticalScroll(verticalScrollState)
         ) {
             SearchBar(
                 modifier = Modifier
@@ -152,11 +149,11 @@ fun ExercisesListscreen(
                     .padding(horizontal = 20.dp, vertical = 10.dp),
                 thickness = 2.dp
             )
-            LazyColumn(
+            Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier.padding(bottom = 20.dp)
             ) {
-                items(10) {
+                repeat(10) {
                     ExerciseCardItem(
                         exerciseName = "Bíceps concentrado",
                         muscleGroups = "Bíceps, Antebraço",

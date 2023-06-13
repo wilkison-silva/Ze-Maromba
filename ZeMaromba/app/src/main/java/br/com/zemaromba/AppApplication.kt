@@ -3,12 +3,10 @@ package br.com.zemaromba
 import android.app.Application
 import br.com.zemaromba.core_data.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
-import br.com.zemaromba.core_data.local.database.dao.MuscleGroupDao
 import br.com.zemaromba.core_data.local.database.dao.SetDao
 import br.com.zemaromba.core_data.local.database.dao.TrainingDao
 import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
 import br.com.zemaromba.core_data.model.ExerciseEntity
-import br.com.zemaromba.core_data.model.MuscleGroupEntity
 import br.com.zemaromba.core_data.model.SetEntity
 import br.com.zemaromba.core_data.model.TrainingEntity
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
@@ -22,9 +20,6 @@ import kotlinx.coroutines.launch
 
 @HiltAndroidApp
 class AppApplication : Application() {
-
-    @Inject
-    lateinit var muscleGroupDao: MuscleGroupDao
 
     @Inject
     lateinit var exerciseDao: ExerciseDao
@@ -46,9 +41,6 @@ class AppApplication : Application() {
         if (BuildConfig.DEBUG) {
             deleteDatabase(BuildConfig.DATABASE_NAME)
             CoroutineScope(Dispatchers.IO).launch {
-                MuscleGroup.values().forEach {
-                    muscleGroupDao.insert(MuscleGroupEntity(name = it.name))
-                }
                 exerciseDao.insertAll(
                     exerciseEntityList = listOf(
                         ExerciseEntity(name = "Pulley frente"),
@@ -65,39 +57,39 @@ class AppApplication : Application() {
                     exerciseAndMuscleRefList = listOf(
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 1,
-                            muscleId = 2
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 2,
-                            muscleId = 2
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 3,
-                            muscleId = 2
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 4,
-                            muscleId = 2
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 5,
-                            muscleId = 5
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 6,
-                            muscleId = 5
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 7,
-                            muscleId = 14
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 8,
-                            muscleId = 1
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                         ExerciseAndMuscleGroupCrossRefEntity(
                             exerciseId = 8,
-                            muscleId = 4
+                            muscleName = MuscleGroup.ABDOMEN.name
                         ),
                     )
                 )

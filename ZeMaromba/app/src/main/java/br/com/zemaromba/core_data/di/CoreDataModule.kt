@@ -6,7 +6,6 @@ import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.core_data.local.database.AppDatabase
 import br.com.zemaromba.core_data.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
-import br.com.zemaromba.core_data.local.database.dao.MuscleGroupDao
 import br.com.zemaromba.core_data.local.database.dao.SetDao
 import br.com.zemaromba.core_data.local.database.dao.TrainingDao
 import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
@@ -40,12 +39,6 @@ object CoreDataModule {
     @Singleton
     fun provideExerciseDao(appDatabase: AppDatabase): ExerciseDao {
         return appDatabase.exerciseDao
-    }
-
-    @Provides
-    @Singleton
-    fun provideMuscleGroupDao(appDatabase: AppDatabase): MuscleGroupDao {
-        return appDatabase.muscleGroupDao
     }
 
     @Provides

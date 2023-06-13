@@ -4,22 +4,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import br.com.zemaromba.core_data.model.ExerciseEntity
-import br.com.zemaromba.core_data.model.MuscleGroupEntity
 
 @Entity(
     tableName = "ExerciseAndMuscleGroup",
-    primaryKeys = ["exercise_id", "muscle_group_id"],
+    primaryKeys = ["exercise_id", "muscle_name"],
     foreignKeys = [
         ForeignKey(
             entity = ExerciseEntity::class,
             parentColumns = arrayOf("exercise_id"),
             childColumns = arrayOf("exercise_id"),
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = MuscleGroupEntity::class,
-            parentColumns = arrayOf("muscle_group_id"),
-            childColumns = arrayOf("muscle_group_id"),
             onDelete = ForeignKey.CASCADE
         )
     ]
@@ -27,6 +20,6 @@ import br.com.zemaromba.core_data.model.MuscleGroupEntity
 data class ExerciseAndMuscleGroupCrossRefEntity(
     @ColumnInfo(name = "exercise_id")
     val exerciseId: Long,
-    @ColumnInfo(name = "muscle_group_id", index = true)
-    val muscleId: Long
+    @ColumnInfo(name = "muscle_name", index = true)
+    val muscleName: String
 )

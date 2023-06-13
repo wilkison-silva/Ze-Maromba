@@ -2,7 +2,6 @@ package br.com.zemaromba.feature.onboarding.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
 import br.com.zemaromba.core_domain.datastore.UserDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,8 +14,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class GetStartedViewModel @Inject constructor(
-    private val userDataStore: UserDataStore,
-    private val exerciseDao: ExerciseDao
+    private val userDataStore: UserDataStore
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(GetStartedState())

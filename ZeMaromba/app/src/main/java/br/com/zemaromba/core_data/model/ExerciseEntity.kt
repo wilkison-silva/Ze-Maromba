@@ -10,5 +10,7 @@ data class ExerciseEntity(
     @ColumnInfo(name = "exercise_id")
     val id: Long = 0,
     @ColumnInfo(name = "name")
-    val name: String
+    val name: String,
+    @ColumnInfo(name = "favorite")
+    val favorite: Boolean
 )

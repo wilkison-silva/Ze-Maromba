@@ -70,7 +70,7 @@ fun HomeScreen(
                                 append("$userName!")
                             }
                         },
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Start
@@ -86,7 +86,7 @@ fun HomeScreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_account_picture),
                                 contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     )

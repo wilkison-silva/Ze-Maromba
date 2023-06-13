@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.feature.exercise_origination.presentation.router.ExerciseRouter
-import br.com.zemaromba.feature.exercise_origination.presentation.router.exerciseGraph
+import br.com.zemaromba.feature.exercise.presentation.router.ExerciseRouter
+import br.com.zemaromba.feature.exercise.presentation.router.exerciseGraph
 import br.com.zemaromba.feature.home.presentation.model.MenuHome
 import br.com.zemaromba.feature.home.presentation.router.HomeRouter
 import br.com.zemaromba.feature.home.presentation.router.homeGraph

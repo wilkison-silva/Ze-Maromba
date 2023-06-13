@@ -1,4 +1,4 @@
-package br.com.zemaromba.feature.exercise_origination.presentation.screen
+package br.com.zemaromba.feature.exercise.presentation.screen
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -40,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.core_domain.model.Exercise
 import br.com.zemaromba.core_ui.components.chips.FilterChipsGroup
 import br.com.zemaromba.core_ui.components.search_bar.SearchBar
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
@@ -47,7 +47,8 @@ import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExercisesListscreen(
+fun ExercisesListScreen(
+    exercisesList: List<Exercise>,
     onNavigateBack: () -> Unit,
     onNavigateToNewExercise: () -> Unit
 ) {
@@ -67,7 +68,7 @@ fun ExercisesListscreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_arrow_back),
                                 contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     )
@@ -75,7 +76,7 @@ fun ExercisesListscreen(
                 title = {
                     Text(
                         text = "Exercícios",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 20.sp
                     )
                 }
@@ -153,13 +154,16 @@ fun ExercisesListscreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier.padding(bottom = 20.dp)
             ) {
-                repeat(10) {
+                exercisesList.forEach {
                     ExerciseCardItem(
-                        exerciseName = "Bíceps concentrado",
-                        muscleGroups = "Bíceps, Antebraço",
-                        favoriteIcon = if (it.mod(2) == 0) R.drawable.ic_star_filled
+                        exerciseName = it.name,
+                        muscleGroups = it.muscleGroup.toString(),
+                        favoriteIcon = if (it.favorite) R.drawable.ic_star_filled
                         else R.drawable.ic_star_border
                     )
+                }
+                repeat(exercisesList.size) {
+
                 }
             }
         }
@@ -261,9 +265,10 @@ fun ExerciseCardItem(
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun ExercisesListscreenPreview() {
+fun ExercisesListScreenPreview() {
     ZeMarombaTheme {
-        ExercisesListscreen(
+        ExercisesListScreen(
+            exercisesList = listOf(),
             onNavigateBack = {
 
             },

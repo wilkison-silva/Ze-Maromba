@@ -1,14 +1,17 @@
-package br.com.zemaromba.feature.exercise_origination.presentation.router
+package br.com.zemaromba.feature.exercise.presentation.router
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import br.com.zemaromba.feature.exercise_origination.presentation.screen.ExerciseManagementScreen
-import br.com.zemaromba.feature.exercise_origination.presentation.screen.ExercisesListscreen
-import br.com.zemaromba.feature.exercise_origination.presentation.screen.MuscleGroupCheckBox
+import br.com.zemaromba.feature.exercise.presentation.screen.ExerciseManagementScreen
+import br.com.zemaromba.feature.exercise.presentation.screen.ExercisesListScreen
+import br.com.zemaromba.feature.exercise.presentation.screen.MuscleGroupCheckBox
+import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListViewModel
 
 fun NavGraphBuilder.exerciseGraph(
     navController: NavController,
@@ -20,7 +23,10 @@ fun NavGraphBuilder.exerciseGraph(
         composable(
             route = ExerciseRouter.ExercisesListScreen.route
         ) {
-            ExercisesListscreen(
+            val viewModel: ExercisesListViewModel = hiltViewModel()
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+            ExercisesListScreen(
+                exercisesList = state.exercisesList,
                 onNavigateBack = {
                     navController.popBackStack()
                 },

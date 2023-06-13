@@ -1,4 +1,4 @@
-package br.com.zemaromba.feature.exercise_origination.presentation.router
+package br.com.zemaromba.feature.exercise.presentation.router
 
 sealed class ExerciseRouter(val route: String) {
     object ExerciseGraph : ExerciseRouter("exercises")

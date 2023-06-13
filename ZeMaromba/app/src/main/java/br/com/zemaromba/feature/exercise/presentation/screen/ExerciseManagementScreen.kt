@@ -1,4 +1,4 @@
-package br.com.zemaromba.feature.exercise_origination.presentation.screen
+package br.com.zemaromba.feature.exercise.presentation.screen
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -72,7 +72,7 @@ fun ExerciseManagementScreen(
                 title = {
                     Text(
                         text = "Exercício",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 20.sp
                     )
                 },
@@ -86,7 +86,7 @@ fun ExerciseManagementScreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_delete),
                                 contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     )

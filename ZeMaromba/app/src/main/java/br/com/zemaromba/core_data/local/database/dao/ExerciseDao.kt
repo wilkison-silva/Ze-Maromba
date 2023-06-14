@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.relations.SetWithExercise
 import kotlinx.coroutines.flow.Flow
@@ -28,6 +29,9 @@ interface ExerciseDao {
 
     @Query("SELECT * FROM Exercise")
     fun getAll(): Flow<List<ExerciseEntity>>
+
+    @Query("SELECT * FROM Exercise JOIN ExerciseAndMuscleGroup ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id")
+    fun getExercisesWithMuscleGroups(): Flow<Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>>
 
     @Transaction
     @Query("SELECT * FROM Exercise")

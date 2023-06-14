@@ -6,6 +6,7 @@ enum class MuscleGroup {
     DELTOID,
     TRAPEZIUS,
     BICEPS,
+    TRICEPS,
     FOREARM,
     QUADRICEPS,
     HAMSTRINGS,

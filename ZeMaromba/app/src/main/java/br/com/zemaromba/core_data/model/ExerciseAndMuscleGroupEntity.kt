@@ -1,9 +1,8 @@
-package br.com.zemaromba.core_data.model.cross_references
+package br.com.zemaromba.core_data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import br.com.zemaromba.core_data.model.ExerciseEntity
 
 @Entity(
     tableName = "ExerciseAndMuscleGroup",
@@ -17,7 +16,7 @@ import br.com.zemaromba.core_data.model.ExerciseEntity
         )
     ]
 )
-data class ExerciseAndMuscleGroupCrossRefEntity(
+data class ExerciseAndMuscleGroupEntity(
     @ColumnInfo(name = "exercise_id")
     val exerciseId: Long,
     @ColumnInfo(name = "muscle_name", index = true)

@@ -6,11 +6,11 @@ import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
 import br.com.zemaromba.core_data.local.database.dao.SetDao
 import br.com.zemaromba.core_data.local.database.dao.TrainingDao
 import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
+import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.SetEntity
 import br.com.zemaromba.core_data.model.TrainingEntity
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
-import br.com.zemaromba.core_data.model.cross_references.ExerciseAndMuscleGroupCrossRefEntity
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -55,41 +55,41 @@ class AppApplication : Application() {
                 )
                 exerciseAndMuscleDao.insertAll(
                     exerciseAndMuscleRefList = listOf(
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 1,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.DORSAL.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 2,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.DORSAL.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 3,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.DORSAL.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 4,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.DORSAL.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 5,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.BICEPS.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 6,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.BICEPS.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 7,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.LUMBAR.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 8,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.CHEST.name
                         ),
-                        ExerciseAndMuscleGroupCrossRefEntity(
+                        ExerciseAndMuscleGroupEntity(
                             exerciseId = 8,
-                            muscleName = MuscleGroup.ABDOMEN.name
+                            muscleName = MuscleGroup.TRICEPS.name
                         ),
                     )
                 )

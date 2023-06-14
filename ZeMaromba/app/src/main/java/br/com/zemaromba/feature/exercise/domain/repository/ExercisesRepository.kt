@@ -7,6 +7,4 @@ interface ExercisesRepository {
 
     fun getExercises(): Flow<List<Exercise>>
 
-    fun getMusclesByExerciseId(exerciseId: Long): Flow<List<String>>
-
 }

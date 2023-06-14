@@ -1,6 +1,5 @@
 package br.com.zemaromba.feature.exercise.data.repository
 
-import br.com.zemaromba.core_data.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
 import br.com.zemaromba.core_domain.model.Exercise
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
@@ -9,30 +8,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class ExercisesRepositoryImpl @Inject constructor(
-    private val exerciseDao: ExerciseDao,
-    private val exerciseAndMuscleDao: ExerciseAndMuscleDao
+    private val exerciseDao: ExerciseDao
 ) : ExercisesRepository {
 
     override fun getExercises(): Flow<List<Exercise>> {
-        return exerciseDao.getAll().map {
-            it.map {
+        return exerciseDao.getExercisesWithMuscleGroups().map {
+            it.map { exerciseAndMusclesMap ->
                 Exercise(
-                    id = it.id,
-                    name = it.name,
-                    muscleGroup = listOf(),
-                    favorite = it.favorite
+                    id = exerciseAndMusclesMap.key.id,
+                    name = exerciseAndMusclesMap.key.name,
+                    favorite = exerciseAndMusclesMap.key.favorite,
+                    muscleGroup = exerciseAndMusclesMap.value.map { exerciseAndMuscleGroupEntity ->
+                        exerciseAndMuscleGroupEntity.muscleName
+                    }
                 )
             }
         }
-    }
-
-    override fun getMusclesByExerciseId(exerciseId: Long): Flow<List<String>> {
-        return exerciseAndMuscleDao
-            .getMusclesByExerciseId(exerciseId = exerciseId)
-            .map {
-                it.map {
-                    it.muscleName
-                }
-            }
     }
 }

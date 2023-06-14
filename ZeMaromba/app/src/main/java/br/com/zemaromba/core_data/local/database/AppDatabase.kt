@@ -11,14 +11,14 @@ import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.SetEntity
 import br.com.zemaromba.core_data.model.TrainingEntity
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
-import br.com.zemaromba.core_data.model.cross_references.ExerciseAndMuscleGroupCrossRefEntity
+import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
 
 @Database(
     entities = [
         ExerciseEntity::class,
         SetEntity::class,
         TrainingEntity::class,
-        ExerciseAndMuscleGroupCrossRefEntity::class,
+        ExerciseAndMuscleGroupEntity::class,
         TrainingPlanEntity::class
     ],
     version = AppDatabase.databaseVersion,

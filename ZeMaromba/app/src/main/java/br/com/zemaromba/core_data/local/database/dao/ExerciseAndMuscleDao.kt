@@ -4,19 +4,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import br.com.zemaromba.core_data.model.cross_references.ExerciseAndMuscleGroupCrossRefEntity
+import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExerciseAndMuscleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(exerciseAndMuscleRef: ExerciseAndMuscleGroupCrossRefEntity)
+    suspend fun insert(exerciseAndMuscleRef: ExerciseAndMuscleGroupEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(exerciseAndMuscleRefList: List<ExerciseAndMuscleGroupCrossRefEntity>)
+    suspend fun insertAll(exerciseAndMuscleRefList: List<ExerciseAndMuscleGroupEntity>)
 
     @Query("SELECT * FROM ExerciseAndMuscleGroup WHERE exercise_id = :exerciseId")
-    fun getMusclesByExerciseId(exerciseId: Long): Flow<List<ExerciseAndMuscleGroupCrossRefEntity>>
+    fun getMusclesByExerciseId(exerciseId: Long): Flow<List<ExerciseAndMuscleGroupEntity>>
 
 }

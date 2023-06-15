@@ -6,4 +6,19 @@
     <string name="whats_your_name">Como podemos chamar você?</string>
     <string name="dont_you_worry_you_can_change_your_name_later">Não se preocupe, você poderá mudar esta informação depois</string>
     <string name="next">Avançar</string>
+    <string name="peitoral">Peitoral</string>
+    <string name="dorsal">Dorsal</string>
+    <string name="deltoides">Deltoides</string>
+    <string name="trapezius">Trapézio</string>
+    <string name="biceps">Bíceps</string>
+    <string name="triceps">Tríceps</string>
+    <string name="forearm">Antebraço</string>
+    <string name="quadriceps">Quadríceps</string>
+    <string name="hamstrings">Posterior de coxa</string>
+    <string name="adductors">Adutores</string>
+    <string name="abductors">abdutores</string>
+    <string name="glutes">Glúteos</string>
+    <string name="calves">Panturilhas</string>
+    <string name="abdomen">Abdômen</string>
+    <string name="lumbar">Lombar</string>
 </resources>

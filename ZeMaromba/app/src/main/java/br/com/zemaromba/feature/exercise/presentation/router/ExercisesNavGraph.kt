@@ -26,7 +26,7 @@ fun NavGraphBuilder.exerciseGraph(
             val viewModel: ExercisesListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             ExercisesListScreen(
-                exercisesList = state.exercisesList,
+                state = state,
                 onNavigateBack = {
                     navController.popBackStack()
                 },
@@ -95,11 +95,7 @@ fun NavGraphBuilder.exerciseGraph(
                         MuscleGroupCheckBox(
                             name = "Lombar",
                             isSelected = false
-                        ),
-//                MuscleGroupCheckBox(
-//                    name = "Abdomen",
-//                    isSelected = false
-//                ),
+                        )
                     )
                 )
             }

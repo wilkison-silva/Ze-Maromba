@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExercisesRepository {
 
-    fun getExercises(): Flow<List<Exercise>>
+    fun getExercisesWithMuscles(): Flow<List<Exercise>>
 
 }

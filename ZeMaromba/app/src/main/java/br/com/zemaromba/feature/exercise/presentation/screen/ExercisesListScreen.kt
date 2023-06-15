@@ -33,22 +33,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
-import br.com.zemaromba.core_domain.model.Exercise
 import br.com.zemaromba.core_ui.components.chips.FilterChipsGroup
 import br.com.zemaromba.core_ui.components.search_bar.SearchBar
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExercisesListScreen(
-    exercisesList: List<Exercise>,
+    state: ExercisesListState,
     onNavigateBack: () -> Unit,
     onNavigateToNewExercise: () -> Unit
 ) {
@@ -154,16 +155,14 @@ fun ExercisesListScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier.padding(bottom = 20.dp)
             ) {
-                exercisesList.forEach {
+                state.exercisesList.forEach {
                     ExerciseCardItem(
                         exerciseName = it.name,
-                        muscleGroups = it.muscleGroup.toString(),
-                        favoriteIcon = if (it.favorite) R.drawable.ic_star_filled
-                        else R.drawable.ic_star_border
+                        muscleGroups = it.muscleGroups.map { muscleNameResource ->
+                            stringResource(id = muscleNameResource)
+                        }.joinToString(separator = ", "),
+                        favoriteIcon = it.favoriteIcon
                     )
-                }
-                repeat(exercisesList.size) {
-
                 }
             }
         }
@@ -268,7 +267,7 @@ fun ExerciseCardItem(
 fun ExercisesListScreenPreview() {
     ZeMarombaTheme {
         ExercisesListScreen(
-            exercisesList = listOf(),
+            state = ExercisesListState(),
             onNavigateBack = {
 
             },

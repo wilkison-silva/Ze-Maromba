@@ -4,5 +4,5 @@ data class Exercise(
     val id: Long,
     val name: String,
     val favorite: Boolean,
-    val muscleGroup: List<MuscleGroup>,
+    val muscleGroupList: List<MuscleGroup>,
 )

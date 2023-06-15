@@ -1,5 +1,6 @@
 package br.com.zemaromba.feature.exercise.di
 
+import br.com.zemaromba.core_data.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
 import br.com.zemaromba.feature.exercise.data.repository.ExercisesRepositoryImpl
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
@@ -16,9 +17,10 @@ object ExerciseModule {
     @Provides
     @Singleton
     fun provideExercisesRepository(
-        exerciseDao: ExerciseDao
+        exerciseDao: ExerciseDao,
+        exerciseAndMuscleDao: ExerciseAndMuscleDao
     ): ExercisesRepository {
-        return ExercisesRepositoryImpl(exerciseDao)
+        return ExercisesRepositoryImpl(exerciseDao, exerciseAndMuscleDao)
     }
 
 

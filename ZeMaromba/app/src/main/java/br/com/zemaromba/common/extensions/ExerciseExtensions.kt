@@ -20,7 +20,7 @@ fun ExerciseEntity.toExercise(exercisesAndMuscleGroup: List<ExerciseAndMuscleGro
         id = this.id,
         name = this.name,
         favorite = this.favorite,
-        muscleGroup = muscleGroupList
+        muscleGroupList = muscleGroupList
     )
 }
 
@@ -29,24 +29,6 @@ fun Exercise.toExerciseView(): ExerciseView {
         id = this.id,
         name = this.name,
         favoriteIcon = if (this.favorite) R.drawable.ic_star_filled else R.drawable.ic_star_border,
-        muscleGroups = this.muscleGroup.map { muscleGroup ->
-            when (muscleGroup) {
-                MuscleGroup.CHEST -> R.string.peitoral
-                MuscleGroup.DORSAL -> R.string.dorsal
-                MuscleGroup.DELTOID -> R.string.deltoides
-                MuscleGroup.TRAPEZIUS -> R.string.trapezius
-                MuscleGroup.BICEPS -> R.string.biceps
-                MuscleGroup.TRICEPS -> R.string.triceps
-                MuscleGroup.FOREARM -> R.string.forearm
-                MuscleGroup.QUADRICEPS -> R.string.quadriceps
-                MuscleGroup.HAMSTRINGS -> R.string.hamstrings
-                MuscleGroup.ADDUCTORS -> R.string.adductors
-                MuscleGroup.ABDUCTORS -> R.string.abductors
-                MuscleGroup.GLUTES -> R.string.glutes
-                MuscleGroup.CALVES -> R.string.calves
-                MuscleGroup.ABDOMEN -> R.string.abdomen
-                MuscleGroup.LUMBAR -> R.string.lumbar
-            }
-        }
+        muscleGroups = this.muscleGroupList.map { muscleGroup -> muscleGroup.nameRes }
     )
 }

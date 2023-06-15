@@ -28,27 +28,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
-
-
-data class MuscleGroupCheckBox(
-    val name: String,
-    var isSelected: Boolean
-)
+import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseManagementState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseManagementScreen(
-    name: String,
+    state: ExerciseManagementState,
     onChangeName: (newName: String) -> Unit,
-    muscleGroups: List<MuscleGroupCheckBox>,
     onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
+    onSaveExercise: () -> Unit,
     onNavigateBack: () -> Unit,
 ) {
     Scaffold(
@@ -93,7 +89,7 @@ fun ExerciseManagementScreen(
                     IconButton(
                         modifier = Modifier,
                         onClick = {
-
+                            onSaveExercise()
                         },
                         content = {
                             Icon(
@@ -119,7 +115,7 @@ fun ExerciseManagementScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 20.dp),
-                value = name,
+                value = state.name,
                 onValueChange = {
                     onChangeName(it)
                 },
@@ -156,10 +152,10 @@ fun ExerciseManagementScreen(
                         .fillMaxWidth()
                         .padding(all = 10.dp),
                 ) {
-                    val itemCount = if (muscleGroups.size % 2 == 0) {
-                        muscleGroups.size / 2
+                    val itemCount = if (state.muscleGroupCheckBox.size % 2 == 0) {
+                        state.muscleGroupCheckBox.size / 2
                     } else {
-                        muscleGroups.size / 2 + 1
+                        state.muscleGroupCheckBox.size / 2 + 1
                     }
                     repeat(itemCount) { rowIndex ->
                         Row(
@@ -170,29 +166,29 @@ fun ExerciseManagementScreen(
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Checkbox(
-                                    checked = muscleGroups[rowIndex * 2].isSelected,
+                                    checked = state.muscleGroupCheckBox[rowIndex * 2].isSelected,
                                     onCheckedChange = {
                                         onMuscleGroupSelection(rowIndex * 2, it)
                                     }
                                 )
                                 Text(
-                                    text = muscleGroups[rowIndex * 2].name,
+                                    text = stringResource(id = state.muscleGroupCheckBox[rowIndex * 2].nameRes),
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
-                            if (muscleGroups.size >= ((rowIndex * 2) + 2)) {
+                            if (state.muscleGroupCheckBox.size >= ((rowIndex * 2) + 2)) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.weight(1f)
                                 ) {
                                     Checkbox(
-                                        checked = muscleGroups[rowIndex * 2 + 1].isSelected,
+                                        checked = state.muscleGroupCheckBox[rowIndex * 2 + 1].isSelected,
                                         onCheckedChange = {
                                             onMuscleGroupSelection(rowIndex * 2 + 1, it)
                                         }
                                     )
                                     Text(
-                                        text = muscleGroups[rowIndex * 2 + 1].name,
+                                        text = stringResource(id = state.muscleGroupCheckBox[rowIndex * 2 + 1].nameRes),
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                 }
@@ -239,88 +235,29 @@ fun ExerciseManagementScreen(
 )
 @Composable
 fun ExercisesManagementScreenPreview() {
-    val name = remember {
-        mutableStateOf("")
+    val state = remember {
+        mutableStateOf(ExerciseManagementState())
     }
-    val muscleGroups = remember {
-        mutableStateOf(
-            listOf(
-                MuscleGroupCheckBox(
-                    name = "Peitoral",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Dorsal",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Trapézio",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Bíceps",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Antebraço",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Quadríceps",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Abdomen",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Posteriores",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Adultores",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Abdutores",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Glúteos",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Panturrilhas",
-                    isSelected = false
-                ),
-                MuscleGroupCheckBox(
-                    name = "Lombar",
-                    isSelected = false
-                ),
-//                MuscleGroupCheckBox(
-//                    name = "Abdomen",
-//                    isSelected = false
-//                ),
-            )
-        )
-    }
+
     ZeMarombaTheme {
         ExerciseManagementScreen(
-            name = name.value,
-            muscleGroups = muscleGroups.value,
+            state = state.value,
             onNavigateBack = {
 
             },
             onChangeName = {
-                name.value = it
+                state.value = state.value.copy(name = it)
             },
             onMuscleGroupSelection = { id, isSelected ->
-                muscleGroups.value =
-                    muscleGroups.value
-                        .toMutableList()
+                state.value = state.value.copy(
+                    muscleGroupCheckBox = state.value.muscleGroupCheckBox.toMutableList()
                         .apply {
                             this[id] = this[id].copy(isSelected = isSelected)
                         }
+                )
+            },
+            onSaveExercise = {
+
             }
         )
     }

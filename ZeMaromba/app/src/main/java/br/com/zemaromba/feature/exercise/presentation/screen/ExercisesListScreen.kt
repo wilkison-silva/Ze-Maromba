@@ -153,7 +153,7 @@ fun ExercisesListScreen(
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier.padding(bottom = 20.dp)
+                modifier = Modifier.padding(bottom = 100.dp)
             ) {
                 state.exercisesList.forEach {
                     ExerciseCardItem(

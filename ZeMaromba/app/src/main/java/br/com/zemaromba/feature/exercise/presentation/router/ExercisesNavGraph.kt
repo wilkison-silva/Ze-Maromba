@@ -1,6 +1,5 @@
 package br.com.zemaromba.feature.exercise.presentation.router
 
-import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,6 +14,7 @@ import br.com.zemaromba.feature.exercise.presentation.screen.ExerciseManagementS
 import br.com.zemaromba.feature.exercise.presentation.screen.ExercisesListScreen
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseManagementEvents
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseManagementViewModel
+import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListEvents
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListViewModel
 
 fun NavGraphBuilder.exerciseGraph(
@@ -39,11 +39,19 @@ fun NavGraphBuilder.exerciseGraph(
                 },
                 onOpenExercise = { exerciseId ->
                     navController.navigate(route = "exercise_management/$exerciseId")
+                },
+                onFavoriteExercise = { exerciseId, favoriteIcon ->
+                    viewModel.onEvent(
+                        event = ExercisesListEvents.OnFavoriteExercise(
+                            exerciseId = exerciseId,
+                            favoriteIcon = favoriteIcon
+                        )
+                    )
                 }
             )
         }
         composable(
-            route = ExerciseRouter.ExerciseManagementScreen.route+"/{exercise_id}",
+            route = ExerciseRouter.ExerciseManagementScreen.route + "/{exercise_id}",
             arguments = listOf(
                 navArgument(name = "exercise_id") {
                     type = NavType.LongType
@@ -79,6 +87,12 @@ fun NavGraphBuilder.exerciseGraph(
                             id = id,
                             isSelected = isSelected
                         )
+                    )
+                },
+                onShowAlertAboutRemoving = { showDialog ->
+                    viewModel.onEvent(
+                        event = ExerciseManagementEvents
+                            .OnShowWarningAboutRemoving(showDialog = showDialog)
                     )
                 }
             )

@@ -2,6 +2,7 @@ package br.com.zemaromba.feature.exercise.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.toExerciseView
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
@@ -23,17 +24,32 @@ class ExercisesListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            launch {
-                exercisesRepository.getExercisesWithMuscles().collectLatest { exercises ->
-                    _state.update {
-                        it.copy(exercisesList = exercises.map { exercise ->
-                            exercise.toExerciseView()
-                        })
-                    }
+            exercisesRepository.getExercisesWithMuscles().collectLatest { exercises ->
+                _state.update {
+                    it.copy(exercisesList = exercises.map { exercise ->
+                        exercise.toExerciseView()
+                    })
                 }
             }
         }
     }
+
+    fun onEvent(event: ExercisesListEvents) {
+        when (event) {
+            is ExercisesListEvents.OnFavoriteExercise -> {
+                viewModelScope.launch {
+                    exercisesRepository.updateExerciseFavoriteField(
+                        exerciseId = event.exerciseId,
+                        isFavorite = event.favoriteIcon != R.drawable.ic_star_filled
+                    )
+                }
+            }
+        }
+    }
+}
+
+sealed class ExercisesListEvents {
+    data class OnFavoriteExercise(val exerciseId: Long, val favoriteIcon: Int) : ExercisesListEvents()
 }
 
 data class ExercisesListState(

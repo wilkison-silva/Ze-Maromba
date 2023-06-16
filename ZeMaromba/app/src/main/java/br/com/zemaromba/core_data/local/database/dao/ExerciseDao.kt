@@ -27,6 +27,9 @@ interface ExerciseDao {
     @Query("DELETE FROM Exercise WHERE Exercise.exercise_id = :exerciseId")
     suspend fun deleteById(exerciseId: Long): Int
 
+    @Query("UPDATE Exercise SET favorite = :favorite WHERE Exercise.exercise_id = :exerciseId")
+    suspend fun updateFavoriteField(exerciseId: Long, favorite: Boolean)
+
     @Update
     suspend fun update(exerciseEntity: ExerciseEntity)
 
@@ -34,7 +37,8 @@ interface ExerciseDao {
     fun getAll(): Flow<List<ExerciseEntity>>
 
     @Query("SELECT * FROM Exercise " +
-            "JOIN ExerciseAndMuscleGroup ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id")
+            "JOIN ExerciseAndMuscleGroup ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +
+            "ORDER BY Exercise.name")
     fun getExercisesWithMuscleGroups(): Flow<Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>>
 
     @Query("SELECT * FROM Exercise JOIN ExerciseAndMuscleGroup " +

@@ -14,6 +14,6 @@ interface ExercisesRepository {
 
     suspend fun deleteExercise(exerciseId: Long): Boolean
 
-
+    suspend fun updateExerciseFavoriteField(exerciseId: Long, isFavorite: Boolean)
 
 }

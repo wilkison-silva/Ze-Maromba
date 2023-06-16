@@ -51,7 +51,8 @@ fun ExercisesListScreen(
     state: ExercisesListState,
     onNavigateBack: () -> Unit,
     onNavigateToNewExercise: () -> Unit,
-    onOpenExercise: (exerciseId: Long) -> Unit
+    onOpenExercise: (exerciseId: Long) -> Unit,
+    onFavoriteExercise: (exerciseId: Long, icon: Int) -> Unit
 ) {
 
     val verticalScrollState = rememberScrollState()
@@ -164,6 +165,9 @@ fun ExercisesListScreen(
                         favoriteIcon = it.favoriteIcon,
                         onClick = {
                             onOpenExercise(it.id)
+                        },
+                        onFavoriteClick = {
+                            onFavoriteExercise(it.id, it.favoriteIcon)
                         }
                     )
                 }
@@ -177,7 +181,8 @@ fun ExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
     favoriteIcon: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onFavoriteClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -225,14 +230,20 @@ fun ExerciseCardItem(
                     fontStyle = FontStyle.Italic
                 )
             }
-            Icon(
-                painter = painterResource(id = favoriteIcon),
-                contentDescription = "",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            IconButton(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(end = 15.dp)
-            )
+                    .padding(end = 15.dp),
+                onClick = {
+                    onFavoriteClick()
+                }
+            ) {
+                Icon(
+                    painter = painterResource(id = favoriteIcon),
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
     }
 }
@@ -312,6 +323,9 @@ fun ExercisesListScreenPreview() {
 
             },
             onOpenExercise = {
+
+            },
+            onFavoriteExercise = { _, _ ->
 
             }
         )

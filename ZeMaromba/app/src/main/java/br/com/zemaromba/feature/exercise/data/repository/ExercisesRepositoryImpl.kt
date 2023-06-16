@@ -60,4 +60,11 @@ class ExercisesRepositoryImpl @Inject constructor(
         val result = exerciseDao.deleteById(exerciseId)
         return result == 1
     }
+
+    override suspend fun updateExerciseFavoriteField(exerciseId: Long, isFavorite: Boolean) {
+        exerciseDao.updateFavoriteField(
+            exerciseId = exerciseId,
+            favorite = isFavorite
+        )
+    }
 }

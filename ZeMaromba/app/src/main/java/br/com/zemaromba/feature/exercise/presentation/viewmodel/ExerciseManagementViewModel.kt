@@ -1,10 +1,13 @@
 package br.com.zemaromba.feature.exercise.presentation.viewmodel
 
+import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +27,29 @@ class ExerciseManagementViewModel @Inject constructor(
     fun onEvent(event: ExerciseManagementEvents) {
         when (event) {
             is ExerciseManagementEvents.OnEnterName -> {
-                _state.update { it.copy(name = event.exerciseName) }
+                _state.update {
+                    it.copy(
+                        name = event.exerciseName,
+                        nameIsBlank = false
+                    )
+                }
             }
 
             is ExerciseManagementEvents.OnSaveExercise -> {
                 val id = state.value.exerciseId
-                val name = state.value.name
+
+
+                if (state.value.name.isBlank()) {
+                    _state.update { it.copy(nameIsBlank = true) }
+                    return
+                }
+                val name = state.value.name.replaceFirstChar {
+                    if (it.isLowerCase())
+                        it.titlecase(Locale.ROOT)
+                    else
+                        it.toString()
+                }
+
                 val muscleGroupList = state.value.muscleGroupCheckBox
                     .filter { it.isSelected }
                     .mapNotNull { muscleGroupCheckBox ->
@@ -37,13 +57,18 @@ class ExerciseManagementViewModel @Inject constructor(
                             it.nameRes == muscleGroupCheckBox.nameRes
                         }
                     }
+
+                if (muscleGroupList.isEmpty()) {
+                    _state.update { it.copy(showMessageAboutMuscleGroup = true) }
+                    return
+                }
                 viewModelScope.launch {
                     exercisesRepository.createExercise(
                         id = id,
                         name = name,
                         muscleGroupList = muscleGroupList
                     )
-                    _state.update { it.copy(navigateBack = true)}
+                    _state.update { it.copy(navigateBack = true) }
                 }
             }
 
@@ -55,6 +80,7 @@ class ExerciseManagementViewModel @Inject constructor(
             }
 
             is ExerciseManagementEvents.OnDeleteExercise -> {
+                _state.update { it.copy(showDialog = false) }
                 viewModelScope.launch {
                     state.value.exerciseId?.let { exerciseId ->
                         val deleteResult =
@@ -65,12 +91,16 @@ class ExerciseManagementViewModel @Inject constructor(
                     }
                 }
             }
+
+            is ExerciseManagementEvents.OnShowWarningAboutRemoving -> {
+                _state.update { it.copy(showDialog = event.showDialog) }
+            }
         }
     }
 
     fun retrieveExercise(exerciseId: Long) {
         if (exerciseId > 0) {
-            CoroutineScope(Dispatchers.IO).launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 exercisesRepository
                     .getExerciseWithMuscles(exerciseId = exerciseId)
                     .let { exercise ->
@@ -102,6 +132,7 @@ data class MuscleGroupCheckBox(
 
 sealed class ExerciseManagementEvents {
     object OnSaveExercise : ExerciseManagementEvents()
+    data class OnShowWarningAboutRemoving(val showDialog: Boolean) : ExerciseManagementEvents()
     object OnDeleteExercise : ExerciseManagementEvents()
     data class OnEnterName(val exerciseName: String) : ExerciseManagementEvents()
     data class OnMuscleGroupSelection(val id: Int, val isSelected: Boolean) :
@@ -118,4 +149,7 @@ data class ExerciseManagementState(
         )
     },
     val navigateBack: Boolean = false,
+    val nameIsBlank: Boolean = false,
+    val showMessageAboutMuscleGroup: Boolean = false,
+    val showDialog: Boolean = false
 )

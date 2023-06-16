@@ -1,12 +1,13 @@
 package br.com.zemaromba.feature.exercise.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -27,6 +28,7 @@ class ExerciseManagementViewModel @Inject constructor(
             }
 
             is ExerciseManagementEvents.OnSaveExercise -> {
+                val id = state.value.exerciseId
                 val name = state.value.name
                 val muscleGroupList = state.value.muscleGroupCheckBox
                     .filter { it.isSelected }
@@ -37,10 +39,11 @@ class ExerciseManagementViewModel @Inject constructor(
                     }
                 viewModelScope.launch {
                     exercisesRepository.createExercise(
+                        id = id,
                         name = name,
                         muscleGroupList = muscleGroupList
                     )
-                    Log.i("Testando", "Salvou no banco")
+                    _state.update { it.copy(navigateBack = true)}
                 }
             }
 
@@ -50,9 +53,46 @@ class ExerciseManagementViewModel @Inject constructor(
                 }
                 _state.update { it.copy(muscleGroupCheckBox = checkBoxesState) }
             }
+
+            is ExerciseManagementEvents.OnDeleteExercise -> {
+                viewModelScope.launch {
+                    state.value.exerciseId?.let { exerciseId ->
+                        val deleteResult =
+                            exercisesRepository.deleteExercise(exerciseId = exerciseId)
+                        if (deleteResult) {
+                            _state.update { it.copy(navigateBack = true) }
+                        }
+                    }
+                }
+            }
         }
     }
 
+    fun retrieveExercise(exerciseId: Long) {
+        if (exerciseId > 0) {
+            CoroutineScope(Dispatchers.IO).launch {
+                exercisesRepository
+                    .getExerciseWithMuscles(exerciseId = exerciseId)
+                    .let { exercise ->
+                        _state.update {
+                            it.copy(
+                                exerciseId = exercise.id,
+                                name = exercise.name,
+                                muscleGroupCheckBox = it.muscleGroupCheckBox.toMutableList().apply {
+                                    this.forEachIndexed { index, muscleGroupCheckBox ->
+                                        exercise.muscleGroupList.find { muscleGroup ->
+                                            muscleGroup.nameRes == muscleGroupCheckBox.nameRes
+                                        }?.let {
+                                            this[index].isSelected = true
+                                        }
+                                    }
+                                }
+                            )
+                        }
+                    }
+            }
+        }
+    }
 }
 
 data class MuscleGroupCheckBox(
@@ -60,19 +100,22 @@ data class MuscleGroupCheckBox(
     var isSelected: Boolean
 )
 
-sealed class ExerciseManagementEvents() {
+sealed class ExerciseManagementEvents {
     object OnSaveExercise : ExerciseManagementEvents()
+    object OnDeleteExercise : ExerciseManagementEvents()
     data class OnEnterName(val exerciseName: String) : ExerciseManagementEvents()
     data class OnMuscleGroupSelection(val id: Int, val isSelected: Boolean) :
         ExerciseManagementEvents()
 }
 
 data class ExerciseManagementState(
+    val exerciseId: Long? = null,
     val name: String = "",
     val muscleGroupCheckBox: List<MuscleGroupCheckBox> = MuscleGroup.values().map {
         MuscleGroupCheckBox(
             nameRes = it.nameRes,
             isSelected = false
         )
-    }
+    },
+    val navigateBack: Boolean = false,
 )

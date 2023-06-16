@@ -27,18 +27,37 @@ class ExercisesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun createExercise(name: String, muscleGroupList: List<MuscleGroup>) {
-        val id = exerciseDao.insert(
+    override suspend fun getExerciseWithMuscles(exerciseId: Long): Exercise {
+        return exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
+            .map { exerciseAndMusclesMap ->
+                exerciseAndMusclesMap.key.toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
+            }.first()
+    }
+
+    override suspend fun createExercise(
+        id: Long?,
+        name: String,
+        muscleGroupList: List<MuscleGroup>
+    ) {
+        val exerciseId = exerciseDao.insert(
             exerciseEntity = ExerciseEntity(
+                id = id ?: 0,
                 name = name,
                 favorite = false
             )
         )
         muscleGroupList.forEach {
-            exerciseAndMuscleDao.insert(ExerciseAndMuscleGroupEntity(
-                exerciseId = id,
-                muscleName = it.name
-            ))
+            exerciseAndMuscleDao.insert(
+                ExerciseAndMuscleGroupEntity(
+                    exerciseId = exerciseId,
+                    muscleName = it.name
+                )
+            )
         }
+    }
+
+    override suspend fun deleteExercise(exerciseId: Long): Boolean {
+        val result = exerciseDao.deleteById(exerciseId)
+        return result == 1
     }
 }

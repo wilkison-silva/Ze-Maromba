@@ -1,6 +1,5 @@
 package br.com.zemaromba.feature.exercise.presentation.screen
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -37,7 +37,6 @@ import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseManagementState
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExerciseManagementScreen(
@@ -45,8 +44,14 @@ fun ExerciseManagementScreen(
     onChangeName: (newName: String) -> Unit,
     onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
     onSaveExercise: () -> Unit,
+    onDeleteExercise: () -> Unit,
     onNavigateBack: () -> Unit,
 ) {
+    LaunchedEffect(key1 = state.navigateBack) {
+        if (state.navigateBack) {
+            onNavigateBack()
+        }
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -73,19 +78,21 @@ fun ExerciseManagementScreen(
                     )
                 },
                 actions = {
-                    IconButton(
-                        modifier = Modifier,
-                        onClick = {
-
-                        },
-                        content = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_delete),
-                                contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                    )
+                    state.exerciseId?.let {
+                        IconButton(
+                            modifier = Modifier,
+                            onClick = {
+                                onDeleteExercise()
+                            },
+                            content = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_delete),
+                                    contentDescription = "",
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        )
+                    }
                     IconButton(
                         modifier = Modifier,
                         onClick = {
@@ -236,7 +243,7 @@ fun ExerciseManagementScreen(
 @Composable
 fun ExercisesManagementScreenPreview() {
     val state = remember {
-        mutableStateOf(ExerciseManagementState())
+        mutableStateOf(ExerciseManagementState(exerciseId = 10))
     }
 
     ZeMarombaTheme {
@@ -257,6 +264,9 @@ fun ExercisesManagementScreenPreview() {
                 )
             },
             onSaveExercise = {
+
+            },
+            onDeleteExercise = {
 
             }
         )

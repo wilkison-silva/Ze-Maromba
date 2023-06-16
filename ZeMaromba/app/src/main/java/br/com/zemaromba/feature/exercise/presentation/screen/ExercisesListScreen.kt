@@ -1,6 +1,5 @@
 package br.com.zemaromba.feature.exercise.presentation.screen
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,15 +42,16 @@ import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.components.chips.FilterChipsGroup
 import br.com.zemaromba.core_ui.components.search_bar.SearchBar
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListState
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExercisesListScreen(
     state: ExercisesListState,
     onNavigateBack: () -> Unit,
-    onNavigateToNewExercise: () -> Unit
+    onNavigateToNewExercise: () -> Unit,
+    onOpenExercise: (exerciseId: Long) -> Unit
 ) {
 
     val verticalScrollState = rememberScrollState()
@@ -161,7 +161,10 @@ fun ExercisesListScreen(
                         muscleGroups = it.muscleGroups.map { muscleNameResource ->
                             stringResource(id = muscleNameResource)
                         }.joinToString(separator = ", "),
-                        favoriteIcon = it.favoriteIcon
+                        favoriteIcon = it.favoriteIcon,
+                        onClick = {
+                            onOpenExercise(it.id)
+                        }
                     )
                 }
             }
@@ -174,7 +177,7 @@ fun ExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
     favoriteIcon: Int,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -202,6 +205,9 @@ fun ExerciseCardItem(
                     )
                 ) {
                     Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 60.dp),
                         text = exerciseName,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 20.sp,
@@ -215,7 +221,7 @@ fun ExerciseCardItem(
                     text = muscleGroups,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Light,
+                    fontWeight = FontWeight.Medium,
                     fontStyle = FontStyle.Italic
                 )
             }
@@ -265,13 +271,47 @@ fun ExerciseCardItem(
 )
 @Composable
 fun ExercisesListScreenPreview() {
+    val exercisesSampleList = listOf(
+        ExerciseView(
+            id = 1,
+            name = "Bíceps Concentrado",
+            favoriteIcon = R.drawable.ic_star_filled,
+            muscleGroups = listOf(R.string.biceps)
+        ),
+        ExerciseView(
+            id = 2,
+            name = "Tríceps pulley",
+            favoriteIcon = R.drawable.ic_star_border,
+            muscleGroups = listOf(R.string.triceps)
+        ),
+        ExerciseView(
+            id = 3,
+            name = "Supino inclinado",
+            favoriteIcon = R.drawable.ic_star_border,
+            muscleGroups = listOf(R.string.chest, R.string.triceps)
+        ),
+        ExerciseView(
+            id = 4,
+            name = "Agachamento com barra livre",
+            favoriteIcon = R.drawable.ic_star_filled,
+            muscleGroups = listOf(
+                R.string.quadriceps,
+                R.string.hamstrings,
+                R.string.abdomen,
+                R.string.adductors
+            )
+        )
+    )
     ZeMarombaTheme {
         ExercisesListScreen(
-            state = ExercisesListState(),
+            state = ExercisesListState(exercisesList = exercisesSampleList),
             onNavigateBack = {
 
             },
             onNavigateToNewExercise = {
+
+            },
+            onOpenExercise = {
 
             }
         )

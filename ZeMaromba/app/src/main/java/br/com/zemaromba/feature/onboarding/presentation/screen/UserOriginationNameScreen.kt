@@ -26,13 +26,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.onboarding.presentation.viewmodel.UserOriginationNameState
 import kotlinx.coroutines.delay
@@ -84,14 +87,15 @@ fun UserOriginationNameScreen(
                 fontSize = 20.sp
             ),
             keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Done,
+                capitalization = KeyboardCapitalization.Sentences
             ),
             keyboardActions = KeyboardActions(
                 onDone = { focusManager.clearFocus() }
             ),
             label = {
                 Text(
-                    text = "Seu nome",
+                    text = stringResource(R.string.your_name),
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }

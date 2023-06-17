@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.feature.exercise.presentation.screen.ExerciseManagementScreen
 import br.com.zemaromba.feature.exercise.presentation.screen.ExercisesListScreen
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseManagementEvents
@@ -35,10 +36,18 @@ fun NavGraphBuilder.exerciseGraph(
                     navController.popBackStack()
                 },
                 onNavigateToNewExercise = {
-                    navController.navigate(route = "exercise_management/0")
+                    navController.navigate(
+                        route = ExerciseRouter
+                            .ExerciseManagementScreen
+                            .getRouteWithUserName(exerciseId = 0)
+                    )
                 },
                 onOpenExercise = { exerciseId ->
-                    navController.navigate(route = "exercise_management/$exerciseId")
+                    navController.navigate(
+                        route = ExerciseRouter
+                            .ExerciseManagementScreen
+                            .getRouteWithUserName(exerciseId = exerciseId)
+                    )
                 },
                 onFavoriteExercise = { exerciseId, favoriteIcon ->
                     viewModel.onEvent(
@@ -47,20 +56,29 @@ fun NavGraphBuilder.exerciseGraph(
                             favoriteIcon = favoriteIcon
                         )
                     )
+                },
+                onSearch = {
+                    viewModel.onEvent(event = ExercisesListEvents.OnSearchExercise(exerciseName = it))
+                },
+                onFilterChange = { chipIndex ->
+                    viewModel.onEvent(event = ExercisesListEvents.OnFilterChange(chipIndex = chipIndex))
                 }
             )
         }
         composable(
-            route = ExerciseRouter.ExerciseManagementScreen.route + "/{exercise_id}",
+            route = ExerciseRouter.ExerciseManagementScreen.route,
             arguments = listOf(
-                navArgument(name = "exercise_id") {
+                navArgument(name = ExerciseRouter.ExerciseManagementScreen.Params.exerciseId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
             )
-        ) {
+        ) { navBackStackEntry ->
             val exerciseId = remember {
-                it.arguments?.getLong("exercise_id") ?: 0
+                navBackStackEntry
+                    .arguments
+                    ?.getLong(ExerciseRouter.ExerciseManagementScreen.Params.exerciseId)
+                    .orZero()
             }
             val viewModel: ExerciseManagementViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value

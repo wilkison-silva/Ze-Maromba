@@ -1,5 +1,6 @@
 package br.com.zemaromba.feature.exercise.data.repository
 
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.toExercise
 import br.com.zemaromba.core_data.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
@@ -41,7 +42,7 @@ class ExercisesRepositoryImpl @Inject constructor(
     ) {
         val exerciseId = exerciseDao.insert(
             exerciseEntity = ExerciseEntity(
-                id = id ?: 0,
+                id = id.orZero(),
                 name = name,
                 favorite = false
             )

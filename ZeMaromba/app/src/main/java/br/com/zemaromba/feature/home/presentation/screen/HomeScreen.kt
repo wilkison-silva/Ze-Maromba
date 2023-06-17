@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
@@ -60,7 +61,7 @@ fun HomeScreen(
                                     fontWeight = FontWeight.Light,
                                 )
                             ) {
-                                append("Olá, ")
+                                append(stringResource(R.string.title_hello))
                             }
                             withStyle(
                                 style = SpanStyle(
@@ -110,8 +111,8 @@ fun HomeScreen(
             ) {
                 MenuCardItem(
                     icon = R.drawable.ic_training_plan_calendar,
-                    title = "Meus Treinos",
-                    description = "Personalize seus treinos de acordo com suas necessidades",
+                    title = stringResource(R.string.my_trainings),
+                    description = stringResource(R.string.message_customize_your_trainings),
                     onClick = {
 
                     }
@@ -119,8 +120,8 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 MenuCardItem(
                     icon = R.drawable.ic_dumbell,
-                    title = "Exercícios",
-                    description = "Exercícios para compor seus treinos da sua maneira",
+                    title = stringResource(R.string.exercises),
+                    description = stringResource(R.string.message_create_your_own_exercises),
                     onClick = {
                         onNavigate(MenuHome.EXERCISES)
                     }

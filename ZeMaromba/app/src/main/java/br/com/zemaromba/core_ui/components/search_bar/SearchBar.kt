@@ -21,7 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.zemaromba.R
@@ -31,15 +33,9 @@ import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 @Composable
 fun SearchBar(
     modifier: Modifier,
-    hint: String,
-    onTextChanged: (newText: String) -> Unit
+    state: SearchBarState,
+    onTextChange: (newText: String) -> Unit,
 ) {
-    val text = remember {
-        mutableStateOf("")
-    }
-    val showHint = remember {
-        mutableStateOf(true)
-    }
     val focusManager = LocalFocusManager.current
     Box(
         modifier = modifier
@@ -61,11 +57,9 @@ fun SearchBar(
                 .fillMaxWidth()
                 .align(Alignment.CenterStart)
                 .padding(start = 45.dp, end = 60.dp),
-            value = text.value,
+            value = state.text,
             onValueChange = {
-                onTextChanged(it)
-                text.value = it
-                showHint.value = text.value.isEmpty()
+                onTextChange(it)
             },
             singleLine = true,
             colors = TextFieldDefaults.textFieldColors(
@@ -74,19 +68,22 @@ fun SearchBar(
                 textColor = MaterialTheme.colorScheme.onSurfaceVariant
             ),
             keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search
+                imeAction = ImeAction.Done,
+                capitalization = KeyboardCapitalization.Sentences
             ),
             keyboardActions = KeyboardActions(
-                onSearch = { focusManager.clearFocus() }
+                onDone = {
+                    focusManager.clearFocus()
+                }
             )
         )
-        if (showHint.value) {
+        if (state.showHint) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterStart)
                     .padding(start = 60.dp, end = 60.dp),
-                text = hint,
+                text = stringResource(id = state.hint),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -102,8 +99,11 @@ fun SearchBarPreview() {
     ZeMarombaTheme {
         SearchBar(
             modifier = Modifier.fillMaxWidth(),
-            hint = "Ex: um exercício",
-            onTextChanged = {
+            state = SearchBarState(
+                text = text.value,
+                hint = R.string.hint_searchbar_exercise,
+            ),
+            onTextChange = {
                 text.value = it
             }
         )

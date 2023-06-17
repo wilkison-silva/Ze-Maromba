@@ -19,38 +19,40 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseFilter
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun FilterChipsGroup(
     modifier: Modifier,
-    chips: List<String>,
-    selectedChips: List<Boolean>,
-    onSelected: (chipId: Int) -> Unit,
+    exerciseFilters: List<ExerciseFilter>,
+    onSelected: (chipIndex: Int) -> Unit,
     surfaceColor: Color = MaterialTheme.colorScheme.surface
 ) {
     FlowRow(
         modifier = modifier.background(color = surfaceColor),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        repeat(chips.size) {
+        repeat(exerciseFilters.size) { index ->
             FilterChip(
                 label = {
                     Text(
-                        text = chips[it],
+                        text = stringResource(id = exerciseFilters[index].text),
                         fontSize = 14.sp
                     )
                 },
-                selected = selectedChips[it],
+                selected = exerciseFilters[index].isSelected,
                 onClick = {
-                    onSelected(it)
+                    onSelected(index)
                 },
                 leadingIcon = {
-                    if (selectedChips[it]) {
+                    if (exerciseFilters[index].isSelected) {
                         Icon(
                             imageVector = Icons.Filled.Done,
                             contentDescription = "",
@@ -75,25 +77,27 @@ fun FilterChipsGroup(
 @Preview(showBackground = true)
 @Composable
 fun FilterChipsGroupPreview() {
-    val chipsTitle = remember {
-        mutableStateOf(listOf("Todos", "Grupo muscular", "Favoritos", "Melhores", "Personalizados"))
-    }
-    val selectedChips = remember {
-        mutableStateOf(listOf(true, false, false, false, false))
+    val exerciseFilters = remember {
+        mutableStateOf(
+            listOf(
+                ExerciseFilter(text = R.string.filter_item_all, isSelected = true),
+                ExerciseFilter(text = R.string.filter_item_muscle_group, isSelected = false),
+                ExerciseFilter(text = R.string.filter_item_favorite, isSelected = false)
+            )
+        )
     }
     ZeMarombaTheme {
         FilterChipsGroup(
             modifier = Modifier.fillMaxWidth(),
-            chips = chipsTitle.value,
-            selectedChips = selectedChips.value,
+            exerciseFilters = exerciseFilters.value,
             onSelected = {
-                selectedChips.value =
-                    selectedChips
+                exerciseFilters.value =
+                    exerciseFilters
                         .value
-                        .map { false }
                         .toMutableList()
                         .apply {
-                            this[it] = !this[it]
+                            this[it] =
+                                this[it].copy(isSelected = !this[it].isSelected)
                         }
             }
         )

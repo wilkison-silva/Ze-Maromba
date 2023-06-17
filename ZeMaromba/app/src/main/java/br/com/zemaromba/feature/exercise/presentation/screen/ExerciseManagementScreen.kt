@@ -73,7 +73,7 @@ fun ExerciseManagementScreen(
                     }
                 ) {
                     Text(
-                        text = "Continuar",
+                        text = stringResource(R.string.button_continue),
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.error
                     )
@@ -86,18 +86,18 @@ fun ExerciseManagementScreen(
                     }
                 ) {
                     Text(
-                        text = "Cancelar",
+                        text = stringResource(R.string.button_cancel),
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             title = {
-                Text(text = "Aviso")
+                Text(text = stringResource(R.string.warning))
             },
             text = {
                 Text(
-                    text = "Apagar este exercício? Este exercício será removido de todos os treinos.",
+                    text = stringResource(R.string.warning_about_remove_exercise),
                     fontSize = 16.sp,
                 )
             }
@@ -178,10 +178,10 @@ fun ExerciseManagementScreen(
                     onChangeName(it)
                 },
                 label = {
-                    Text(text = "Nome")
+                    Text(text = stringResource(R.string.name))
                 },
                 placeholder = {
-                    Text(text = "Ex: Supino inclinado")
+                    Text(text = stringResource(R.string.example_exercise))
                 },
                 singleLine = true,
                 maxLines = 1,
@@ -195,7 +195,7 @@ fun ExerciseManagementScreen(
                 isError = state.nameIsBlank,
                 supportingText = {
                     if (state.nameIsBlank) {
-                        Text(text = "Informar nome!")
+                        Text(text = stringResource(R.string.hint_put_your_name))
                     }
                 }
             )
@@ -206,7 +206,7 @@ fun ExerciseManagementScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp),
                     icon = R.drawable.ic_tips_and_updates,
-                    message = "Selecione pelo menos 1 grupo muscular, assim seu exercício fica completo!",
+                    message = stringResource(R.string.message_select_at_least_one_muscle_group),
                     borderColor = MaterialTheme.colorScheme.tertiary,
                     surfaceColor = MaterialTheme.colorScheme.tertiaryContainer,
                     onSurfaceColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -217,7 +217,7 @@ fun ExerciseManagementScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp, start = 20.dp, end = 20.dp),
-                text = "Grupos musculares:"
+                text = stringResource(R.string.filter_muscle_group)
             )
             Surface(
                 modifier = Modifier

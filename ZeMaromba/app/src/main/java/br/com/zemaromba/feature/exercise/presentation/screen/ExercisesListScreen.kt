@@ -27,8 +27,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -52,7 +50,9 @@ fun ExercisesListScreen(
     onNavigateBack: () -> Unit,
     onNavigateToNewExercise: () -> Unit,
     onOpenExercise: (exerciseId: Long) -> Unit,
-    onFavoriteExercise: (exerciseId: Long, icon: Int) -> Unit
+    onFavoriteExercise: (exerciseId: Long, icon: Int) -> Unit,
+    onSearch: (exerciseName: String) -> Unit,
+    onFilterChange: (chipIndex: Int) -> Unit
 ) {
 
     val verticalScrollState = rememberScrollState()
@@ -77,7 +77,7 @@ fun ExercisesListScreen(
                 },
                 title = {
                     Text(
-                        text = "Exercícios",
+                        text = stringResource(R.string.title_exercises),
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 20.sp
                     )
@@ -98,7 +98,7 @@ fun ExercisesListScreen(
                     contentDescription = ""
                 )
                 Spacer(modifier = Modifier.width(5.dp))
-                Text(text = "Novo exercício")
+                Text(text = stringResource(R.string.fab_new_exercise))
             }
         },
     ) { contentPadding ->
@@ -112,38 +112,23 @@ fun ExercisesListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 20.dp),
-                hint = "Ex: Bíceps na polia",
-                onTextChanged = {
-
+                state = state.searchBarState,
+                onTextChange = {
+                    onSearch(it)
                 }
             )
             Text(
                 modifier = Modifier.padding(start = 20.dp),
-                text = "Filtrar por:",
+                text = stringResource(R.string.filter_by),
                 color = MaterialTheme.colorScheme.onSurface
             )
-
-            val chipsTitle = remember {
-                mutableStateOf(listOf("Todos", "Grupo muscular", "Favoritos"))
-            }
-            val selectedChips = remember {
-                mutableStateOf(listOf(true, false, false))
-            }
             FilterChipsGroup(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
-                chips = chipsTitle.value,
-                selectedChips = selectedChips.value,
-                onSelected = {
-                    selectedChips.value =
-                        selectedChips
-                            .value
-                            .map { false }
-                            .toMutableList()
-                            .apply {
-                                this[it] = !this[it]
-                            }
+                exerciseFilters = state.exerciseFilters,
+                onSelected = { chipIndex ->
+                    onFilterChange(chipIndex)
                 }
             )
             Divider(
@@ -326,6 +311,12 @@ fun ExercisesListScreenPreview() {
 
             },
             onFavoriteExercise = { _, _ ->
+
+            },
+            onSearch = {
+
+            },
+            onFilterChange = {
 
             }
         )

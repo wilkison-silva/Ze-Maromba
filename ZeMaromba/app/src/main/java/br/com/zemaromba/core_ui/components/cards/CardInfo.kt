@@ -1,17 +1,14 @@
 package br.com.zemaromba.core_ui.components.cards
 
-import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -30,7 +27,7 @@ import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 @Composable
 fun CardInfo(
     modifier: Modifier,
-    icon: Int,
+    @DrawableRes icon: Int,
     message: String,
     borderColor: Color,
     surfaceColor: Color,

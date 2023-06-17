@@ -1,15 +1,12 @@
 package br.com.zemaromba.feature.exercise.presentation.viewmodel
 
-import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Locale
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

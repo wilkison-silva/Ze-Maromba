@@ -41,6 +41,7 @@ import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.components.cards.CardInfo
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseManagementState
+import br.com.zemaromba.feature.exercise.presentation.viewmodel.MuscleGroupCheckBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -123,7 +124,7 @@ fun ExerciseManagementScreen(
                 },
                 title = {
                     Text(
-                        text = "Exercício",
+                        text = stringResource(R.string.title_exercise),
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 20.sp
                     )
@@ -219,59 +220,77 @@ fun ExerciseManagementScreen(
                     .padding(top = 20.dp, start = 20.dp, end = 20.dp),
                 text = stringResource(R.string.filter_muscle_group)
             )
-            Surface(
+
+            MuscleGroupSelector(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp, start = 20.dp, end = 20.dp),
-                tonalElevation = 5.dp,
-                shape = MaterialTheme.shapes.large
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(all = 10.dp),
+                muscleGroupCheckBoxList = state.muscleGroupCheckBox,
+                onMuscleGroupSelected = { index, isSelected ->
+                    onMuscleGroupSelection(index, isSelected)
+                }
+            )
+
+        }
+    }
+}
+
+@Composable
+fun MuscleGroupSelector(
+    modifier: Modifier,
+    muscleGroupCheckBoxList: List<MuscleGroupCheckBox>,
+    onMuscleGroupSelected: (index: Int, isSelected: Boolean) -> Unit
+) {
+    Surface(
+        modifier = modifier
+            ,
+        tonalElevation = 5.dp,
+        shape = MaterialTheme.shapes.large
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 10.dp),
+        ) {
+            val itemCount = if (muscleGroupCheckBoxList.size % 2 == 0) {
+                muscleGroupCheckBoxList.size / 2
+            } else {
+                muscleGroupCheckBoxList.size / 2 + 1
+            }
+            repeat(itemCount) { rowIndex ->
+                Row(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    val itemCount = if (state.muscleGroupCheckBox.size % 2 == 0) {
-                        state.muscleGroupCheckBox.size / 2
-                    } else {
-                        state.muscleGroupCheckBox.size / 2 + 1
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Checkbox(
+                            checked = muscleGroupCheckBoxList[rowIndex * 2].isSelected,
+                            onCheckedChange = {
+                                onMuscleGroupSelected(rowIndex * 2, it)
+                            }
+                        )
+                        Text(
+                            text = stringResource(id = muscleGroupCheckBoxList[rowIndex * 2].nameRes),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
-                    repeat(itemCount) { rowIndex ->
+                    if (muscleGroupCheckBoxList.size >= ((rowIndex * 2) + 2)) {
                         Row(
-                            modifier = Modifier.fillMaxWidth()
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f)
                         ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Checkbox(
-                                    checked = state.muscleGroupCheckBox[rowIndex * 2].isSelected,
-                                    onCheckedChange = {
-                                        onMuscleGroupSelection(rowIndex * 2, it)
-                                    }
-                                )
-                                Text(
-                                    text = stringResource(id = state.muscleGroupCheckBox[rowIndex * 2].nameRes),
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                            if (state.muscleGroupCheckBox.size >= ((rowIndex * 2) + 2)) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.weight(1f)
-                                ) {
-                                    Checkbox(
-                                        checked = state.muscleGroupCheckBox[rowIndex * 2 + 1].isSelected,
-                                        onCheckedChange = {
-                                            onMuscleGroupSelection(rowIndex * 2 + 1, it)
-                                        }
-                                    )
-                                    Text(
-                                        text = stringResource(id = state.muscleGroupCheckBox[rowIndex * 2 + 1].nameRes),
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
+                            Checkbox(
+                                checked = muscleGroupCheckBoxList[rowIndex * 2 + 1].isSelected,
+                                onCheckedChange = {
+                                    onMuscleGroupSelected(rowIndex * 2 + 1, it)
                                 }
-                            }
+                            )
+                            Text(
+                                text = stringResource(id = muscleGroupCheckBoxList[rowIndex * 2 + 1].nameRes),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
                         }
                     }
                 }

@@ -57,8 +57,12 @@ fun NavGraphBuilder.exerciseGraph(
                         )
                     )
                 },
-                onSearch = {
-                    viewModel.onEvent(event = ExercisesListEvents.OnSearchExercise(exerciseName = it))
+                onSearch = { exerciseName ->
+                    viewModel.onEvent(
+                        event = ExercisesListEvents.OnSearchExercise(
+                            exerciseName = exerciseName
+                        )
+                    )
                 },
                 onFilterChange = { chipIndex ->
                     viewModel.onEvent(event = ExercisesListEvents.OnFilterChange(chipIndex = chipIndex))
@@ -73,9 +77,9 @@ fun NavGraphBuilder.exerciseGraph(
                     defaultValue = 0
                 }
             )
-        ) { navBackStackEntry ->
+        ) {
             val exerciseId = remember {
-                navBackStackEntry
+                it
                     .arguments
                     ?.getLong(ExerciseRouter.ExerciseManagementScreen.Params.exerciseId)
                     .orZero()
@@ -90,8 +94,9 @@ fun NavGraphBuilder.exerciseGraph(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onChangeName = {
-                    viewModel.onEvent(event = ExerciseManagementEvents.OnEnterName(exerciseName = it))
+                onChangeName = { newName ->
+                    viewModel
+                        .onEvent(event = ExerciseManagementEvents.OnEnterName(exerciseName = newName))
                 },
                 onSaveExercise = {
                     viewModel.onEvent(event = ExerciseManagementEvents.OnSaveExercise)

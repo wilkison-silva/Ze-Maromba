@@ -25,13 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseFilter
+import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseFilterChip
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun FilterChipsGroup(
     modifier: Modifier,
-    exerciseFilters: List<ExerciseFilter>,
+    exerciseFilters: List<ExerciseFilterChip>,
     onSelected: (chipIndex: Int) -> Unit,
     surfaceColor: Color = MaterialTheme.colorScheme.surface
 ) {
@@ -80,9 +80,9 @@ fun FilterChipsGroupPreview() {
     val exerciseFilters = remember {
         mutableStateOf(
             listOf(
-                ExerciseFilter(text = R.string.filter_item_all, isSelected = true),
-                ExerciseFilter(text = R.string.filter_item_muscle_group, isSelected = false),
-                ExerciseFilter(text = R.string.filter_item_favorite, isSelected = false)
+                ExerciseFilterChip(text = R.string.filter_item_all, isSelected = true),
+                ExerciseFilterChip(text = R.string.filter_item_muscle_group, isSelected = false),
+                ExerciseFilterChip(text = R.string.filter_item_favorite, isSelected = false)
             )
         )
     }

@@ -6,10 +6,12 @@ import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.toExerciseView
 import br.com.zemaromba.core_ui.components.search_bar.SearchBarState
+import br.com.zemaromba.feature.exercise.domain.model.ExerciseFilter
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -24,19 +26,17 @@ class ExercisesListViewModel @Inject constructor(
     private val _state = MutableStateFlow(ExercisesListState())
     val state = _state.asStateFlow()
 
-    private var originalList = listOf<ExerciseView>()
-
     init {
         viewModelScope.launch {
             exercisesRepository.getExercisesWithMuscles().collectLatest { exercises ->
-                _state.update {
-                    it.copy(exercisesList = exercises.map { exercise ->
-                        exercise.toExerciseView()
-                    })
-                }
-                originalList = _state.value.exercisesList.map { it.copy() }
                 if (_state.value.isInSearchMode) {
                     onEvent(event = ExercisesListEvents.OnSearchExercise(_state.value.searchBarState.text))
+                } else {
+                    _state.update {
+                        it.copy(exercisesList = exercises.map { exercise ->
+                            exercise.toExerciseView()
+                        })
+                    }
                 }
             }
         }
@@ -55,26 +55,44 @@ class ExercisesListViewModel @Inject constructor(
 
             is ExercisesListEvents.OnSearchExercise -> {
                 if (event.exerciseName.isBlank()) {
+                    viewModelScope.launch {
+                        exercisesRepository.getExercisesWithMuscles().collectLatest { exercises ->
+                            _state.update {
+                                it.copy(
+                                    exercisesList = exercises.map { exercise -> exercise.toExerciseView() },
+                                    searchBarState = it.searchBarState.copy(text = ""),
+                                    isInSearchMode = false
+                                )
+                            }
+                            cancel()
+                        }
+                    }
+                } else {
                     _state.update {
                         it.copy(
-                            exercisesList = originalList,
-                            searchBarState = it.searchBarState.copy(text = ""),
-                            isInSearchMode = false
+                            searchBarState = it.searchBarState.copy(text = event.exerciseName),
+                            isInSearchMode = true
                         )
                     }
-                    return
-                }
-                _state.update {
-                    it.copy(
-                        searchBarState = it.searchBarState.copy(text = event.exerciseName),
-                        isInSearchMode = true
-                    )
-                }
-                val filteredExercises = originalList.filter {
-                    it.name.contains(event.exerciseName)
-                }
-                _state.update {
-                    it.copy(exercisesList = filteredExercises)
+                    _state.value.exerciseFilters.find { it.isSelected }?.let { exerciseFilterChip ->
+                        ExerciseFilter.values().find {
+                            it.nameRes == exerciseFilterChip.text
+                        }?.let { exerciseFilter ->
+                            viewModelScope.launch {
+                                exercisesRepository.getExercisesWithMuscle(
+                                    exerciseName = event.exerciseName,
+                                    filter = exerciseFilter
+                                ).collectLatest { exercises ->
+                                    _state.update {
+                                        it.copy(
+                                            exercisesList = exercises.map { exercise -> exercise.toExerciseView() },
+                                        )
+                                    }
+                                    cancel()
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -85,9 +103,13 @@ class ExercisesListViewModel @Inject constructor(
                         it.copy(isSelected = false)
                     }
                     .toMutableList().apply {
-                    this[chipIndex] = this[chipIndex].copy(isSelected = !this[chipIndex].isSelected)
-                }
+                        this[chipIndex] =
+                            this[chipIndex].copy(isSelected = !this[chipIndex].isSelected)
+                    }
                 _state.update { it.copy(exerciseFilters = newFilters) }
+                if (_state.value.isInSearchMode) {
+                    onEvent(event = ExercisesListEvents.OnSearchExercise(_state.value.searchBarState.text))
+                }
             }
         }
     }
@@ -108,14 +130,14 @@ data class ExercisesListState(
     val exercisesList: List<ExerciseView> = listOf(),
     val isInSearchMode: Boolean = false,
     val searchBarState: SearchBarState = SearchBarState(hint = R.string.hint_searchbar_exercise),
-    val exerciseFilters: List<ExerciseFilter> = listOf(
-        ExerciseFilter(text = R.string.filter_item_all, isSelected = true),
-        ExerciseFilter(text = R.string.filter_item_muscle_group, isSelected = false),
-        ExerciseFilter(text = R.string.filter_item_favorite, isSelected = false)
+    val exerciseFilters: List<ExerciseFilterChip> = listOf(
+        ExerciseFilterChip(text = R.string.filter_item_all, isSelected = true),
+        ExerciseFilterChip(text = R.string.filter_item_muscle_group, isSelected = false),
+        ExerciseFilterChip(text = R.string.filter_item_favorite, isSelected = false)
     )
 )
 
-data class ExerciseFilter(
+data class ExerciseFilterChip(
     @StringRes val text: Int,
     val isSelected: Boolean
 )

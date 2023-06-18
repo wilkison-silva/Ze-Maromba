@@ -10,6 +10,7 @@ import androidx.room.Update
 import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_data.model.relations.SetWithExercise
+import br.com.zemaromba.core_domain.model.MuscleGroup
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -40,6 +41,23 @@ interface ExerciseDao {
             "JOIN ExerciseAndMuscleGroup ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +
             "ORDER BY Exercise.name")
     fun getExercisesWithMuscleGroups(): Flow<Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>>
+
+    @Query("SELECT * FROM Exercise " +
+            "JOIN ExerciseAndMuscleGroup ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +
+            "WHERE Exercise.name LIKE '%' || :exerciseName || '%' " +
+            "ORDER BY Exercise.name")
+    fun getExercisesWithMuscleGroupsByName(exerciseName: String): Flow<Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>>
+
+    @Query("SELECT * FROM Exercise " +
+            "JOIN ExerciseAndMuscleGroup ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +
+            "WHERE Exercise.name LIKE '%' || :exerciseName || '%' AND Exercise.favorite = 1 " +
+            "ORDER BY Exercise.name")
+    fun getExercisesWithMuscleGroupsByNameAndFavoriteStatus(exerciseName: String): Flow<Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>>
+
+    @Query("SELECT * FROM Exercise " +
+            "JOIN ExerciseAndMuscleGroup ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +
+            "ORDER BY Exercise.name")
+    fun getExercisesWithMuscleGroupsByMuscleGroupName(): Flow<Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>>
 
     @Query("SELECT * FROM Exercise JOIN ExerciseAndMuscleGroup " +
             "ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +

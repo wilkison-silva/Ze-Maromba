@@ -30,6 +30,9 @@ fun NavGraphBuilder.exerciseGraph(
         ) {
             val viewModel: ExercisesListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
+            LaunchedEffect(key1 = state) {
+                viewModel.applyFilters()
+            }
             ExercisesListScreen(
                 state = state,
                 onNavigateBack = {

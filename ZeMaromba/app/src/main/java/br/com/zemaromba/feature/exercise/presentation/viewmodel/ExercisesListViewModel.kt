@@ -10,7 +10,10 @@ import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -25,6 +28,10 @@ class ExercisesListViewModel @Inject constructor(
     private val _state = MutableStateFlow(ExercisesListState())
     val state = _state.asStateFlow()
 
+    private var searchBarJob: Job? = null
+
+    private val searchBarDebounce = 900.milliseconds
+
     init {
         viewModelScope.launch {
             exercisesRepository.getExercisesWithMuscles().collectLatest { exercises ->
@@ -33,6 +40,7 @@ class ExercisesListViewModel @Inject constructor(
                         exercise.toExerciseView()
                     })
                 }
+                applyFilters()
             }
         }
     }
@@ -50,10 +58,18 @@ class ExercisesListViewModel @Inject constructor(
 
             is ExercisesListEvents.OnSearchExercise -> {
                 updateSearchBar(searchBarText = event.exerciseName)
+
+                searchBarJob?.cancel()
+                searchBarJob = viewModelScope.launch {
+                    delay(duration = searchBarDebounce)
+                    applyFilters()
+                }
+
             }
 
             is ExercisesListEvents.OnFilterChange -> {
                 updateExerciseChipFilter(chipIndex = event.chipIndex)
+                applyFilters()
             }
         }
     }
@@ -87,7 +103,7 @@ class ExercisesListViewModel @Inject constructor(
         _state.update { it.copy(exerciseFilters = chipFilters) }
     }
 
-    fun applyFilters() {
+    private fun applyFilters() {
         viewModelScope.launch {
             exercisesRepository.getExercisesWithMuscles().collectLatest { exercises ->
                 var filteredList = exercises.map { exercise -> exercise.toExerciseView() }
@@ -136,7 +152,6 @@ sealed class ExercisesListEvents {
 
 data class ExercisesListState(
     val exercisesList: List<ExerciseView> = listOf(),
-    val isInSearchMode: Boolean = false,
     val searchBarState: SearchBarState = SearchBarState(hint = R.string.hint_searchbar_exercise),
     val exerciseFilters: List<ExerciseFilterChip> = listOf(
         ExerciseFilterChip(text = R.string.filter_item_all, isSelected = true),

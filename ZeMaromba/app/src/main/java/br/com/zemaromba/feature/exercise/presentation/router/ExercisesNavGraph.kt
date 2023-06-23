@@ -64,11 +64,13 @@ fun NavGraphBuilder.exerciseGraph(
                         )
                     )
                 },
-                onFilterChange = { chipIndex ->
-                    viewModel.onEvent(event = ExercisesListEvents.OnFilterChange(chipIndex = chipIndex))
+                onFilterChange = { exerciseFilter ->
+                    viewModel.onEvent(
+                        event = ExercisesListEvents.OnFilterChange(exerciseFilter = exerciseFilter)
+                    )
                 },
-                onCloseBottomSheet = {
-                    viewModel.onEvent(event = ExercisesListEvents.OnCloseBottomSheet)
+                onApplySelectedMuscleGroups = {
+                    viewModel.onEvent(event = ExercisesListEvents.OnFilterBySelectedMuscleGroups)
                 },
                 onMuscleGroupSelection = { index, isSelected ->
                     viewModel.onEvent(

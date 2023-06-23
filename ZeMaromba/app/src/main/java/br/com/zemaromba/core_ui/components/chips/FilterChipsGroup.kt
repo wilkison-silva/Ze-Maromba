@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.feature.exercise.domain.model.ExerciseFilter
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseFilterChip
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -32,7 +33,7 @@ import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseFilterCh
 fun FilterChipsGroup(
     modifier: Modifier,
     exerciseFilters: List<ExerciseFilterChip>,
-    onSelected: (chipIndex: Int) -> Unit,
+    onSelected: (chipType: ExerciseFilter) -> Unit,
     surfaceColor: Color = MaterialTheme.colorScheme.surface
 ) {
     FlowRow(
@@ -43,13 +44,13 @@ fun FilterChipsGroup(
             FilterChip(
                 label = {
                     Text(
-                        text = stringResource(id = exerciseFilters[index].text),
+                        text = stringResource(id = exerciseFilters[index].type.nameRes),
                         fontSize = 14.sp
                     )
                 },
                 selected = exerciseFilters[index].isSelected,
                 onClick = {
-                    onSelected(index)
+                    onSelected(exerciseFilters[index].type)
                 },
                 leadingIcon = {
                     if (exerciseFilters[index].isSelected) {
@@ -80,10 +81,10 @@ fun FilterChipsGroupPreview() {
     val exerciseFilters = remember {
         mutableStateOf(
             listOf(
-                ExerciseFilterChip(text = R.string.filter_item_all, isSelected = true),
-                ExerciseFilterChip(text = R.string.filter_item_muscle_group, isSelected = false),
-                ExerciseFilterChip(text = R.string.filter_item_favorite, isSelected = false)
-            )
+                ExerciseFilterChip(type = ExerciseFilter.ALL, isSelected = true),
+                ExerciseFilterChip(type = ExerciseFilter.MUSCLE_GROUP, isSelected = false),
+                ExerciseFilterChip(type = ExerciseFilter.FAVORITE, isSelected = false)
+            ),
         )
     }
     ZeMarombaTheme {
@@ -96,8 +97,9 @@ fun FilterChipsGroupPreview() {
                         .value
                         .toMutableList()
                         .apply {
-                            this[it] =
-                                this[it].copy(isSelected = !this[it].isSelected)
+
+//                            this[it] =
+//                                this[it].copy(isSelected = !this[it].isSelected)
                         }
             }
         )

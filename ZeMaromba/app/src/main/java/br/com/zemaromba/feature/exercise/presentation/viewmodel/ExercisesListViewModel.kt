@@ -1,5 +1,6 @@
 package br.com.zemaromba.feature.exercise.presentation.viewmodel
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -76,6 +77,16 @@ class ExercisesListViewModel @Inject constructor(
 
             is ExercisesListEvents.OnCloseBottomSheet -> {
                 _state.update { it.copy(showMuscleGroupBottomSheet = false) }
+                val hasSelectedSomeMuscleGroup = _state.value.muscleGroupCheckBox.any {
+                    it.isSelected
+                }
+                val hasSelectedOtherFilter = _state.value.exerciseFilters.any {
+                    it.text != R.string.filter_item_muscle_group && it.isSelected
+                }
+                if (!hasSelectedSomeMuscleGroup && !hasSelectedOtherFilter) {
+                    updateExerciseChipFilter(chipIndex = 0)
+                }
+
                 applyFilters()
             }
 
@@ -114,7 +125,8 @@ class ExercisesListViewModel @Inject constructor(
                     }
                 }
         }
-        val muscleGroupChip = chipFilters.find { it.text == R.string.filter_item_muscle_group }
+        val wasMuscleGroupClicked =
+            (chipFilters[chipIndex].text == R.string.filter_item_muscle_group)
         val favoriteChip = chipFilters.find { it.text == R.string.filter_item_favorite }
         val allFiltersChip = chipFilters.find { it.text == R.string.filter_item_all }
         if (favoriteChip?.isSelected.orFalse() || allFiltersChip?.isSelected.orFalse()) {
@@ -123,7 +135,7 @@ class ExercisesListViewModel @Inject constructor(
         _state.update {
             it.copy(
                 exerciseFilters = chipFilters,
-                showMuscleGroupBottomSheet = muscleGroupChip?.isSelected.orFalse()
+                showMuscleGroupBottomSheet = wasMuscleGroupClicked
             )
         }
     }

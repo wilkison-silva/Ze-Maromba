@@ -62,10 +62,10 @@ fun SearchBar(
                 onTextChange(it)
             },
             singleLine = true,
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                textColor = MaterialTheme.colorScheme.onSurfaceVariant
+                focusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
             ),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done,

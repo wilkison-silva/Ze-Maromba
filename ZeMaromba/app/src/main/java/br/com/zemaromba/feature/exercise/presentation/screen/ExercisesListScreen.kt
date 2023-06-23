@@ -7,14 +7,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -22,11 +29,20 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -42,6 +58,7 @@ import br.com.zemaromba.core_ui.components.search_bar.SearchBar
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListState
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +69,9 @@ fun ExercisesListScreen(
     onOpenExercise: (exerciseId: Long) -> Unit,
     onFavoriteExercise: (exerciseId: Long, icon: Int) -> Unit,
     onSearch: (exerciseName: String) -> Unit,
-    onFilterChange: (chipIndex: Int) -> Unit
+    onFilterChange: (chipIndex: Int) -> Unit,
+    onCloseBottomSheet: () -> Unit,
+    onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
 ) {
 
     val verticalScrollState = rememberScrollState()
@@ -157,6 +176,42 @@ fun ExercisesListScreen(
                     )
                 }
             }
+        }
+    }
+
+    if (state.showMuscleGroupBottomSheet) {
+        val skipPartiallyExpanded = remember { mutableStateOf(true) }
+        val scope = rememberCoroutineScope()
+        val bottomSheetState = rememberModalBottomSheetState(
+            skipPartiallyExpanded = skipPartiallyExpanded.value
+        )
+
+        ModalBottomSheet(
+            onDismissRequest = { onCloseBottomSheet() },
+            sheetState = bottomSheetState,
+        ) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Button(
+                    onClick = {
+                        scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+                            if (!bottomSheetState.isVisible) {
+                                onCloseBottomSheet()
+                            }
+                        }
+                    }
+                ) {
+                    Text("Filtrar")
+                }
+            }
+            MuscleGroupSelector(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 40.dp),
+                muscleGroupCheckBoxList = state.muscleGroupCheckBox,
+                onMuscleGroupSelected = { index, isSelected ->
+                    onMuscleGroupSelection(index, isSelected)
+                }
+            )
         }
     }
 }
@@ -317,6 +372,12 @@ fun ExercisesListScreenPreview() {
 
             },
             onFilterChange = {
+
+            },
+            onCloseBottomSheet = {
+
+            },
+            onMuscleGroupSelection = { _, _ ->
 
             }
         )

@@ -4,7 +4,9 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.R
+import br.com.zemaromba.common.extensions.orFalse
 import br.com.zemaromba.common.extensions.toExerciseView
+import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.core_ui.components.search_bar.SearchBarState
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
@@ -30,7 +32,7 @@ class ExercisesListViewModel @Inject constructor(
 
     private var searchBarJob: Job? = null
 
-    private val searchBarDebounce = 900.milliseconds
+    private val searchBarDebounce = 500.milliseconds
 
     init {
         viewModelScope.launch {
@@ -69,7 +71,19 @@ class ExercisesListViewModel @Inject constructor(
 
             is ExercisesListEvents.OnFilterChange -> {
                 updateExerciseChipFilter(chipIndex = event.chipIndex)
+//                applyFilters()
+            }
+
+            is ExercisesListEvents.OnCloseBottomSheet -> {
+                _state.update { it.copy(showMuscleGroupBottomSheet = false) }
                 applyFilters()
+            }
+
+            is ExercisesListEvents.OnMuscleGroupSelection -> {
+                val checkBoxesState = _state.value.muscleGroupCheckBox.toMutableList().apply {
+                    this[event.id] = this[event.id].copy(isSelected = event.isSelected)
+                }
+                _state.update { it.copy(muscleGroupCheckBox = checkBoxesState) }
             }
         }
     }
@@ -100,7 +114,18 @@ class ExercisesListViewModel @Inject constructor(
                     }
                 }
         }
-        _state.update { it.copy(exerciseFilters = chipFilters) }
+        val muscleGroupChip = chipFilters.find { it.text == R.string.filter_item_muscle_group }
+        val favoriteChip = chipFilters.find { it.text == R.string.filter_item_favorite }
+        val allFiltersChip = chipFilters.find { it.text == R.string.filter_item_all }
+        if (favoriteChip?.isSelected.orFalse() || allFiltersChip?.isSelected.orFalse()) {
+            applyFilters()
+        }
+        _state.update {
+            it.copy(
+                exerciseFilters = chipFilters,
+                showMuscleGroupBottomSheet = muscleGroupChip?.isSelected.orFalse()
+            )
+        }
     }
 
     private fun applyFilters() {
@@ -148,6 +173,11 @@ sealed class ExercisesListEvents {
     data class OnSearchExercise(val exerciseName: String) : ExercisesListEvents()
 
     data class OnFilterChange(val chipIndex: Int) : ExercisesListEvents()
+
+    object OnCloseBottomSheet : ExercisesListEvents()
+
+    data class OnMuscleGroupSelection(val id: Int, val isSelected: Boolean) :
+        ExercisesListEvents()
 }
 
 data class ExercisesListState(
@@ -157,7 +187,14 @@ data class ExercisesListState(
         ExerciseFilterChip(text = R.string.filter_item_all, isSelected = true),
         ExerciseFilterChip(text = R.string.filter_item_muscle_group, isSelected = false),
         ExerciseFilterChip(text = R.string.filter_item_favorite, isSelected = false)
-    )
+    ),
+    val showMuscleGroupBottomSheet: Boolean = false,
+    val muscleGroupCheckBox: List<MuscleGroupCheckBox> = MuscleGroup.values().map {
+        MuscleGroupCheckBox(
+            nameRes = it.nameRes,
+            isSelected = false
+        )
+    },
 )
 
 data class ExerciseFilterChip(

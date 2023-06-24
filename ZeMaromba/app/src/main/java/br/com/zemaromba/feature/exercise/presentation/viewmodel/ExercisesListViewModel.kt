@@ -74,13 +74,29 @@ class ExercisesListViewModel @Inject constructor(
             }
 
             is ExercisesListEvents.OnFilterBySelectedMuscleGroups -> {
-                _state.update { it.copy(showMuscleGroupBottomSheet = false) }
+
                 val hasSelectedSomeMuscleGroup = _state.value.muscleGroupCheckBox.any {
                     it.isSelected
                 }
                 val hasSelectedOtherFilter = _state.value.exerciseFilters.any {
                     it.type != ExerciseFilter.MUSCLE_GROUP && it.isSelected
                 }
+
+
+                _state.update {
+                    it.copy(
+                        exerciseFilters = it.exerciseFilters.map { exerciseFilterChip ->
+                            if (exerciseFilterChip.type == ExerciseFilter.MUSCLE_GROUP) {
+                                exerciseFilterChip.copy(isSelected = hasSelectedSomeMuscleGroup)
+                            } else {
+                                exerciseFilterChip
+                            }
+                        },
+                        showMuscleGroupBottomSheet = false
+                    )
+                }
+
+
                 if (!hasSelectedSomeMuscleGroup && !hasSelectedOtherFilter) {
                     updateExerciseChipFilter(exerciseFilter = ExerciseFilter.ALL)
                 } else {
@@ -160,7 +176,7 @@ class ExercisesListViewModel @Inject constructor(
                 chipFilters = listOf(
                     ExerciseFilterChip(
                         type = ExerciseFilter.ALL,
-                        isSelected = false
+                        isSelected = (!isMuscleGroupFilterSelected && isFavoriteSelected)
                     ),
                     ExerciseFilterChip(
                         type = ExerciseFilter.MUSCLE_GROUP,

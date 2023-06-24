@@ -44,4 +44,6 @@
     <string name="message_create_your_own_exercises">Exercícios para compor seus treinos da sua maneira</string>
     <string name="your_name">Seu nome</string>
     <string name="title_exercise">Exercício</string>
+    <string name="button_title_filter">Filtrar</string>
+    <string name="card_info_found_no_exercises">Uma pena. Não encontramos nada parecido com os filtros aplicados.</string>
 </resources>

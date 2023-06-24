@@ -43,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.core_ui.components.cards.CardInfo
 import br.com.zemaromba.core_ui.components.chips.FilterChipsGroup
 import br.com.zemaromba.core_ui.components.search_bar.SearchBar
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
@@ -151,20 +152,33 @@ fun ExercisesListScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier.padding(bottom = 100.dp)
             ) {
-                state.exercisesList.forEach {
-                    ExerciseCardItem(
-                        exerciseName = it.name,
-                        muscleGroups = it.muscleGroups.map { muscleNameResource ->
-                            stringResource(id = muscleNameResource)
-                        }.joinToString(separator = ", "),
-                        favoriteIcon = it.favoriteIcon,
-                        onClick = {
-                            onOpenExercise(it.id)
-                        },
-                        onFavoriteClick = {
-                            onFavoriteExercise(it.id, it.favoriteIcon)
-                        }
+                if (state.showNothingFound) {
+                    CardInfo(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        icon = R.drawable.ic_warning,
+                        message = stringResource(R.string.card_info_found_no_exercises),
+                        borderColor = MaterialTheme.colorScheme.secondary,
+                        surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
+                        onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
                     )
+                } else {
+                    state.exercisesList.forEach {
+                        ExerciseCardItem(
+                            exerciseName = it.name,
+                            muscleGroups = it.muscleGroups.map { muscleNameResource ->
+                                stringResource(id = muscleNameResource)
+                            }.joinToString(separator = ", "),
+                            favoriteIcon = it.favoriteIcon,
+                            onClick = {
+                                onOpenExercise(it.id)
+                            },
+                            onFavoriteClick = {
+                                onFavoriteExercise(it.id, it.favoriteIcon)
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -183,8 +197,13 @@ fun ExercisesListScreen(
             },
             sheetState = bottomSheetState,
         ) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Button(
+                    modifier = Modifier
+                        .fillMaxWidth(fraction = 0.4f),
                     onClick = {
                         scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
                             if (!bottomSheetState.isVisible) {
@@ -193,7 +212,10 @@ fun ExercisesListScreen(
                         }
                     }
                 ) {
-                    Text("Filtrar")
+                    Text(
+                        text = stringResource(R.string.button_title_filter),
+                        fontSize = 14.sp
+                    )
                 }
             }
             MuscleGroupSelector(

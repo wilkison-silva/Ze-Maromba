@@ -236,7 +236,10 @@ class ExercisesListViewModel @Inject constructor(
                     }
                 }
                 _state.update {
-                    it.copy(exercisesList = filteredList)
+                    it.copy(
+                        exercisesList = filteredList,
+                        showNothingFound = filteredList.isEmpty()
+                    )
                 }
                 cancel()
             }
@@ -275,6 +278,7 @@ data class ExercisesListState(
             isSelected = false
         )
     },
+    val showNothingFound: Boolean = false
 )
 
 data class ExerciseFilterChip(

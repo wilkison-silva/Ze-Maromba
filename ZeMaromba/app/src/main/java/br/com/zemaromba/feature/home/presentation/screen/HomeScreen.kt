@@ -49,11 +49,12 @@ import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.home.presentation.model.MenuHome
+import br.com.zemaromba.feature.home.presentation.viewmodel.HomeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    userName: String,
+    state: HomeState,
     onNavigate: (menu: MenuHome) -> Unit
 ) {
 
@@ -77,7 +78,7 @@ fun HomeScreen(
                                     fontWeight = FontWeight.Bold,
                                 )
                             ) {
-                                append("$userName!")
+                                append("${state.userName}!")
                             }
                         },
                         color = MaterialTheme.colorScheme.onSurface,
@@ -125,7 +126,7 @@ fun HomeScreen(
                     title = stringResource(R.string.exercises),
                     description = stringResource(R.string.message_create_your_own_exercises),
                     onClick = {
-                        onNavigate(MenuHome.EXERCISES)
+                        onNavigate(MenuHome.EXERCISES_SCREEN)
                     }
                 )
             }
@@ -223,7 +224,7 @@ fun MenuItemMyTrainingPlans() {
                             )
                         ) {
                             Box(modifier = Modifier
-                                .size(width = 200.dp, height = 100.dp)
+                                .size(width = 200.dp, height = 120.dp)
                                 .clickable {
 
                                 }
@@ -375,7 +376,7 @@ fun MenuItemExercise(
 fun HomeScreenPreview() {
     ZeMarombaTheme {
         HomeScreen(
-            userName = "Wilkison",
+            state = HomeState(userName = "Wilkison"),
             onNavigate = {
 
             }

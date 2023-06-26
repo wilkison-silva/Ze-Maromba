@@ -28,12 +28,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     onBoardingGraph(
                         navController = navController,
-                        onFinishOnBoarding = { userName: String ->
-                            navController.navigate(
-                                route = HomeRouter
-                                    .HomeGraph
-                                    .getRouteWithUserName(userName = userName)
-                            ) {
+                        onFinishOnBoarding = {
+                            navController.navigate(route = HomeRouter.HomeGraph.route) {
                                 popUpTo(OnBoardingRouter.OnBoardingGraph.route) {
                                     inclusive = true
                                 }
@@ -41,14 +37,17 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                     homeGraph(
-                        navController = navController,
                         navigateTo = {
                             when (it) {
-                                MenuHome.TRAINING_PLANS -> {
+                                MenuHome.CREATE_TRAINING_PLAN -> {
 
                                 }
-                                MenuHome.EXERCISES -> {
+                                MenuHome.EXERCISES_SCREEN -> {
                                     navController.navigate(ExerciseRouter.ExerciseGraph.route)
+                                }
+
+                                MenuHome.TRAINING_PLAN_MANAGEMENT -> {
+
                                 }
                             }
                         }

@@ -17,7 +17,7 @@ import br.com.zemaromba.feature.onboarding.presentation.viewmodel.UserOriginatio
 
 fun NavGraphBuilder.onBoardingGraph(
     navController: NavController,
-    onFinishOnBoarding: (userName: String) -> Unit
+    onFinishOnBoarding: () -> Unit
 ) {
     navigation(
         startDestination = OnBoardingRouter.GetStartedScreen.route,
@@ -28,7 +28,7 @@ fun NavGraphBuilder.onBoardingGraph(
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = state.userNameIsValid) {
                 if (state.userNameIsValid) {
-                    onFinishOnBoarding(state.userName)
+                    onFinishOnBoarding()
                 }
             }
             GetStartedScreen(
@@ -50,7 +50,7 @@ fun NavGraphBuilder.onBoardingGraph(
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = state.nameSaved) {
                 if (state.nameSaved) {
-                    onFinishOnBoarding(state.name)
+                    onFinishOnBoarding()
                 }
             }
             UserOriginationNameScreen(

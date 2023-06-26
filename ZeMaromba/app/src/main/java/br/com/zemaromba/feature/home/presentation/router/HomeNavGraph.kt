@@ -1,15 +1,15 @@
 package br.com.zemaromba.feature.home.presentation.router
 
-import androidx.compose.runtime.remember
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import br.com.zemaromba.feature.home.presentation.model.MenuHome
 import br.com.zemaromba.feature.home.presentation.screen.HomeScreen
+import br.com.zemaromba.feature.home.presentation.viewmodel.HomeScreenViewModel
 
 fun NavGraphBuilder.homeGraph(
-    navController: NavController,
     navigateTo: (menu: MenuHome) -> Unit
 ) {
     navigation(
@@ -19,15 +19,10 @@ fun NavGraphBuilder.homeGraph(
         composable(
             route = HomeRouter.HomeScreen.route
         ) {
-            val userName = remember {
-                navController
-                    .getBackStackEntry(route = HomeRouter.HomeGraph.route)
-                    .arguments
-                    ?.getString(HomeRouter.HomeGraph.Params.userName)
-                    .orEmpty()
-            }
+            val viewModel: HomeScreenViewModel = hiltViewModel()
+            val state = viewModel.state.collectAsStateWithLifecycle().value
             HomeScreen(
-                userName = userName,
+                state = state,
                 onNavigate = {
                     navigateTo(it)
                 }

@@ -1,6 +1,7 @@
 package br.com.zemaromba.feature.home.presentation.model
 
 enum class MenuHome {
-    TRAINING_PLANS,
-    EXERCISES
+    CREATE_TRAINING_PLAN,
+    TRAINING_PLAN_MANAGEMENT,
+    EXERCISES_SCREEN
 }

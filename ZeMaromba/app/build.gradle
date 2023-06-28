@@ -87,6 +87,15 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     //DataStore
-
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //MockK
+    def mockkVersion = "1.13.5"
+    testImplementation "io.mockk:mockk-android:${mockkVersion}"
+    testImplementation "io.mockk:mockk-agent:${mockkVersion}"
+
+    //Android X Architecture Components Tests
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    //Coroutines Test
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3'
 }

@@ -3,6 +3,7 @@ package br.com.zemaromba.feature.home.presentation.screen
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,15 +12,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Badge
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -40,11 +49,12 @@ import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.home.presentation.model.MenuHome
+import br.com.zemaromba.feature.home.presentation.viewmodel.HomeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    userName: String,
+    state: HomeState,
     onNavigate: (menu: MenuHome) -> Unit
 ) {
 
@@ -68,7 +78,7 @@ fun HomeScreen(
                                     fontWeight = FontWeight.Bold,
                                 )
                             ) {
-                                append("$userName!")
+                                append("${state.userName}!")
                             }
                         },
                         color = MaterialTheme.colorScheme.onSurface,
@@ -109,21 +119,14 @@ fun HomeScreen(
                     .background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.Start
             ) {
-                MenuCardItem(
-                    icon = R.drawable.ic_training_plan_calendar,
-                    title = stringResource(R.string.my_trainings),
-                    description = stringResource(R.string.message_customize_your_trainings),
-                    onClick = {
-
-                    }
-                )
+                MenuItemMyTrainingPlans()
                 Spacer(modifier = Modifier.height(20.dp))
-                MenuCardItem(
+                MenuItemExercise(
                     icon = R.drawable.ic_dumbell,
                     title = stringResource(R.string.exercises),
                     description = stringResource(R.string.message_create_your_own_exercises),
                     onClick = {
-                        onNavigate(MenuHome.EXERCISES)
+                        onNavigate(MenuHome.EXERCISES_SCREEN)
                     }
                 )
             }
@@ -131,8 +134,146 @@ fun HomeScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuCardItem(
+fun MenuItemMyTrainingPlans() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 20.dp, end = 20.dp),
+        shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    ) {
+        Column {
+            Row(
+                modifier = Modifier.padding(
+                    start = 20.dp,
+                    top = 20.dp,
+                    bottom = 10.dp,
+                    end = 20.dp
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_training_plan_calendar),
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                Text(
+                    text = stringResource(R.string.my_trainings),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.width(15.dp))
+                Badge(
+                    modifier = Modifier,
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 6.dp, vertical = 2.dp),
+                        text = "2",
+                        fontSize = 14.sp
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            val hasTrainingPlans = 1
+            if (hasTrainingPlans == 0) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_create_training_plan),
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 40.dp),
+                        text = "Que tal criar seu primeiro plano de treino?",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontStyle = FontStyle.Italic,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            } else {
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(10) {
+                        OutlinedCard(
+                            modifier = Modifier,
+                            shape = RoundedCornerShape(size = 8.dp),
+                            colors = CardDefaults.outlinedCardColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        ) {
+                            Box(modifier = Modifier
+                                .size(width = 200.dp, height = 120.dp)
+                                .clickable {
+
+                                }
+                                .padding(10.dp)) {
+                                Text(
+                                    modifier = Modifier
+                                        .padding(horizontal = 4.dp)
+                                        .align(Alignment.Center),
+                                    text = if (it % 2 == 0) "Treino básico" else "Treino com nome grande, grandioso",
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    fontStyle = FontStyle.Italic,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(
+                modifier = Modifier
+                    .padding(start = 20.dp, end = 20.dp)
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(size = 4.dp),
+                onClick = {
+
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = ""
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    text = "Criar novo treino",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+@Composable
+fun MenuItemExercise(
     icon: Int,
     title: String,
     description: String,
@@ -183,7 +324,7 @@ fun MenuCardItem(
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Light,
+                    fontWeight = FontWeight.Normal,
                     fontStyle = FontStyle.Italic
                 )
             }
@@ -235,7 +376,7 @@ fun MenuCardItem(
 fun HomeScreenPreview() {
     ZeMarombaTheme {
         HomeScreen(
-            userName = "Wilkison",
+            state = HomeState(userName = "Wilkison"),
             onNavigate = {
 
             }

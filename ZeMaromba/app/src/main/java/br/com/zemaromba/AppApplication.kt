@@ -100,14 +100,14 @@ class AppApplication : Application() {
                 trainingDao.insert(
                     TrainingEntity(
                         trainingPlanId = 1,
-                        name = "Peitoral e Bíceps Monstros - Semana 1"
+                        name = "Peitoral e Bíceps - Semana 1"
                     )
                 )
 
                 trainingDao.insert(
                     TrainingEntity(
                         trainingPlanId = 2,
-                        name = "Coxas Duronas - Semana 1"
+                        name = "Coxas - Semana 1"
                     )
                 )
 

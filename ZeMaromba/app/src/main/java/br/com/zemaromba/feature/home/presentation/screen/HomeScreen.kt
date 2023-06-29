@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.home.presentation.model.MenuHome
+import br.com.zemaromba.feature.home.presentation.model.TrainingPlanView
 import br.com.zemaromba.feature.home.presentation.viewmodel.HomeState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -119,7 +121,7 @@ fun HomeScreen(
                     .background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.Start
             ) {
-                MenuItemMyTrainingPlans()
+                MenuItemMyTrainingPlans(trainingPlanList = state.trainingPlanList)
                 Spacer(modifier = Modifier.height(20.dp))
                 MenuItemExercise(
                     icon = R.drawable.ic_dumbell,
@@ -136,7 +138,7 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuItemMyTrainingPlans() {
+fun MenuItemMyTrainingPlans(trainingPlanList: List<TrainingPlanView>) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,14 +180,13 @@ fun MenuItemMyTrainingPlans() {
                     Text(
                         modifier = Modifier
                             .padding(horizontal = 6.dp, vertical = 2.dp),
-                        text = "2",
+                        text = trainingPlanList.count().toString(),
                         fontSize = 14.sp
                     )
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
-            val hasTrainingPlans = 1
-            if (hasTrainingPlans == 0) {
+            if (trainingPlanList.isEmpty()) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -214,35 +215,38 @@ fun MenuItemMyTrainingPlans() {
                         .padding(horizontal = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(10) {
-                        OutlinedCard(
-                            modifier = Modifier,
-                            shape = RoundedCornerShape(size = 8.dp),
-                            colors = CardDefaults.outlinedCardColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                        ) {
-                            Box(modifier = Modifier
-                                .size(width = 200.dp, height = 120.dp)
-                                .clickable {
-
-                                }
-                                .padding(10.dp)) {
-                                Text(
-                                    modifier = Modifier
-                                        .padding(horizontal = 4.dp)
-                                        .align(Alignment.Center),
-                                    text = if (it % 2 == 0) "Treino básico" else "Treino com nome grande, grandioso",
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    fontStyle = FontStyle.Italic,
-                                    textAlign = TextAlign.Center
+                    itemsIndexed(
+                        items = trainingPlanList,
+                        itemContent = { _: Int, trainingPlanView: TrainingPlanView ->
+                            OutlinedCard(
+                                modifier = Modifier,
+                                shape = RoundedCornerShape(size = 8.dp),
+                                colors = CardDefaults.outlinedCardColors(
+                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
+                            ) {
+                                Box(modifier = Modifier
+                                    .size(width = 200.dp, height = 120.dp)
+                                    .clickable {
+
+                                    }
+                                    .padding(10.dp)) {
+                                    Text(
+                                        modifier = Modifier
+                                            .padding(horizontal = 4.dp)
+                                            .align(Alignment.Center),
+                                        text = trainingPlanView.name,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        fontStyle = FontStyle.Italic,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
                             }
                         }
-                    }
+                    )
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))

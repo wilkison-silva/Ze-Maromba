@@ -21,6 +21,7 @@ fun NavGraphBuilder.homeGraph(
         ) {
             val viewModel: HomeScreenViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
+
             HomeScreen(
                 state = state,
                 onNavigate = {

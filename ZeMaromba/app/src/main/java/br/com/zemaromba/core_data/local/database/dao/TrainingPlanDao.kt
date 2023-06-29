@@ -9,6 +9,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
 import br.com.zemaromba.core_data.model.relations.TrainingPlanWithTrainings
+import br.com.zemaromba.core_domain.model.TrainingPlan
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -25,6 +26,9 @@ interface TrainingPlanDao {
 
     @Transaction
     @Query("SELECT * FROM TrainingPlan")
-    fun getAll(): Flow<List<TrainingPlanWithTrainings>>
+    fun getTrainingPlanWithTrainings(): Flow<List<TrainingPlanWithTrainings>>
+
+    @Query("SELECT * FROM TrainingPlan")
+    fun getTrainingPlan(): Flow<List<TrainingPlanEntity>>
 
 }

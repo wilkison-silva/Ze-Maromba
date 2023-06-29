@@ -121,7 +121,10 @@ fun HomeScreen(
                     .background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.Start
             ) {
-                MenuItemMyTrainingPlans(trainingPlanList = state.trainingPlanList)
+                MenuItemMyTrainingPlans(
+                    trainingPlanList = state.trainingPlanList,
+                    showMessage = state.showMessage
+                )
                 Spacer(modifier = Modifier.height(20.dp))
                 MenuItemExercise(
                     icon = R.drawable.ic_dumbell,
@@ -138,7 +141,10 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuItemMyTrainingPlans(trainingPlanList: List<TrainingPlanView>) {
+fun MenuItemMyTrainingPlans(
+    trainingPlanList: List<TrainingPlanView>,
+    showMessage: Boolean
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -186,7 +192,7 @@ fun MenuItemMyTrainingPlans(trainingPlanList: List<TrainingPlanView>) {
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
-            if (trainingPlanList.isEmpty()) {
+            if (showMessage) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally

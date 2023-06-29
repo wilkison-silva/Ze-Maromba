@@ -55,5 +55,7 @@ class HomeScreenViewModel @Inject constructor(
 
 data class HomeState(
     val userName: String = "",
-    val trainingPlanList: List<TrainingPlanView> = emptyList()
-)
+    val trainingPlanList: List<TrainingPlanView> = emptyList(),
+) {
+    val showMessage: Boolean = trainingPlanList.isEmpty()
+}

@@ -5,5 +5,6 @@ data class Exercise(
     val name: String,
     val favorite: Boolean,
     val muscleGroupList: List<MuscleGroup>,
-    val urlLink: String?
+    val urlLink: String?,
+    val videoId: String?,
 )

@@ -21,7 +21,8 @@ fun ExerciseEntity.toExercise(exercisesAndMuscleGroup: List<ExerciseAndMuscleGro
         name = this.name,
         favorite = this.favorite,
         muscleGroupList = muscleGroupList,
-        urlLink = this.urlLink
+        urlLink = this.urlLink,
+        videoId = this.videoId
     )
 }
 
@@ -31,6 +32,7 @@ fun Exercise.toExerciseView(): ExerciseView {
         name = this.name,
         favoriteIcon = if (this.favorite) R.drawable.ic_star_filled else R.drawable.ic_star_border,
         muscleGroups = this.muscleGroupList.map { muscleGroup -> muscleGroup.nameRes },
-        urlLink = this.urlLink
+        urlLink = this.urlLink,
+        videoId = this.videoId
     )
 }

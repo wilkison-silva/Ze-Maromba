@@ -1,0 +1,1207 @@
+[
+    {
+        "id": 1,
+        "name": "Levantamento terra",
+        "videoUrl": "https://www.youtube.com/watch?v=T3x53s0jEns",
+        "videoId": "T3x53s0jEns",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "QUADRICEPS", "GLUTES", "ABDOMEN", "HAMSTRINGS", "FOREARM"]
+    },
+    {
+        "id": 2,
+        "name": "Rosca alternada halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=v15BcmivG8g",
+        "videoId": "v15BcmivG8g",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 3,
+        "name": "Crucifixo inverso halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=SLQZOByDo04",
+        "videoId": "SLQZOByDo04",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 4,
+        "name": "Peck deck",
+        "videoUrl": "https://www.youtube.com/watch?v=Ru9OVOUlp0U",
+        "videoId": "Ru9OVOUlp0U",
+        "muscleGroups": ["CHEST", "DELTOID"]
+    },
+    {
+        "id": 5,
+        "name": "Rosca direta cross",
+        "videoUrl": "https://www.youtube.com/watch?v=_t2nQjiyboo",
+        "videoId": "_t2nQjiyboo",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 6,
+        "name": "Treino abdominal infra",
+        "videoUrl": "https://www.youtube.com/watch?v=8slFJ9J31lM",
+        "videoId": "8slFJ9J31lM",
+        "muscleGroups": ["ABDOMEN"]
+    },
+    {
+        "id": 7,
+        "name": "Pull down cross pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=EG1ua8lDQJA",
+        "videoId": "EG1ua8lDQJA",
+        "muscleGroups": ["DORSAL", "DELTOID", "TRICEPS"]
+    },
+    {
+        "id": 8,
+        "name": "Supino reto barra",
+        "videoUrl": "https://www.youtube.com/watch?v=sqOw2Y6uDWQ",
+        "videoId": "sqOw2Y6uDWQ",
+        "muscleGroups": ["CHEST", "DELTOID", "TRICEPS"]
+    },
+    {
+        "id": 9,
+        "name": "Desenvolvimento com halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=4pU-kV-OaVU",
+        "videoId": "4pU-kV-OaVU",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS", "TRICEPS"]
+    },
+    {
+        "id": 10,
+        "name": "Cross over polia alta",
+        "videoUrl": "https://www.youtube.com/watch?v=HNUji0rHFCs",
+        "videoId": "HNUji0rHFCs",
+        "muscleGroups": ["CHEST", "DELTOID"]
+    },
+    {
+        "id": 11,
+        "name": "Rosca inversa cross",
+        "videoUrl": "https://www.youtube.com/watch?v=0587NfWzEec",
+        "videoId": "0587NfWzEec",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 12,
+        "name": "Elevação frontal anilha",
+        "videoUrl": "https://www.youtube.com/watch?v=5bdlcZZvpzE",
+        "videoId": "5bdlcZZvpzE",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 13,
+        "name": "Desenvolvimento militar",
+        "videoUrl": "https://www.youtube.com/watch?v=urj7vgvfojk",
+        "videoId": "urj7vgvfojk",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS", "TRICEPS"]
+    },
+    {
+        "id": 14,
+        "name": "Cross over polia baixa",
+        "videoUrl": "https://www.youtube.com/watch?v=Jy_hZnK-_lo",
+        "videoId": "Jy_hZnK-_lo",
+        "muscleGroups": ["CHEST", "DELTOID"]
+    },
+    {
+        "id": 15,
+        "name": "Rosca direta halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=ilyxkSNoyL8",
+        "videoId": "ilyxkSNoyL8",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 16,
+        "name": "Abdominal supra",
+        "videoUrl": "https://www.youtube.com/watch?v=N5SL7rhM07c",
+        "videoId": "N5SL7rhM07c",
+        "muscleGroups": ["ABDOMEN"]
+    },
+    {
+        "id": 17,
+        "name": "Remada curvada pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=XruycmUNi1Y",
+        "videoId": "XruycmUNi1Y",
+        "muscleGroups": ["DORSAL", "DELTOID"]
+    },
+    {
+        "id": 18,
+        "name": "Extensão lombar",
+        "videoUrl": "https://www.youtube.com/watch?v=Jto980puQ3c",
+        "videoId": "Jto980puQ3c",
+        "muscleGroups": ["LUMBAR"]
+    },
+    {
+        "id": 19,
+        "name": "Elevação lateral halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=89K5H0Vvhnw",
+        "videoId": "89K5H0Vvhnw",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 20,
+        "name": "Manguito rotador externo halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=2ecstA3a5f4",
+        "videoId": "2ecstA3a5f4",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 21,
+        "name": "Desenvolvimento máquina",
+        "videoUrl": "https://www.youtube.com/watch?v=oBF4YIwh_w8",
+        "videoId": "oBF4YIwh_w8",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS", "TRICEPS"]
+    },
+    {
+        "id": 22,
+        "name": "Stiff barra",
+        "videoUrl": "https://www.youtube.com/watch?v=Xgql23RkpBk",
+        "videoId": "Xgql23RkpBk",
+        "muscleGroups": ["HAMSTRINGS", "GLUTES", "LUMBAR"]
+    },
+    {
+        "id": 23,
+        "name": "Tríceps pulley pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=QDt8P44ORa4",
+        "videoId": "QDt8P44ORa4",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 24,
+        "name": "Remada alta barra",
+        "videoUrl": "https://www.youtube.com/watch?v=Z6jSLKXZ0Ag",
+        "videoId": "Z6jSLKXZ0Ag",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 25,
+        "name": "Flexora em pé",
+        "videoUrl": "https://www.youtube.com/watch?v=HGoN-nfJFGE",
+        "videoId": "HGoN-nfJFGE",
+        "muscleGroups": ["HAMSTRINGS"]
+    },
+    {
+        "id": 26,
+        "name": "Rosca invertida barra",
+        "videoUrl": "https://www.youtube.com/watch?v=G1L3eV-a7gg",
+        "videoId": "G1L3eV-a7gg",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 27,
+        "name": "Remada curvada pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=y-XZnuKx3Q0",
+        "videoId": "y-XZnuKx3Q0",
+        "muscleGroups": ["DORSAL", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 28,
+        "name": "Puxada vertical pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=H09EvebBsB4",
+        "videoId": "H09EvebBsB4",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 29,
+        "name": "Cadeira extensora",
+        "videoUrl": "https://www.youtube.com/watch?v=1f1DjMr68hY",
+        "videoId": "1f1DjMr68hY",
+        "muscleGroups": ["QUADRICEPS"]
+    },
+    {
+        "id": 30,
+        "name": "Tríceps pulley",
+        "videoUrl": "https://www.youtube.com/watch?v=_KrR8248eLo",
+        "videoId": "_KrR8248eLo",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 31,
+        "name": "Rosca direta barra",
+        "videoUrl": "https://www.youtube.com/watch?v=po8ibB0yY0Q",
+        "videoId": "po8ibB0yY0Q",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 32,
+        "name": "Supino fechado",
+        "videoUrl": "https://www.youtube.com/watch?v=qJGw6CnVh2Q",
+        "videoId": "qJGw6CnVh2Q",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 33,
+        "name": "Gêmeos sentado máquina",
+        "videoUrl": "https://www.youtube.com/watch?v=gBIxBWBorB8",
+        "videoId": "gBIxBWBorB8",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 34,
+        "name": "Abdominal oblíquos",
+        "videoUrl": "https://www.youtube.com/watch?v=k9rfQiXoM1w",
+        "videoId": "k9rfQiXoM1w",
+        "muscleGroups": ["ABDOMEN"]
+    },
+    {
+        "id": 35,
+        "name": "Cross over polia media",
+        "videoUrl": "https://www.youtube.com/watch?v=iLRFLm82dbg",
+        "videoId": "iLRFLm82dbg",
+        "muscleGroups": ["CHEST", "DELTOID"]
+    },
+    {
+        "id": 36,
+        "name": "Supino inclinado barra",
+        "videoUrl": "https://www.youtube.com/watch?v=lBCjPgnIzKk",
+        "videoId": "lBCjPgnIzKk",
+        "muscleGroups": ["CHEST", "DELTOID", "TRICEPS", "FOREARM"]
+    },
+    {
+        "id": 37,
+        "name": "Supino inclinado halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=Z1rCZ0YHrP0",
+        "videoId": "Z1rCZ0YHrP0",
+        "muscleGroups": ["CHEST", "DELTOID", "TRICEPS", "FOREARM"]
+    },
+    {
+        "id": 38,
+        "name": "Tríceps coice unilateral cross",
+        "videoUrl": "https://www.youtube.com/watch?v=MGlqvfSCWLQ",
+        "videoId": "MGlqvfSCWLQ",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 39,
+        "name": "Elevação pélvica barra",
+        "videoUrl": "https://www.youtube.com/watch?v=jqgDVIv581k",
+        "videoId": "jqgDVIv581k",
+        "muscleGroups": ["GLUTES", "HAMSTRINGS"]
+    },
+    {
+        "id": 40,
+        "name": "Tríceps pulley pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=2W09NaNpiOA",
+        "videoId": "2W09NaNpiOA",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 41,
+        "name": "Elevação frontal cross pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=xCQLo6LcudM",
+        "videoId": "xCQLo6LcudM",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 42,
+        "name": "Elevação lateral cross posterior",
+        "videoUrl": "https://www.youtube.com/watch?v=I-ywK8Q-9TM",
+        "videoId": "I-ywK8Q-9TM",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 43,
+        "name": "Rosca martelo cross",
+        "videoUrl": "https://www.youtube.com/watch?v=TXYeSl2QT50",
+        "videoId": "TXYeSl2QT50",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 44,
+        "name": "Pull down barra",
+        "videoUrl": "https://www.youtube.com/watch?v=qw37xEEcoig",
+        "videoId": "qw37xEEcoig",
+        "muscleGroups": ["DORSAL", "DELTOID", "TRICEPS"]
+    },
+    {
+        "id": 45,
+        "name": "Desenvolvimento smith",
+        "videoUrl": "https://www.youtube.com/watch?v=oi18jaIbFRM",
+        "videoId": "oi18jaIbFRM",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS", "TRICEPS"]
+    },
+    {
+        "id": 46,
+        "name": "Agachamento búlgaro halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=WyMsCylTcKM",
+        "videoId": "WyMsCylTcKM",
+        "muscleGroups": ["QUADRICEPS", "GLUTES"]
+    },
+    {
+        "id": 47,
+        "name": "Elevação frontal halteres pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=0K9NJHXYSm4",
+        "videoId": "0K9NJHXYSm4",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 48,
+        "name": "Passada halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=PCSEZejLkjk",
+        "videoId": "PCSEZejLkjk",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "HAMSTRINGS", "ADDUCTORS"]
+    },
+    {
+        "id": 49,
+        "name": "Remada máquina pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=C0-C0X7G8eQ",
+        "videoId": "C0-C0X7G8eQ",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 50,
+        "name": "Elevação frontal halteres pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=kQTNDsaEIKc",
+        "videoId": "kQTNDsaEIKc",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 51,
+        "name": "Flexão de punho barra sentado",
+        "videoUrl": "https://www.youtube.com/watch?v=pfNPsnjVWb4",
+        "videoId": "pfNPsnjVWb4",
+        "muscleGroups": ["FOREARM"]
+    },
+    {
+        "id": 52,
+        "name": "Puxada vertical pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=v1rPzvJvwIE",
+        "videoId": "v1rPzvJvwIE",
+        "muscleGroups": ["DORSAL", "BICEPS", "DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 53,
+        "name": "Agachamento no smith",
+        "videoUrl": "https://www.youtube.com/watch?v=4vA727LveHQ",
+        "videoId": "4vA727LveHQ",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ABDOMEN", "ADDUCTORS", "HAMSTRINGS", "CALVES", "LUMBAR"]
+    },
+    {
+        "id": 54,
+        "name": "Remada alta cross",
+        "videoUrl": "https://www.youtube.com/watch?v=dHjEyNaCmn0",
+        "videoId": "dHjEyNaCmn0",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 55,
+        "name": "Supino reto halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=Spbmm66NsuY",
+        "videoId": "Spbmm66NsuY",
+        "muscleGroups": ["CHEST", "DELTOID", "TRICEPS"]
+    },
+    {
+        "id": 56,
+        "name": "Crucifixo reto",
+        "videoUrl": "https://www.youtube.com/watch?v=dQi36EfA88c",
+        "videoId": "dQi36EfA88c",
+        "muscleGroups": ["CHEST", "DELTOID"]
+    },
+    {
+        "id": 57,
+        "name": "Crucifixo inclinado",
+        "videoUrl": "https://www.youtube.com/watch?v=4JvT5Ys1Bog",
+        "videoId": "4JvT5Ys1Bog",
+        "muscleGroups": ["CHEST", "DELTOID"]
+    },
+    {
+        "id": 58,
+        "name": "Gêmeos em pé barra",
+        "videoUrl": "https://www.youtube.com/watch?v=VMa37XJdejk",
+        "videoId": "VMa37XJdejk",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 59,
+        "name": "Encolhimento halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=ZzJ3zelC0qI",
+        "videoId": "ZzJ3zelC0qI",
+        "muscleGroups": ["TRAPEZIUS"]
+    },
+    {
+        "id": 60,
+        "name": "Desenvolvimento anterior com barra",
+        "videoUrl": "https://www.youtube.com/watch?v=V_15VvJ3mr4",
+        "videoId": "V_15VvJ3mr4",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS", "TRICEPS"]
+    },
+    {
+        "id": 61,
+        "name": "Elevação lateral sentado halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=esWhjFJMNtU",
+        "videoId": "esWhjFJMNtU",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 62,
+        "name": "Encolhimento barra anterior",
+        "videoUrl": "https://www.youtube.com/watch?v=FutT8_yYJ58",
+        "videoId": "FutT8_yYJ58",
+        "muscleGroups": ["TRAPEZIUS"]
+    },
+    {
+        "id": 63,
+        "name": "Cadeira adutora",
+        "videoUrl": "https://www.youtube.com/watch?v=UB5qna8tQkw",
+        "videoId": "UB5qna8tQkw",
+        "muscleGroups": ["ADDUCTORS"]
+    },
+    {
+        "id": 64,
+        "name": "Cadeira abdutora",
+        "videoUrl": "https://www.youtube.com/watch?v=yVZ0Vs7j6EM",
+        "videoId": "yVZ0Vs7j6EM",
+        "muscleGroups": ["ABDUCTORS"]
+    },
+    {
+        "id": 65,
+        "name": "Leg press",
+        "videoUrl": "https://www.youtube.com/watch?v=kyESFAj3W0E",
+        "videoId": "kyESFAj3W0E",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ADDUCTORS", "HAMSTRINGS"]
+    },
+    {
+        "id": 66,
+        "name": "Agachamento hack",
+        "videoUrl": "https://www.youtube.com/watch?v=QZglgfUQZdk",
+        "videoId": "QZglgfUQZdk",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ABDOMEN", "ADDUCTORS", "HAMSTRINGS", "CALVES", "LUMBAR"]
+    },
+    {
+        "id": 67,
+        "name": "Remada curvada pegada neutra halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=CyCkDYs49hM",
+        "videoId": "CyCkDYs49hM",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 68,
+        "name": "Agachamento livre",
+        "videoUrl": "https://www.youtube.com/watch?v=4TG8JdU6NPU",
+        "videoId": "4TG8JdU6NPU",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ABDOMEN", "ADDUCTORS", "HAMSTRINGS", "CALVES", "LUMBAR"]
+    },
+    {
+        "id": 69,
+        "name": "Remada curvada cavalinho",
+        "videoUrl": "https://www.youtube.com/watch?v=Hdqf7mlEHrA",
+        "videoId": "Hdqf7mlEHrA",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID"]
+    },
+    {
+        "id": 70,
+        "name": "Extensão de punho barra sentado",
+        "videoUrl": "https://www.youtube.com/watch?v=gHY5opbOhNE",
+        "videoId": "gHY5opbOhNE",
+        "muscleGroups": ["FOREARM"]
+    },
+    {
+        "id": 71,
+        "name": "Glúteo cross",
+        "videoUrl": "https://www.youtube.com/watch?v=vgjt9LUm6Jg",
+        "videoId": "vgjt9LUm6Jg",
+        "muscleGroups": ["GLUTES"]
+    },
+    {
+        "id": 72,
+        "name": "Cadeira flexora",
+        "videoUrl": "https://www.youtube.com/watch?v=n8j1X_xByD4",
+        "videoId": "n8j1X_xByD4",
+        "muscleGroups": ["HAMSTRINGS"]
+    },
+    {
+        "id": 73,
+        "name": "Elevação frontal cross pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=mOTjgenwgUc",
+        "videoId": "mOTjgenwgUc",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 74,
+        "name": "Mesa flexora",
+        "videoUrl": "https://www.youtube.com/watch?v=OMKhQ2O11fc",
+        "videoId": "OMKhQ2O11fc",
+        "muscleGroups": ["HAMSTRINGS"]
+    },
+    {
+        "id": 75,
+        "name": "Elevação lateral unilateral banco inclinado",
+        "videoUrl": "https://www.youtube.com/watch?v=8s9JRhE95mU",
+        "videoId": "8s9JRhE95mU",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 76,
+        "name": "Rosca martelo halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=KnymofpyiIQ",
+        "videoId": "KnymofpyiIQ",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 77,
+        "name": "Gêmeos leg press",
+        "videoUrl": "https://www.youtube.com/watch?v=omdVB4rQnoQ",
+        "videoId": "omdVB4rQnoQ",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 78,
+        "name": "Pull down cross pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=zdLHXB9Sn88",
+        "videoId": "zdLHXB9Sn88",
+        "muscleGroups": ["DORSAL", "DELTOID", "TRICEPS"]
+    },
+    {
+        "id": 79,
+        "name": "Crucifixo inverso cross",
+        "videoUrl": "https://www.youtube.com/watch?v=gWa5abtK4G4",
+        "videoId": "gWa5abtK4G4",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 80,
+        "name": "Elevação frontal halteres pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=DuUh84gcaso",
+        "videoId": "DuUh84gcaso",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 81,
+        "name": "Rosca testa barra pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=orMEOzQjiAs",
+        "videoId": "orMEOzQjiAs",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 82,
+        "name": "Remada unilateral pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=C-tlPEhjwTk",
+        "videoId": "C-tlPEhjwTk",
+        "muscleGroups": ["DORSAL", "DELTOID", "BICEPS", "FOREARM"]
+    },
+    {
+        "id": 83,
+        "name": "Rosca francesa anilha",
+        "videoUrl": "https://www.youtube.com/watch?v=D2oQJTz-RCA",
+        "videoId": "D2oQJTz-RCA",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 84,
+        "name": "Stiff halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=mNsSgOKopbE",
+        "videoId": "mNsSgOKopbE",
+        "muscleGroups": ["HAMSTRINGS", "GLUTES", "LUMBAR"]
+    },
+    {
+        "id": 85,
+        "name": "Remada cross pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=IA0SRm2mY9M",
+        "videoId": "IA0SRm2mY9M",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID"]
+    },
+    {
+        "id": 86,
+        "name": "Rosca concentrada",
+        "videoUrl": "https://www.youtube.com/watch?v=Cryg5VkGQBw",
+        "videoId": "Cryg5VkGQBw",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 87,
+        "name": "Mergulho",
+        "videoUrl": "https://www.youtube.com/watch?v=jAkRzFnEvSo",
+        "videoId": "jAkRzFnEvSo",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 88,
+        "name": "Remada máquina pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=_g6GeyWVivI",
+        "videoId": "_g6GeyWVivI",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID"]
+    },
+    {
+        "id": 89,
+        "name": "Manguito rotator externo barra",
+        "videoUrl": "https://www.youtube.com/watch?v=QdUn8TBdjvU",
+        "videoId": "QdUn8TBdjvU",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 90,
+        "name": "Elevação frontal barra pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=jXUIrrvlR_0",
+        "videoId": "jXUIrrvlR_0",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 91,
+        "name": "Rosca scott máquina",
+        "videoUrl": "https://www.youtube.com/watch?v=3GfAZv126D0",
+        "videoId": "3GfAZv126D0",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 92,
+        "name": "Rosca testa halteres pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=KzKdkwIjZg8",
+        "videoId": "KzKdkwIjZg8",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 93,
+        "name": "Remada cross pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=Q5Rl_fnOCBs",
+        "videoId": "Q5Rl_fnOCBs",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 94,
+        "name": "Barra fixa pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=JX_YM7Bp26U",
+        "videoId": "JX_YM7Bp26U",
+        "muscleGroups": ["DORSAL", "DELTOID", "BICEPS", "FOREARM", "ABDOMEN"]
+    },
+    {
+        "id": 95,
+        "name": "Remada unilateral pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=MAHNlcA4oXc",
+        "videoId": "MAHNlcA4oXc",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 96,
+        "name": "Tríceps coice bilateral halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=lbYQgZvJApA",
+        "videoId": "lbYQgZvJApA",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 97,
+        "name": "Remada unilateral pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=VlCc-rDbwhA",
+        "videoId": "VlCc-rDbwhA",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID"]
+    },
+    {
+        "id": 98,
+        "name": "Desenvolvimento posterior barra",
+        "videoUrl": "https://www.youtube.com/watch?v=WIlm9oHEEq8",
+        "videoId": "WIlm9oHEEq8",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS", "TRICEPS"]
+    },
+    {
+        "id": 99,
+        "name": "Gêmeos em pé hack",
+        "videoUrl": "https://www.youtube.com/watch?v=GAn7R1U3EDw",
+        "videoId": "GAn7R1U3EDw",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 100,
+        "name": "Elevação frontal cruzada",
+        "videoUrl": "https://www.youtube.com/watch?v=btAEYSe5kp0",
+        "videoId": "btAEYSe5kp0",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 101,
+        "name": "Rosca francesa cross corda",
+        "videoUrl": "https://www.youtube.com/watch?v=QhJ67UyNdsc",
+        "videoId": "QhJ67UyNdsc",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 102,
+        "name": "Extensão de punho cross",
+        "videoUrl": "https://www.youtube.com/watch?v=SYHfATlt7LI",
+        "videoId": "SYHfATlt7LI",
+        "muscleGroups": ["FOREARM"]
+    },
+    {
+        "id": 103,
+        "name": "Remada curvada pegada pronada halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=AT8pPML17VU",
+        "videoId": "AT8pPML17VU",
+        "muscleGroups": ["DORSAL", "DELTOID"]
+    },
+    {
+        "id": 104,
+        "name": "Puxada vertical pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=ej9Z_jMQpLY",
+        "videoId": "ej9Z_jMQpLY",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID"]
+    },
+    {
+        "id": 105,
+        "name": "Paralelas",
+        "videoUrl": "https://www.youtube.com/watch?v=8ZhWzT-V54Q",
+        "videoId": "8ZhWzT-V54Q",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 106,
+        "name": "Rosca francesa halteres pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=KoLqZRyZuuU",
+        "videoId": "KoLqZRyZuuU",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 107,
+        "name": "Remada cross pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=wC1EsDy_esM",
+        "videoId": "wC1EsDy_esM",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID"]
+    },
+    {
+        "id": 108,
+        "name": "Rotacional de punho",
+        "videoUrl": "https://www.youtube.com/watch?v=MZ8y2hqjHxQ",
+        "videoId": "MZ8y2hqjHxQ",
+        "muscleGroups": ["FOREARM"]
+    },
+    {
+        "id": 109,
+        "name": "Elevação frontal barra pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=Ea_8qpcysYI",
+        "videoId": "Ea_8qpcysYI",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 110,
+        "name": "Elevação pélvica smith",
+        "videoUrl": "https://www.youtube.com/watch?v=0I3xQYtPCGQ",
+        "videoId": "0I3xQYtPCGQ",
+        "muscleGroups": ["GLUTES", "HAMSTRINGS"]
+    },
+    {
+        "id": 111,
+        "name": "Gêmeos em pé smth",
+        "videoUrl": "https://www.youtube.com/watch?v=ER72bXEam4c",
+        "videoId": "ER72bXEam4c",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 112,
+        "name": "Tríceps pulley pegada supinada unilateral",
+        "videoUrl": "https://www.youtube.com/watch?v=iO5EOd9Xe4c",
+        "videoId": "iO5EOd9Xe4c",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 113,
+        "name": "Supino inclinado smith",
+        "videoUrl": "https://www.youtube.com/watch?v=L4kIk2gMeBw",
+        "videoId": "L4kIk2gMeBw",
+        "muscleGroups": ["CHEST", "DELTOID", "TRICEPS", "FOREARM"]
+    },
+    {
+        "id": 114,
+        "name": "Gêmeos em pé máquina",
+        "videoUrl": "https://www.youtube.com/watch?v=hlQbAQB61_Y",
+        "videoId": "hlQbAQB61_Y",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 115,
+        "name": "Remada máquina pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=1CG-dreRL6Q",
+        "videoId": "1CG-dreRL6Q",
+        "muscleGroups": ["DORSAL", "TRAPEZIUS", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 116,
+        "name": "Agachamento livre frontal",
+        "videoUrl": "https://www.youtube.com/watch?v=fJtI1_eUb2g",
+        "videoId": "fJtI1_eUb2g",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ABDOMEN", "ADDUCTORS", "HAMSTRINGS", "CALVES", "LUMBAR"]
+    },
+    {
+        "id": 117,
+        "name": "Rosca scott barra",
+        "videoUrl": "https://www.youtube.com/watch?v=wQRRqKu9g7U",
+        "videoId": "wQRRqKu9g7U",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 118,
+        "name": "Rosca scott halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=WbHASg1d29w",
+        "videoId": "WbHASg1d29w",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 119,
+        "name": "Rosca inversa alternada",
+        "videoUrl": "https://www.youtube.com/watch?v=k86sqzLgiwY",
+        "videoId": "k86sqzLgiwY",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 120,
+        "name": "Leg press adutores",
+        "videoUrl": "https://www.youtube.com/watch?v=1kjxuWNPBUc",
+        "videoId": "1kjxuWNPBUc",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ADDUCTORS", "HAMSTRINGS"]
+    },
+    {
+        "id": 121,
+        "name": "Afundo halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=vj7uUw_5HYY",
+        "videoId": "vj7uUw_5HYY",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "HAMSTRINGS", "ADDUCTORS"]
+    },
+    {
+        "id": 122,
+        "name": "Prancha",
+        "videoUrl": "https://www.youtube.com/watch?v=TxadpmTHK08",
+        "videoId": "TxadpmTHK08",
+        "muscleGroups": ["ABDOMEN", "LUMBAR"]
+    },
+    {
+        "id": 123,
+        "name": "Remada alta smith",
+        "videoUrl": "https://www.youtube.com/watch?v=lD_zvmzP1K0",
+        "videoId": "lD_zvmzP1K0",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+
+    },
+    {
+        "id": 124,
+        "name": "Agachamento halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=CROT8O8X_u0",
+        "videoId": "CROT8O8X_u0",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ABDOMEN", "ADDUCTORS", "HAMSTRINGS", "CALVES", "LUMBAR"]
+    },
+    {
+        "id": 125,
+        "name": "Remada alta halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=hFMCum41W9c",
+        "videoId": "hFMCum41W9c",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 126,
+        "name": "Pull down cross pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=U80znmkD2z0",
+        "videoId": "U80znmkD2z0",
+        "muscleGroups": ["DORSAL", "DELTOID", "TRICEPS"]
+    },
+    {
+        "id": 127,
+        "name": "Tríceps pulley pegada pronada unilateral",
+        "videoUrl": "https://www.youtube.com/watch?v=TmO_85EK09I",
+        "videoId": "TmO_85EK09I",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 128,
+        "name": "Afundo smith",
+        "videoUrl": "https://www.youtube.com/watch?v=0YjOOxFc7fY",
+        "videoId": "0YjOOxFc7fY",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "HAMSTRINGS", "ADDUCTORS"]
+    },
+    {
+        "id": 129,
+        "name": "Remada curvada pegada supinada halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=g0VduhIsJIE",
+        "videoId": "g0VduhIsJIE",
+        "muscleGroups": ["DORSAL", "DELTOID", "BICEPS"]
+    },
+    {
+        "id": 130,
+        "name": "Supino declinado halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=0SFB2chQTPY",
+        "videoId": "0SFB2chQTPY",
+        "muscleGroups": ["CHEST", "TRICEPS"]
+    },
+    {
+        "id": 131,
+        "name": "Rosca francesa halteres pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=aI8x4pHiByU",
+        "videoId": "aI8x4pHiByU",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 132,
+        "name": "Rosca martelo barra",
+        "videoUrl": "https://www.youtube.com/watch?v=4YbWsz77mfc",
+        "videoId": "4YbWsz77mfc",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 133,
+        "name": "Flexão de punho barra em pé",
+        "videoUrl": "https://www.youtube.com/watch?v=PF1w-a7yQus",
+        "videoId": "PF1w-a7yQus",
+        "muscleGroups": ["FOREARM"]
+    },
+    {
+        "id": 134,
+        "name": "Elevação frontal cross pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=lL8hIRuFcnU",
+        "videoId": "lL8hIRuFcnU",
+        "muscleGroups": ["DELTOID"]
+    },
+    {
+        "id": 135,
+        "name": "Supino reto smith",
+        "videoUrl": "https://www.youtube.com/watch?v=b-THwNtIYxY",
+        "videoId": "b-THwNtIYxY",
+        "muscleGroups": ["CHEST", "DELTOID", "TRICEPS"]
+    },
+    {
+        "id": 136,
+        "name": "Glúteo máquina",
+        "videoUrl": "https://www.youtube.com/watch?v=A68gT5W_J50",
+        "videoId": "A68gT5W_J50",
+        "muscleGroups": ["GLUTES", "HAMSTRINGS"]
+    },
+    {
+        "id": 137,
+        "name": "Rosca alternada cross",
+        "videoUrl": "https://www.youtube.com/watch?v=LiiNiYF4lPY",
+        "videoId": "LiiNiYF4lPY",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 138,
+        "name": "Crucifixo declinado",
+        "videoUrl": "https://www.youtube.com/watch?v=QsZ8VYaRh34",
+        "videoId": "QsZ8VYaRh34",
+        "muscleGroups": ["CHEST"]
+    },
+    {
+        "id": 139,
+        "name": "Agachamento adutores",
+        "videoUrl": "https://www.youtube.com/watch?v=T64bNYs5-gI",
+        "videoId": "T64bNYs5-gI",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ABDOMEN", "ADDUCTORS", "HAMSTRINGS", "CALVES", "LUMBAR"]
+    },
+    {
+        "id": 140,
+        "name": "Rosca testa barra pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=D_wnqWbIrYs",
+        "videoId": "D_wnqWbIrYs",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 141,
+        "name": "Gêmeos sentado barra",
+        "videoUrl": "https://www.youtube.com/watch?v=CiFlAqIx-lY",
+        "videoId": "CiFlAqIx-lY",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 142,
+        "name": "Elevação lateral cross anterior",
+        "videoUrl": "https://www.youtube.com/watch?v=8KOat8ZsidI",
+        "videoId": "8KOat8ZsidI",
+        "muscleGroups": ["DELTOID", "TRAPEZIUS"]
+    },
+    {
+        "id": 143,
+        "name": "Flexão de punho cross",
+        "videoUrl": "https://www.youtube.com/watch?v=4_Zf2r-2rAo",
+        "videoId": "4_Zf2r-2rAo",
+        "muscleGroups": ["FOREARM"]
+    },
+    {
+        "id": 144,
+        "name": "Supino declinado barra",
+        "videoUrl": "https://www.youtube.com/watch?v=hZ9woVlzGdA",
+        "videoId": "hZ9woVlzGdA",
+        "muscleGroups": ["CHEST", "TRICEPS"]
+    },
+    {
+        "id": 145,
+        "name": "Flexão de braço",
+        "videoUrl": "https://www.youtube.com/watch?v=F9FC_KBsLpY",
+        "videoId": "F9FC_KBsLpY",
+        "muscleGroups": ["CHEST", "TRICEPS", "ABDOMEN", "BICEPS", "FOREARM"]
+    },
+    {
+        "id": 146,
+        "name": "Gêmeos sentado smith",
+        "videoUrl": "https://www.youtube.com/watch?v=iK6cVWR3-jI",
+        "videoId": "iK6cVWR3-jI",
+        "muscleGroups": ["CALVES"]
+    },
+    {
+        "id": 147,
+        "name": "Stiff smith",
+        "videoUrl": "https://www.youtube.com/watch?v=QDLNogcXvHU",
+        "videoId": "QDLNogcXvHU",
+        "muscleGroups": ["HAMSTRINGS", "GLUTES", "LUMBAR"]
+    },
+    {
+        "id": 148,
+        "name": "Agachamento frontal smith",
+        "videoUrl": "https://www.youtube.com/watch?v=_lPh4iHfvXA",
+        "videoId": "_lPh4iHfvXA",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "ABDOMEN", "ADDUCTORS", "HAMSTRINGS", "CALVES", "LUMBAR"]
+    },
+    {
+        "id": 149,
+        "name": "Tríceps coice unilateral",
+        "videoUrl": "https://www.youtube.com/watch?v=I4hzS9nYlgs",
+        "videoId": "I4hzS9nYlgs",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 150,
+        "name": "Flexão de braço fechada",
+        "videoUrl": "https://www.youtube.com/watch?v=9qT4QxmIuuU",
+        "videoId": "9qT4QxmIuuU",
+        "muscleGroups": ["CHEST", "TRICEPS", "ABDOMEN"]
+    },
+    {
+        "id": 151,
+        "name": "Rosca testa halteres pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=OS8sz24YV1g",
+        "videoId": "OS8sz24YV1g",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 152,
+        "name": "Afundo barra",
+        "videoUrl": "https://www.youtube.com/watch?v=YoQL-sR3kFo",
+        "videoId": "YoQL-sR3kFo",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "HAMSTRINGS", "ADDUCTORS"]
+    },
+    {
+        "id": 153,
+        "name": "Barra fixa pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=WJOu_aru3XM",
+        "videoId": "WJOu_aru3XM",
+        "muscleGroups": ["DORSAL", "DELTOID", "BICEPS", "FOREARM", "ABDOMEN"]
+    },
+    {
+        "id": 154,
+        "name": "Encolhimento anterior smith",
+        "videoUrl": "https://www.youtube.com/watch?v=5DQl_71T8iI",
+        "videoId": "5DQl_71T8iI",
+        "muscleGroups": ["TRAPEZIUS"]
+    },
+    {
+        "id": 155,
+        "name": "Glúteo graviton",
+        "videoUrl": "https://www.youtube.com/watch?v=F2yGtpW4J4s",
+        "videoId": "F2yGtpW4J4s",
+        "muscleGroups": ["GLUTES"]
+    },
+    {
+        "id": 156,
+        "name": "Rosca concentrada martelo",
+        "videoUrl": "https://www.youtube.com/watch?v=ysjKbVT6-FQ",
+        "videoId": "ysjKbVT6-FQ",
+        "muscleGroups": ["BICEPS", "FOREARM"]
+    },
+    {
+        "id": 157,
+        "name": "Barra fixa pegada neutra",
+        "videoUrl": "https://www.youtube.com/watch?v=uCnmHgHgfOs",
+        "videoId": "uCnmHgHgfOs",
+        "muscleGroups": ["DORSAL", "DELTOID", "BICEPS", "FOREARM", "ABDOMEN"]
+    },
+    {
+        "id": 158,
+        "name": "4 apoios joelho estendido",
+        "videoUrl": "https://www.youtube.com/watch?v=C1LK-ca840k",
+        "videoId": "C1LK-ca840k",
+        "muscleGroups": ["GLUTES"]
+    },
+    {
+        "id": 159,
+        "name": "Encolhimento posterior smith",
+        "videoUrl": "https://www.youtube.com/watch?v=7Ui8zi1w5A4",
+        "videoId": "7Ui8zi1w5A4",
+        "muscleGroups": ["TRAPEZIUS"]
+    },
+    {
+        "id": 160,
+        "name": "Rosca francesa barra pegada supinada",
+        "videoUrl": "https://www.youtube.com/watch?v=xnP-A7ig8No",
+        "videoId": "xnP-A7ig8No",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 161,
+        "name": "Passada barra",
+        "videoUrl": "https://www.youtube.com/watch?v=q8oWAsKvdT0",
+        "videoId": "q8oWAsKvdT0",
+        "muscleGroups": ["QUADRICEPS", "GLUTES", "HAMSTRINGS", "ADDUCTORS"]
+    },
+    {
+        "id": 162,
+        "name": "Encolhimento barra posterior de forma",
+        "videoUrl": "https://www.youtube.com/watch?v=Y4w7ZZW84eM",
+        "videoId": "Y4w7ZZW84eM",
+        "muscleGroups": ["TRAPEZIUS"]
+    },
+    {
+        "id": 163,
+        "name": "Supino declinado smith",
+        "videoUrl": "https://www.youtube.com/watch?v=xLQ9ZbH9ljc",
+        "videoId": "xLQ9ZbH9ljc",
+        "muscleGroups": ["CHEST", "TRICEPS"]
+    },
+    {
+        "id": 164,
+        "name": "4 apoios smith",
+        "videoUrl": "https://www.youtube.com/watch?v=PMbVxKqNM7I",
+        "videoId": "PMbVxKqNM7I",
+        "muscleGroups": ["GLUTES"]
+    },
+    {
+        "id": 165,
+        "name": "Elevação pélvica halteres",
+        "videoUrl": "https://www.youtube.com/watch?v=XNbfCoWFcFs",
+        "videoId": "XNbfCoWFcFs",
+        "muscleGroups": ["GLUTES", "HAMSTRINGS"]
+    },
+    {
+        "id": 166,
+        "name": "Elevação pélvica anilha",
+        "videoUrl": "https://www.youtube.com/watch?v=0lPFQdMtNBU",
+        "videoId": "0lPFQdMtNBU",
+        "muscleGroups": ["GLUTES", "HAMSTRINGS"]
+    },
+    {
+        "id": 167,
+        "name": "Rosca testa halteres pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=esAavWMIRZ8",
+        "videoId": "esAavWMIRZ8",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 168,
+        "name": "Agachamento búlgaro barra",
+        "videoUrl": "https://www.youtube.com/watch?v=wENBoTTRDa8",
+        "videoId": "wENBoTTRDa8",
+        "muscleGroups": ["QUADRICEPS", "GLUTES"]
+    },
+    {
+        "id": 169,
+        "name": "Extensão de punho barra em pé",
+        "videoUrl": "https://www.youtube.com/watch?v=guTTkQcy8jU",
+        "videoId": "guTTkQcy8jU",
+        "muscleGroups": ["FOREARM"]
+    },
+    {
+        "id": 170,
+        "name": "Rosca francesa barra pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=fcIzvqXOJzs",
+        "videoId": "fcIzvqXOJzs",
+        "muscleGroups": ["TRICEPS"]
+    },
+    {
+        "id": 171,
+        "name": "4 apoios joelho flexionado",
+        "videoUrl": "https://www.youtube.com/watch?v=3H_WSx0dK-I",
+        "videoId": "3H_WSx0dK-I",
+        "muscleGroups": ["GLUTES"]
+    },
+    {
+        "id": 172,
+        "name": "Rosca francesa halteres pegada pronada",
+        "videoUrl": "https://www.youtube.com/watch?v=DCbDClEDQvQ",
+        "videoId": "DCbDClEDQvQ",
+        "muscleGroups": ["TRICEPS"]
+    }
+]

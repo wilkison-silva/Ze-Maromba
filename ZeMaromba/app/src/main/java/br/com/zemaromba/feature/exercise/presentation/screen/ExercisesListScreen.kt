@@ -367,28 +367,32 @@ fun ExercisesListScreenPreview() {
                 R.string.abdomen,
                 R.string.adductors
             ),
-            urlLink = "www.youtube.com.br"
+            urlLink = "www.youtube.com.br",
+            videoId = null
         ),
         ExerciseView(
             id = 1,
             name = "Bíceps Concentrado",
             favoriteIcon = R.drawable.ic_star_filled,
             muscleGroups = listOf(R.string.biceps),
-            urlLink = null
+            urlLink = null,
+            videoId = null
         ),
         ExerciseView(
             id = 2,
             name = "Tríceps pulley",
             favoriteIcon = R.drawable.ic_star_border,
             muscleGroups = listOf(R.string.triceps),
-            urlLink = null
+            urlLink = null,
+            videoId = null
         ),
         ExerciseView(
             id = 3,
             name = "Supino inclinado",
             favoriteIcon = R.drawable.ic_star_border,
             muscleGroups = listOf(R.string.chest, R.string.triceps),
-            urlLink = null
+            urlLink = null,
+            videoId = null
         ),
     )
     ZeMarombaTheme {

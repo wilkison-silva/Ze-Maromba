@@ -20,7 +20,8 @@ interface ExercisesRepository {
         id: Long?,
         name: String,
         muscleGroupList: List<MuscleGroup>,
-        urlLink: String?
+        urlLink: String?,
+        videoId: String?
     )
 
     suspend fun deleteExercise(exerciseId: Long): Boolean

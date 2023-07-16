@@ -13,6 +13,9 @@ data class ExerciseEntity(
     val name: String,
     @ColumnInfo(name = "favorite")
     val favorite: Boolean,
-    @ColumnInfo(name = "url")
+    @ColumnInfo(name = "url_video")
     val urlLink: String?,
+    @ColumnInfo(name = "video_id")
+    val videoId: String?,
+
 )

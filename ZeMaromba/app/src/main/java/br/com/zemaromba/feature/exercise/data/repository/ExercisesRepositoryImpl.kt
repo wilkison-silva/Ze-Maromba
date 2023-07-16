@@ -80,13 +80,15 @@ class ExercisesRepositoryImpl @Inject constructor(
     override suspend fun createExercise(
         id: Long?,
         name: String,
-        muscleGroupList: List<MuscleGroup>
+        muscleGroupList: List<MuscleGroup>,
+        urlLink: String?
     ) {
         val exerciseId = exerciseDao.insert(
             exerciseEntity = ExerciseEntity(
                 id = id.orZero(),
                 name = name,
-                favorite = false
+                favorite = false,
+                urlLink = urlLink
             )
         )
         muscleGroupList.forEach {

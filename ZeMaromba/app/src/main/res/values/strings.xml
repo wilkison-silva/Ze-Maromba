@@ -45,4 +45,5 @@
     <string name="title_exercise">Exercício</string>
     <string name="button_title_filter">Filtrar</string>
     <string name="card_info_found_no_exercises">Uma pena. Não encontramos nada parecido com os filtros aplicados.</string>
+    <string name="exercise_demonstration_video">Demonstração do exerçicio.</string>
 </resources>

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -258,24 +259,15 @@ fun ExerciseCardItem(
             Column(
                 modifier = Modifier.align(Alignment.CenterStart)
             ) {
-                Row(
-                    modifier = Modifier.padding(
-                        start = 20.dp,
-                        top = 20.dp,
-                        bottom = 10.dp,
-                        end = 20.dp
-                    )
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 60.dp),
-                        text = exerciseName,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, top = 20.dp, bottom = 10.dp, end = 60.dp),
+                    text = exerciseName,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -286,6 +278,29 @@ fun ExerciseCardItem(
                     fontWeight = FontWeight.Medium,
                     fontStyle = FontStyle.Italic
                 )
+                urlYoutube?.let {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 60.dp, top = 20.dp),
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(20.dp),
+                            painter = painterResource(id = R.drawable.ic_play_video_youtube),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+                            text = stringResource(R.string.exercise_demonstration_video),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
             }
             IconButton(
                 modifier = Modifier
@@ -341,6 +356,18 @@ fun ExerciseCardItem(
 fun ExercisesListScreenPreview() {
     val exercisesSampleList = listOf(
         ExerciseView(
+            id = 4,
+            name = "Agachamento com barra livre",
+            favoriteIcon = R.drawable.ic_star_filled,
+            muscleGroups = listOf(
+                R.string.quadriceps,
+                R.string.hamstrings,
+                R.string.abdomen,
+                R.string.adductors
+            ),
+            urlLink = "www.youtube.com.br"
+        ),
+        ExerciseView(
             id = 1,
             name = "Bíceps Concentrado",
             favoriteIcon = R.drawable.ic_star_filled,
@@ -361,18 +388,6 @@ fun ExercisesListScreenPreview() {
             muscleGroups = listOf(R.string.chest, R.string.triceps),
             urlLink = null
         ),
-        ExerciseView(
-            id = 4,
-            name = "Agachamento com barra livre",
-            favoriteIcon = R.drawable.ic_star_filled,
-            muscleGroups = listOf(
-                R.string.quadriceps,
-                R.string.hamstrings,
-                R.string.abdomen,
-                R.string.adductors
-            ),
-            urlLink = null
-        )
     )
     ZeMarombaTheme {
         ExercisesListScreen(

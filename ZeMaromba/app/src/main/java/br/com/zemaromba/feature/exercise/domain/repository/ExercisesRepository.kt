@@ -16,7 +16,12 @@ interface ExercisesRepository {
 
     suspend fun getExerciseWithMuscles(exerciseId: Long): Exercise
 
-    suspend fun createExercise(id: Long?, name: String, muscleGroupList: List<MuscleGroup>)
+    suspend fun createExercise(
+        id: Long?,
+        name: String,
+        muscleGroupList: List<MuscleGroup>,
+        urlLink: String?
+    )
 
     suspend fun deleteExercise(exerciseId: Long): Boolean
 

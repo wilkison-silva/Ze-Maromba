@@ -43,7 +43,7 @@ class AppApplication : Application() {
             CoroutineScope(Dispatchers.IO).launch {
                 exerciseDao.insertAll(
                     exerciseEntityList = listOf(
-                        ExerciseEntity(name = "Pulley frente", favorite = true, urlLink = null),
+                        ExerciseEntity(name = "Pulley frente", favorite = true, urlLink = "www.youtube.com"),
                         ExerciseEntity(name = "Pulley triângulo", favorite = true, urlLink = null),
                         ExerciseEntity(name = "Remada pronada", favorite = false, urlLink = null),
                         ExerciseEntity(name = "Crucifixo inverso", favorite = false, urlLink = null),

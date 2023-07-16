@@ -63,7 +63,8 @@ class ExerciseManagementViewModel @Inject constructor(
                     exercisesRepository.createExercise(
                         id = id,
                         name = name,
-                        muscleGroupList = muscleGroupList
+                        muscleGroupList = muscleGroupList,
+                        urlLink = null
                     )
                     _state.update { it.copy(navigateBack = true) }
                 }

@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
 
+
 fun Context.convertJsonFileToString(fileName: String): String? {
     val jsonString: String
     try {
@@ -21,4 +22,9 @@ inline fun <reified T> Context.parseJsonStringToClassObject(jsonFileString: Stri
     val objectType = object : TypeToken<T>() {}.type
 
     return Gson().fromJson(jsonFileString, objectType)
+}
+
+fun Context.isDatabaseCreated(databaseName: String): Boolean {
+    val databaseFile = this.getDatabasePath(databaseName)
+    return databaseFile.exists()
 }

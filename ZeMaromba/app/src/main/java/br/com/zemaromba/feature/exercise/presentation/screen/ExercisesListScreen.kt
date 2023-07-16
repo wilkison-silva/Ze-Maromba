@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -54,7 +52,6 @@ import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.exercise.domain.model.ExerciseFilter
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListState
-import br.com.zemaromba.feature.home.presentation.model.TrainingPlanView
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,9 +66,8 @@ fun ExercisesListScreen(
     onFilterChange: (exerciseFilter: ExerciseFilter) -> Unit,
     onApplySelectedMuscleGroups: () -> Unit,
     onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
+    onOpenYoutubeApp: (videoId: String) -> Unit
 ) {
-
-    val verticalScrollState = rememberScrollState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -178,13 +174,16 @@ fun ExercisesListScreen(
                                 muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
                                     stringResource(id = muscleNameResource)
                                 }.joinToString(separator = ", "),
-                                urlYoutube = exerciseView.urlLink,
+                                videoId = exerciseView.videoId,
                                 favoriteIcon = exerciseView.favoriteIcon,
                                 onClick = {
                                     onOpenExercise(exerciseView.id)
                                 },
                                 onFavoriteClick = {
                                     onFavoriteExercise(exerciseView.id, exerciseView.favoriteIcon)
+                                },
+                                onOpenDemonstrationVideo = { videoId ->
+                                    onOpenYoutubeApp(videoId)
                                 }
                             )
                         }
@@ -248,10 +247,11 @@ fun ExercisesListScreen(
 fun ExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
-    urlYoutube: String?,
+    videoId: String?,
     favoriteIcon: Int,
     onClick: () -> Unit,
-    onFavoriteClick: () -> Unit
+    onFavoriteClick: () -> Unit,
+    onOpenDemonstrationVideo: (videoId: String) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -289,7 +289,7 @@ fun ExerciseCardItem(
                     fontWeight = FontWeight.Medium,
                     fontStyle = FontStyle.Italic
                 )
-                urlYoutube?.let {
+                videoId?.let { videoIdOnYoutube ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -304,7 +304,10 @@ fun ExerciseCardItem(
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+                                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+                                .clickable {
+                                    onOpenDemonstrationVideo(videoIdOnYoutube)
+                                },
                             text = stringResource(R.string.exercise_demonstration_video),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 14.sp,
@@ -429,6 +432,9 @@ fun ExercisesListScreenPreview() {
 
             },
             onMuscleGroupSelection = { _, _ ->
+
+            },
+            onOpenYoutubeApp = {
 
             }
         )

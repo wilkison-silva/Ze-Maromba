@@ -1,10 +1,14 @@
 package br.com.zemaromba.core_ui
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.exercise.presentation.router.ExerciseRouter
 import br.com.zemaromba.feature.exercise.presentation.router.exerciseGraph
@@ -14,6 +18,7 @@ import br.com.zemaromba.feature.home.presentation.router.homeGraph
 import br.com.zemaromba.feature.onboarding.presentation.router.OnBoardingRouter
 import br.com.zemaromba.feature.onboarding.presentation.router.onBoardingGraph
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -42,6 +47,7 @@ class MainActivity : ComponentActivity() {
                                 MenuHome.CREATE_TRAINING_PLAN -> {
 
                                 }
+
                                 MenuHome.EXERCISES_SCREEN -> {
                                     navController.navigate(ExerciseRouter.ExerciseGraph.route)
                                 }
@@ -52,7 +58,12 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     )
-                    exerciseGraph(navController = navController)
+                    exerciseGraph(
+                        navController = navController,
+                        openYoutube = { videoId: String ->
+                            openVideoInYoutubeOrBrowser(videoId = videoId)
+                        }
+                    )
                 }
             }
         }

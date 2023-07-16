@@ -118,7 +118,6 @@ fun ExercisesListScreen(
             modifier = Modifier
                 .padding(paddingValues = contentPadding)
                 .fillMaxWidth()
-                .verticalScroll(verticalScrollState)
         ) {
             SearchBar(
                 modifier = Modifier
@@ -151,7 +150,9 @@ fun ExercisesListScreen(
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier.padding(bottom = 100.dp)
+                modifier = Modifier
+                    .padding(bottom = 100.dp)
+                    .verticalScroll(verticalScrollState)
             ) {
                 if (state.showNothingFound) {
                     CardInfo(

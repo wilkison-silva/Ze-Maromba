@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -64,9 +66,8 @@ fun ExercisesListScreen(
     onFilterChange: (exerciseFilter: ExerciseFilter) -> Unit,
     onApplySelectedMuscleGroups: () -> Unit,
     onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
+    onOpenYoutubeApp: (videoId: String) -> Unit
 ) {
-
-    val verticalScrollState = rememberScrollState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -117,7 +118,6 @@ fun ExercisesListScreen(
             modifier = Modifier
                 .padding(paddingValues = contentPadding)
                 .fillMaxWidth()
-                .verticalScroll(verticalScrollState)
         ) {
             SearchBar(
                 modifier = Modifier
@@ -146,38 +146,50 @@ fun ExercisesListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp),
-                thickness = 2.dp
+                thickness = 1.dp
             )
-            Column(
+            LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier.padding(bottom = 100.dp)
+                modifier = Modifier
             ) {
                 if (state.showNothingFound) {
-                    CardInfo(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
-                        icon = R.drawable.ic_warning,
-                        message = stringResource(R.string.card_info_found_no_exercises),
-                        borderColor = MaterialTheme.colorScheme.secondary,
-                        surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
-                        onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                } else {
-                    state.exercisesList.forEach {
-                        ExerciseCardItem(
-                            exerciseName = it.name,
-                            muscleGroups = it.muscleGroups.map { muscleNameResource ->
-                                stringResource(id = muscleNameResource)
-                            }.joinToString(separator = ", "),
-                            favoriteIcon = it.favoriteIcon,
-                            onClick = {
-                                onOpenExercise(it.id)
-                            },
-                            onFavoriteClick = {
-                                onFavoriteExercise(it.id, it.favoriteIcon)
-                            }
+                    item {
+                        CardInfo(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp),
+                            icon = R.drawable.ic_warning,
+                            message = stringResource(R.string.card_info_found_no_exercises),
+                            borderColor = MaterialTheme.colorScheme.secondary,
+                            surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
+                            onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
                         )
+                    }
+                } else {
+                    itemsIndexed(
+                        items = state.exercisesList,
+                        itemContent = { _: Int, exerciseView: ExerciseView ->
+                            ExerciseCardItem(
+                                exerciseName = exerciseView.name,
+                                muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
+                                    stringResource(id = muscleNameResource)
+                                }.joinToString(separator = ", "),
+                                videoId = exerciseView.videoId,
+                                favoriteIcon = exerciseView.favoriteIcon,
+                                onClick = {
+                                    onOpenExercise(exerciseView.id)
+                                },
+                                onFavoriteClick = {
+                                    onFavoriteExercise(exerciseView.id, exerciseView.favoriteIcon)
+                                },
+                                onOpenDemonstrationVideo = { videoId ->
+                                    onOpenYoutubeApp(videoId)
+                                }
+                            )
+                        }
+                    )
+                    item {
+                        Spacer(modifier = Modifier.height(100.dp))
                     }
                 }
             }
@@ -235,9 +247,11 @@ fun ExercisesListScreen(
 fun ExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
+    videoId: String?,
     favoriteIcon: Int,
     onClick: () -> Unit,
-    onFavoriteClick: () -> Unit
+    onFavoriteClick: () -> Unit,
+    onOpenDemonstrationVideo: (videoId: String) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -256,24 +270,15 @@ fun ExerciseCardItem(
             Column(
                 modifier = Modifier.align(Alignment.CenterStart)
             ) {
-                Row(
-                    modifier = Modifier.padding(
-                        start = 20.dp,
-                        top = 20.dp,
-                        bottom = 10.dp,
-                        end = 20.dp
-                    )
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 60.dp),
-                        text = exerciseName,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, top = 20.dp, bottom = 10.dp, end = 60.dp),
+                    text = exerciseName,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -284,6 +289,32 @@ fun ExerciseCardItem(
                     fontWeight = FontWeight.Medium,
                     fontStyle = FontStyle.Italic
                 )
+                videoId?.let { videoIdOnYoutube ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 60.dp, top = 20.dp),
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(20.dp),
+                            painter = painterResource(id = R.drawable.ic_play_video_youtube),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+                                .clickable {
+                                    onOpenDemonstrationVideo(videoIdOnYoutube)
+                                },
+                            text = stringResource(R.string.exercise_demonstration_video),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
             }
             IconButton(
                 modifier = Modifier
@@ -339,24 +370,6 @@ fun ExerciseCardItem(
 fun ExercisesListScreenPreview() {
     val exercisesSampleList = listOf(
         ExerciseView(
-            id = 1,
-            name = "Bíceps Concentrado",
-            favoriteIcon = R.drawable.ic_star_filled,
-            muscleGroups = listOf(R.string.biceps)
-        ),
-        ExerciseView(
-            id = 2,
-            name = "Tríceps pulley",
-            favoriteIcon = R.drawable.ic_star_border,
-            muscleGroups = listOf(R.string.triceps)
-        ),
-        ExerciseView(
-            id = 3,
-            name = "Supino inclinado",
-            favoriteIcon = R.drawable.ic_star_border,
-            muscleGroups = listOf(R.string.chest, R.string.triceps)
-        ),
-        ExerciseView(
             id = 4,
             name = "Agachamento com barra livre",
             favoriteIcon = R.drawable.ic_star_filled,
@@ -365,8 +378,34 @@ fun ExercisesListScreenPreview() {
                 R.string.hamstrings,
                 R.string.abdomen,
                 R.string.adductors
-            )
-        )
+            ),
+            urlLink = "www.youtube.com.br",
+            videoId = null
+        ),
+        ExerciseView(
+            id = 1,
+            name = "Bíceps Concentrado",
+            favoriteIcon = R.drawable.ic_star_filled,
+            muscleGroups = listOf(R.string.biceps),
+            urlLink = null,
+            videoId = null
+        ),
+        ExerciseView(
+            id = 2,
+            name = "Tríceps pulley",
+            favoriteIcon = R.drawable.ic_star_border,
+            muscleGroups = listOf(R.string.triceps),
+            urlLink = null,
+            videoId = null
+        ),
+        ExerciseView(
+            id = 3,
+            name = "Supino inclinado",
+            favoriteIcon = R.drawable.ic_star_border,
+            muscleGroups = listOf(R.string.chest, R.string.triceps),
+            urlLink = null,
+            videoId = null
+        ),
     )
     ZeMarombaTheme {
         ExercisesListScreen(
@@ -393,6 +432,9 @@ fun ExercisesListScreenPreview() {
 
             },
             onMuscleGroupSelection = { _, _ ->
+
+            },
+            onOpenYoutubeApp = {
 
             }
         )

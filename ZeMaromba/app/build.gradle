@@ -98,4 +98,6 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:2.2.0"
     //Coroutines Test
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

@@ -20,6 +20,7 @@ import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListVie
 
 fun NavGraphBuilder.exerciseGraph(
     navController: NavController,
+    openYoutube: (videoId: String) -> Unit
 ) {
     navigation(
         startDestination = ExerciseRouter.ExercisesListScreen.route,
@@ -79,6 +80,9 @@ fun NavGraphBuilder.exerciseGraph(
                             isSelected = isSelected
                         )
                     )
+                },
+                onOpenYoutubeApp = { videoId ->
+                    openYoutube(videoId)
                 }
             )
         }

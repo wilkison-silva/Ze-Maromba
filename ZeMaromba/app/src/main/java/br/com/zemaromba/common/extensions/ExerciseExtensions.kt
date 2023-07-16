@@ -2,10 +2,21 @@ package br.com.zemaromba.common.extensions
 
 import br.com.zemaromba.R
 import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
+import br.com.zemaromba.core_data.model.ExerciseDTO
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_domain.model.Exercise
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
+
+fun ExerciseDTO.toExerciseEntity(): ExerciseEntity {
+    return ExerciseEntity(
+        id = this.id,
+        name = this.name,
+        favorite = false,
+        urlLink = this.videoUrl,
+        videoId = this.videoId
+    )
+}
 
 fun ExerciseEntity.toExercise(exercisesAndMuscleGroup: List<ExerciseAndMuscleGroupEntity>): Exercise {
     val muscleGroupList = mutableListOf<MuscleGroup>()

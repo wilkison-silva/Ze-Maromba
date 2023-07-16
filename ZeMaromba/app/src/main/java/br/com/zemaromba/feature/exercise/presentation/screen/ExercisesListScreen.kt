@@ -170,6 +170,7 @@ fun ExercisesListScreen(
                             muscleGroups = it.muscleGroups.map { muscleNameResource ->
                                 stringResource(id = muscleNameResource)
                             }.joinToString(separator = ", "),
+                            urlYoutube = it.urlLink,
                             favoriteIcon = it.favoriteIcon,
                             onClick = {
                                 onOpenExercise(it.id)
@@ -235,6 +236,7 @@ fun ExercisesListScreen(
 fun ExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
+    urlYoutube: String?,
     favoriteIcon: Int,
     onClick: () -> Unit,
     onFavoriteClick: () -> Unit
@@ -342,19 +344,22 @@ fun ExercisesListScreenPreview() {
             id = 1,
             name = "Bíceps Concentrado",
             favoriteIcon = R.drawable.ic_star_filled,
-            muscleGroups = listOf(R.string.biceps)
+            muscleGroups = listOf(R.string.biceps),
+            urlLink = null
         ),
         ExerciseView(
             id = 2,
             name = "Tríceps pulley",
             favoriteIcon = R.drawable.ic_star_border,
-            muscleGroups = listOf(R.string.triceps)
+            muscleGroups = listOf(R.string.triceps),
+            urlLink = null
         ),
         ExerciseView(
             id = 3,
             name = "Supino inclinado",
             favoriteIcon = R.drawable.ic_star_border,
-            muscleGroups = listOf(R.string.chest, R.string.triceps)
+            muscleGroups = listOf(R.string.chest, R.string.triceps),
+            urlLink = null
         ),
         ExerciseView(
             id = 4,
@@ -365,7 +370,8 @@ fun ExercisesListScreenPreview() {
                 R.string.hamstrings,
                 R.string.abdomen,
                 R.string.adductors
-            )
+            ),
+            urlLink = null
         )
     )
     ZeMarombaTheme {

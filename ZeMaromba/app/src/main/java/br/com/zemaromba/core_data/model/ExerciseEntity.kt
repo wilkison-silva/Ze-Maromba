@@ -12,5 +12,7 @@ data class ExerciseEntity(
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "favorite")
-    val favorite: Boolean
+    val favorite: Boolean,
+    @ColumnInfo(name = "url")
+    val urlLink: String?,
 )

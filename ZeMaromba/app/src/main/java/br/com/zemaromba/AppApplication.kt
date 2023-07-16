@@ -43,14 +43,14 @@ class AppApplication : Application() {
             CoroutineScope(Dispatchers.IO).launch {
                 exerciseDao.insertAll(
                     exerciseEntityList = listOf(
-                        ExerciseEntity(name = "Pulley frente", favorite = true),
-                        ExerciseEntity(name = "Pulley triângulo", favorite = true),
-                        ExerciseEntity(name = "Remada pronada", favorite = false),
-                        ExerciseEntity(name = "Crucifixo inverso", favorite = false),
-                        ExerciseEntity(name = "Rosca Scott", favorite = false),
-                        ExerciseEntity(name = "Rosca simultânea", favorite = false),
-                        ExerciseEntity(name = "Extensão lombar", favorite = false),
-                        ExerciseEntity(name = "Supino reto", favorite = false),
+                        ExerciseEntity(name = "Pulley frente", favorite = true, urlLink = null),
+                        ExerciseEntity(name = "Pulley triângulo", favorite = true, urlLink = null),
+                        ExerciseEntity(name = "Remada pronada", favorite = false, urlLink = null),
+                        ExerciseEntity(name = "Crucifixo inverso", favorite = false, urlLink = null),
+                        ExerciseEntity(name = "Rosca Scott", favorite = false, urlLink = null),
+                        ExerciseEntity(name = "Rosca simultânea", favorite = false, urlLink = null),
+                        ExerciseEntity(name = "Extensão lombar", favorite = false, urlLink = null),
+                        ExerciseEntity(name = "Supino reto", favorite = false, urlLink = null),
                     )
                 )
                 exerciseAndMuscleDao.insertAll(

@@ -147,7 +147,7 @@ fun ExercisesListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 10.dp),
-                thickness = 2.dp
+                thickness = 1.dp
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),

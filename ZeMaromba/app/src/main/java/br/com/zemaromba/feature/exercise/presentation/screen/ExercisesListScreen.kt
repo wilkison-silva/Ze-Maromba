@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -52,6 +54,7 @@ import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.exercise.domain.model.ExerciseFilter
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListState
+import br.com.zemaromba.feature.home.presentation.model.TrainingPlanView
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -149,40 +152,46 @@ fun ExercisesListScreen(
                     .padding(horizontal = 20.dp, vertical = 10.dp),
                 thickness = 1.dp
             )
-            Column(
+            LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier
-                    .verticalScroll(verticalScrollState)
             ) {
                 if (state.showNothingFound) {
-                    CardInfo(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
-                        icon = R.drawable.ic_warning,
-                        message = stringResource(R.string.card_info_found_no_exercises),
-                        borderColor = MaterialTheme.colorScheme.secondary,
-                        surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
-                        onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                } else {
-                    state.exercisesList.forEach {
-                        ExerciseCardItem(
-                            exerciseName = it.name,
-                            muscleGroups = it.muscleGroups.map { muscleNameResource ->
-                                stringResource(id = muscleNameResource)
-                            }.joinToString(separator = ", "),
-                            urlYoutube = it.urlLink,
-                            favoriteIcon = it.favoriteIcon,
-                            onClick = {
-                                onOpenExercise(it.id)
-                            },
-                            onFavoriteClick = {
-                                onFavoriteExercise(it.id, it.favoriteIcon)
-                            }
+                    item {
+                        CardInfo(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp),
+                            icon = R.drawable.ic_warning,
+                            message = stringResource(R.string.card_info_found_no_exercises),
+                            borderColor = MaterialTheme.colorScheme.secondary,
+                            surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
+                            onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
-                    Spacer(modifier = Modifier.height(100.dp))
+                } else {
+                    itemsIndexed(
+                        items = state.exercisesList,
+                        itemContent = { _: Int, exerciseView: ExerciseView ->
+                            ExerciseCardItem(
+                                exerciseName = exerciseView.name,
+                                muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
+                                    stringResource(id = muscleNameResource)
+                                }.joinToString(separator = ", "),
+                                urlYoutube = exerciseView.urlLink,
+                                favoriteIcon = exerciseView.favoriteIcon,
+                                onClick = {
+                                    onOpenExercise(exerciseView.id)
+                                },
+                                onFavoriteClick = {
+                                    onFavoriteExercise(exerciseView.id, exerciseView.favoriteIcon)
+                                }
+                            )
+                        }
+                    )
+                    item {
+                        Spacer(modifier = Modifier.height(100.dp))
+                    }
                 }
             }
         }

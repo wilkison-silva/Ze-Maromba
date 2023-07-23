@@ -420,19 +420,25 @@ class ExercisesListViewModelTest {
             id = 1,
             name = "Bíceps na polia",
             favorite = false,
-            muscleGroupList = listOf(MuscleGroup.BICEPS)
+            muscleGroupList = listOf(MuscleGroup.BICEPS),
+            urlLink = null,
+            videoId = null
         ),
         Exercise(
             id = 1,
             name = "Rosca na barra W",
             favorite = true,
-            muscleGroupList = listOf(MuscleGroup.BICEPS, MuscleGroup.FOREARM)
+            muscleGroupList = listOf(MuscleGroup.BICEPS, MuscleGroup.FOREARM),
+            urlLink = null,
+            videoId = null
         ),
         Exercise(
             id = 2,
             name = "Agachamento livre",
             favorite = true,
-            muscleGroupList = listOf(MuscleGroup.ABDUCTORS, MuscleGroup.LUMBAR, MuscleGroup.GLUTES)
+            muscleGroupList = listOf(MuscleGroup.ABDUCTORS, MuscleGroup.LUMBAR, MuscleGroup.GLUTES),
+            urlLink = null,
+            videoId = null
         )
     )
 }

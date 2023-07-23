@@ -86,7 +86,9 @@ class ExerciseManagementViewModelTest {
                 exercisesRepository.createExercise(
                     id = null,
                     name = name,
-                    muscleGroupList = listOf(selectedMuscleGroup)
+                    muscleGroupList = listOf(selectedMuscleGroup),
+                    videoId = null,
+                    urlLink = null
                 )
             }.returns(Unit)
             viewModel.onEvent(event = ExerciseManagementEvents.OnEnterName(exerciseName = name))
@@ -175,6 +177,8 @@ class ExerciseManagementViewModelTest {
         id = 1,
         name = "Biceps na barra W",
         favorite = true,
-        muscleGroupList = listOf(MuscleGroup.BICEPS)
+        muscleGroupList = listOf(MuscleGroup.BICEPS),
+        videoId = "fakeId",
+        urlLink = "fakeurl"
     )
 }

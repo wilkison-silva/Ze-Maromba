@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -100,27 +101,28 @@ fun TrainingPlanListScreen(
                 .padding(contentPadding)
                 .fillMaxSize()
             ) {
-                Icon(
-                    modifier = Modifier
-                        .padding(bottom = 150.dp)
-                        .align(Alignment.Center)
-                        .size(200.dp),
-                    painter = painterResource(id = R.drawable.ic_training_plans_not_found),
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 60.dp, end = 60.dp, top = 150.dp)
-                        .align(Alignment.Center),
-                    text = stringResource(id = R.string.how_about_create_your_first_training_plan),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    textAlign = TextAlign.Center,
-                    fontStyle = FontStyle.Italic
-                )
+                Column(
+                    modifier = Modifier.align(Alignment.Center),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        modifier = Modifier.size(200.dp),
+                        painter = painterResource(id = R.drawable.ic_training_plans_not_found),
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 60.dp, end = 60.dp),
+                        text = stringResource(id = R.string.how_about_create_your_first_training_plan),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        textAlign = TextAlign.Center,
+                        fontStyle = FontStyle.Italic
+                    )
+                }
             }
         } else {
             LazyColumn(
@@ -257,7 +259,7 @@ fun ExercisesListScreenPreview() {
     )
     ZeMarombaTheme {
         TrainingPlanListScreen(
-            state = TrainingPlanState(trainingPlanList = emptyList()),
+            state = TrainingPlanState(trainingPlanList = trainingPlanSampleList),
             onNavigateBack = {
 
             },

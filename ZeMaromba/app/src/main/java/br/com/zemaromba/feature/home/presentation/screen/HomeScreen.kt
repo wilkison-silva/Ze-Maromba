@@ -98,7 +98,7 @@ fun HomeScreen(
                         content = {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_account_picture),
-                                contentDescription = "",
+                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
@@ -206,7 +206,7 @@ fun MenuItemMyTrainingPlans(
                     Text(
                         modifier = Modifier
                             .padding(horizontal = 40.dp),
-                        text = "Que tal criar seu primeiro plano de treino?",
+                        text = stringResource(R.string.how_about_create_your_first_training_plan),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
@@ -267,11 +267,11 @@ fun MenuItemMyTrainingPlans(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = ""
+                    contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(5.dp))
                 Text(
-                    text = "Criar novo treino",
+                    text = stringResource(R.string.training_plan),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center

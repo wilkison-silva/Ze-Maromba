@@ -1,12 +1,8 @@
 package br.com.zemaromba.core_ui
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
@@ -21,7 +17,6 @@ import br.com.zemaromba.feature.onboarding.presentation.router.onBoardingGraph
 import br.com.zemaromba.feature.training_plan.presentation.router.TrainingPlanRouter
 import br.com.zemaromba.feature.training_plan.presentation.router.trainingPlanGraph
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

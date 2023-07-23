@@ -3,7 +3,6 @@ package br.com.zemaromba.feature.home.presentation.screen
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,24 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Badge
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -50,7 +40,6 @@ import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.feature.home.presentation.model.MenuHome
-import br.com.zemaromba.feature.home.presentation.model.TrainingPlanView
 import br.com.zemaromba.feature.home.presentation.viewmodel.HomeState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -122,10 +111,11 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.Start
             ) {
                 MenuItemMyTrainingPlans(
-                    trainingPlanList = state.trainingPlanList,
-                    showMessage = state.showMessage,
-                    onCreateTrainingPlanClick = {
-                        onNavigate(MenuHome.CREATE_TRAINING_PLAN)
+                    icon = R.drawable.ic_training_plan_calendar,
+                    title = stringResource(R.string.my_training_plans),
+                    description = stringResource(R.string.customized_training_plans),
+                    onClick = {
+                        onNavigate(MenuHome.TRAINING_PLAN_SCREEN)
                     }
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -142,146 +132,71 @@ fun HomeScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun MenuItemMyTrainingPlans(
-    trainingPlanList: List<TrainingPlanView>,
-    showMessage: Boolean,
-    onCreateTrainingPlanClick: () -> Unit
+    icon: Int,
+    title: String,
+    description: String,
+    onClick: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp),
+            .padding(start = 20.dp, end = 20.dp)
+            .clickable {
+                onClick()
+            },
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
         )
     ) {
-        Column {
-            Row(
-                modifier = Modifier.padding(
-                    start = 20.dp,
-                    top = 20.dp,
-                    bottom = 10.dp,
-                    end = 20.dp
-                ),
-                verticalAlignment = Alignment.CenterVertically
+        Box {
+            Column(
+                modifier = Modifier.align(Alignment.CenterStart)
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_training_plan_calendar),
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    text = stringResource(R.string.my_trainings),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.width(15.dp))
-                Badge(
-                    modifier = Modifier,
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = MaterialTheme.colorScheme.onSecondary
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(horizontal = 6.dp, vertical = 2.dp),
-                        text = trainingPlanList.count().toString(),
-                        fontSize = 14.sp
+                Row(
+                    modifier = Modifier.padding(
+                        start = 20.dp,
+                        top = 20.dp,
+                        bottom = 10.dp,
+                        end = 20.dp
                     )
-                }
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            if (showMessage) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_create_training_plan),
+                        painter = painterResource(id = icon),
                         contentDescription = "",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.width(20.dp))
                     Text(
-                        modifier = Modifier
-                            .padding(horizontal = 40.dp),
-                        text = stringResource(R.string.how_about_create_your_first_training_plan),
+                        text = title,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        fontStyle = FontStyle.Italic,
-                        textAlign = TextAlign.Center
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 }
-            } else {
-                LazyRow(
+                Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 10.dp),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    itemsIndexed(
-                        items = trainingPlanList,
-                        itemContent = { _: Int, trainingPlanView: TrainingPlanView ->
-                            OutlinedCard(
-                                modifier = Modifier,
-                                shape = RoundedCornerShape(size = 8.dp),
-                                colors = CardDefaults.outlinedCardColors(
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                )
-                            ) {
-                                Box(modifier = Modifier
-                                    .size(width = 200.dp, height = 120.dp)
-                                    .clickable {
-
-                                    }
-                                    .padding(10.dp)) {
-                                    Text(
-                                        modifier = Modifier
-                                            .padding(horizontal = 4.dp)
-                                            .align(Alignment.Center),
-                                        text = trainingPlanView.name,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Medium,
-                                        fontStyle = FontStyle.Italic,
-                                        textAlign = TextAlign.Center,
-                                    )
-                                }
-                            }
-                        }
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Button(
-                modifier = Modifier
-                    .padding(start = 20.dp, end = 20.dp)
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(size = 4.dp),
-                onClick = {
-                    onCreateTrainingPlanClick()
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(
-                    text = stringResource(R.string.training_plan),
+                        .padding(start = 20.dp, end = 60.dp, bottom = 20.dp),
+                    text = description,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
+                    fontWeight = FontWeight.Normal,
+                    fontStyle = FontStyle.Italic
                 )
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_arrow_right),
+                contentDescription = "",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 15.dp)
+            )
         }
     }
 }

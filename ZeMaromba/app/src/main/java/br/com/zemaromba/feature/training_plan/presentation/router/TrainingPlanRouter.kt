@@ -4,16 +4,10 @@ sealed class TrainingPlanRouter(val route: String) {
 
     object TrainingPlanGraph : TrainingPlanRouter(route = baseGraphRoute)
 
-    object TrainingPlanHomeScreen : TrainingPlanRouter(
-        route = "$baseGraphRoute/{${Params.trainingPlanId}}"
-    ) {
-        fun getRouteWithTrainingPlanId(trainingPlanId: Long): String {
-            return "$baseGraphRoute/$trainingPlanId"
-        }
-    }
+    object TrainingPlanHomeScreen : TrainingPlanRouter(route = "$baseGraphRoute/list")
 
     object TrainingPlanManagementScreen : TrainingPlanRouter(
-        route = "$baseGraphRoute/management/{${Params.trainingPlanId}}"
+        route = "$baseGraphRoute/management/{$trainingPlanId}"
     ) {
         fun getRouteWithTrainingPlanId(trainingPlanId: Long): String {
             return "$baseGraphRoute/management/$trainingPlanId"
@@ -21,7 +15,7 @@ sealed class TrainingPlanRouter(val route: String) {
     }
 
     companion object Params {
-        const val baseGraphRoute = "training_plan"
+        private const val baseGraphRoute = "training_plan"
         const val trainingPlanId = "training_plan_id"
     }
 }

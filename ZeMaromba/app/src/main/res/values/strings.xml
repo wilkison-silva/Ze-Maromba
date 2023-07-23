@@ -38,7 +38,7 @@
     <string name="fab_new_exercise">Novo exercício</string>
     <string name="title_exercises">Exercícios</string>
     <string name="title_hello">"Olá, "</string>
-    <string name="my_trainings">Meus Treinos</string>
+    <string name="my_training_plans">Planos de Treinos</string>
     <string name="exercises">Exercícios</string>
     <string name="message_create_your_own_exercises">Exercícios para compor seus treinos da sua maneira</string>
     <string name="your_name">Seu nome</string>
@@ -48,4 +48,5 @@
     <string name="exercise_demonstration_video">Demonstração do exerçicio.</string>
     <string name="training_plan">Plano de treino</string>
     <string name="how_about_create_your_first_training_plan">Que tal criar seu primeiro plano de treino?</string>
+    <string name="customized_training_plans">Planos de treinos personalizados</string>
 </resources>

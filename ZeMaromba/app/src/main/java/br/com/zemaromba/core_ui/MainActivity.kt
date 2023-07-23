@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     homeGraph(
                         navigateTo = {
                             when (it) {
-                                MenuHome.CREATE_TRAINING_PLAN -> {
+                                MenuHome.TRAINING_PLAN_SCREEN -> {
                                     navController.navigate(
                                         route = TrainingPlanRouter.TrainingPlanGraph.route
                                     )
@@ -60,10 +60,7 @@ class MainActivity : ComponentActivity() {
                             openVideoInYoutubeOrBrowser(videoId = videoId)
                         }
                     )
-                    trainingPlanGraph(
-                        navController = navController,
-                        trainingPlanId = null
-                    )
+                    trainingPlanGraph(navController = navController)
                 }
             }
         }

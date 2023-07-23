@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
@@ -17,6 +18,8 @@ import br.com.zemaromba.feature.home.presentation.router.HomeRouter
 import br.com.zemaromba.feature.home.presentation.router.homeGraph
 import br.com.zemaromba.feature.onboarding.presentation.router.OnBoardingRouter
 import br.com.zemaromba.feature.onboarding.presentation.router.onBoardingGraph
+import br.com.zemaromba.feature.training_plan.presentation.router.TrainingPlanRouter
+import br.com.zemaromba.feature.training_plan.presentation.router.trainingPlanGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -45,15 +48,13 @@ class MainActivity : ComponentActivity() {
                         navigateTo = {
                             when (it) {
                                 MenuHome.CREATE_TRAINING_PLAN -> {
-
+                                    navController.navigate(
+                                        route = TrainingPlanRouter.TrainingPlanGraph.route
+                                    )
                                 }
 
                                 MenuHome.EXERCISES_SCREEN -> {
                                     navController.navigate(ExerciseRouter.ExerciseGraph.route)
-                                }
-
-                                MenuHome.TRAINING_PLAN_MANAGEMENT -> {
-
                                 }
                             }
                         }
@@ -63,6 +64,10 @@ class MainActivity : ComponentActivity() {
                         openYoutube = { videoId: String ->
                             openVideoInYoutubeOrBrowser(videoId = videoId)
                         }
+                    )
+                    trainingPlanGraph(
+                        navController = navController,
+                        trainingPlanId = null
                     )
                 }
             }

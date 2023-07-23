@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.orZero
+import br.com.zemaromba.feature.exercise.presentation.router.ExerciseRouter.Params
 import br.com.zemaromba.feature.exercise.presentation.screen.ExerciseManagementScreen
 import br.com.zemaromba.feature.exercise.presentation.screen.ExercisesListScreen
 import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExerciseManagementEvents
@@ -40,14 +41,14 @@ fun NavGraphBuilder.exerciseGraph(
                     navController.navigate(
                         route = ExerciseRouter
                             .ExerciseManagementScreen
-                            .getRouteWithUserName(exerciseId = 0)
+                            .getRouteWithExerciseId(exerciseId = 0)
                     )
                 },
                 onOpenExercise = { exerciseId ->
                     navController.navigate(
                         route = ExerciseRouter
                             .ExerciseManagementScreen
-                            .getRouteWithUserName(exerciseId = exerciseId)
+                            .getRouteWithExerciseId(exerciseId = exerciseId)
                     )
                 },
                 onFavoriteExercise = { exerciseId, favoriteIcon ->
@@ -89,7 +90,7 @@ fun NavGraphBuilder.exerciseGraph(
         composable(
             route = ExerciseRouter.ExerciseManagementScreen.route,
             arguments = listOf(
-                navArgument(name = ExerciseRouter.ExerciseManagementScreen.Params.exerciseId) {
+                navArgument(name = Params.exerciseId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -98,7 +99,7 @@ fun NavGraphBuilder.exerciseGraph(
             val exerciseId = remember {
                 it
                     .arguments
-                    ?.getLong(ExerciseRouter.ExerciseManagementScreen.Params.exerciseId)
+                    ?.getLong(Params.exerciseId)
                     .orZero()
             }
             val viewModel: ExerciseManagementViewModel = hiltViewModel()

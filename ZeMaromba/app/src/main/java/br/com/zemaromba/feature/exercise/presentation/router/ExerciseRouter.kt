@@ -1,15 +1,18 @@
 package br.com.zemaromba.feature.exercise.presentation.router
 
 sealed class ExerciseRouter(val route: String) {
-    object ExerciseGraph : ExerciseRouter("exercises")
-    object ExercisesListScreen : ExerciseRouter("exercises_list")
-    object ExerciseManagementScreen : ExerciseRouter("exercise_management/{${Params.exerciseId}}") {
-        fun getRouteWithUserName(exerciseId: Long): String {
-            return "exercise_management/$exerciseId"
+    object ExerciseGraph : ExerciseRouter(route = baseGraphRoute)
+    object ExercisesListScreen : ExerciseRouter(route = "$baseGraphRoute/exercises_list")
+    object ExerciseManagementScreen : ExerciseRouter(
+        route = "$baseGraphRoute/exercise_management/{${exerciseId}}"
+    ) {
+        fun getRouteWithExerciseId(exerciseId: Long): String {
+            return "$baseGraphRoute/exercise_management/$exerciseId"
         }
+    }
 
-        object Params {
-            const val exerciseId = "exercise_id"
-        }
+    companion object Params {
+        const val baseGraphRoute = "exercises"
+        const val exerciseId = "exercise_id"
     }
 }

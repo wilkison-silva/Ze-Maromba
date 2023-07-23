@@ -123,7 +123,10 @@ fun HomeScreen(
             ) {
                 MenuItemMyTrainingPlans(
                     trainingPlanList = state.trainingPlanList,
-                    showMessage = state.showMessage
+                    showMessage = state.showMessage,
+                    onCreateTrainingPlanClick = {
+                        onNavigate(MenuHome.CREATE_TRAINING_PLAN)
+                    }
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 MenuItemExercise(
@@ -143,7 +146,8 @@ fun HomeScreen(
 @Composable
 fun MenuItemMyTrainingPlans(
     trainingPlanList: List<TrainingPlanView>,
-    showMessage: Boolean
+    showMessage: Boolean,
+    onCreateTrainingPlanClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -262,7 +266,7 @@ fun MenuItemMyTrainingPlans(
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(size = 4.dp),
                 onClick = {
-
+                    onCreateTrainingPlanClick()
                 }
             ) {
                 Icon(

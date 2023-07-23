@@ -4,7 +4,7 @@ sealed class TrainingPlanRouter(val route: String) {
 
     object TrainingPlanGraph : TrainingPlanRouter(route = baseGraphRoute)
 
-    object TrainingPlanHomeScreen : TrainingPlanRouter(route = "$baseGraphRoute/list")
+    object TrainingPlanListScreen : TrainingPlanRouter(route = "$baseGraphRoute/list")
 
     object TrainingPlanManagementScreen : TrainingPlanRouter(
         route = "$baseGraphRoute/management/{$trainingPlanId}"

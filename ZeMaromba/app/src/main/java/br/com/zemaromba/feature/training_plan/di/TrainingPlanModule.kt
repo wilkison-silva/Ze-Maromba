@@ -1,8 +1,8 @@
-package br.com.zemaromba.feature.home.di
+package br.com.zemaromba.feature.training_plan.di
 
 import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
-import br.com.zemaromba.feature.home.data.repository.TrainingPlanRepositoryImpl
-import br.com.zemaromba.feature.home.domain.repository.TrainingPlanRepository
+import br.com.zemaromba.feature.training_plan.data.repository.TrainingPlanRepositoryImpl
+import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object HomeModule {
+object TrainingPlanModule {
 
     @Provides
     @Singleton

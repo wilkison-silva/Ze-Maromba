@@ -31,6 +31,7 @@
     <string name="button_cancel">Cancelar</string>
     <string name="warning">Aviso</string>
     <string name="warning_about_remove_exercise">Apagar este exercício? Este exercício será removido de todos os treinos.</string>
+    <string name="warning_about_remove_training_plan">Apagar este plano? Isto apagará todo os treinos criados também.</string>
     <string name="filter_by">Filtrar por:</string>
     <string name="filter_item_all">Todos</string>
     <string name="filter_item_muscle_group">Grupo muscular</string>
@@ -44,10 +45,12 @@
     <string name="message_create_your_own_exercises">Exercícios para compor seus treinos da sua maneira</string>
     <string name="your_name">Seu nome</string>
     <string name="title_exercise">Exercício</string>
+    <string name="title_training_plan">Plano de treino</string>
     <string name="button_title_filter">Filtrar</string>
     <string name="card_info_found_no_exercises">Uma pena. Não encontramos nada parecido com os filtros aplicados.</string>
     <string name="exercise_demonstration_video">Demonstração do exerçicio.</string>
     <string name="training_plan">Plano de treino</string>
     <string name="how_about_create_your_first_training_plan">Que tal criar seu primeiro plano de treino?</string>
     <string name="customized_training_plans">Planos de treinos personalizados</string>
+    <string name="example_name_training_plan">Foco em massa magra</string>
 </resources>

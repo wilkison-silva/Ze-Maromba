@@ -1,6 +1,7 @@
 package br.com.zemaromba.feature.training_plan.presentation.router
 
-import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -9,8 +10,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import br.com.zemaromba.common.extensions.orZero
+import br.com.zemaromba.feature.exercise.presentation.router.ExerciseRouter
 import br.com.zemaromba.feature.training_plan.presentation.screen.TrainingPlanListScreen
+import br.com.zemaromba.feature.training_plan.presentation.screen.TrainingPlanManagementScreen
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanListViewModel
+import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanManagementEvents
+import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanManagementViewModel
 
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
@@ -35,7 +41,11 @@ fun NavGraphBuilder.trainingPlanGraph(
                     )
                 },
                 onCreateTrainingPlan = {
-
+                    navController.navigate(
+                        route = TrainingPlanRouter
+                            .TrainingPlanManagementScreen
+                            .getRouteWithTrainingPlanId(trainingPlanId = 0)
+                    )
                 }
             )
         }
@@ -48,7 +58,40 @@ fun NavGraphBuilder.trainingPlanGraph(
                 }
             )
         ) {
-            Text(text = "Gerenciar plano de treino")
+            val trainingPlanId = remember {
+                it
+                    .arguments
+                    ?.getLong(TrainingPlanRouter.trainingPlanId)
+                    .orZero()
+            }
+            val viewModel: TrainingPlanManagementViewModel = hiltViewModel()
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+            LaunchedEffect(key1 = Unit) {
+                viewModel.retrieveTrainingPlan(trainingPlanId)
+            }
+            TrainingPlanManagementScreen(
+                state = state,
+                onChangeName = {
+                    viewModel.onEvent(
+                        event = TrainingPlanManagementEvents.OnEnterName(trainingPlanName = it)
+                    )
+                },
+                onSaveTrainingPlan = {
+                    viewModel.onEvent(event = TrainingPlanManagementEvents.OnSaveTrainingPlan)
+                },
+                onDeleteTrainingPlan = {
+                    viewModel.onEvent(event = TrainingPlanManagementEvents.OnDeleteTrainingPlan)
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onShowAlertAboutRemoving = {
+                    viewModel.onEvent(
+                        event = TrainingPlanManagementEvents
+                            .OnShowWarningAboutRemoving(showDialog = it)
+                    )
+                }
+            )
         }
     }
 }

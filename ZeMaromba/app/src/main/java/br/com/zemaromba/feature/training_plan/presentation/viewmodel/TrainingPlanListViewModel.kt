@@ -3,7 +3,7 @@ package br.com.zemaromba.feature.training_plan.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.common.extensions.toTrainingPlanView
-import br.com.zemaromba.feature.home.domain.repository.TrainingPlanRepository
+import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
 import br.com.zemaromba.feature.home.presentation.model.TrainingPlanView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

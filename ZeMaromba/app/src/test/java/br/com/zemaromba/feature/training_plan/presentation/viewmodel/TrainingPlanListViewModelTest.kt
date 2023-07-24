@@ -2,10 +2,8 @@ package br.com.zemaromba.feature.training_plan.presentation.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zemaromba.common.extensions.toTrainingPlanView
-import br.com.zemaromba.core_domain.datastore.UserDataStore
 import br.com.zemaromba.core_domain.model.TrainingPlan
-import br.com.zemaromba.feature.home.domain.repository.TrainingPlanRepository
-import br.com.zemaromba.feature.home.presentation.viewmodel.HomeScreenViewModel
+import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

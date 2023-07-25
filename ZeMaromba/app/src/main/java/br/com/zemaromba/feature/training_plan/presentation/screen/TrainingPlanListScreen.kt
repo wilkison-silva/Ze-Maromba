@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.feature.home.presentation.model.TrainingPlanView
+import br.com.zemaromba.feature.training_plan.presentation.model.TrainingPlanView
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanState
 
 @OptIn(ExperimentalMaterial3Api::class)

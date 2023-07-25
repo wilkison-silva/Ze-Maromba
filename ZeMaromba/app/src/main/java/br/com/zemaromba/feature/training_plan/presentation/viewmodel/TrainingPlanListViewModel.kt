@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.common.extensions.toTrainingPlanView
 import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
-import br.com.zemaromba.feature.home.presentation.model.TrainingPlanView
+import br.com.zemaromba.feature.training_plan.presentation.model.TrainingPlanView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

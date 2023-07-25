@@ -7,9 +7,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
-import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.feature.exercise.presentation.router.ExerciseRouter.Params
 import br.com.zemaromba.feature.exercise.presentation.screen.ExerciseManagementScreen
@@ -21,14 +21,16 @@ import br.com.zemaromba.feature.exercise.presentation.viewmodel.ExercisesListVie
 
 fun NavGraphBuilder.exerciseGraph(
     navController: NavController,
-    openYoutube: (videoId: String) -> Unit
+    openYoutube: (videoId: String) -> Unit,
+    width: Int
 ) {
     navigation(
         startDestination = ExerciseRouter.ExercisesListScreen.route,
         route = ExerciseRouter.ExerciseGraph.route
     ) {
-        composable(
-            route = ExerciseRouter.ExercisesListScreen.route
+        composableWithTransitionAnimation(
+            route = ExerciseRouter.ExercisesListScreen.route,
+            width = width
         ) {
             val viewModel: ExercisesListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -87,8 +89,9 @@ fun NavGraphBuilder.exerciseGraph(
                 }
             )
         }
-        composable(
+        composableWithTransitionAnimation(
             route = ExerciseRouter.ExerciseManagementScreen.route,
+            width = width,
             arguments = listOf(
                 navArgument(name = Params.exerciseId) {
                     type = NavType.LongType

@@ -6,9 +6,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import br.com.zemaromba.R
+import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.feature.onboarding.presentation.screen.GetStartedScreen
 import br.com.zemaromba.feature.onboarding.presentation.screen.UserOriginationNameScreen
 import br.com.zemaromba.feature.onboarding.presentation.viewmodel.GetStartedViewModel
@@ -17,13 +17,17 @@ import br.com.zemaromba.feature.onboarding.presentation.viewmodel.UserOriginatio
 
 fun NavGraphBuilder.onBoardingGraph(
     navController: NavController,
-    onFinishOnBoarding: () -> Unit
+    onFinishOnBoarding: () -> Unit,
+    width: Int
 ) {
     navigation(
         startDestination = OnBoardingRouter.GetStartedScreen.route,
         route = OnBoardingRouter.OnBoardingGraph.route
     ) {
-        composable(route = OnBoardingRouter.GetStartedScreen.route) {
+        composableWithTransitionAnimation(
+            route = OnBoardingRouter.GetStartedScreen.route,
+            width = width
+        ) {
             val viewModel: GetStartedViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = state.userNameIsValid) {
@@ -45,7 +49,10 @@ fun NavGraphBuilder.onBoardingGraph(
                 },
             )
         }
-        composable(route = OnBoardingRouter.UserOriginationNameScreen.route) {
+        composableWithTransitionAnimation(
+            route = OnBoardingRouter.UserOriginationNameScreen.route,
+            width = width,
+        ) {
             val viewModel: UserOriginationNameViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = state.nameSaved) {

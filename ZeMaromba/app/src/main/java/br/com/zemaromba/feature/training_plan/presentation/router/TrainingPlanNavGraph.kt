@@ -7,11 +7,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
-import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
-import br.com.zemaromba.feature.exercise.presentation.router.ExerciseRouter
 import br.com.zemaromba.feature.training_plan.presentation.screen.TrainingPlanListScreen
 import br.com.zemaromba.feature.training_plan.presentation.screen.TrainingPlanManagementScreen
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanListViewModel
@@ -20,12 +19,16 @@ import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPla
 
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
+    width: Int
 ) {
     navigation(
         startDestination = TrainingPlanRouter.TrainingPlanListScreen.route,
         route = TrainingPlanRouter.TrainingPlanGraph.route
     ) {
-        composable(route = TrainingPlanRouter.TrainingPlanListScreen.route) {
+        composableWithTransitionAnimation(
+            route = TrainingPlanRouter.TrainingPlanListScreen.route,
+            width = width
+        ) {
             val viewModel: TrainingPlanListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             TrainingPlanListScreen(
@@ -49,8 +52,9 @@ fun NavGraphBuilder.trainingPlanGraph(
                 }
             )
         }
-        composable(
+        composableWithTransitionAnimation(
             route = TrainingPlanRouter.TrainingPlanManagementScreen.route,
+            width = width,
             arguments = listOf(
                 navArgument(name = TrainingPlanRouter.trainingPlanId) {
                     type = NavType.LongType

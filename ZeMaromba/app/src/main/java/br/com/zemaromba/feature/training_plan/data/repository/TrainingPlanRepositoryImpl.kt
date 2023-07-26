@@ -4,6 +4,7 @@ import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.toTrainingPlan
 import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
+import br.com.zemaromba.core_domain.model.Training
 import br.com.zemaromba.core_domain.model.TrainingPlan
 import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
 import kotlinx.coroutines.flow.Flow
@@ -40,6 +41,10 @@ class TrainingPlanRepositoryImpl(
     override suspend fun deleteTrainingPlan(id: Long): Boolean {
         val result = trainingPlanDao.deleteById(trainingPlanId = id)
         return result == 1
+    }
+
+    override fun getTrainingsByTrainingPlanId(trainingPlanId: Long): Flow<List<Training>> {
+        TODO("Not yet implemented")
     }
 
 }

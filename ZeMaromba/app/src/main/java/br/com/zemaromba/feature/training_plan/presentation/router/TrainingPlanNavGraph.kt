@@ -11,8 +11,10 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
+import br.com.zemaromba.feature.training_plan.presentation.screen.TrainingListScreen
 import br.com.zemaromba.feature.training_plan.presentation.screen.TrainingPlanListScreen
 import br.com.zemaromba.feature.training_plan.presentation.screen.TrainingPlanManagementScreen
+import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingListViewModel
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanListViewModel
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanManagementEvents
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanManagementViewModel
@@ -39,7 +41,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onOpenTrainingPlan = { trainingPlanId ->
                     navController.navigate(
                         route = TrainingPlanRouter
-                            .TrainingPlanManagementScreen
+                            .TrainingsListScreen
                             .getRouteWithTrainingPlanId(trainingPlanId = trainingPlanId)
                     )
                 },
@@ -94,6 +96,53 @@ fun NavGraphBuilder.trainingPlanGraph(
                         event = TrainingPlanManagementEvents
                             .OnShowWarningAboutRemoving(showDialog = it)
                     )
+                }
+            )
+        }
+        composableWithTransitionAnimation(
+            route = TrainingPlanRouter.TrainingsListScreen.route,
+            width = width,
+            arguments = listOf(
+                navArgument(name = TrainingPlanRouter.trainingPlanId) {
+                    type = NavType.LongType
+                    defaultValue = 0
+                },
+                navArgument(name = TrainingPlanRouter.trainingPlanName) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ) {
+            val trainingPlanId = remember {
+                it
+                    .arguments
+                    ?.getLong(TrainingPlanRouter.trainingPlanId)
+                    .orZero()
+            }
+            val trainingPlanName = remember {
+                it
+                    .arguments
+                    ?.getString(TrainingPlanRouter.trainingPlanName)
+                    .orEmpty()
+            }
+            val viewModel: TrainingListViewModel = hiltViewModel()
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+            LaunchedEffect(key1 = Unit) {
+                viewModel.setTrainingPlanName(name = trainingPlanName)
+            }
+            LaunchedEffect(key1 = Unit) {
+                viewModel.getTrainings(trainingPlanId = trainingPlanId)
+            }
+            TrainingListScreen(
+                state = state,
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onOpenTraining = {
+
+                },
+                onCreateTraining = {
+
                 }
             )
         }

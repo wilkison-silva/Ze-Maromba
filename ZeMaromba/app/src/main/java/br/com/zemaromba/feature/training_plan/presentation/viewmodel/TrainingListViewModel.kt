@@ -20,7 +20,7 @@ class TrainingListViewModel @Inject constructor(
     private val _state = MutableStateFlow(TrainingListState())
     val state = _state.asStateFlow()
 
-    private fun getTrainings(trainingPlanId: Long) {
+    fun getTrainings(trainingPlanId: Long) {
         viewModelScope.launch {
             trainingPlanRepository
                 .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
@@ -32,10 +32,15 @@ class TrainingListViewModel @Inject constructor(
                 }
         }
     }
+
+    fun setTrainingPlanName(name: String) {
+        _state.update { it.copy(trainingPlanName = name) }
+    }
 }
 
 data class TrainingListState(
     val trainingViewList: List<TrainingView> = emptyList(),
+    val trainingPlanName: String = ""
 ) {
     val showMessage: Boolean = trainingViewList.isEmpty()
 }

@@ -14,8 +14,17 @@ sealed class TrainingPlanRouter(val route: String) {
         }
     }
 
+    object TrainingsListScreen : TrainingPlanRouter(
+        route = "$baseGraphRoute/trainings_list/{$trainingPlanId}"
+    ) {
+        fun getRouteWithTrainingPlanId(trainingPlanId: Long): String {
+            return "$baseGraphRoute/trainings_list/$trainingPlanId"
+        }
+    }
+
     companion object Params {
         private const val baseGraphRoute = "training_plan"
         const val trainingPlanId = "training_plan_id"
+        const val trainingPlanName = "training_plan_name"
     }
 }

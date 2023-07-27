@@ -21,16 +21,16 @@ class TrainingListViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     fun getTrainings(trainingPlanId: Long) {
-        viewModelScope.launch {
-            trainingPlanRepository
-                .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
-                .collectLatest { trainingList ->
-                    val trainingViewList = trainingList.map { it.toTrainingView()}
-                    _state.update {
-                        it.copy(trainingViewList = trainingViewList)
-                    }
-                }
-        }
+//        viewModelScope.launch {
+//            trainingPlanRepository
+//                .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
+//                .collectLatest { trainingList ->
+//                    val trainingViewList = trainingList.map { it.toTrainingView()}
+//                    _state.update {
+//                        it.copy(trainingViewList = trainingViewList)
+//                    }
+//                }
+//        }
     }
 
     fun setTrainingPlanName(name: String) {

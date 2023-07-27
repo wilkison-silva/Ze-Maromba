@@ -15,10 +15,10 @@ sealed class TrainingPlanRouter(val route: String) {
     }
 
     object TrainingsListScreen : TrainingPlanRouter(
-        route = "$baseGraphRoute/trainings_list/{$trainingPlanId}"
+        route = "$baseGraphRoute/trainings_list/{$trainingPlanId}/{$trainingPlanName}"
     ) {
-        fun getRouteWithTrainingPlanId(trainingPlanId: Long): String {
-            return "$baseGraphRoute/trainings_list/$trainingPlanId"
+        fun getRoute(trainingPlanId: Long, trainingPlanName: String): String {
+            return "$baseGraphRoute/trainings_list/$trainingPlanId/$trainingPlanName"
         }
     }
 

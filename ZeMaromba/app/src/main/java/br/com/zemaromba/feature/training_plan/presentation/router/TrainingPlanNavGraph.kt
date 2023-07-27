@@ -1,5 +1,6 @@
 package br.com.zemaromba.feature.training_plan.presentation.router
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,11 +39,14 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onOpenTrainingPlan = { trainingPlanId ->
+                onOpenTrainingPlan = { trainingPlanId, trainingPlanName ->
                     navController.navigate(
                         route = TrainingPlanRouter
                             .TrainingsListScreen
-                            .getRouteWithTrainingPlanId(trainingPlanId = trainingPlanId)
+                            .getRoute(
+                                trainingPlanId = trainingPlanId,
+                                trainingPlanName = trainingPlanName
+                            )
                     )
                 },
                 onCreateTrainingPlan = {

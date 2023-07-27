@@ -23,6 +23,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -55,7 +56,7 @@ fun TrainingListScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            MediumTopAppBar(
                 navigationIcon = {
                     IconButton(
                         onClick = {
@@ -72,7 +73,8 @@ fun TrainingListScreen(
                 },
                 title = {
                     Text(
-                        text = stringResource(R.string.my_training_plans),
+                        modifier = Modifier.padding(start = 10.dp),
+                        text = state.trainingPlanName,
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 20.sp
                     )

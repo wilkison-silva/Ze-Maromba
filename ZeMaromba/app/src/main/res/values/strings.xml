@@ -52,6 +52,7 @@
     <string name="exercise_demonstration_video">Demonstração do exerçicio.</string>
     <string name="training_plan">Plano de treino</string>
     <string name="how_about_create_your_first_training_plan">Que tal criar seu primeiro plano de treino?</string>
+    <string name="how_about_create_your_first_training">Nenhum treino ainda neste plano. Vamos criar um?</string>
     <string name="customized_training_plans">Planos de treinos personalizados</string>
     <string name="example_name_training_plan">Foco em massa magra</string>
 </resources>

@@ -26,7 +26,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -78,6 +77,20 @@ fun TrainingListScreen(
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 20.sp
                     )
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+
+                        },
+                        content = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_settings),
+                                contentDescription = "",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    )
                 }
             )
         },
@@ -110,15 +123,16 @@ fun TrainingListScreen(
                 ) {
                     Icon(
                         modifier = Modifier.size(200.dp),
-                        painter = painterResource(id = R.drawable.ic_training_plans_not_found),
-                        contentDescription = "",
+                        painter = painterResource(id = R.drawable.ic_training_list),
+                        contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
+                    Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 60.dp, end = 60.dp),
-                        text = stringResource(id = R.string.how_about_create_your_first_training_plan),
+                        text = stringResource(id = R.string.how_about_create_your_first_training),
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,

@@ -39,14 +39,11 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onOpenTrainingPlan = { trainingPlanId, trainingPlanName ->
+                onOpenTrainingPlan = { trainingPlanId ->
                     navController.navigate(
                         route = TrainingPlanRouter
                             .TrainingsListScreen
-                            .getRoute(
-                                trainingPlanId = trainingPlanId,
-                                trainingPlanName = trainingPlanName
-                            )
+                            .getRoute(trainingPlanId = trainingPlanId)
                     )
                 },
                 onCreateTrainingPlan = {
@@ -100,6 +97,12 @@ fun NavGraphBuilder.trainingPlanGraph(
                         event = TrainingPlanManagementEvents
                             .OnShowWarningAboutRemoving(showDialog = it)
                     )
+                },
+                onDeleteFinished = {
+                    navController.popBackStack(
+                        route = TrainingPlanRouter.TrainingPlanListScreen.route,
+                        inclusive = false
+                    )
                 }
             )
         }
@@ -110,10 +113,6 @@ fun NavGraphBuilder.trainingPlanGraph(
                 navArgument(name = TrainingPlanRouter.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
-                },
-                navArgument(name = TrainingPlanRouter.trainingPlanName) {
-                    type = NavType.StringType
-                    defaultValue = ""
                 }
             )
         ) {
@@ -123,16 +122,10 @@ fun NavGraphBuilder.trainingPlanGraph(
                     ?.getLong(TrainingPlanRouter.trainingPlanId)
                     .orZero()
             }
-            val trainingPlanName = remember {
-                it
-                    .arguments
-                    ?.getString(TrainingPlanRouter.trainingPlanName)
-                    .orEmpty()
-            }
             val viewModel: TrainingListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = Unit) {
-                viewModel.setTrainingPlanName(name = trainingPlanName)
+                viewModel.retrieveTrainingPlan(trainingPlanId = trainingPlanId)
             }
             LaunchedEffect(key1 = Unit) {
                 viewModel.getTrainings(trainingPlanId = trainingPlanId)
@@ -147,6 +140,13 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onCreateTraining = {
 
+                },
+                onOpenSettings = {
+                    navController.navigate(
+                        route = TrainingPlanRouter
+                            .TrainingPlanManagementScreen
+                            .getRouteWithTrainingPlanId(trainingPlanId = trainingPlanId)
+                    )
                 }
             )
         }

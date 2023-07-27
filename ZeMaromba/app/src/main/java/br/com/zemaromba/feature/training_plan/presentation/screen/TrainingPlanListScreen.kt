@@ -47,7 +47,7 @@ import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPla
 fun TrainingPlanListScreen(
     state: TrainingPlanState,
     onNavigateBack: () -> Unit,
-    onOpenTrainingPlan: (trainingPlanId: Long, trainingPlanName: String) -> Unit,
+    onOpenTrainingPlan: (trainingPlanId: Long) -> Unit,
     onCreateTrainingPlan: () -> Unit
 ) {
 
@@ -138,7 +138,7 @@ fun TrainingPlanListScreen(
                         TrainingPlanCardItem(
                             trainingPlanName = trainingPlanView.name,
                             onClick = {
-                                onOpenTrainingPlan(trainingPlanView.id, trainingPlanView.name)
+                                onOpenTrainingPlan(trainingPlanView.id)
                             }
                         )
                     }
@@ -263,7 +263,7 @@ fun TrainingPlanListScreenPreview() {
             onNavigateBack = {
 
             },
-            onOpenTrainingPlan = { _, _ ->
+            onOpenTrainingPlan = {
 
             },
             onCreateTrainingPlan = {

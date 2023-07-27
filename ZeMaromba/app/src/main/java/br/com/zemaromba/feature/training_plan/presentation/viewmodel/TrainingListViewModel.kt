@@ -7,6 +7,7 @@ import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepo
 import br.com.zemaromba.feature.training_plan.presentation.model.TrainingView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -33,8 +34,18 @@ class TrainingListViewModel @Inject constructor(
 //        }
     }
 
-    fun setTrainingPlanName(name: String) {
-        _state.update { it.copy(trainingPlanName = name) }
+    fun retrieveTrainingPlan(trainingPlanId: Long) {
+        if (trainingPlanId > 0) {
+            viewModelScope.launch(Dispatchers.IO) {
+                trainingPlanRepository
+                    .getTrainingPlanById(id = trainingPlanId)
+                    .let { trainingPlan ->
+                        _state.update {
+                            it.copy(trainingPlanName = trainingPlan.name)
+                        }
+                    }
+            }
+        }
     }
 }
 

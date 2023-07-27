@@ -47,11 +47,15 @@ fun TrainingPlanManagementScreen(
     onSaveTrainingPlan: () -> Unit,
     onDeleteTrainingPlan: () -> Unit,
     onNavigateBack: () -> Unit,
-    onShowAlertAboutRemoving: (showDialog: Boolean) -> Unit
+    onShowAlertAboutRemoving: (showDialog: Boolean) -> Unit,
+    onDeleteFinished: () -> Unit
 ) {
-    LaunchedEffect(key1 = state.navigateBack) {
+    LaunchedEffect(key1 = state.navigateBack, key2 = state.onDeleteFinished) {
         if (state.navigateBack) {
             onNavigateBack()
+        }
+        if (state.onDeleteFinished) {
+            onDeleteFinished()
         }
     }
     if (state.showDialog) {
@@ -259,6 +263,9 @@ fun ExercisesManagementScreenPreview() {
 
             },
             onShowAlertAboutRemoving = {
+
+            },
+            onDeleteFinished = {
 
             }
         )

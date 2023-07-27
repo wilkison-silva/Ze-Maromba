@@ -62,7 +62,7 @@ class TrainingPlanManagementViewModel @Inject constructor(
                         val deleteResult =
                             trainingPlanRepository.deleteTrainingPlan(id = trainingPlanId)
                         if (deleteResult) {
-                            _state.update { it.copy(navigateBack = true) }
+                            _state.update { it.copy(onDeleteFinished = true) }
                         }
                     }
                 }
@@ -103,6 +103,7 @@ data class TrainingPlanManagementState(
     val trainingPlanId: Long? = null,
     val name: String = "",
     val navigateBack: Boolean = false,
+    val onDeleteFinished: Boolean = false,
     val nameIsBlank: Boolean = false,
     val showDialog: Boolean = false
 )

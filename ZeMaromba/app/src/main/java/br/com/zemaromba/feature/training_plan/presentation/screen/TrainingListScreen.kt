@@ -49,7 +49,8 @@ fun TrainingListScreen(
     state: TrainingListState,
     onNavigateBack: () -> Unit,
     onOpenTraining: (trainingId: Long) -> Unit,
-    onCreateTraining: () -> Unit
+    onCreateTraining: () -> Unit,
+    onOpenSettings: () -> Unit
 ) {
 
     Scaffold(
@@ -81,7 +82,7 @@ fun TrainingListScreen(
                 actions = {
                     IconButton(
                         onClick = {
-
+                            onOpenSettings()
                         },
                         content = {
                             Icon(
@@ -113,9 +114,10 @@ fun TrainingListScreen(
         },
     ) { contentPadding ->
         if (state.showMessage) {
-            Box(modifier = Modifier
-                .padding(contentPadding)
-                .fillMaxSize()
+            Box(
+                modifier = Modifier
+                    .padding(contentPadding)
+                    .fillMaxSize()
             ) {
                 Column(
                     modifier = Modifier.align(Alignment.Center),
@@ -260,6 +262,9 @@ fun TrainingListScreenPreview() {
 
             },
             onCreateTraining = {
+
+            },
+            onOpenSettings = {
 
             }
         )

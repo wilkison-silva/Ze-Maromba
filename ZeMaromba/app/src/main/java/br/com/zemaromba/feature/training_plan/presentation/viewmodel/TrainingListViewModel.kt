@@ -2,15 +2,13 @@ package br.com.zemaromba.feature.training_plan.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.zemaromba.common.extensions.toTrainingView
 import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
-import br.com.zemaromba.feature.training_plan.presentation.model.TrainingView
+import br.com.zemaromba.feature.training_plan.presentation.model.TrainingSummaryView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -50,8 +48,8 @@ class TrainingListViewModel @Inject constructor(
 }
 
 data class TrainingListState(
-    val trainingViewList: List<TrainingView> = emptyList(),
+    val trainingSummaryViewList: List<TrainingSummaryView> = emptyList(),
     val trainingPlanName: String = ""
 ) {
-    val showMessage: Boolean = trainingViewList.isEmpty()
+    val showMessage: Boolean = trainingSummaryViewList.isEmpty()
 }

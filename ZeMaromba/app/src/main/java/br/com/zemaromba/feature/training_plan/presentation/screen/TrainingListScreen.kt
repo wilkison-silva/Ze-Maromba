@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.feature.training_plan.presentation.model.TrainingView
+import br.com.zemaromba.feature.training_plan.presentation.model.TrainingSummaryView
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingListState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -152,12 +152,12 @@ fun TrainingListScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                 }
                 itemsIndexed(
-                    items = state.trainingViewList,
-                    itemContent = { _: Int, trainingView: TrainingView ->
+                    items = state.trainingSummaryViewList,
+                    itemContent = { _: Int, trainingSummaryView: TrainingSummaryView ->
                         TrainingCardItem(
-                            trainingName = trainingView.name,
+                            trainingName = trainingSummaryView.name,
                             onClick = {
-                                onOpenTraining(trainingView.id)
+                                onOpenTraining(trainingSummaryView.id)
                             }
                         )
                     }
@@ -239,7 +239,7 @@ fun TrainingCardItem(
 @Composable
 fun TrainingListScreenPreview() {
     val trainingSampleList = listOf(
-        TrainingView(
+        TrainingSummaryView(
             id = 1,
             name = "Treino do dia 01",
             exercisesQuantity = 12,
@@ -254,7 +254,7 @@ fun TrainingListScreenPreview() {
     )
     ZeMarombaTheme {
         TrainingListScreen(
-            state = TrainingListState(trainingViewList = trainingSampleList),
+            state = TrainingListState(trainingSummaryViewList = trainingSampleList),
             onNavigateBack = {
 
             },

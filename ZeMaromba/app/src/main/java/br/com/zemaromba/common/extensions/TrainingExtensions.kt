@@ -2,9 +2,9 @@ package br.com.zemaromba.common.extensions
 
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.core_domain.model.Training
-import br.com.zemaromba.feature.training_plan.presentation.model.TrainingView
+import br.com.zemaromba.feature.training_plan.presentation.model.TrainingSummaryView
 
-fun Training.toTrainingView(): TrainingView {
+fun Training.toTrainingView(): TrainingSummaryView {
 
     val totalSets = this.sets.size
     val totalCompleted = this.sets.count { it.completed }
@@ -18,7 +18,7 @@ fun Training.toTrainingView(): TrainingView {
     }
     muscleGroups = muscleGroups.toSet().toMutableList()
 
-    return TrainingView(
+    return TrainingSummaryView(
         id = this.id,
         name = this.name,
         exercisesQuantity = this.sets.size,

@@ -85,6 +85,27 @@ class AppApplication : Application() {
                     )
                 )
 
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 1,
+                        name = "Sem dores no joelho"
+                    )
+                )
+
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 1,
+                        name = "Bíceps de aço"
+                    )
+                )
+
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 1,
+                        name = "Full Body"
+                    )
+                )
+
                 setDao.insert(
                     SetEntity(
                         exerciseId = 1,
@@ -115,6 +136,45 @@ class AppApplication : Application() {
                     SetEntity(
                         exerciseId = 5,
                         training_id = 2,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 10.0,
+                        observation = "Não fazer rosca direta",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 8,
+                        training_id = 1,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 10.0,
+                        observation = "Não fazer rosca direta",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 10,
+                        training_id = 1,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 10.0,
+                        observation = "Não fazer rosca direta",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 12,
+                        training_id = 1,
                         quantity = 12,
                         repetitions = 4,
                         weight = 10.0,

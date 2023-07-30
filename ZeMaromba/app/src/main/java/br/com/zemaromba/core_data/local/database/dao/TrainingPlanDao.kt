@@ -1,10 +1,9 @@
 package br.com.zemaromba.core_data.local.database.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Upsert
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
 import br.com.zemaromba.core_data.model.relations.TrainingPlanWithTrainings
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TrainingPlanDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insert(trainingPlanEntity: TrainingPlanEntity): Long
 
     @Query("DELETE FROM TrainingPlan WHERE TrainingPlan.training_plan_id = :trainingPlanId")

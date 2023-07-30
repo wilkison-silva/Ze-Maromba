@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Ze Maromba</string>
     <string name="start_your_training_journey">Comece a sua jornada de treinos</string>
-    <string name="description_screen_get_started">Você pode alcançar seus objetivos de uma forma conveniente e simples</string>
+    <string name="description_screen_get_started">Você pode alcançar seus objetivos de uma forma conveniente e simples.</string>
     <string name="button_title_get_started">Vamos começar</string>
     <string name="whats_your_name">Como podemos chamar você?</string>
-    <string name="dont_you_worry_you_can_change_your_name_later">Não se preocupe, você poderá mudar esta informação depois</string>
+    <string name="dont_you_worry_you_can_change_your_name_later">Não se preocupe, você poderá mudar esta informação depois.</string>
     <string name="next">Avançar</string>
     <string name="chest">Peitoral</string>
     <string name="dorsal">Dorsal</string>
@@ -43,7 +43,7 @@
     <string name="title_hello">"Olá, "</string>
     <string name="my_training_plans">Planos de Treinos</string>
     <string name="exercises">Exercícios</string>
-    <string name="message_create_your_own_exercises">Exercícios para compor seus treinos da sua maneira</string>
+    <string name="message_create_your_own_exercises">Exercícios para compor seus treinos da sua maneira.</string>
     <string name="your_name">Seu nome</string>
     <string name="title_exercise">Exercício</string>
     <string name="title_training_plan">Plano de treino</string>
@@ -55,4 +55,7 @@
     <string name="how_about_create_your_first_training">Nenhum treino ainda neste plano. Vamos criar um?</string>
     <string name="customized_training_plans">Planos de treinos personalizados</string>
     <string name="example_name_training_plan">Foco em massa magra</string>
+    <string name="training_summary_card_exercises_quantity">%1d exercícios</string>
+    <string name="training_card_muscle_groups_of">"Grupos musculares: "</string>
+    <string name="training_summary_card_percentage_done">%1$d%% concluído</string>
 </resources>

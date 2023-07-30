@@ -19,8 +19,8 @@ interface TrainingPlanDao {
     suspend fun deleteById(trainingPlanId: Long): Int
 
     @Transaction
-    @Query("SELECT * FROM TrainingPlan")
-    fun getTrainingPlanWithTrainings(): Flow<List<TrainingPlanWithTrainings>>
+    @Query("SELECT * FROM TrainingPlan WHERE TrainingPlan.training_plan_id = :trainingPlanId")
+    fun getTrainingPlanWithTrainings(trainingPlanId: Long): Flow<TrainingPlanWithTrainings>
 
     @Query("SELECT * FROM TrainingPlan")
     fun getAllTrainingPlans(): Flow<List<TrainingPlanEntity>>

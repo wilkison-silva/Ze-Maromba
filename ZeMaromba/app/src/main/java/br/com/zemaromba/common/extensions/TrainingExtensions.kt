@@ -1,10 +1,20 @@
 package br.com.zemaromba.common.extensions
 
+import br.com.zemaromba.core_data.model.TrainingEntity
 import br.com.zemaromba.core_domain.model.MuscleGroup
+import br.com.zemaromba.core_domain.model.Set
 import br.com.zemaromba.core_domain.model.Training
 import br.com.zemaromba.feature.training_plan.presentation.model.TrainingSummaryView
 
-fun Training.toTrainingView(): TrainingSummaryView {
+fun TrainingEntity.toTraining(sets: List<Set>?): Training {
+    return Training(
+        id = this.id,
+        name = this.name,
+        sets = sets ?: emptyList()
+    )
+}
+
+fun Training.toTrainingSummaryView(): TrainingSummaryView {
 
     val totalSets = this.sets.size
     val totalCompleted = this.sets.count { it.completed }

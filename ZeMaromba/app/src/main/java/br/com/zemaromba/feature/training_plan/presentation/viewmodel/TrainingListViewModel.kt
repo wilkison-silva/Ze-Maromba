@@ -2,6 +2,7 @@ package br.com.zemaromba.feature.training_plan.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.zemaromba.common.extensions.toTrainingSummaryView
 import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
 import br.com.zemaromba.feature.training_plan.presentation.model.TrainingSummaryView
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,6 +10,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -20,16 +22,16 @@ class TrainingListViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     fun getTrainings(trainingPlanId: Long) {
-//        viewModelScope.launch {
-//            trainingPlanRepository
-//                .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
-//                .collectLatest { trainingList ->
-//                    val trainingViewList = trainingList.map { it.toTrainingView()}
-//                    _state.update {
-//                        it.copy(trainingViewList = trainingViewList)
-//                    }
-//                }
-//        }
+        viewModelScope.launch(Dispatchers.IO) {
+            trainingPlanRepository
+                .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
+                .collectLatest { trainingList ->
+                    val trainingSummaryViewList = trainingList.map { it.toTrainingSummaryView()}
+                    _state.update {
+                        it.copy(trainingSummaryViewList = trainingSummaryViewList)
+                    }
+                }
+        }
     }
 
     fun retrieveTrainingPlan(trainingPlanId: Long) {

@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
@@ -31,7 +30,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,7 +42,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
 import br.com.zemaromba.R
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
@@ -150,23 +147,14 @@ fun TrainingListScreen(
                 }
                 itemsIndexed(items = state.trainingSummaryViewList,
                     itemContent = { _: Int, trainingSummaryView: TrainingSummaryView ->
-                        TrainingCardItem(trainingName = trainingSummaryView.name,
-                            exercisesQuantity = stringResource(
-                                id = R.string.training_summary_card_exercises_quantity,
-                                trainingSummaryView.exercisesQuantity
-                            ),
-                            muscleGroups = stringResource(R.string.training_card_muscle_groups_of)
-                                    + trainingSummaryView.muscleGroups.map {
-                                stringResource(id = it.nameRes)
-                            }.joinToString(separator = ", "),
-                            percentageDone = stringResource(
-                                id = R.string.training_summary_card_percentage_done,
-                                trainingSummaryView.percentageDone
-                            ),
+                        TrainingCardItem(
+                            trainingSummaryView = trainingSummaryView,
                             onClick = {
                                 onOpenTraining(trainingSummaryView.id)
-                            })
-                    })
+                            }
+                        )
+                    }
+                )
                 item {
                     Spacer(modifier = Modifier.height(100.dp))
                 }
@@ -177,10 +165,7 @@ fun TrainingListScreen(
 
 @Composable
 fun TrainingCardItem(
-    trainingName: String,
-    exercisesQuantity: String,
-    muscleGroups: String,
-    percentageDone: String,
+    trainingSummaryView: TrainingSummaryView,
     onClick: () -> Unit
 ) {
     Card(
@@ -201,7 +186,7 @@ fun TrainingCardItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, top = 20.dp, bottom = 20.dp, end = 20.dp),
-                text = trainingName,
+                text = trainingSummaryView.name,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
@@ -221,62 +206,77 @@ fun TrainingCardItem(
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Text(
-                    text = exercisesQuantity,
+                    text = if (trainingSummaryView.hasExercises) {
+                        stringResource(
+                            id = R.string.training_summary_card_exercises_quantity,
+                            trainingSummaryView.exercisesQuantity
+                        )
+                    } else {
+                        stringResource(id = R.string.training_summary_card_exercises_none)
+                    },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     fontStyle = FontStyle.Italic,
                 )
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(16.dp),
-                    painter = painterResource(id = R.drawable.ic_muscle_groups_chest),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    text = muscleGroups,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
-            ) {
-                Box(
+            if (trainingSummaryView.hasExercises) {
+                Row(
                     modifier = Modifier
-                        .width(IntrinsicSize.Max)
-                        .border(
-                            width = 1.dp,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            shape = CircleShape
-                        )
-                        .background(
-                            color = MaterialTheme.colorScheme.secondaryContainer,
-                            shape = CircleShape
-                        )
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Icon(
+                        modifier = Modifier.size(16.dp),
+                        painter = painterResource(id = R.drawable.ic_muscle_groups_chest),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.width(20.dp))
                     Text(
-                        text = percentageDone,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        text = stringResource(R.string.training_card_muscle_groups_of)
+                                + trainingSummaryView.muscleGroups.map {
+                            stringResource(id = it.nameRes)
+                        }.joinToString(separator = ", "),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
                         fontStyle = FontStyle.Italic
                     )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(IntrinsicSize.Max)
+                            .border(
+                                width = 1.dp,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                shape = CircleShape
+                            )
+                            .background(
+                                color = MaterialTheme.colorScheme.secondaryContainer,
+                                shape = CircleShape
+                            )
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                    ) {
+                        Text(
+                            text = stringResource(
+                                id = R.string.training_summary_card_percentage_done,
+                                trainingSummaryView.percentageDone
+                            ),
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontStyle = FontStyle.Italic
+                        )
+                    }
                 }
             }
         }

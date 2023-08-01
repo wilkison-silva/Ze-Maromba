@@ -70,6 +70,7 @@ class AppApplication : Application() {
 
                 trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrão em 60 dias"))
                 trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrona em 60 dias"))
+                trainingPlanDao.insert(TrainingPlanEntity(name = "Aquecimento do mês"))
 
                 trainingDao.insert(
                     TrainingEntity(
@@ -103,6 +104,13 @@ class AppApplication : Application() {
                     TrainingEntity(
                         trainingPlanId = 1,
                         name = "Full Body"
+                    )
+                )
+
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 3,
+                        name = "Corridas"
                     )
                 )
 

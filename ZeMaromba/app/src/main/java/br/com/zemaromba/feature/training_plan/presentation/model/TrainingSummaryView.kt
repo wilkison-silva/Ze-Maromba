@@ -8,4 +8,6 @@ data class TrainingSummaryView(
     val exercisesQuantity: Int,
     val muscleGroups: List<MuscleGroup>,
     val percentageDone: Int
-)
+) {
+    val hasExercises = exercisesQuantity > 0
+}

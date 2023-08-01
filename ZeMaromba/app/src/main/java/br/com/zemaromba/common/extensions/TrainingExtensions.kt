@@ -18,7 +18,11 @@ fun Training.toTrainingSummaryView(): TrainingSummaryView {
 
     val totalSets = this.sets.size
     val totalCompleted = this.sets.count { it.completed }
-    val percentageDone = totalCompleted / totalSets
+    val percentageDone = if (totalSets > 0) {
+        totalCompleted / totalSets
+    } else {
+        0
+    }
 
     var muscleGroups = mutableListOf<MuscleGroup>()
     this.sets.forEach { set ->

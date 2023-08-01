@@ -6,11 +6,12 @@ import br.com.zemaromba.core_domain.model.Set
 import br.com.zemaromba.core_domain.model.Training
 import br.com.zemaromba.feature.training_plan.presentation.model.TrainingSummaryView
 
-fun TrainingEntity.toTraining(sets: List<Set>?): Training {
+fun TrainingEntity.toTraining(sets: List<Set>): Training {
     return Training(
         id = this.id,
+        trainingPlanId = this.trainingPlanId,
         name = this.name,
-        sets = sets ?: emptyList()
+        sets = sets
     )
 }
 

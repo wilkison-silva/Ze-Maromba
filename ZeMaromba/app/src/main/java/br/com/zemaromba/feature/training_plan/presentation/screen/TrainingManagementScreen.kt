@@ -36,13 +36,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanManagementState
+import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingManagementState
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TrainingPlanManagementScreen(
-    state: TrainingPlanManagementState,
+fun TrainingManagementScreen(
+    state: TrainingManagementState,
     onChangeName: (newName: String) -> Unit,
     onSaveTrainingPlan: () -> Unit,
     onDeleteTrainingPlan: () -> Unit,
@@ -97,7 +97,7 @@ fun TrainingPlanManagementScreen(
             },
             text = {
                 Text(
-                    text = stringResource(R.string.warning_about_remove_training_plan),
+                    text = stringResource(R.string.warning_about_remove_training),
                     fontSize = 16.sp,
                 )
             }
@@ -123,13 +123,13 @@ fun TrainingPlanManagementScreen(
                 },
                 title = {
                     Text(
-                        text = stringResource(R.string.title_training_plan),
+                        text = stringResource(R.string.title_training),
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 20.sp
                     )
                 },
                 actions = {
-                    state.trainingPlanId?.let {
+                    state.trainingId?.let {
                         IconButton(
                             modifier = Modifier,
                             onClick = {
@@ -187,7 +187,7 @@ fun TrainingPlanManagementScreen(
                     Text(text = stringResource(R.string.name))
                 },
                 placeholder = {
-                    Text(text = stringResource(R.string.example_name_training_plan))
+                    Text(text = stringResource(R.string.example_name_training))
                 },
                 singleLine = true,
                 maxLines = 1,
@@ -242,13 +242,13 @@ fun TrainingPlanManagementScreen(
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun TrainingPlanManagementScreenPreview() {
+fun TrainingManagementScreenScreenPreview() {
     val state = remember {
-        mutableStateOf(TrainingPlanManagementState(trainingPlanId = 10))
+        mutableStateOf(TrainingManagementState(trainingId = 10))
     }
 
     ZeMarombaTheme {
-        TrainingPlanManagementScreen(
+        TrainingManagementScreen(
             state = state.value,
             onNavigateBack = {
 

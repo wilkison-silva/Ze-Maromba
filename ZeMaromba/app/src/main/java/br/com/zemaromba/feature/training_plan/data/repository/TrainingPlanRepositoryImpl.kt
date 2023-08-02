@@ -1,5 +1,6 @@
 package br.com.zemaromba.feature.training_plan.data.repository
 
+import android.util.Log
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.toExercise
 import br.com.zemaromba.common.extensions.toSet
@@ -66,22 +67,25 @@ class TrainingPlanRepositoryImpl(
             .getTrainingPlanWithTrainings(trainingPlanId)
             .first()
 
-        val setsWithExercises = setDao
-            .getSetsWithExerciseByTrainingId(trainingPlanId)
-            .first()
-        val sets = setsWithExercises.map {
-            val exercise =
-                exerciseDao
-                    .getExerciseWithMuscleGroups(exerciseId = it.exercise.id)
-                    .map { exerciseAndMusclesMap ->
-                        exerciseAndMusclesMap
-                            .key
-                            .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
-                    }.first()
-            it.set.toSet(exercise)
-        }
-        val trainingList = trainingPlanWithTrainings.trainingList.map {
-            it.toTraining(sets)
+        val trainingList = mutableListOf<Training>()
+        trainingPlanWithTrainings.trainingList.forEach { trainingEntity ->
+            val setsWithExercises = setDao
+                .getSetsWithExerciseByTrainingId(trainingId = trainingEntity.id)
+                .first()
+
+            val sets = setsWithExercises.map {
+                val exercise =
+                    exerciseDao
+                        .getExerciseWithMuscleGroups(exerciseId = it.exercise.id)
+                        .map { exerciseAndMusclesMap ->
+                            exerciseAndMusclesMap
+                                .key
+                                .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
+                        }.first()
+                it.set.toSet(exercise)
+            }
+            val training = trainingEntity.toTraining(sets)
+            trainingList.add(training)
         }
         emit(trainingList)
     }

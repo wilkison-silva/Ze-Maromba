@@ -67,53 +67,17 @@ class AppApplication : Application() {
                 }
 
 
-
+                //CRIA PLANO DE TREINO COM ID = 1
                 trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrão em 60 dias"))
-                trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrona em 60 dias"))
-                trainingPlanDao.insert(TrainingPlanEntity(name = "Aquecimento do mês"))
 
+                //CRIA TREINO COM ID = 1 DENTRO DO PLANO DE TREINO DE ID = 1
                 trainingDao.insert(
                     TrainingEntity(
                         trainingPlanId = 1,
                         name = "Peitoral e Bíceps - Semana 1"
                     )
                 )
-
-                trainingDao.insert(
-                    TrainingEntity(
-                        trainingPlanId = 2,
-                        name = "Coxas - Semana 1"
-                    )
-                )
-
-                trainingDao.insert(
-                    TrainingEntity(
-                        trainingPlanId = 1,
-                        name = "Sem dores no joelho"
-                    )
-                )
-
-                trainingDao.insert(
-                    TrainingEntity(
-                        trainingPlanId = 1,
-                        name = "Bíceps de aço"
-                    )
-                )
-
-                trainingDao.insert(
-                    TrainingEntity(
-                        trainingPlanId = 1,
-                        name = "Full Body"
-                    )
-                )
-
-                trainingDao.insert(
-                    TrainingEntity(
-                        trainingPlanId = 3,
-                        name = "Corridas"
-                    )
-                )
-
+                //ADICIONA SETS NO TREINO DE ID = 1
                 setDao.insert(
                     SetEntity(
                         exerciseId = 1,
@@ -126,7 +90,6 @@ class AppApplication : Application() {
                         restingTime = 60.0
                     )
                 )
-
                 setDao.insert(
                     SetEntity(
                         exerciseId = 2,
@@ -140,49 +103,19 @@ class AppApplication : Application() {
                     )
                 )
 
+
+                //CRIA TREINO COM ID = 2 DENTRO DO PLANO DE TREINO DE ID = 1
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 1,
+                        name = "Coxas - Semana 1"
+                    )
+                )
+                //ADICIONA SETS NO TREINO DE ID = 2
                 setDao.insert(
                     SetEntity(
-                        exerciseId = 5,
+                        exerciseId = 3,
                         training_id = 2,
-                        quantity = 12,
-                        repetitions = 4,
-                        weight = 10.0,
-                        observation = "Não fazer rosca direta",
-                        completed = false,
-                        restingTime = 60.0
-                    )
-                )
-
-                setDao.insert(
-                    SetEntity(
-                        exerciseId = 8,
-                        training_id = 1,
-                        quantity = 12,
-                        repetitions = 4,
-                        weight = 10.0,
-                        observation = "Não fazer rosca direta",
-                        completed = false,
-                        restingTime = 60.0
-                    )
-                )
-
-                setDao.insert(
-                    SetEntity(
-                        exerciseId = 10,
-                        training_id = 1,
-                        quantity = 12,
-                        repetitions = 4,
-                        weight = 10.0,
-                        observation = "Não fazer rosca direta",
-                        completed = false,
-                        restingTime = 60.0
-                    )
-                )
-
-                setDao.insert(
-                    SetEntity(
-                        exerciseId = 12,
-                        training_id = 1,
                         quantity = 12,
                         repetitions = 4,
                         weight = 10.0,

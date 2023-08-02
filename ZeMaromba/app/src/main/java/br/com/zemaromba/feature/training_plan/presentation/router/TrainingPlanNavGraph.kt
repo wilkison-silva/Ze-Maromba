@@ -24,6 +24,7 @@ import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingMan
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanListViewModel
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanManagementEvents
 import br.com.zemaromba.feature.training_plan.presentation.viewmodel.TrainingPlanManagementViewModel
+import javax.security.auth.login.LoginException
 
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
@@ -199,7 +200,6 @@ fun NavGraphBuilder.trainingPlanGraph(
                     ?.getLong(TrainingRouter.trainingPlanId)
                     .orZero()
             }
-            Log.i("Testando", "trainingPlan2: $trainingPlanId")
             val viewModel: TrainingManagementViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = Unit) {

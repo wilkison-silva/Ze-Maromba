@@ -1,8 +1,8 @@
 package br.com.zemaromba.feature.training_plan.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.common.extensions.toTrainingSummaryView
+import br.com.zemaromba.core_ui.viewmodel.BaseViewModel
 import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
 import br.com.zemaromba.feature.training_plan.presentation.model.TrainingSummaryView
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,28 +10,27 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class TrainingListViewModel @Inject constructor(
     private val trainingPlanRepository: TrainingPlanRepository
-) : ViewModel() {
+) : BaseViewModel() {
     private val _state = MutableStateFlow(TrainingListState())
     val state = _state.asStateFlow()
 
     fun getTrainings(trainingPlanId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            trainingPlanRepository
-                .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
-                .collectLatest { trainingList ->
-                    val trainingSummaryViewList = trainingList.map { it.toTrainingSummaryView()}
-                    _state.update {
-                        it.copy(trainingSummaryViewList = trainingSummaryViewList)
-                    }
+        trainingPlanRepository
+            .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
+            .onEach { trainingList ->
+                val trainingSummaryViewList = trainingList.map { it.toTrainingSummaryView()}
+                _state.update {
+                    it.copy(trainingSummaryViewList = trainingSummaryViewList)
                 }
-        }
+            }.launchIn(scope)
     }
 
     fun retrieveTrainingPlan(trainingPlanId: Long) {

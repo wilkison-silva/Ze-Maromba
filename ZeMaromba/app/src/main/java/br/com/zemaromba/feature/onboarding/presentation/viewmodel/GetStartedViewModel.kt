@@ -1,29 +1,33 @@
 package br.com.zemaromba.feature.onboarding.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.core_domain.datastore.UserDataStore
+import br.com.zemaromba.core_ui.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class GetStartedViewModel @Inject constructor(
-    private val userDataStore: UserDataStore
-) : ViewModel() {
+    userDataStore: UserDataStore
+) : BaseViewModel() {
 
     private val _state = MutableStateFlow(GetStartedState())
     val state = _state.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            _state.update { it.copy(loadingScreen = true) }
-            userDataStore.getName().collectLatest { userName ->
+        userDataStore
+            .getName()
+            .onStart {
+                _state.update { it.copy(loadingScreen = true) }
+            }
+            .onEach { userName ->
                 delay(1000)
                 if (userName.isNotBlank()) {
                     _state.update {
@@ -34,19 +38,15 @@ class GetStartedViewModel @Inject constructor(
                     }
                 } else {
                     _state.update {
-                        it.copy(
-                            userNameIsValid = false,
-                            loadingScreen = false
-                        )
+                        it.copy(userNameIsValid = false, loadingScreen = false)
                     }
                 }
-            }
-        }
+            }.launchIn(scope)
     }
 }
 
 data class GetStartedState(
     val userNameIsValid: Boolean = false,
-    val loadingScreen: Boolean = false,
+    val loadingScreen: Boolean = true,
     val userName: String = ""
 )

@@ -128,7 +128,6 @@ fun NavGraphBuilder.trainingPlanGraph(
                     ?.getLong(TrainingPlanRouter.trainingPlanId)
                     .orZero()
             }
-            Log.i("Testando", "trainingPlan1: $trainingPlanId")
             val viewModel: TrainingListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = Unit) {

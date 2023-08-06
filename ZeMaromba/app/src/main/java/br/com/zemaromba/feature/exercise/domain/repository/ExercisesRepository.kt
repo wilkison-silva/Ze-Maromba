@@ -21,6 +21,4 @@ interface ExercisesRepository {
     fun deleteExercise(exerciseId: Long): Flow<Boolean>
 
     suspend fun updateExerciseFavoriteField(exerciseId: Long, isFavorite: Boolean)
-
-
 }

@@ -11,21 +11,22 @@ import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 class ExercisesRepositoryImpl @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val exerciseAndMuscleDao: ExerciseAndMuscleDao
 ) : ExercisesRepository {
 
-    override fun getExercisesWithMuscles(): Flow<List<Exercise>> {
-        return exerciseDao.getExercisesWithMuscleGroups().map {
-            it.map { exerciseAndMusclesMap ->
+    override fun getExercisesWithMuscles(): Flow<List<Exercise>> = callbackFlow {
+        exerciseDao.getExercisesWithMuscleGroups().collect {
+            val exercises = it.map { exerciseAndMusclesMap ->
                 exerciseAndMusclesMap
                     .key
                     .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
             }
+            trySend(exercises)
         }
     }
 

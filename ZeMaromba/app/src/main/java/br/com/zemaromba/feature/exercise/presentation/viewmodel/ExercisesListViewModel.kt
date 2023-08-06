@@ -15,11 +15,14 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.cancel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -201,8 +204,12 @@ class ExercisesListViewModel @Inject constructor(
     }
 
     private fun applyFilters() {
-        viewModelScope.launch {
-            exercisesRepository.getExercisesWithMuscles().collectLatest { exercises ->
+        exercisesRepository
+            .getExercisesWithMuscles()
+            .onCompletion {
+                currentCoroutineContext().cancel()
+            }
+            .onEach { exercises ->
                 var filteredList = exercises.map { exercise -> exercise.toExerciseView() }
                 _state.value.exerciseFilters.filter { it.isSelected }
                     .forEach { exerciseFilterChip ->
@@ -243,9 +250,7 @@ class ExercisesListViewModel @Inject constructor(
                         showNothingFound = filteredList.isEmpty()
                     )
                 }
-                cancel()
-            }
-        }
+            }.launchIn(viewModelScope)
     }
 }
 

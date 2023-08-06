@@ -42,22 +42,42 @@ class ExercisesRepositoryImpl @Inject constructor(
         urlLink: String?,
         videoId: String?
     ) {
-        val exerciseId = exerciseDao.insert(
-            exerciseEntity = ExerciseEntity(
-                id = id.orZero(),
-                name = name,
-                favorite = false,
-                urlLink = urlLink,
-                videoId = videoId
-            )
-        )
-        muscleGroupList.forEach {
-            exerciseAndMuscleDao.insert(
-                ExerciseAndMuscleGroupEntity(
-                    exerciseId = exerciseId,
-                    muscleName = it.name
+        if (id.orZero() == 0L) {
+            val exerciseId = exerciseDao.insert(
+                exerciseEntity = ExerciseEntity(
+                    id = id.orZero(),
+                    name = name,
+                    favorite = false,
+                    urlLink = urlLink,
+                    videoId = videoId
                 )
             )
+            muscleGroupList.forEach {
+                exerciseAndMuscleDao.insert(
+                    ExerciseAndMuscleGroupEntity(
+                        exerciseId = exerciseId,
+                        muscleName = it.name
+                    )
+                )
+            }
+        } else {
+            exerciseDao.update(
+                exerciseEntity = ExerciseEntity(
+                    id = id.orZero(),
+                    name = name,
+                    favorite = false,
+                    urlLink = urlLink,
+                    videoId = videoId
+                )
+            )
+            muscleGroupList.forEach {
+                exerciseAndMuscleDao.insert(
+                    ExerciseAndMuscleGroupEntity(
+                        exerciseId = id.orZero(),
+                        muscleName = it.name
+                    )
+                )
+            }
         }
     }
 

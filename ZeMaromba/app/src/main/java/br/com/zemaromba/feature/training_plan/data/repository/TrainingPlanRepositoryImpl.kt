@@ -48,13 +48,22 @@ class TrainingPlanRepositoryImpl(
         }.first()
     }
 
-    override suspend fun createTrainingPlan(id: Long?, name: String): Long {
-        return trainingPlanDao.insert(
-            trainingPlanEntity = TrainingPlanEntity(
-                id = id.orZero(),
-                name = name
+    override suspend fun createTrainingPlan(id: Long?, name: String){
+        if (id.orZero() == 0L) {
+            trainingPlanDao.insert(
+                trainingPlanEntity = TrainingPlanEntity(
+                    id = id.orZero(),
+                    name = name
+                )
             )
-        )
+        } else {
+            trainingPlanDao.update(
+                trainingPlanEntity = TrainingPlanEntity(
+                    id = id.orZero(),
+                    name = name
+                )
+            )
+        }
     }
 
     override suspend fun deleteTrainingPlan(id: Long): Boolean {

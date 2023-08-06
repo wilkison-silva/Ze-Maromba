@@ -10,7 +10,7 @@ interface TrainingPlanRepository {
 
     suspend fun getTrainingPlanById(id: Long): TrainingPlan
 
-    suspend fun createTrainingPlan(id: Long?, name: String): Long
+    suspend fun createTrainingPlan(id: Long?, name: String)
 
     suspend fun deleteTrainingPlan(id: Long): Boolean
 

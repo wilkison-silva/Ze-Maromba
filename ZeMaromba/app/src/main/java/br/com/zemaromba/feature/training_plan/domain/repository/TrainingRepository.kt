@@ -6,7 +6,7 @@ interface TrainingRepository {
 
     suspend fun getTrainingById(id: Long): Training
 
-    suspend fun createTraining(id: Long?, name: String, trainingPlanId: Long): Long
+    suspend fun createTraining(id: Long?, name: String, trainingPlanId: Long)
 
     suspend fun deleteTraining(id: Long): Boolean
 }

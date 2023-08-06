@@ -1,6 +1,5 @@
 package br.com.zemaromba.feature.training_plan.data.repository
 
-import android.util.Log
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.toExercise
 import br.com.zemaromba.common.extensions.toSet
@@ -10,23 +9,15 @@ import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
 import br.com.zemaromba.core_data.local.database.dao.SetDao
 import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
 import br.com.zemaromba.core_data.model.TrainingPlanEntity
-import br.com.zemaromba.core_data.model.relations.TrainingPlanWithTrainings
 import br.com.zemaromba.core_domain.model.Training
 import br.com.zemaromba.core_domain.model.TrainingPlan
 import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
-import kotlin.coroutines.CoroutineContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toCollection
-import kotlinx.coroutines.launch
 
 class TrainingPlanRepositoryImpl(
     private val trainingPlanDao: TrainingPlanDao,
@@ -34,18 +25,20 @@ class TrainingPlanRepositoryImpl(
     private val exerciseDao: ExerciseDao
 ) : TrainingPlanRepository {
 
-    override fun getAllTrainingPlans(): Flow<List<TrainingPlan>> {
-        return trainingPlanDao.getAllTrainingPlans().map {
-            it.map { trainingPlanEntity ->
+    override fun getAllTrainingPlans(): Flow<List<TrainingPlan>> = callbackFlow {
+        trainingPlanDao.getAllTrainingPlans().collectLatest {
+            val trainingPlan = it.map { trainingPlanEntity ->
                 trainingPlanEntity.toTrainingPlan()
             }
+            trySend(trainingPlan)
         }
     }
 
-    override suspend fun getTrainingPlanById(id: Long): TrainingPlan {
-        return trainingPlanDao.getTrainingPlanById(trainingPlanId = id).map {
-            it.toTrainingPlan()
-        }.first()
+    override  fun getTrainingPlanById(id: Long): Flow<TrainingPlan> = flow {
+        val trainingPlan = trainingPlanDao
+            .getTrainingPlanById(trainingPlanId = id)
+            .toTrainingPlan()
+        emit(trainingPlan)
     }
 
     override suspend fun createTrainingPlan(id: Long?, name: String){

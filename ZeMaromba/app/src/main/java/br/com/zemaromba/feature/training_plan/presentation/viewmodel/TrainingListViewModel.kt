@@ -26,7 +26,7 @@ class TrainingListViewModel @Inject constructor(
         trainingPlanRepository
             .getTrainingsByTrainingPlanId(trainingPlanId = trainingPlanId)
             .onEach { trainingList ->
-                val trainingSummaryViewList = trainingList.map { it.toTrainingSummaryView()}
+                val trainingSummaryViewList = trainingList.map { it.toTrainingSummaryView() }
                 _state.update {
                     it.copy(trainingSummaryViewList = trainingSummaryViewList)
                 }
@@ -35,15 +35,14 @@ class TrainingListViewModel @Inject constructor(
 
     fun retrieveTrainingPlan(trainingPlanId: Long) {
         if (trainingPlanId > 0) {
-            viewModelScope.launch(Dispatchers.IO) {
-                trainingPlanRepository
-                    .getTrainingPlanById(id = trainingPlanId)
-                    .let { trainingPlan ->
-                        _state.update {
-                            it.copy(trainingPlanName = trainingPlan.name)
-                        }
+            trainingPlanRepository
+                .getTrainingPlanById(id = trainingPlanId)
+                .onEach {
+                        trainingPlan ->
+                    _state.update {
+                        it.copy(trainingPlanName = trainingPlan.name)
                     }
-            }
+                }.launchIn(viewModelScope)
         }
     }
 }

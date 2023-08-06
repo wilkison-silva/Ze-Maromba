@@ -1,6 +1,7 @@
 package br.com.zemaromba.core_domain.model
 
 data class Set(
+    val id: Long,
     val quantity: Int,
     val repetitions: Int,
     val exercise: Exercise,

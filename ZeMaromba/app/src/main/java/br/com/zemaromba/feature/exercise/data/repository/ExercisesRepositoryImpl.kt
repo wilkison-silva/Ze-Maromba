@@ -8,7 +8,6 @@ import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.core_data.model.ExerciseEntity
 import br.com.zemaromba.core_domain.model.Exercise
 import br.com.zemaromba.core_domain.model.MuscleGroup
-import br.com.zemaromba.feature.exercise.domain.model.ExerciseFilter
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -29,47 +28,6 @@ class ExercisesRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getExercisesWithMuscle(
-        exerciseName: String,
-        filter: ExerciseFilter
-    ): Flow<List<Exercise>> {
-        when (filter) {
-            ExerciseFilter.ALL -> {
-                return exerciseDao
-                    .getExercisesWithMuscleGroupsByName(exerciseName = exerciseName)
-                    .map {
-                        it.map { exerciseAndMusclesMap ->
-                            exerciseAndMusclesMap
-                                .key
-                                .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
-                        }
-                    }
-            }
-
-            ExerciseFilter.MUSCLE_GROUP -> {
-                return exerciseDao.getExercisesWithMuscleGroups().map {
-                    it.map { exerciseAndMusclesMap ->
-                        exerciseAndMusclesMap
-                            .key
-                            .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
-                    }
-                }
-            }
-
-            ExerciseFilter.FAVORITE -> {
-                return exerciseDao
-                    .getExercisesWithMuscleGroupsByNameAndFavoriteStatus(exerciseName = exerciseName)
-                    .map {
-                        it.map { exerciseAndMusclesMap ->
-                            exerciseAndMusclesMap
-                                .key
-                                .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
-                        }
-                    }
-            }
-        }
-    }
-
     override suspend fun getExerciseWithMuscles(exerciseId: Long): Exercise {
         return exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
             .map { exerciseAndMusclesMap ->
@@ -84,22 +42,42 @@ class ExercisesRepositoryImpl @Inject constructor(
         urlLink: String?,
         videoId: String?
     ) {
-        val exerciseId = exerciseDao.insert(
-            exerciseEntity = ExerciseEntity(
-                id = id.orZero(),
-                name = name,
-                favorite = false,
-                urlLink = urlLink,
-                videoId = videoId
-            )
-        )
-        muscleGroupList.forEach {
-            exerciseAndMuscleDao.insert(
-                ExerciseAndMuscleGroupEntity(
-                    exerciseId = exerciseId,
-                    muscleName = it.name
+        if (id.orZero() == 0L) {
+            val exerciseId = exerciseDao.insert(
+                exerciseEntity = ExerciseEntity(
+                    id = id.orZero(),
+                    name = name,
+                    favorite = false,
+                    urlLink = urlLink,
+                    videoId = videoId
                 )
             )
+            muscleGroupList.forEach {
+                exerciseAndMuscleDao.insert(
+                    ExerciseAndMuscleGroupEntity(
+                        exerciseId = exerciseId,
+                        muscleName = it.name
+                    )
+                )
+            }
+        } else {
+            exerciseDao.update(
+                exerciseEntity = ExerciseEntity(
+                    id = id.orZero(),
+                    name = name,
+                    favorite = false,
+                    urlLink = urlLink,
+                    videoId = videoId
+                )
+            )
+            muscleGroupList.forEach {
+                exerciseAndMuscleDao.insert(
+                    ExerciseAndMuscleGroupEntity(
+                        exerciseId = id.orZero(),
+                        muscleName = it.name
+                    )
+                )
+            }
         }
     }
 

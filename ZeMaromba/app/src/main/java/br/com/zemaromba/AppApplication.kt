@@ -7,8 +7,14 @@ import br.com.zemaromba.common.extensions.parseJsonStringToClassObject
 import br.com.zemaromba.common.extensions.toExerciseEntity
 import br.com.zemaromba.core_data.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.core_data.local.database.dao.ExerciseDao
+import br.com.zemaromba.core_data.local.database.dao.SetDao
+import br.com.zemaromba.core_data.local.database.dao.TrainingDao
+import br.com.zemaromba.core_data.local.database.dao.TrainingPlanDao
 import br.com.zemaromba.core_data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.core_data.model.ExerciseDTO
+import br.com.zemaromba.core_data.model.SetEntity
+import br.com.zemaromba.core_data.model.TrainingEntity
+import br.com.zemaromba.core_data.model.TrainingPlanEntity
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -17,6 +23,15 @@ import kotlinx.coroutines.launch
 
 @HiltAndroidApp
 class AppApplication : Application() {
+
+    @Inject
+    lateinit var setDao: SetDao
+
+    @Inject
+    lateinit var trainingDao: TrainingDao
+
+    @Inject
+    lateinit var trainingPlanDao: TrainingPlanDao
 
     @Inject
     lateinit var exerciseDao: ExerciseDao
@@ -50,6 +65,66 @@ class AppApplication : Application() {
                             }
                         }
                 }
+
+
+                //CRIA PLANO DE TREINO COM ID = 1
+                trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrão em 60 dias"))
+
+                //CRIA TREINO COM ID = 1 DENTRO DO PLANO DE TREINO DE ID = 1
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 1,
+                        name = "Peitoral e Bíceps - Semana 1"
+                    )
+                )
+                //ADICIONA SETS NO TREINO DE ID = 1
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 1,
+                        training_id = 1,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 12.0,
+                        observation = "Sem forçar a articulação",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 2,
+                        training_id = 1,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 12.0,
+                        observation = "Segurar o triângulo corretamente",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+
+
+                //CRIA TREINO COM ID = 2 DENTRO DO PLANO DE TREINO DE ID = 1
+                trainingDao.insert(
+                    TrainingEntity(
+                        trainingPlanId = 1,
+                        name = "Coxas - Semana 1"
+                    )
+                )
+                //ADICIONA SETS NO TREINO DE ID = 2
+                setDao.insert(
+                    SetEntity(
+                        exerciseId = 3,
+                        training_id = 2,
+                        quantity = 12,
+                        repetitions = 4,
+                        weight = 10.0,
+                        observation = "Não fazer rosca direta",
+                        completed = false,
+                        restingTime = 60.0
+                    )
+                )
+
             }
         }
     }

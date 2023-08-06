@@ -9,6 +9,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -113,7 +114,7 @@ class ExerciseManagementViewModelTest {
 
             coEvery {
                 exercisesRepository.getExerciseWithMuscles(exerciseId = exercise.id)
-            }.returns(exercise)
+            }.returns(flowOf(exercise))
             viewModel.retrieveExercise(exerciseId = exercise.id)
 
             val muscleGroupsSelected =
@@ -142,7 +143,7 @@ class ExerciseManagementViewModelTest {
         runTest {
             coEvery {
                 exercisesRepository.getExerciseWithMuscles(exerciseId = exercise.id)
-            }.returns(exercise)
+            }.returns(flowOf(exercise))
 
             viewModel.retrieveExercise(exerciseId = exercise.id)
             viewModel.onEvent(event = ExerciseManagementEvents.OnShowWarningAboutRemoving(showDialog = true))
@@ -157,7 +158,7 @@ class ExerciseManagementViewModelTest {
         runTest {
             coEvery {
                 exercisesRepository.getExerciseWithMuscles(exerciseId = exercise.id)
-            }.returns(exercise)
+            }.returns(flowOf(exercise))
 
             coEvery {
                 exercisesRepository.deleteExercise(exerciseId = exercise.id)

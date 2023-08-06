@@ -11,6 +11,7 @@ import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class ExercisesRepositoryImpl @Inject constructor(
@@ -28,11 +29,11 @@ class ExercisesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getExerciseWithMuscles(exerciseId: Long): Exercise {
-        return exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
+    override fun getExerciseWithMuscles(exerciseId: Long): Flow<Exercise> = flow {
+         emit(exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
             .map { exerciseAndMusclesMap ->
                 exerciseAndMusclesMap.key.toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
-            }.first()
+            }.first())
     }
 
     override suspend fun createExercise(

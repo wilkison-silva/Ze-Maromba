@@ -1,12 +1,12 @@
 package br.com.zemaromba.feature.exercise.presentation.viewmodel
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.orFalse
 import br.com.zemaromba.common.extensions.toExerciseView
 import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.core_ui.components.search_bar.SearchBarState
-import br.com.zemaromba.core_ui.viewmodel.BaseViewModel
 import br.com.zemaromba.feature.exercise.domain.model.ExerciseFilter
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import br.com.zemaromba.feature.exercise.presentation.model.ExerciseView
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class ExercisesListViewModel @Inject constructor(
     private val exercisesRepository: ExercisesRepository
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val _state = MutableStateFlow(ExercisesListState())
     val state = _state.asStateFlow()
@@ -46,7 +46,7 @@ class ExercisesListViewModel @Inject constructor(
                     })
                 }
                 applyFilters()
-            }.launchIn(scope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: ExercisesListEvents) {

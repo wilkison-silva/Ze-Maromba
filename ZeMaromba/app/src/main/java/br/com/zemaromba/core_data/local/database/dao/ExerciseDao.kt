@@ -37,7 +37,7 @@ interface ExerciseDao {
     @Query("SELECT * FROM Exercise JOIN ExerciseAndMuscleGroup " +
             "ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +
             "WHERE Exercise.exercise_id = :exerciseId")
-    fun getExerciseWithMuscleGroups(exerciseId: Long): Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>
+    suspend fun getExerciseWithMuscleGroups(exerciseId: Long): Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>
 
     @Transaction
     @Query("SELECT * FROM Exercise")

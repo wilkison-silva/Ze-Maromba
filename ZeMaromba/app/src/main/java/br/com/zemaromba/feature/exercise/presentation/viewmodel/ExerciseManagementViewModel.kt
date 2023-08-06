@@ -10,6 +10,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -99,27 +101,25 @@ class ExerciseManagementViewModel @Inject constructor(
 
     fun retrieveExercise(exerciseId: Long) {
         if (exerciseId > 0) {
-            viewModelScope.launch(Dispatchers.IO) {
-                exercisesRepository
-                    .getExerciseWithMuscles(exerciseId = exerciseId)
-                    .let { exercise ->
-                        _state.update {
-                            it.copy(
-                                exerciseId = exercise.id,
-                                name = exercise.name,
-                                muscleGroupCheckBox = it.muscleGroupCheckBox.toMutableList().apply {
-                                    this.forEachIndexed { index, muscleGroupCheckBox ->
-                                        exercise.muscleGroupList.find { muscleGroup ->
-                                            muscleGroup.nameRes == muscleGroupCheckBox.nameRes
-                                        }?.let {
-                                            this[index].isSelected = true
-                                        }
+            exercisesRepository
+                .getExerciseWithMuscles(exerciseId = exerciseId)
+                .onEach { exercise ->
+                    _state.update {
+                        it.copy(
+                            exerciseId = exercise.id,
+                            name = exercise.name,
+                            muscleGroupCheckBox = it.muscleGroupCheckBox.toMutableList().apply {
+                                this.forEachIndexed { index, muscleGroupCheckBox ->
+                                    exercise.muscleGroupList.find { muscleGroup ->
+                                        muscleGroup.nameRes == muscleGroupCheckBox.nameRes
+                                    }?.let {
+                                        this[index].isSelected = true
                                     }
                                 }
-                            )
-                        }
+                            }
+                        )
                     }
-            }
+                }.launchIn(viewModelScope)
         }
     }
 }

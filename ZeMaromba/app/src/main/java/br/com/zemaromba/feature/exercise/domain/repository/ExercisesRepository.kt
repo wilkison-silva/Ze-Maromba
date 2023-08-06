@@ -8,7 +8,7 @@ interface ExercisesRepository {
 
     fun getExercisesWithMuscles(): Flow<List<Exercise>>
 
-    suspend fun getExerciseWithMuscles(exerciseId: Long): Exercise
+    fun getExerciseWithMuscles(exerciseId: Long): Flow<Exercise>
 
     suspend fun createExercise(
         id: Long?,

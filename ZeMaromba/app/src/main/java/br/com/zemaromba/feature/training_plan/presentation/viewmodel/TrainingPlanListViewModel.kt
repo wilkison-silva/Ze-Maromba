@@ -1,7 +1,8 @@
 package br.com.zemaromba.feature.training_plan.presentation.viewmodel
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.common.extensions.toTrainingPlanView
-import br.com.zemaromba.core_ui.viewmodel.BaseViewModel
 import br.com.zemaromba.feature.training_plan.domain.repository.TrainingPlanRepository
 import br.com.zemaromba.feature.training_plan.presentation.model.TrainingPlanView
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.update
 @HiltViewModel
 class TrainingPlanListViewModel @Inject constructor(
     private val trainingPlanRepository: TrainingPlanRepository
-) : BaseViewModel() {
+) : ViewModel() {
     private val _state = MutableStateFlow(TrainingPlanState())
     val state = _state.asStateFlow()
 
@@ -31,7 +32,7 @@ class TrainingPlanListViewModel @Inject constructor(
                 _state.update {
                     it.copy(trainingPlanList = trainingPlanViewList)
                 }
-            }.launchIn(scope)
+            }.launchIn(viewModelScope)
     }
 }
 

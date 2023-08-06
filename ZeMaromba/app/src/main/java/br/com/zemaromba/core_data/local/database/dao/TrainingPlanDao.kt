@@ -29,6 +29,6 @@ interface TrainingPlanDao {
     fun getAllTrainingPlans(): Flow<List<TrainingPlanEntity>>
 
     @Query("SELECT * FROM TrainingPlan WHERE TrainingPlan.training_plan_id = :trainingPlanId")
-    fun getTrainingPlanById(trainingPlanId: Long): Flow<TrainingPlanEntity>
+    suspend fun getTrainingPlanById(trainingPlanId: Long): TrainingPlanEntity
 
 }

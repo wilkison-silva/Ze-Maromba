@@ -8,7 +8,7 @@ interface TrainingPlanRepository {
 
     fun getAllTrainingPlans(): Flow<List<TrainingPlan>>
 
-    suspend fun getTrainingPlanById(id: Long): TrainingPlan
+    fun getTrainingPlanById(id: Long): Flow<TrainingPlan>
 
     suspend fun createTrainingPlan(id: Long?, name: String)
 

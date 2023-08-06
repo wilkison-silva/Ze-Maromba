@@ -8,7 +8,7 @@ interface ExercisesRepository {
 
     fun getExercisesWithMuscles(): Flow<List<Exercise>>
 
-    suspend fun getExerciseWithMuscles(exerciseId: Long): Exercise
+    fun getExerciseWithMuscles(exerciseId: Long): Flow<Exercise>
 
     suspend fun createExercise(
         id: Long?,
@@ -18,9 +18,7 @@ interface ExercisesRepository {
         videoId: String?
     )
 
-    suspend fun deleteExercise(exerciseId: Long): Boolean
+    fun deleteExercise(exerciseId: Long): Flow<Boolean>
 
     suspend fun updateExerciseFavoriteField(exerciseId: Long, isFavorite: Boolean)
-
-
 }

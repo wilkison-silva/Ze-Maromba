@@ -7,9 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
@@ -24,15 +24,15 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     private fun getUserName() {
-        viewModelScope.launch {
-            userDataStore.getName().collectLatest { userName ->
+        userDataStore
+            .getName()
+            .onEach { userName ->
                 _state.update {
                     it.copy(
                         userName = userName
                     )
                 }
-            }
-        }
+            }.launchIn(viewModelScope)
     }
 }
 

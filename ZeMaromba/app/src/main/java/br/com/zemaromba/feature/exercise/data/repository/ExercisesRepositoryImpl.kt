@@ -11,28 +11,30 @@ import br.com.zemaromba.core_domain.model.MuscleGroup
 import br.com.zemaromba.feature.exercise.domain.repository.ExercisesRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 
 class ExercisesRepositoryImpl @Inject constructor(
     private val exerciseDao: ExerciseDao,
     private val exerciseAndMuscleDao: ExerciseAndMuscleDao
 ) : ExercisesRepository {
 
-    override fun getExercisesWithMuscles(): Flow<List<Exercise>> {
-        return exerciseDao.getExercisesWithMuscleGroups().map {
-            it.map { exerciseAndMusclesMap ->
+    override fun getExercisesWithMuscles(): Flow<List<Exercise>> = callbackFlow {
+        exerciseDao.getExercisesWithMuscleGroups().collect {
+            val exercises = it.map { exerciseAndMusclesMap ->
                 exerciseAndMusclesMap
                     .key
                     .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
             }
+            trySend(exercises)
         }
     }
 
-    override suspend fun getExerciseWithMuscles(exerciseId: Long): Exercise {
-        return exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
+    override fun getExerciseWithMuscles(exerciseId: Long): Flow<Exercise> = flow {
+         emit(exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
             .map { exerciseAndMusclesMap ->
                 exerciseAndMusclesMap.key.toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
-            }.first()
+            }.first())
     }
 
     override suspend fun createExercise(
@@ -81,9 +83,9 @@ class ExercisesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteExercise(exerciseId: Long): Boolean {
+    override fun deleteExercise(exerciseId: Long): Flow<Boolean> = flow {
         val result = exerciseDao.deleteById(exerciseId)
-        return result == 1
+        emit(result == 1)
     }
 
     override suspend fun updateExerciseFavoriteField(exerciseId: Long, isFavorite: Boolean) {

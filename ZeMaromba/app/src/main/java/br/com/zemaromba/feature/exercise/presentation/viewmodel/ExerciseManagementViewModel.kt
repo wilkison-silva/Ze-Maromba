@@ -10,6 +10,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -80,14 +82,15 @@ class ExerciseManagementViewModel @Inject constructor(
 
             is ExerciseManagementEvents.OnDeleteExercise -> {
                 _state.update { it.copy(showDialog = false) }
-                viewModelScope.launch {
-                    state.value.exerciseId?.let { exerciseId ->
-                        val deleteResult =
-                            exercisesRepository.deleteExercise(exerciseId = exerciseId)
-                        if (deleteResult) {
-                            _state.update { it.copy(navigateBack = true) }
-                        }
-                    }
+
+                state.value.exerciseId?.let { exerciseId ->
+                    exercisesRepository
+                        .deleteExercise(exerciseId = exerciseId)
+                        .onEach { itemWasRemoved ->
+                            if (itemWasRemoved) {
+                                _state.update { it.copy(navigateBack = true) }
+                            }
+                        }.launchIn(viewModelScope)
                 }
             }
 
@@ -99,27 +102,25 @@ class ExerciseManagementViewModel @Inject constructor(
 
     fun retrieveExercise(exerciseId: Long) {
         if (exerciseId > 0) {
-            viewModelScope.launch(Dispatchers.IO) {
-                exercisesRepository
-                    .getExerciseWithMuscles(exerciseId = exerciseId)
-                    .let { exercise ->
-                        _state.update {
-                            it.copy(
-                                exerciseId = exercise.id,
-                                name = exercise.name,
-                                muscleGroupCheckBox = it.muscleGroupCheckBox.toMutableList().apply {
-                                    this.forEachIndexed { index, muscleGroupCheckBox ->
-                                        exercise.muscleGroupList.find { muscleGroup ->
-                                            muscleGroup.nameRes == muscleGroupCheckBox.nameRes
-                                        }?.let {
-                                            this[index].isSelected = true
-                                        }
+            exercisesRepository
+                .getExerciseWithMuscles(exerciseId = exerciseId)
+                .onEach { exercise ->
+                    _state.update {
+                        it.copy(
+                            exerciseId = exercise.id,
+                            name = exercise.name,
+                            muscleGroupCheckBox = it.muscleGroupCheckBox.toMutableList().apply {
+                                this.forEachIndexed { index, muscleGroupCheckBox ->
+                                    exercise.muscleGroupList.find { muscleGroup ->
+                                        muscleGroup.nameRes == muscleGroupCheckBox.nameRes
+                                    }?.let {
+                                        this[index].isSelected = true
                                     }
                                 }
-                            )
-                        }
+                            }
+                        )
                     }
-            }
+                }.launchIn(viewModelScope)
         }
     }
 }

@@ -82,14 +82,15 @@ class ExerciseManagementViewModel @Inject constructor(
 
             is ExerciseManagementEvents.OnDeleteExercise -> {
                 _state.update { it.copy(showDialog = false) }
-                viewModelScope.launch {
-                    state.value.exerciseId?.let { exerciseId ->
-                        val deleteResult =
-                            exercisesRepository.deleteExercise(exerciseId = exerciseId)
-                        if (deleteResult) {
-                            _state.update { it.copy(navigateBack = true) }
-                        }
-                    }
+
+                state.value.exerciseId?.let { exerciseId ->
+                    exercisesRepository
+                        .deleteExercise(exerciseId = exerciseId)
+                        .onEach { itemWasRemoved ->
+                            if (itemWasRemoved) {
+                                _state.update { it.copy(navigateBack = true) }
+                            }
+                        }.launchIn(viewModelScope)
                 }
             }
 

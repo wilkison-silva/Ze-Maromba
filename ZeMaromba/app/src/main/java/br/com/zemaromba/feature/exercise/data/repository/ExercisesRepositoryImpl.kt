@@ -82,9 +82,9 @@ class ExercisesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteExercise(exerciseId: Long): Boolean {
+    override fun deleteExercise(exerciseId: Long): Flow<Boolean> = flow {
         val result = exerciseDao.deleteById(exerciseId)
-        return result == 1
+        emit(result == 1)
     }
 
     override suspend fun updateExerciseFavoriteField(exerciseId: Long, isFavorite: Boolean) {

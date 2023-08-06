@@ -162,7 +162,7 @@ class ExerciseManagementViewModelTest {
 
             coEvery {
                 exercisesRepository.deleteExercise(exerciseId = exercise.id)
-            }.returns(true)
+            }.returns(flowOf(true))
 
             viewModel.retrieveExercise(exerciseId = exercise.id)
             viewModel.onEvent(event = ExerciseManagementEvents.OnShowWarningAboutRemoving(showDialog = true))

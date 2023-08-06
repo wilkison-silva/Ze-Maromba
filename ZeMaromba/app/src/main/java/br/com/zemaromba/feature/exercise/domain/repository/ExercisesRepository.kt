@@ -18,7 +18,7 @@ interface ExercisesRepository {
         videoId: String?
     )
 
-    suspend fun deleteExercise(exerciseId: Long): Boolean
+    fun deleteExercise(exerciseId: Long): Flow<Boolean>
 
     suspend fun updateExerciseFavoriteField(exerciseId: Long, isFavorite: Boolean)
 

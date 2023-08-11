@@ -325,7 +325,11 @@ fun TrainingListScreenPreview() {
         ),
     )
     ZeMarombaTheme {
-        TrainingListScreen(state = TrainingListState(trainingSummaryViewList = trainingSampleList),
+        TrainingListScreen(
+            state = TrainingListState(
+                trainingSummaryViewList = trainingSampleList,
+                trainingPlanName = "Destruidor de pernas"
+            ),
             onNavigateBack = {
 
             },

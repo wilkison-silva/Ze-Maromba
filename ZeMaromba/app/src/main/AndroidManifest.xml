@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ZeMaromba"
         tools:targetApi="31">
         <activity
-            android:name=".core_ui.MainActivity"
+            android:name=".presentation.core_ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ZeMaromba">

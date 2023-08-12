@@ -35,9 +35,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.home.screen.state.HomeState
 import br.com.zemaromba.presentation.model.MenuHome
@@ -103,14 +103,14 @@ fun HomeScreen(
                 .background(MaterialTheme.colorScheme.surface)
                 .verticalScroll(state = verticalScrollState)
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(Spacing.space_20dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.Start
             ) {
-                MenuItemMyTrainingPlans(
+                MenuHomeItem(
                     icon = R.drawable.ic_training_plan_calendar,
                     title = stringResource(R.string.my_training_plans),
                     description = stringResource(R.string.customized_training_plans),
@@ -118,8 +118,8 @@ fun HomeScreen(
                         onNavigate(MenuHome.TRAINING_PLAN_SCREEN)
                     }
                 )
-                Spacer(modifier = Modifier.height(20.dp))
-                MenuItemExercise(
+                Spacer(modifier = Modifier.height(Spacing.space_20dp))
+                MenuHomeItem(
                     icon = R.drawable.ic_dumbell,
                     title = stringResource(R.string.exercises),
                     description = stringResource(R.string.message_create_your_own_exercises),
@@ -132,9 +132,8 @@ fun HomeScreen(
     }
 }
 
-
 @Composable
-fun MenuItemMyTrainingPlans(
+fun MenuHomeItem(
     icon: Int,
     title: String,
     description: String,
@@ -143,7 +142,7 @@ fun MenuItemMyTrainingPlans(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp)
+            .padding(horizontal = Spacing.space_20dp)
             .clickable {
                 onClick()
             },
@@ -159,10 +158,10 @@ fun MenuItemMyTrainingPlans(
             ) {
                 Row(
                     modifier = Modifier.padding(
-                        start = 20.dp,
-                        top = 20.dp,
-                        bottom = 10.dp,
-                        end = 20.dp
+                        start = Spacing.space_20dp,
+                        top = Spacing.space_20dp,
+                        bottom = Spacing.space_8dp,
+                        end = Spacing.space_20dp
                     )
                 ) {
                     Icon(
@@ -170,7 +169,7 @@ fun MenuItemMyTrainingPlans(
                         contentDescription = "",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.width(20.dp))
+                    Spacer(modifier = Modifier.width(Spacing.space_20dp))
                     Text(
                         text = title,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -181,7 +180,11 @@ fun MenuItemMyTrainingPlans(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, end = 60.dp, bottom = 20.dp),
+                        .padding(
+                            start = Spacing.space_20dp,
+                            end = Spacing.space_64dp,
+                            bottom = Spacing.space_20dp
+                        ),
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
@@ -195,75 +198,7 @@ fun MenuItemMyTrainingPlans(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(end = 15.dp)
-            )
-        }
-    }
-}
-
-@Composable
-fun MenuItemExercise(
-    icon: Int,
-    title: String,
-    description: String,
-    onClick: () -> Unit = {}
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp)
-            .clickable {
-                onClick()
-            },
-        shape = MaterialTheme.shapes.small,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    ) {
-        Box {
-            Column(
-                modifier = Modifier.align(Alignment.CenterStart)
-            ) {
-                Row(
-                    modifier = Modifier.padding(
-                        start = 20.dp,
-                        top = 20.dp,
-                        bottom = 10.dp,
-                        end = 20.dp
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = icon),
-                        contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.width(20.dp))
-                    Text(
-                        text = title,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 20.dp, end = 60.dp, bottom = 20.dp),
-                    text = description,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontStyle = FontStyle.Italic
-                )
-            }
-            Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = "",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .padding(end = 15.dp)
+                    .padding(end = Spacing.space_16dp)
             )
         }
     }

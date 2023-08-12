@@ -40,10 +40,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.TrainingSummaryView
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingListState
@@ -61,38 +61,48 @@ fun TrainingListScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            MediumTopAppBar(navigationIcon = {
-                IconButton(onClick = {
-                    onNavigateBack()
-                }, content = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_back),
-                        contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onSurface
+            MediumTopAppBar(
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            onNavigateBack()
+                        },
+                        content = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_arrow_back),
+                                contentDescription = "",
+                                tint = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
                     )
-                })
-            }, title = {
-                Text(
-                    modifier = Modifier.padding(start = 10.dp),
-                    text = state.trainingPlanName,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 20.sp
-                )
-            }, actions = {
-                IconButton(onClick = {
-                    onOpenSettings()
-                }, content = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_settings),
-                        contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                title = {
+                    Text(
+                        modifier = Modifier.padding(start = Spacing.space_12dp),
+                        text = state.trainingPlanName,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 20.sp
                     )
-                })
-            })
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            onOpenSettings()
+                        },
+                        content = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_settings),
+                                contentDescription = "",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    )
+                }
+            )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = 10.dp),
+                modifier = Modifier.padding(bottom = Spacing.space_12dp),
                 onClick = {
                     onCreateTraining()
                 },
@@ -100,9 +110,10 @@ fun TrainingListScreen(
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
             ) {
                 Icon(
-                    imageVector = Icons.Default.Add, contentDescription = ""
+                    imageVector = Icons.Default.Add,
+                    contentDescription = ""
                 )
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(Spacing.space_4dp))
                 Text(text = stringResource(R.string.fab_new_training))
             }
         },
@@ -118,16 +129,16 @@ fun TrainingListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        modifier = Modifier.size(200.dp),
+                        modifier = Modifier.size(Spacing.space_200dp),
                         painter = painterResource(id = R.drawable.ic_training_list),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(Spacing.space_20dp))
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 60.dp, end = 60.dp),
+                            .padding(horizontal = Spacing.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_training),
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp,
@@ -139,13 +150,14 @@ fun TrainingListScreen(
             }
         } else {
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(Spacing.space_12dp),
                 modifier = Modifier.padding(paddingValues = contentPadding)
             ) {
                 item {
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(Spacing.space_20dp))
                 }
-                itemsIndexed(items = state.trainingSummaryViewList,
+                itemsIndexed(
+                    items = state.trainingSummaryViewList,
                     itemContent = { _: Int, trainingSummaryView: TrainingSummaryView ->
                         TrainingCardItem(
                             trainingSummaryView = trainingSummaryView,
@@ -156,7 +168,7 @@ fun TrainingListScreen(
                     }
                 )
                 item {
-                    Spacer(modifier = Modifier.height(100.dp))
+                    Spacer(modifier = Modifier.height(Spacing.space_96dp))
                 }
             }
         }
@@ -165,16 +177,17 @@ fun TrainingListScreen(
 
 @Composable
 fun TrainingCardItem(
-    trainingSummaryView: TrainingSummaryView,
-    onClick: () -> Unit
+    trainingSummaryView: TrainingSummaryView, onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp)
+            .padding(horizontal = Spacing.space_20dp)
             .clickable {
                 onClick()
-            }, shape = MaterialTheme.shapes.small, colors = CardDefaults.cardColors(
+            },
+        shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -185,7 +198,7 @@ fun TrainingCardItem(
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, top = 20.dp, bottom = 20.dp, end = 20.dp),
+                    .padding(all = Spacing.space_20dp),
                 text = trainingSummaryView.name,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 20.sp,
@@ -195,16 +208,20 @@ fun TrainingCardItem(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
+                    .padding(
+                        start = Spacing.space_20dp,
+                        bottom = Spacing.space_20dp,
+                        end = Spacing.space_20dp
+                    ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    modifier = Modifier.size(16.dp),
+                    modifier = Modifier.size(Spacing.space_16dp),
                     painter = painterResource(id = R.drawable.ic_dumbell),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(Spacing.space_20dp))
                 Text(
                     text = if (trainingSummaryView.hasExercises) {
                         stringResource(
@@ -224,19 +241,22 @@ fun TrainingCardItem(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
+                        .padding(
+                            start = Spacing.space_20dp,
+                            bottom = Spacing.space_20dp,
+                            end = Spacing.space_20dp
+                        ),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        modifier = Modifier.size(16.dp),
+                        modifier = Modifier.size(Spacing.space_16dp),
                         painter = painterResource(id = R.drawable.ic_muscle_groups_chest),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.width(20.dp))
+                    Spacer(modifier = Modifier.width(Spacing.space_20dp))
                     Text(
-                        text = stringResource(R.string.training_card_muscle_groups_of)
-                                + trainingSummaryView.muscleGroups.map {
+                        text = stringResource(R.string.training_card_muscle_groups_of) + trainingSummaryView.muscleGroups.map {
                             stringResource(id = it.nameRes)
                         }.joinToString(separator = ", "),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -248,7 +268,11 @@ fun TrainingCardItem(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
+                        .padding(
+                            start = Spacing.space_20dp,
+                            bottom = Spacing.space_20dp,
+                            end = Spacing.space_20dp
+                        ),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End
                 ) {
@@ -256,7 +280,7 @@ fun TrainingCardItem(
                         modifier = Modifier
                             .width(IntrinsicSize.Max)
                             .border(
-                                width = 1.dp,
+                                width = Spacing.space_1dp,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 shape = CircleShape
                             )
@@ -264,7 +288,10 @@ fun TrainingCardItem(
                                 color = MaterialTheme.colorScheme.secondaryContainer,
                                 shape = CircleShape
                             )
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .padding(
+                                horizontal = Spacing.space_16dp,
+                                vertical = Spacing.space_8dp
+                            )
                     ) {
                         Text(
                             text = stringResource(
@@ -325,23 +352,17 @@ fun TrainingListScreenPreview() {
         ),
     )
     ZeMarombaTheme {
-        TrainingListScreen(
-            state = TrainingListState(
-                trainingSummaryViewList = trainingSampleList,
-                trainingPlanName = "Destruidor de pernas"
-            ),
-            onNavigateBack = {
+        TrainingListScreen(state = TrainingListState(
+            trainingSummaryViewList = trainingSampleList,
+            trainingPlanName = "Destruidor de pernas"
+        ), onNavigateBack = {
 
-            },
-            onOpenTraining = {
+        }, onOpenTraining = {
 
-            },
-            onCreateTraining = {
+        }, onCreateTraining = {
 
-            },
-            onOpenSettings = {
+        }, onOpenSettings = {
 
-            }
-        )
+        })
     }
 }

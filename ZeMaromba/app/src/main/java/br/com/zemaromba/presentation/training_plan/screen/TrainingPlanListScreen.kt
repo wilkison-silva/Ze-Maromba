@@ -35,9 +35,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.TrainingPlanView
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingPlanState
@@ -80,7 +80,7 @@ fun TrainingPlanListScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = 10.dp),
+                modifier = Modifier.padding(bottom = Spacing.space_12dp),
                 onClick = {
                     onCreateTrainingPlan()
                 },
@@ -91,7 +91,7 @@ fun TrainingPlanListScreen(
                     imageVector = Icons.Default.Add,
                     contentDescription = ""
                 )
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(Spacing.space_4dp))
                 Text(text = stringResource(R.string.fab_new_training_plan))
             }
         },
@@ -106,7 +106,7 @@ fun TrainingPlanListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        modifier = Modifier.size(200.dp),
+                        modifier = Modifier.size(Spacing.space_200dp),
                         painter = painterResource(id = R.drawable.ic_training_plans_not_found),
                         contentDescription = "",
                         tint = MaterialTheme.colorScheme.onSurface
@@ -114,7 +114,7 @@ fun TrainingPlanListScreen(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 60.dp, end = 60.dp),
+                            .padding(horizontal = Spacing.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_training_plan),
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp,
@@ -126,11 +126,11 @@ fun TrainingPlanListScreen(
             }
         } else {
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(Spacing.space_12dp),
                 modifier = Modifier.padding(paddingValues = contentPadding)
             ) {
                 item {
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(Spacing.space_20dp))
                 }
                 itemsIndexed(
                     items = state.trainingPlanList,
@@ -144,7 +144,7 @@ fun TrainingPlanListScreen(
                     }
                 )
                 item {
-                    Spacer(modifier = Modifier.height(100.dp))
+                    Spacer(modifier = Modifier.height(Spacing.space_96dp))
                 }
             }
         }
@@ -159,7 +159,7 @@ fun TrainingPlanCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp)
+            .padding(horizontal = Spacing.space_20dp)
             .clickable {
                 onClick()
             },
@@ -174,7 +174,10 @@ fun TrainingPlanCardItem(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .fillMaxWidth()
-                    .padding(start = 20.dp, top = 60.dp, bottom = 60.dp, end = 20.dp),
+                    .padding(
+                        horizontal = Spacing.space_20dp,
+                        vertical = Spacing.space_64dp
+                    ),
                 text = trainingPlanName,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 20.sp,

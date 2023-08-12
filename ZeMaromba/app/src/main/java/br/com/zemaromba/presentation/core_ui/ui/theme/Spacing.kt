@@ -2,7 +2,7 @@ package br.com.zemaromba.presentation.core_ui.ui.theme
 
 import androidx.compose.ui.unit.dp
 
-class Spacing() {
+class Spacing {
     companion object {
         val space_1dp = 1.dp
         val space_2dp = 2.dp
@@ -22,6 +22,7 @@ class Spacing() {
         val space_64dp = 64.dp
         val space_96dp = 96.dp
         val space_128dp = 128.dp
+        val space_200dp = 200.dp
         val space_256dp = 256.dp
     }
 }

@@ -32,9 +32,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingManagementState
 import kotlinx.coroutines.delay
@@ -50,7 +50,10 @@ fun TrainingManagementScreen(
     onShowAlertAboutRemoving: (showDialog: Boolean) -> Unit,
     onDeleteFinished: () -> Unit
 ) {
-    LaunchedEffect(key1 = state.navigateBack, key2 = state.onDeleteFinished) {
+    LaunchedEffect(
+        key1 = state.navigateBack,
+        key2 = state.onDeleteFinished
+    ) {
         if (state.navigateBack) {
             onNavigateBack()
         }
@@ -178,7 +181,10 @@ fun TrainingManagementScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(focusRequester)
-                    .padding(horizontal = 20.dp, vertical = 20.dp),
+                    .padding(
+                        horizontal = Spacing.space_20dp,
+                        vertical = Spacing.space_20dp
+                    ),
                 value = state.name,
                 onValueChange = {
                     onChangeName(it)

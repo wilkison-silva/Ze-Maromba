@@ -35,7 +35,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.cards.CardInfo
@@ -252,7 +251,7 @@ fun MuscleGroupSelector(
 ) {
     Surface(
         modifier = modifier,
-        tonalElevation = 5.dp,
+        tonalElevation = Spacing.space_4dp,
         shape = MaterialTheme.shapes.large
     ) {
         Column(

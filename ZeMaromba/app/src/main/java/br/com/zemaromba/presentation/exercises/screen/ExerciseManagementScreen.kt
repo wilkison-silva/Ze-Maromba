@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.cards.CardInfo
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.screen.state.ExerciseManagementState
 import br.com.zemaromba.presentation.exercises.screen.state.MuscleGroupCheckBoxState
@@ -173,7 +174,7 @@ fun ExerciseManagementScreen(
             TextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 20.dp),
+                    .padding(all = Spacing.space_20dp),
                 value = state.name,
                 onValueChange = {
                     onChangeName(it)
@@ -205,7 +206,7 @@ fun ExerciseManagementScreen(
                 CardInfo(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp),
+                        .padding(horizontal = Spacing.space_20dp),
                     icon = R.drawable.ic_tips_and_updates,
                     message = stringResource(R.string.message_select_at_least_one_muscle_group),
                     borderColor = MaterialTheme.colorScheme.tertiary,
@@ -217,14 +218,22 @@ fun ExerciseManagementScreen(
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp, start = 20.dp, end = 20.dp),
+                    .padding(
+                        top = Spacing.space_20dp,
+                        start = Spacing.space_20dp,
+                        end = Spacing.space_20dp
+                    ),
                 text = stringResource(R.string.filter_muscle_group)
             )
 
             MuscleGroupSelector(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp, start = 20.dp, end = 20.dp),
+                    .padding(
+                        top = Spacing.space_20dp,
+                        start = Spacing.space_20dp,
+                        end = Spacing.space_20dp
+                    ),
                 muscleGroupCheckBoxStateList = state.muscleGroupCheckBoxStates,
                 onMuscleGroupSelected = { index, isSelected ->
                     onMuscleGroupSelection(index, isSelected)
@@ -242,15 +251,14 @@ fun MuscleGroupSelector(
     onMuscleGroupSelected: (index: Int, isSelected: Boolean) -> Unit
 ) {
     Surface(
-        modifier = modifier
-            ,
+        modifier = modifier,
         tonalElevation = 5.dp,
         shape = MaterialTheme.shapes.large
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(all = 10.dp),
+                .padding(all = Spacing.space_12dp),
         ) {
             val itemCount = if (muscleGroupCheckBoxStateList.size % 2 == 0) {
                 muscleGroupCheckBoxStateList.size / 2

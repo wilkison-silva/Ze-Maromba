@@ -42,7 +42,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.cards.CardInfo
@@ -50,6 +49,7 @@ import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
 import br.com.zemaromba.presentation.components.search_bar.SearchBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.domain.model.ExerciseFilter
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListState
 import kotlinx.coroutines.launch
@@ -98,7 +98,7 @@ fun ExercisesListScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = 10.dp),
+                modifier = Modifier.padding(bottom = Spacing.space_12dp),
                 onClick = {
                     onNavigateToNewExercise()
                 },
@@ -109,7 +109,7 @@ fun ExercisesListScreen(
                     imageVector = Icons.Default.Add,
                     contentDescription = ""
                 )
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(Spacing.space_4dp))
                 Text(text = stringResource(R.string.fab_new_exercise))
             }
         },
@@ -122,21 +122,21 @@ fun ExercisesListScreen(
             SearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 20.dp),
+                    .padding(all = Spacing.space_20dp),
                 state = state.searchBarState,
                 onTextChange = {
                     onSearch(it)
                 }
             )
             Text(
-                modifier = Modifier.padding(start = 20.dp),
+                modifier = Modifier.padding(start = Spacing.space_20dp),
                 text = stringResource(R.string.filter_by),
                 color = MaterialTheme.colorScheme.onSurface
             )
             FilterChipsGroup(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = Spacing.space_20dp),
                 exerciseFilters = state.exerciseFilters,
                 onSelected = { exerciseFilter ->
                     onFilterChange(exerciseFilter)
@@ -145,11 +145,14 @@ fun ExercisesListScreen(
             Divider(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 10.dp),
-                thickness = 1.dp
+                    .padding(
+                        horizontal = Spacing.space_20dp,
+                        vertical = Spacing.space_12dp
+                    ),
+                thickness = Spacing.space_1dp
             )
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(Spacing.space_8dp),
                 modifier = Modifier
             ) {
                 if (state.showNothingFound) {
@@ -157,7 +160,7 @@ fun ExercisesListScreen(
                         CardInfo(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 20.dp),
+                                .padding(horizontal = Spacing.space_20dp),
                             icon = R.drawable.ic_warning,
                             message = stringResource(R.string.card_info_found_no_exercises),
                             borderColor = MaterialTheme.colorScheme.secondary,
@@ -189,7 +192,7 @@ fun ExercisesListScreen(
                         }
                     )
                     item {
-                        Spacer(modifier = Modifier.height(100.dp))
+                        Spacer(modifier = Modifier.height(Spacing.space_96dp))
                     }
                 }
             }
@@ -233,7 +236,12 @@ fun ExercisesListScreen(
             MuscleGroupSelector(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 40.dp),
+                    .padding(
+                        top = Spacing.space_20dp,
+                        start = Spacing.space_20dp,
+                        end = Spacing.space_20dp,
+                        bottom = Spacing.space_40dp
+                    ),
                 muscleGroupCheckBoxStateList = state.muscleGroupCheckBoxStates,
                 onMuscleGroupSelected = { index, isSelected ->
                     onMuscleGroupSelection(index, isSelected)
@@ -256,7 +264,7 @@ fun ExerciseCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 20.dp)
+            .padding(horizontal = Spacing.space_20dp)
             .clickable {
                 onClick()
             },
@@ -273,7 +281,12 @@ fun ExerciseCardItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, top = 20.dp, bottom = 10.dp, end = 60.dp),
+                        .padding(
+                            start = Spacing.space_20dp,
+                            top = Spacing.space_20dp,
+                            bottom = Spacing.space_12dp,
+                            end = Spacing.space_64dp
+                        ),
                     text = exerciseName,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 20.sp,
@@ -282,7 +295,11 @@ fun ExerciseCardItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, end = 60.dp, bottom = 20.dp),
+                        .padding(
+                            start = Spacing.space_20dp,
+                            end = Spacing.space_64dp,
+                            bottom = Spacing.space_20dp
+                        ),
                     text = muscleGroups,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
@@ -293,10 +310,14 @@ fun ExerciseCardItem(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 20.dp, end = 60.dp, top = 20.dp),
+                            .padding(
+                                start = Spacing.space_20dp,
+                                end = Spacing.space_64dp,
+                                top = Spacing.space_20dp
+                            ),
                     ) {
                         Icon(
-                            modifier = Modifier.size(20.dp),
+                            modifier = Modifier.size(Spacing.space_20dp),
                             painter = painterResource(id = R.drawable.ic_play_video_youtube),
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -304,7 +325,11 @@ fun ExerciseCardItem(
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+                                .padding(
+                                    start = Spacing.space_20dp,
+                                    end = Spacing.space_20dp,
+                                    bottom = Spacing.space_20dp
+                                )
                                 .clickable {
                                     onOpenDemonstrationVideo(videoIdOnYoutube)
                                 },
@@ -319,7 +344,7 @@ fun ExerciseCardItem(
             IconButton(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(end = 15.dp),
+                    .padding(end = Spacing.space_16dp),
                 onClick = {
                     onFavoriteClick()
                 }

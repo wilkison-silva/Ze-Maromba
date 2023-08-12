@@ -2,6 +2,7 @@ package br.com.zemaromba.presentation.onboarding.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -32,9 +34,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.onboarding.screen.state.UserOriginationNameState
 import kotlinx.coroutines.delay
@@ -50,89 +52,98 @@ fun UserOriginationNameScreen(
 ) {
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.surface)
     ) {
-        Spacer(modifier = Modifier.height(150.dp))
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            text = title,
-            lineHeight = 40.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        LaunchedEffect(Unit) {
-            delay(200)
-            focusRequester.requestFocus()
-        }
-        OutlinedTextField(
+        Column(
             modifier = Modifier
-                .padding(horizontal = 30.dp)
-                .focusRequester(focusRequester)
-                .fillMaxWidth(),
-            value = state.name,
-            singleLine = true,
-            onValueChange = {
-                onNameChanged(it)
-            },
-            textStyle = TextStyle.Default.copy(
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            ),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
-                capitalization = KeyboardCapitalization.Sentences
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = { focusManager.clearFocus() }
-            ),
-            label = {
-                Text(
-                    text = stringResource(R.string.your_name),
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            text = messageWarning,
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Normal,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(60.dp))
-        Button(
-            modifier = Modifier
-                .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            ),
-            onClick = {
-                onNextButtonClick()
-            }
+                .align(Alignment.Center)
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
-            if (state.showLoadingOnButton) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier.size(25.dp),
-                    strokeWidth = 3.dp
-                )
-            } else {
-                Text(
-                    text = buttonTitle,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
+            Text(
+                modifier = Modifier.padding(horizontal = Spacing.space_20dp),
+                text = title,
+                lineHeight = 40.sp,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(Spacing.space_20dp))
+            LaunchedEffect(Unit) {
+                delay(200)
+                focusRequester.requestFocus()
+            }
+            OutlinedTextField(
+                modifier = Modifier
+                    .padding(horizontal = Spacing.space_32dp)
+                    .focusRequester(focusRequester)
+                    .fillMaxWidth(),
+                value = state.name,
+                singleLine = true,
+                onValueChange = {
+                    onNameChanged(it)
+                },
+                textStyle = TextStyle.Default.copy(
+                    textAlign = TextAlign.Center,
+                    fontSize = 20.sp
+                ),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    capitalization = KeyboardCapitalization.Sentences
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus() }
+                ),
+                label = {
+                    Text(
+                        text = stringResource(R.string.your_name),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            )
+            Spacer(modifier = Modifier.height(Spacing.space_20dp))
+            Text(
+                modifier = Modifier.padding(horizontal = Spacing.space_20dp),
+                text = messageWarning,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(Spacing.space_64dp))
+            Button(
+                modifier = Modifier
+                    .padding(
+                        start = Spacing.space_20dp,
+                        end = Spacing.space_20dp,
+                        bottom = Spacing.space_40dp
+                    )
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                onClick = {
+                    onNextButtonClick()
+                }
+            ) {
+                if (state.showLoadingOnButton) {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(Spacing.space_24dp),
+                        strokeWidth = Spacing.space_3dp
+                    )
+                } else {
+                    Text(
+                        text = buttonTitle,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }

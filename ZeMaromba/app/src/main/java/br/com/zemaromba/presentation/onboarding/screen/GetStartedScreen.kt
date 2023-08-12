@@ -3,7 +3,9 @@ package br.com.zemaromba.presentation.onboarding.screen
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.onboarding.screen.state.GetStartedState
 
@@ -57,31 +60,40 @@ fun GetStartedScreen(
                 painter = painterResource(id = R.drawable.image_exercise_welcome),
                 contentDescription = ""
             )
-            Text(
+            Column(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(start = 20.dp, top = 20.dp, end = 20.dp),
-                text = title,
-                lineHeight = 40.sp,
-                color = Color.White,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(start = 20.dp, top = 200.dp, end = 20.dp),
-                text = description,
-                color = Color.LightGray,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal,
-                textAlign = TextAlign.Center
-            )
+                    .padding(
+                        start = Spacing.space_20dp,
+                        top = Spacing.space_20dp,
+                        end = Spacing.space_20dp
+                    ),
+                verticalArrangement = Arrangement.spacedBy(Spacing.space_8dp)
+            ) {
+                Text(
+                    text = title,
+                    lineHeight = 40.sp,
+                    color = Color.White,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = description,
+                    color = Color.LightGray,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center
+                )
+            }
             Button(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(start = 20.dp, end = 20.dp, bottom = 40.dp)
+                    .padding(
+                        start = Spacing.space_20dp,
+                        end = Spacing.space_20dp,
+                        bottom = Spacing.space_40dp
+                    )
                     .fillMaxWidth(),
                 onClick = {
                     onButtonClick()

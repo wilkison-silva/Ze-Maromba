@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 
 class Spacing {
     companion object {
+        val space_0dp = 0.dp
         val space_1dp = 1.dp
         val space_2dp = 2.dp
         val space_3dp = 3.dp

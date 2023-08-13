@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,11 +24,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
     modifier: Modifier,
@@ -47,16 +45,19 @@ fun SearchBar(
         Icon(
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(start = 20.dp),
+                .padding(start = Spacing.space_20dp),
             painter = painterResource(id = R.drawable.ic_search),
-            contentDescription = "",
+            contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterStart)
-                .padding(start = 45.dp, end = 60.dp),
+                .padding(
+                    start = Spacing.space_44dp,
+                    end = Spacing.space_64dp
+                ),
             value = state.text,
             onValueChange = {
                 onTextChange(it)
@@ -82,9 +83,13 @@ fun SearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterStart)
-                    .padding(start = 60.dp, end = 60.dp),
+                    .padding(
+                        start = Spacing.space_64dp,
+                        end = Spacing.space_64dp
+                    ),
                 text = stringResource(id = state.hint),
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodyLarge
             )
         }
     }

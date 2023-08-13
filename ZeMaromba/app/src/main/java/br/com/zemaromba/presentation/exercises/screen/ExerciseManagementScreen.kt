@@ -35,7 +35,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
@@ -75,7 +74,7 @@ fun ExerciseManagementScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.button_continue),
-                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.error
                     )
                 }
@@ -88,18 +87,21 @@ fun ExerciseManagementScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.button_cancel),
-                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             title = {
-                Text(text = stringResource(R.string.warning))
+                Text(
+                    text = stringResource(R.string.warning),
+                    style = MaterialTheme.typography.titleMedium
+                )
             },
             text = {
                 Text(
                     text = stringResource(R.string.warning_about_remove_exercise),
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         )
@@ -126,7 +128,7 @@ fun ExerciseManagementScreen(
                     Text(
                         text = stringResource(R.string.title_exercise),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 20.sp
+                        style = MaterialTheme.typography.titleLarge
                     )
                 },
                 actions = {
@@ -139,7 +141,7 @@ fun ExerciseManagementScreen(
                             content = {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_delete),
-                                    contentDescription = "",
+                                    contentDescription = null,
                                     tint = MaterialTheme.colorScheme.onSurface
                                 )
                             }
@@ -153,7 +155,7 @@ fun ExerciseManagementScreen(
                         content = {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_done),
-                                contentDescription = "",
+                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -222,7 +224,8 @@ fun ExerciseManagementScreen(
                         start = Spacing.space_20dp,
                         end = Spacing.space_20dp
                     ),
-                text = stringResource(R.string.filter_muscle_group)
+                text = stringResource(R.string.filter_muscle_group),
+                style = MaterialTheme.typography.bodyMedium
             )
 
             MuscleGroupSelector(
@@ -280,7 +283,8 @@ fun MuscleGroupSelector(
                         )
                         Text(
                             text = stringResource(id = muscleGroupCheckBoxStateList[rowIndex * 2].nameRes),
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                     if (muscleGroupCheckBoxStateList.size >= ((rowIndex * 2) + 2)) {
@@ -296,7 +300,8 @@ fun MuscleGroupSelector(
                             )
                             Text(
                                 text = stringResource(id = muscleGroupCheckBoxStateList[rowIndex * 2 + 1].nameRes),
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSurface,
+                                style = MaterialTheme.typography.bodyLarge
                             )
                         }
                     }

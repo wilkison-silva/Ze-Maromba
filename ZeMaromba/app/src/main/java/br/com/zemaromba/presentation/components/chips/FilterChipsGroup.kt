@@ -21,10 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.domain.model.ExerciseFilter
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -37,14 +36,14 @@ fun FilterChipsGroup(
 ) {
     FlowRow(
         modifier = modifier.background(color = surfaceColor),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(Spacing.space_8dp)
     ) {
         repeat(exerciseFilters.size) { index ->
             FilterChip(
                 label = {
                     Text(
                         text = stringResource(id = exerciseFilters[index].type.nameRes),
-                        fontSize = 14.sp
+                        style = MaterialTheme.typography.labelLarge
                     )
                 },
                 selected = exerciseFilters[index].isSelected,
@@ -55,7 +54,7 @@ fun FilterChipsGroup(
                     if (exerciseFilters[index].isSelected) {
                         Icon(
                             imageVector = Icons.Filled.Done,
-                            contentDescription = "",
+                            contentDescription = null,
                             modifier = Modifier.size(FilterChipDefaults.IconSize),
                             tint = MaterialTheme.colorScheme.onSecondary
                         )
@@ -91,15 +90,7 @@ fun FilterChipsGroupPreview() {
             modifier = Modifier.fillMaxWidth(),
             exerciseFilters = exerciseFilters.value,
             onSelected = {
-                exerciseFilters.value =
-                    exerciseFilters
-                        .value
-                        .toMutableList()
-                        .apply {
-
-//                            this[it] =
-//                                this[it].copy(isSelected = !this[it].isSelected)
-                        }
+                exerciseFilters.value = exerciseFilters.value.toMutableList()
             }
         )
     }

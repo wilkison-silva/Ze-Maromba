@@ -30,12 +30,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
@@ -73,8 +71,7 @@ fun HomeScreen(
                             }
                         },
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Start
                     )
                 },
@@ -162,19 +159,19 @@ fun MenuHomeItem(
                         top = Spacing.space_20dp,
                         bottom = Spacing.space_8dp,
                         end = Spacing.space_20dp
-                    )
+                    ),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
                         painter = painterResource(id = icon),
-                        contentDescription = "",
+                        contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(modifier = Modifier.width(Spacing.space_20dp))
                     Text(
                         text = title,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
+                        style = MaterialTheme.typography.titleLarge
                     )
                 }
                 Text(
@@ -187,9 +184,7 @@ fun MenuHomeItem(
                         ),
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontStyle = FontStyle.Italic
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
             Icon(

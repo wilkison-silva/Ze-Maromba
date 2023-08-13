@@ -19,9 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 
 @Composable
@@ -41,32 +40,37 @@ fun CardInfo(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .requiredHeightIn(min = 0.dp, max = 100.dp)
-                .padding(end = 20.dp),
+                .requiredHeightIn(
+                    min = Spacing.space_0dp,
+                    max = Spacing.space_96dp
+                )
+                .padding(end = Spacing.space_20dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Surface(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(5.dp),
-                color = borderColor
-            ) {
+                    .width(Spacing.space_4dp),
+                color = borderColor,
+                content = {
 
-            }
-            Spacer(modifier = Modifier.width(20.dp))
+                }
+            )
+            Spacer(modifier = Modifier.width(Spacing.space_20dp))
             Icon(
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier.size(Spacing.space_24dp),
                 painter = painterResource(id = icon),
-                contentDescription = "",
+                contentDescription = null,
                 tint = onSurfaceColor
             )
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(Spacing.space_20dp))
             Text(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(vertical = 5.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = Spacing.space_4dp),
                 text = message,
                 color = onSurfaceColor,
-                fontSize = 14.sp
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -79,7 +83,7 @@ fun CardInfoPreview() {
         CardInfo(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(Spacing.space_12dp),
             icon = R.drawable.ic_training_plan_calendar,
             message = "Planeja seus treinos melhor com a gente, assim você vai ir mais longe e ganhar mais massa magra",
             borderColor = MaterialTheme.colorScheme.tertiary,

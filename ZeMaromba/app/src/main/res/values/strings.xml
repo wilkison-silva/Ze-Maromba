@@ -51,7 +51,7 @@
     <string name="title_training">Treino</string>
     <string name="button_title_filter">Filtrar</string>
     <string name="card_info_found_no_exercises">Uma pena. Não encontramos nada parecido com os filtros aplicados.</string>
-    <string name="exercise_demonstration_video">Demonstração do exerçicio.</string>
+    <string name="exercise_demonstration_video">Demonstração do exercício.</string>
     <string name="training_plan">Plano de treino</string>
     <string name="how_about_create_your_first_training_plan">Que tal criar seu primeiro plano de treino?</string>
     <string name="how_about_create_your_first_training">Nenhum treino ainda neste plano. Vamos criar um?</string>

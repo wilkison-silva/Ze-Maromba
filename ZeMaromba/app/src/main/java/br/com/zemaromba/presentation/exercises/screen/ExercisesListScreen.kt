@@ -39,19 +39,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
 import br.com.zemaromba.presentation.components.search_bar.SearchBar
-import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListState
+import br.com.zemaromba.presentation.model.ExerciseView
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +78,7 @@ fun ExercisesListScreen(
                         content = {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_arrow_back),
-                                contentDescription = "",
+                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
@@ -91,7 +88,7 @@ fun ExercisesListScreen(
                     Text(
                         text = stringResource(R.string.title_exercises),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 20.sp
+                        style = MaterialTheme.typography.titleLarge
                     )
                 }
             )
@@ -107,10 +104,13 @@ fun ExercisesListScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = ""
+                    contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(Spacing.space_4dp))
-                Text(text = stringResource(R.string.fab_new_exercise))
+                Text(
+                    text = stringResource(R.string.fab_new_exercise),
+                    style = MaterialTheme.typography.labelLarge
+                )
             }
         },
     ) { contentPadding ->
@@ -131,7 +131,8 @@ fun ExercisesListScreen(
             Text(
                 modifier = Modifier.padding(start = Spacing.space_20dp),
                 text = stringResource(R.string.filter_by),
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodyMedium
             )
             FilterChipsGroup(
                 modifier = Modifier
@@ -229,7 +230,7 @@ fun ExercisesListScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.button_title_filter),
-                        fontSize = 14.sp
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }
@@ -289,8 +290,7 @@ fun ExerciseCardItem(
                         ),
                     text = exerciseName,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.titleLarge
                 )
                 Text(
                     modifier = Modifier
@@ -302,9 +302,7 @@ fun ExerciseCardItem(
                         ),
                     text = muscleGroups,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic
+                    style = MaterialTheme.typography.bodyMedium
                 )
                 videoId?.let { videoIdOnYoutube ->
                     Row(
@@ -313,8 +311,9 @@ fun ExerciseCardItem(
                             .padding(
                                 start = Spacing.space_20dp,
                                 end = Spacing.space_64dp,
-                                top = Spacing.space_20dp
+                                bottom = Spacing.space_20dp
                             ),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             modifier = Modifier.size(Spacing.space_20dp),
@@ -327,16 +326,14 @@ fun ExerciseCardItem(
                                 .fillMaxWidth()
                                 .padding(
                                     start = Spacing.space_20dp,
-                                    end = Spacing.space_20dp,
-                                    bottom = Spacing.space_20dp
+                                    end = Spacing.space_20dp
                                 )
                                 .clickable {
                                     onOpenDemonstrationVideo(videoIdOnYoutube)
                                 },
                             text = stringResource(R.string.exercise_demonstration_video),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Medium
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                 }
@@ -405,7 +402,7 @@ fun ExercisesListScreenPreview() {
                 R.string.adductors
             ),
             urlLink = "www.youtube.com.br",
-            videoId = null
+            videoId = "123344"
         ),
         ExerciseView(
             id = 1,

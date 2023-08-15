@@ -11,7 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -37,6 +35,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.cards.CardInfo
+import br.com.zemaromba.presentation.components.dialogs.SimpleDialog
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.screen.state.ExerciseManagementState
@@ -59,51 +58,17 @@ fun ExerciseManagementScreen(
         }
     }
     if (state.showDialog) {
-        AlertDialog(
-            containerColor = MaterialTheme.colorScheme.surface,
-            titleContentColor = MaterialTheme.colorScheme.onSurface,
-            textContentColor = MaterialTheme.colorScheme.onSurface,
-            onDismissRequest = {
+        SimpleDialog(
+            onDismissClick = {
                 onShowAlertAboutRemoving(false)
             },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onDeleteExercise()
-                    }
-                ) {
-                    Text(
-                        text = stringResource(R.string.button_continue),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
+            onConfirmClick = {
+                onDeleteExercise()
             },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        onShowAlertAboutRemoving(false)
-                    }
-                ) {
-                    Text(
-                        text = stringResource(R.string.button_cancel),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            },
-            title = {
-                Text(
-                    text = stringResource(R.string.warning),
-                    style = MaterialTheme.typography.titleMedium
-                )
-            },
-            text = {
-                Text(
-                    text = stringResource(R.string.warning_about_remove_exercise),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+            dismissText = stringResource(R.string.button_cancel),
+            confirmText = stringResource(R.string.button_continue),
+            titleText = stringResource(R.string.warning),
+            descriptionText = stringResource(R.string.warning_about_remove_exercise),
         )
     }
     Scaffold(

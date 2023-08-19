@@ -13,12 +13,14 @@ import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.presentation.navigation.router.TrainingPlanRouter
 import br.com.zemaromba.presentation.navigation.router.TrainingRouter
+import br.com.zemaromba.presentation.training_plan.screen.SetsListScreen
 import br.com.zemaromba.presentation.training_plan.screen.TrainingListScreen
 import br.com.zemaromba.presentation.training_plan.screen.TrainingManagementScreen
 import br.com.zemaromba.presentation.training_plan.screen.TrainingPlanListScreen
 import br.com.zemaromba.presentation.training_plan.screen.TrainingPlanManagementScreen
 import br.com.zemaromba.presentation.training_plan.screen.event.TrainingManagementEvents
 import br.com.zemaromba.presentation.training_plan.screen.event.TrainingPlanManagementEvents
+import br.com.zemaromba.presentation.training_plan.viewmodel.SetListViewModel
 import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingListViewModel
 import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingManagementViewModel
 import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingPlanListViewModel
@@ -26,7 +28,8 @@ import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingPlanManagem
 
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
-    width: Int
+    width: Int,
+    openYoutube: (videoId: String) -> Unit,
 ) {
     navigation(
         startDestination = TrainingPlanRouter.TrainingPlanListScreen.route,
@@ -139,9 +142,8 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenTraining = {
                     navController.navigate(
-                        route = TrainingRouter.TrainingManagementScreen.getRouteWithTrainingId(
-                            trainingId = it,
-                            trainingPlanId = trainingPlanId
+                        route = TrainingRouter.SetsListScreen.getRouteWithParameters(
+                            trainingId = it
                         )
                     )
                 },
@@ -226,6 +228,53 @@ fun NavGraphBuilder.trainingPlanGraph(
                         route = TrainingPlanRouter.TrainingPlanListScreen.route,
                         inclusive = false
                     )
+                }
+            )
+        }
+
+        composableWithTransitionAnimation(
+            route = TrainingRouter.SetsListScreen.route,
+            width = width,
+            arguments = listOf(
+                navArgument(name = TrainingRouter.trainingId) {
+                    type = NavType.LongType
+                    defaultValue = 0
+                }
+            )
+        ) {
+            val trainingId = remember {
+                it
+                    .arguments
+                    ?.getLong(TrainingRouter.trainingId)
+                    .orZero()
+            }
+            val viewModel: SetListViewModel = hiltViewModel()
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+            LaunchedEffect(key1 = Unit) {
+                viewModel.retrieveSets(trainingId = trainingId)
+            }
+            LaunchedEffect(key1 = Unit) {
+                viewModel.getTraining(trainingId = trainingId)
+            }
+            SetsListScreen(
+                state = state,
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onOpenSet = {
+
+                },
+                onCreateSet = {
+
+                },
+                onOpenSettings = {
+
+                },
+                onOpenYoutubeApp = { videoId ->
+                    openYoutube(videoId)
+                },
+                onCompleteSet = { setId, isCompleted ->
+                    viewModel.completeSet(setId = setId, isCompleted = isCompleted)
                 }
             )
         }

@@ -21,6 +21,9 @@ interface SetDao {
     @Update
     suspend fun update(setEntity: SetEntity)
 
+    @Query("UPDATE `Set` SET completed = :completed WHERE `Set`.id = :setId")
+    suspend fun completeSet(setId: Long, completed: Boolean)
+
     @Delete
     suspend fun delete(setEntity: SetEntity)
 

@@ -12,10 +12,10 @@ data class Training(
 
         val totalSets = this.sets.size
         val totalCompleted = this.sets.count { it.completed }
-        val percentageDone = if (totalSets > 0) {
-            totalCompleted / totalSets
+        val percentageDone: Float = if (totalSets > 0) {
+            (totalCompleted.toFloat() / totalSets.toFloat()) * 100
         } else {
-            0
+            0.0f
         }
 
         var muscleGroups = mutableListOf<MuscleGroup>()
@@ -31,7 +31,7 @@ data class Training(
             name = this.name,
             exercisesQuantity = this.sets.size,
             muscleGroups = muscleGroups,
-            percentageDone = percentageDone
+            percentageDone = percentageDone.toInt()
         )
     }
 }

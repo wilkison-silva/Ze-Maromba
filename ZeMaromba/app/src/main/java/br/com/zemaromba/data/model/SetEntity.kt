@@ -47,6 +47,7 @@ data class SetEntity(
     fun toSet(exercise: Exercise): Set {
         return Set(
             id = this.id,
+            trainingId = training_id,
             quantity = this.quantity,
             repetitions = this.repetitions,
             exercise = exercise,

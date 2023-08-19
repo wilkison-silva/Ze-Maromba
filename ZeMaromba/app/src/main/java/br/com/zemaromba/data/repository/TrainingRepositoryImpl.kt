@@ -7,7 +7,9 @@ import br.com.zemaromba.data.sources.local.database.dao.SetDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
 import br.com.zemaromba.domain.model.Training
 import br.com.zemaromba.domain.repository.TrainingRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 
 class TrainingRepositoryImpl(
     private val trainingDao: TrainingDao,
@@ -15,7 +17,7 @@ class TrainingRepositoryImpl(
     private val exerciseDao: ExerciseDao
 ) : TrainingRepository {
 
-    override suspend fun getTrainingById(id: Long): Training {
+    override fun getTrainingById(id: Long): Flow<Training> = flow {
         val trainingEntity = trainingDao.getTrainingById(trainingId = id)
         val setsWithExercises = setDao
             .getSetsWithExerciseByTrainingId(trainingId = trainingEntity.trainingPlanId)
@@ -31,8 +33,7 @@ class TrainingRepositoryImpl(
                     }.first()
             it.set.toSet(exercise)
         }
-        return trainingEntity.toTraining(sets = sets)
-
+        emit(trainingEntity.toTraining(sets = sets))
     }
 
     override suspend fun createTraining(id: Long?, name: String, trainingPlanId: Long) {

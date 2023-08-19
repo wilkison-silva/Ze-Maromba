@@ -55,7 +55,8 @@ fun SetsListScreen(
     onOpenSet: (setId: Long) -> Unit,
     onCreateSet: () -> Unit,
     onOpenSettings: () -> Unit,
-    onOpenYoutubeApp: (videoId: String) -> Unit
+    onOpenYoutubeApp: (videoId: String) -> Unit,
+    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit
 ) {
 
     Scaffold(
@@ -161,6 +162,9 @@ fun SetsListScreen(
                                 },
                                 onOpenDemonstrationVideo = { videoId: String ->
                                     onOpenYoutubeApp(videoId)
+                                },
+                                onCompleteSet = { setId: Long, isCompleted: Boolean ->
+                                    onCompleteSet(setId, isCompleted)
                                 }
                             )
                         }
@@ -178,7 +182,8 @@ fun SetsListScreen(
 fun SetCardItem(
     setView: SetView,
     onClick: () -> Unit,
-    onOpenDemonstrationVideo: (videoId: String) -> Unit
+    onOpenDemonstrationVideo: (videoId: String) -> Unit,
+    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -256,7 +261,7 @@ fun SetCardItem(
                     .fillMaxWidth(),
                 shape = MaterialTheme.shapes.medium,
                 onClick = {
-
+                    onCompleteSet(setView.id, setView.completed)
                 }
             ) {
                 if (setView.completed) {
@@ -312,7 +317,7 @@ fun IconWithText(
         }
         Text(
             modifier = Modifier
-                .clickable {
+                .clickable(enabled = onClickText != null) {
                     if (onClickText != null) {
                         onClickText()
                     }
@@ -320,7 +325,6 @@ fun IconWithText(
             text = labelAndDescription,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Justify
         )
     }
 }
@@ -462,6 +466,9 @@ fun SetsListScreenPreview() {
 
             },
             onOpenYoutubeApp = {
+
+            },
+            onCompleteSet = { _, _ ->
 
             }
         )

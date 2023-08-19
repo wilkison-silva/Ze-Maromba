@@ -71,7 +71,10 @@ class MainActivity : ComponentActivity() {
                         )
                         trainingPlanGraph(
                             width = constraints.maxWidth,
-                            navController = navController
+                            navController = navController,
+                            openYoutube = { videoId: String ->
+                                openVideoInYoutubeOrBrowser(videoId = videoId)
+                            }
                         )
                     }
                 }

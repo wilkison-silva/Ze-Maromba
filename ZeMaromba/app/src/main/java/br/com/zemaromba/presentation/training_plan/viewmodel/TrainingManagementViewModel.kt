@@ -9,9 +9,10 @@ import br.com.zemaromba.presentation.training_plan.screen.state.TrainingManageme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Locale
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -80,19 +81,17 @@ class TrainingManagementViewModel @Inject constructor(
 
     fun retrieveTraining(trainingId: Long, trainingPlanId: Long) {
         if (trainingId > 0) {
-            viewModelScope.launch(Dispatchers.IO) {
-                trainingRepository
-                    .getTrainingById(id = trainingId)
-                    .let { training ->
-                        _state.update {
-                            it.copy(
-                                trainingId = training.id,
-                                trainingPlanId = training.trainingPlanId,
-                                name = training.name,
-                            )
-                        }
+            trainingRepository
+                .getTrainingById(id = trainingId)
+                .onEach { training ->
+                    _state.update {
+                        it.copy(
+                            trainingId = training.id,
+                            trainingPlanId = training.trainingPlanId,
+                            name = training.name,
+                        )
                     }
-            }
+                }.launchIn(viewModelScope)
         } else {
             _state.update {
                 it.copy(trainingPlanId = trainingPlanId)

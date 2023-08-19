@@ -16,12 +16,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -100,30 +98,31 @@ fun SetsListScreen(
                 }
             )
         },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = Spacing.space_12dp),
+        bottomBar = {
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = Spacing.space_20dp),
+                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     onCreateSet()
-                },
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                }
             ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null
+                Text(
+                    modifier = Modifier.padding(vertical = Spacing.space_4dp),
+                    text = stringResource(R.string.add_exercise),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyLarge
                 )
-                Spacer(modifier = Modifier.width(Spacing.space_4dp))
-                Text(text = stringResource(R.string.fab_new_training))
             }
-        },
+        }
     ) { contentPadding ->
-        if (state.showMessage) {
-            Box(
-                modifier = Modifier
-                    .padding(contentPadding)
-                    .fillMaxSize()
-            ) {
+        Box(
+            modifier = Modifier
+                .padding(contentPadding)
+                .fillMaxSize()
+        ) {
+            if (state.showMessage) {
                 Column(
                     modifier = Modifier.align(Alignment.Center),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -145,30 +144,30 @@ fun SetsListScreen(
                         textAlign = TextAlign.Center
                     )
                 }
-            }
-        } else {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(Spacing.space_12dp),
-                modifier = Modifier.padding(paddingValues = contentPadding)
-            ) {
-                item {
-                    Spacer(modifier = Modifier.height(Spacing.space_24dp))
-                }
-                itemsIndexed(items = state.setListView,
-                    itemContent = { _: Int, setView: SetView ->
-                        SetCardItem(
-                            setView = setView,
-                            onClick = {
-                                onOpenSet(setView.id)
-                            },
-                            onOpenDemonstrationVideo = { videoId: String ->
-                                onOpenYoutubeApp(videoId)
-                            }
-                        )
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.space_12dp),
+                ) {
+                    item {
+                        Spacer(modifier = Modifier.height(Spacing.space_24dp))
                     }
-                )
-                item {
-                    Spacer(modifier = Modifier.height(Spacing.space_96dp))
+                    itemsIndexed(items = state.setListView,
+                        itemContent = { _: Int, setView: SetView ->
+                            SetCardItem(
+                                setView = setView,
+                                onClick = {
+                                    onOpenSet(setView.id)
+                                },
+                                onOpenDemonstrationVideo = { videoId: String ->
+                                    onOpenYoutubeApp(videoId)
+                                }
+                            )
+                        }
+                    )
+                    item {
+                        Spacer(modifier = Modifier.height(Spacing.space_96dp))
+                    }
                 }
             }
         }
@@ -260,7 +259,7 @@ fun SetCardItem(
 
                 }
             ) {
-                if (!setView.completed) {
+                if (setView.completed) {
                     Icon(
                         modifier = Modifier.size(Spacing.space_20dp),
                         painter = painterResource(id = R.drawable.ic_done),
@@ -383,6 +382,46 @@ fun labelWithCaption(
 @Composable
 fun SetsListScreenPreview() {
     val setsSampleList = listOf(
+        SetView(
+            id = 0,
+            quantity = 4,
+            repetitions = 12,
+            exerciseView = ExerciseView(
+                id = 1,
+                name = "Bíceps concentrado",
+                favoriteIcon = R.drawable.ic_star_filled,
+                muscleGroups = listOf(
+                    MuscleGroup.BICEPS.nameRes,
+                    MuscleGroup.FOREARM.nameRes
+                ),
+                urlLink = "12345667",
+                videoId = "12345667"
+            ),
+            weight = 12.0,
+            observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
+            completed = false,
+            restingTime = 60.0
+        ),
+        SetView(
+            id = 0,
+            quantity = 4,
+            repetitions = 12,
+            exerciseView = ExerciseView(
+                id = 1,
+                name = "Bíceps concentrado",
+                favoriteIcon = R.drawable.ic_star_filled,
+                muscleGroups = listOf(
+                    MuscleGroup.BICEPS.nameRes,
+                    MuscleGroup.FOREARM.nameRes
+                ),
+                urlLink = "12345667",
+                videoId = "12345667"
+            ),
+            weight = 12.0,
+            observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
+            completed = false,
+            restingTime = 60.0
+        ),
         SetView(
             id = 0,
             quantity = 4,

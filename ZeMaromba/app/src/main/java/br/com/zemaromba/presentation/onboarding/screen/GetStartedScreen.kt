@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -57,7 +56,7 @@ fun GetStartedScreen(
                     .fillMaxSize(),
                 contentScale = ContentScale.Crop,
                 painter = painterResource(id = R.drawable.image_exercise_welcome),
-                contentDescription = ""
+                contentDescription = null
             )
             Column(
                 modifier = Modifier
@@ -70,19 +69,18 @@ fun GetStartedScreen(
                 verticalArrangement = Arrangement.spacedBy(Spacing.space_8dp)
             ) {
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = title,
-                    lineHeight = 40.sp,
                     color = Color.White,
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 32.sp)
                 )
                 Text(
+                    modifier = Modifier.fillMaxWidth(),
                     text = description,
                     color = Color.LightGray,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp)
                 )
             }
             Button(
@@ -100,9 +98,8 @@ fun GetStartedScreen(
             ) {
                 Text(
                     text = buttonTitle,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }

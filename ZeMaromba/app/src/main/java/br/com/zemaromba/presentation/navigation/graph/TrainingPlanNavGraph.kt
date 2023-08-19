@@ -206,10 +206,10 @@ fun NavGraphBuilder.trainingPlanGraph(
                         event = TrainingManagementEvents.OnEnterName(trainingName = it)
                     )
                 },
-                onSaveTrainingPlan = {
+                onSaveTraining = {
                     viewModel.onEvent(event = TrainingManagementEvents.OnSaveTraining)
                 },
-                onDeleteTrainingPlan = {
+                onDeleteTraining = {
                     viewModel.onEvent(event = TrainingManagementEvents.OnDeleteTraining)
                 },
                 onNavigateBack = {

@@ -63,4 +63,12 @@
     <string name="training_summary_card_exercises_none">Sem exercícios adicionados</string>
     <string name="training_card_muscle_groups_of">"Grupos musculares: "</string>
     <string name="training_summary_card_percentage_done">%1$d%% concluído</string>
+    <string name="set_series">Séries</string>
+    <string name="set_repetition">"   Repetições"</string>
+    <string name="set_weight">Peso</string>
+    <string name="set_resting_time">Descanso</string>
+    <string name="set_observation">Observação</string>
+    <string name="set_how_to_do_this_exercise">Como realizar este exercício. Assista!</string>
+    <string name="set_completed">Concluído</string>
+    <string name="set_to_be_completed">Concluir exercício</string>
 </resources>

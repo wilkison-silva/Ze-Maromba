@@ -1,6 +1,7 @@
 package br.com.zemaromba.presentation.training_plan.screen
 
 import android.content.res.Configuration
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,12 +37,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
@@ -72,7 +72,7 @@ fun SetsListScreen(
                         content = {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_arrow_back),
-                                contentDescription = "",
+                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
@@ -82,7 +82,7 @@ fun SetsListScreen(
                         modifier = Modifier.padding(start = Spacing.space_12dp),
                         text = state.trainingName,
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 20.sp
+                        style = MaterialTheme.typography.titleLarge
                     )
                 }, actions = {
                     IconButton(
@@ -92,7 +92,7 @@ fun SetsListScreen(
                         content = {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_settings),
-                                contentDescription = "",
+                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -110,7 +110,8 @@ fun SetsListScreen(
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
             ) {
                 Icon(
-                    imageVector = Icons.Default.Add, contentDescription = ""
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(Spacing.space_4dp))
                 Text(text = stringResource(R.string.fab_new_training))
@@ -140,10 +141,8 @@ fun SetsListScreen(
                             .padding(horizontal = Spacing.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_set),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        textAlign = TextAlign.Center,
-                        fontStyle = FontStyle.Italic
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -189,7 +188,8 @@ fun SetCardItem(
             .clickable {
                 onClick()
             },
-        shape = MaterialTheme.shapes.small, colors = CardDefaults.cardColors(
+        shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -208,171 +208,125 @@ fun SetCardItem(
                     ),
                 text = setView.exerciseView.name,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center
             )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = Spacing.space_20dp,
-                        bottom = Spacing.space_20dp,
-                        end = Spacing.space_20dp
-                    ),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(Spacing.space_16dp),
-                    painter = painterResource(id = R.drawable.ic_repeat),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+            IconWithText(
+                drawableRes = R.drawable.ic_repeat,
+                labelAndDescription = labelWithCaption(
+                    label = stringResource(R.string.set_series),
+                    caption = setView.quantity.toString()
+                ) + labelWithCaption(
+                    label = stringResource(R.string.set_repetition),
+                    caption = setView.repetitions.toString()
                 )
-                Spacer(modifier = Modifier.width(Spacing.space_12dp))
-                Text(
-                    text = createLabelWithCaption(
-                        label = "Séries",
-                        caption = setView.quantity.toString()
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic,
+            )
+            IconWithText(
+                drawableRes = R.drawable.ic_weight,
+                labelAndDescription = labelWithCaption(
+                    label = stringResource(R.string.set_weight),
+                    caption = "${setView.weight} Kg"
                 )
-                Spacer(modifier = Modifier.width(Spacing.space_12dp))
-                Text(
-                    text = createLabelWithCaption(
-                        label = "Repetições",
-                        caption = setView.repetitions.toString()
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic,
+            )
+            IconWithText(
+                drawableRes = R.drawable.ic_stopwatch,
+                labelAndDescription = labelWithCaption(
+                    label = stringResource(R.string.set_resting_time),
+                    caption = "${setView.restingTime} segundos"
                 )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = Spacing.space_20dp,
-                        bottom = Spacing.space_20dp,
-                        end = Spacing.space_20dp
-                    ),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(Spacing.space_16dp),
-                    painter = painterResource(id = R.drawable.ic_weight),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            IconWithText(
+                drawableRes = R.drawable.ic_tag,
+                labelAndDescription = labelWithCaption(
+                    label = stringResource(R.string.set_observation),
+                    caption = setView.observation
                 )
-                Spacer(modifier = Modifier.width(Spacing.space_12dp))
-                Text(
-                    text = createLabelWithCaption(
-                        label = "Peso",
-                        caption = "${setView.weight} Kg"
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic,
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = Spacing.space_20dp,
-                        bottom = Spacing.space_20dp,
-                        end = Spacing.space_20dp
-                    ),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(Spacing.space_16dp),
-                    painter = painterResource(id = R.drawable.ic_stopwatch),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.width(Spacing.space_12dp))
-                Text(
-                    text = createLabelWithCaption(
-                        label = "Descanso",
-                        caption = "${setView.restingTime} segundos"
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic,
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = Spacing.space_20dp,
-                        bottom = Spacing.space_20dp,
-                        end = Spacing.space_20dp
-                    ),
-                verticalAlignment = Alignment.Top
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .padding(top = Spacing.space_4dp)
-                        .size(Spacing.space_16dp),
-                    painter = painterResource(id = R.drawable.ic_tag),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.width(Spacing.space_12dp))
-                Text(
-                    text = createLabelWithCaption(
-                        label = "Observação",
-                        caption = setView.observation
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic
-                )
-            }
+            )
             setView.exerciseView.videoId?.let { videoIdOnYoutube ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = Spacing.space_20dp,
-                            bottom = Spacing.space_20dp,
-                            end = Spacing.space_20dp
-                        ),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                IconWithText(
+                    drawableRes = R.drawable.ic_play_video_youtube,
+                    labelAndDescription = AnnotatedString(text = stringResource(R.string.set_how_to_do_this_exercise)),
+                    onClickText = {
+                        onOpenDemonstrationVideo(videoIdOnYoutube)
+                    }
+                )
+            }
+            OutlinedButton(
+                modifier = Modifier
+                    .padding(all = Spacing.space_20dp)
+                    .fillMaxWidth(),
+                shape = MaterialTheme.shapes.medium,
+                onClick = {
+
+                }
+            ) {
+                if (!setView.completed) {
                     Icon(
-                        modifier = Modifier.size(Spacing.space_16dp),
-                        painter = painterResource(id = R.drawable.ic_play_video_youtube),
+                        modifier = Modifier.size(Spacing.space_20dp),
+                        painter = painterResource(id = R.drawable.ic_done),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.width(Spacing.space_12dp))
-                    Text(
-                        modifier = Modifier
-                            .clickable {
-                                onOpenDemonstrationVideo(videoIdOnYoutube)
-                            },
-                        text = "Como realizar este exercício. Assista!",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        fontStyle = FontStyle.Italic,
-                    )
+                    Spacer(modifier = Modifier.width(Spacing.space_8dp))
                 }
+                Text(
+                    modifier = Modifier,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium,
+                    text = if (setView.completed) {
+                        stringResource(R.string.set_completed)
+                    } else {
+                        stringResource(R.string.set_to_be_completed)
+                    }
+                )
             }
         }
     }
 }
 
-fun createLabelWithCaption(
+@Composable
+fun IconWithText(
+    @DrawableRes drawableRes: Int?,
+    labelAndDescription: AnnotatedString,
+    onClickText: (() -> Unit)? = null
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = Spacing.space_20dp,
+                bottom = Spacing.space_20dp,
+                end = Spacing.space_20dp
+            ),
+        verticalAlignment = Alignment.Top
+    ) {
+        drawableRes?.let {
+            Icon(
+                modifier = Modifier
+                    .padding(top = Spacing.space_2dp)
+                    .size(Spacing.space_16dp),
+                painter = painterResource(id = it),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.width(Spacing.space_12dp))
+        }
+        Text(
+            modifier = Modifier
+                .clickable {
+                    if (onClickText != null) {
+                        onClickText()
+                    }
+                },
+            text = labelAndDescription,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Justify
+        )
+    }
+}
+
+fun labelWithCaption(
     label: String,
     caption: String
 ): AnnotatedString {
@@ -387,7 +341,6 @@ fun createLabelWithCaption(
         withStyle(
             style = SpanStyle(
                 fontWeight = FontWeight.Medium,
-                fontStyle = FontStyle.Italic
             )
         ) {
             append(caption)

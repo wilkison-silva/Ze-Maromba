@@ -11,10 +11,10 @@ sealed class TrainingRouter(val route: String) {
     }
 
     object SetsListScreen : TrainingRouter(
-        route = "$baseGraphRoute/sets_list/{$trainingId}"
+        route = "$baseGraphRoute/sets_list/{$trainingId}/{$trainingPlanId}"
     ) {
-        fun getRouteWithParameters(trainingId: Long): String {
-            return "$baseGraphRoute/sets_list/$trainingId"
+        fun getRouteWithParameters(trainingId: Long, trainingPlanId: Long): String {
+            return "$baseGraphRoute/sets_list/$trainingId/$trainingPlanId"
         }
     }
 

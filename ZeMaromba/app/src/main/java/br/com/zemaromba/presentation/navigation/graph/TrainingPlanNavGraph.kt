@@ -143,7 +143,8 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onOpenTraining = {
                     navController.navigate(
                         route = TrainingRouter.SetsListScreen.getRouteWithParameters(
-                            trainingId = it
+                            trainingId = it,
+                            trainingPlanId = trainingPlanId
                         )
                     )
                 },
@@ -239,6 +240,10 @@ fun NavGraphBuilder.trainingPlanGraph(
                 navArgument(name = TrainingRouter.trainingId) {
                     type = NavType.LongType
                     defaultValue = 0
+                },
+                navArgument(name = TrainingRouter.trainingPlanId) {
+                    type = NavType.LongType
+                    defaultValue = 0
                 }
             )
         ) {
@@ -246,6 +251,12 @@ fun NavGraphBuilder.trainingPlanGraph(
                 it
                     .arguments
                     ?.getLong(TrainingRouter.trainingId)
+                    .orZero()
+            }
+            val trainingPlanId = remember {
+                it
+                    .arguments
+                    ?.getLong(TrainingRouter.trainingPlanId)
                     .orZero()
             }
             val viewModel: SetListViewModel = hiltViewModel()
@@ -268,7 +279,12 @@ fun NavGraphBuilder.trainingPlanGraph(
 
                 },
                 onOpenSettings = {
-
+                    navController.navigate(
+                        route = TrainingRouter.TrainingManagementScreen.getRouteWithTrainingId(
+                            trainingId = trainingId,
+                            trainingPlanId = trainingPlanId
+                        )
+                    )
                 },
                 onOpenYoutubeApp = { videoId ->
                     openYoutube(videoId)

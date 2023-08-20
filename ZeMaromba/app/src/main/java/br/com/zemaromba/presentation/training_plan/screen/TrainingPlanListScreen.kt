@@ -38,6 +38,7 @@ import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.TrainingPlanView
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingPlanState
@@ -64,18 +65,19 @@ fun TrainingPlanListScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(bottom = Spacing.space_12dp),
-                onClick = {
-                    onCreateTrainingPlan()
-                },
+                onClick = { onCreateTrainingPlan() },
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = ""
+                    contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(Spacing.space_4dp))
-                Text(text = stringResource(R.string.fab_new_training_plan))
+                Text(
+                    text = stringResource(R.string.fab_new_training_plan),
+                    style = Style.Body1
+                )
             }
         },
     ) { contentPadding ->
@@ -91,7 +93,7 @@ fun TrainingPlanListScreen(
                     Icon(
                         modifier = Modifier.size(Spacing.space_200dp),
                         painter = painterResource(id = R.drawable.ic_training_plans_not_found),
-                        contentDescription = "",
+                        contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
@@ -100,10 +102,8 @@ fun TrainingPlanListScreen(
                             .padding(horizontal = Spacing.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_training_plan),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center,
-                        fontStyle = FontStyle.Italic
+                        style = Style.Title3
                     )
                 }
             }
@@ -163,9 +163,8 @@ fun TrainingPlanCardItem(
                     ),
                 text = trainingPlanName,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = Style.Title2
             )
         }
     }

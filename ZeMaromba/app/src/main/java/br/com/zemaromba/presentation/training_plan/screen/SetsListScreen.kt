@@ -41,6 +41,7 @@ import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.model.SetView
@@ -82,7 +83,7 @@ fun SetsListScreen(
                     modifier = Modifier.padding(vertical = Spacing.space_4dp),
                     text = stringResource(R.string.add_exercise),
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = Style.Button1
                 )
             }
         }
@@ -110,7 +111,7 @@ fun SetsListScreen(
                             .padding(horizontal = Spacing.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_set),
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = Style.Title3,
                         textAlign = TextAlign.Center
                     )
                 }
@@ -181,7 +182,7 @@ fun SetCardItem(
                     ),
                 text = setView.exerciseView.name,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.titleMedium,
+                style = Style.Title2,
                 textAlign = TextAlign.Center
             )
             IconWithText(
@@ -245,7 +246,7 @@ fun SetCardItem(
                 Text(
                     modifier = Modifier,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = Style.Body1,
                     text = if (setView.completed) {
                         stringResource(R.string.set_completed)
                     } else {
@@ -293,7 +294,7 @@ fun IconWithText(
                 },
             text = labelAndDescription,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.bodyMedium,
+            style = Style.Body1,
         )
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 
 @Composable
 fun SimpleDialog(
@@ -31,7 +32,7 @@ fun SimpleDialog(
             ) {
                 Text(
                     text = confirmText,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = Style.Body1,
                     color = MaterialTheme.colorScheme.error
                 )
             }
@@ -44,7 +45,7 @@ fun SimpleDialog(
             ) {
                 Text(
                     text = dismissText,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = Style.Body1,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }
@@ -52,13 +53,13 @@ fun SimpleDialog(
         title = {
             Text(
                 text = titleText,
-                style = MaterialTheme.typography.titleMedium
+                style = Style.Title2
             )
         },
         text = {
             Text(
                 text = descriptionText,
-                style = MaterialTheme.typography.bodyMedium
+                style = Style.Body1
             )
         }
     )

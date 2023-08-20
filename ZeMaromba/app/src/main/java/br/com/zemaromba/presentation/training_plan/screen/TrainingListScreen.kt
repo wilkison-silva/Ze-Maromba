@@ -43,6 +43,7 @@ import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.TrainingSummaryView
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingListState
@@ -70,18 +71,19 @@ fun TrainingListScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 modifier = Modifier.padding(bottom = Spacing.space_12dp),
-                onClick = {
-                    onCreateTraining()
-                },
+                onClick = { onCreateTraining() },
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = ""
+                    contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(Spacing.space_4dp))
-                Text(text = stringResource(R.string.fab_new_training))
+                Text(
+                    text = stringResource(R.string.fab_new_training),
+                    style = Style.Body1
+                )
             }
         },
     ) { contentPadding ->
@@ -108,10 +110,8 @@ fun TrainingListScreen(
                             .padding(horizontal = Spacing.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_training),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center,
-                        fontStyle = FontStyle.Italic
+                        style = Style.Title3
                     )
                 }
             }
@@ -168,9 +168,8 @@ fun TrainingCardItem(
                     .padding(all = Spacing.space_20dp),
                 text = trainingSummaryView.name,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = Style.Title2
             )
             Row(
                 modifier = Modifier
@@ -199,9 +198,7 @@ fun TrainingCardItem(
                         stringResource(id = R.string.training_summary_card_exercises_none)
                     },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic,
+                    style = Style.Body1
                 )
             }
             if (trainingSummaryView.hasExercises) {
@@ -227,9 +224,7 @@ fun TrainingCardItem(
                             stringResource(id = it.nameRes)
                         }.joinToString(separator = ", "),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        fontStyle = FontStyle.Italic
+                        style = Style.Body1
                     )
                 }
                 Row(
@@ -266,9 +261,7 @@ fun TrainingCardItem(
                                 trainingSummaryView.percentageDone
                             ),
                             color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Medium,
-                            fontStyle = FontStyle.Italic
+                            style = Style.Body1
                         )
                     }
                 }

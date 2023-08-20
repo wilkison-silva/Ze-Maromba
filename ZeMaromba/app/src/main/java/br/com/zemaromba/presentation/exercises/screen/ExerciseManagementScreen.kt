@@ -12,7 +12,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -36,12 +34,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.dialogs.SimpleDialog
+import br.com.zemaromba.presentation.components.navbar.CustomNavBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.screen.state.ExerciseManagementState
 import br.com.zemaromba.presentation.exercises.screen.state.MuscleGroupCheckBoxState
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun ExerciseManagementScreen(
     state: ExerciseManagementState,
@@ -74,28 +73,8 @@ fun ExerciseManagementScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            onNavigateBack()
-                        },
-                        content = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_arrow_back),
-                                contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    )
-                },
-                title = {
-                    Text(
-                        text = stringResource(R.string.title_exercise),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                },
+            CustomNavBar(
+                onBackIconClick = { onNavigateBack() },
                 actions = {
                     state.exerciseId?.let {
                         IconButton(
@@ -125,7 +104,8 @@ fun ExerciseManagementScreen(
                             )
                         }
                     )
-                }
+                },
+                title = stringResource(R.string.title_exercise),
             )
         }
     ) { contentPadding ->

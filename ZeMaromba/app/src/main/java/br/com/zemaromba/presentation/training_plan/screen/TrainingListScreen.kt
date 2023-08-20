@@ -23,12 +23,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,12 +40,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.components.navbar.NavBar
+import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.TrainingSummaryView
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingListState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrainingListScreen(
     state: TrainingListState,
@@ -61,43 +59,12 @@ fun TrainingListScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            MediumTopAppBar(
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            onNavigateBack()
-                        },
-                        content = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_arrow_back),
-                                contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                    )
-                },
-                title = {
-                    Text(
-                        modifier = Modifier.padding(start = Spacing.space_12dp),
-                        text = state.trainingPlanName,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 20.sp
-                    )
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            onOpenSettings()
-                        },
-                        content = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_settings),
-                                contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    )
-                }
+            NavBar(
+                navBarType = NavBarType.BACK_TITLE_ACTION,
+                onBackIconClick = { onNavigateBack() },
+                actionIconResId = R.drawable.ic_settings,
+                onActionIconClick = { onOpenSettings() },
+                title = state.trainingPlanName
             )
         },
         floatingActionButton = {

@@ -29,7 +29,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +43,8 @@ import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
+import br.com.zemaromba.presentation.components.navbar.NavBar
+import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.components.search_bar.SearchBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
@@ -69,28 +70,12 @@ fun ExercisesListScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            onNavigateBack()
-                        },
-                        content = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_arrow_back),
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                    )
-                },
-                title = {
-                    Text(
-                        text = stringResource(R.string.title_exercises),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
+            NavBar(
+                navBarType = NavBarType.BACK_TITLE,
+                onBackIconClick = { onNavigateBack() },
+                actionIconResId = null,
+                onActionIconClick = null,
+                title = stringResource(R.string.title_exercises)
             )
         },
         floatingActionButton = {

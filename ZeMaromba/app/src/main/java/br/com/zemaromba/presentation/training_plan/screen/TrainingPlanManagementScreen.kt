@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.dialogs.SimpleDialog
+import br.com.zemaromba.presentation.components.navbar.CustomNavBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingPlanManagementState
@@ -77,28 +78,8 @@ fun TrainingPlanManagementScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            onNavigateBack()
-                        },
-                        content = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_arrow_back),
-                                contentDescription = "",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    )
-                },
-                title = {
-                    Text(
-                        text = stringResource(R.string.title_training_plan),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 20.sp
-                    )
-                },
+            CustomNavBar(
+                onBackIconClick = { onNavigateBack() },
                 actions = {
                     state.trainingPlanId?.let {
                         IconButton(
@@ -128,7 +109,8 @@ fun TrainingPlanManagementScreen(
                             )
                         }
                     )
-                }
+                },
+                title = stringResource(R.string.title_training_plan)
             )
         }
     ) { contentPadding ->

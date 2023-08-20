@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 
 @Composable
@@ -70,7 +71,7 @@ fun CardInfo(
                     .padding(vertical = Spacing.space_4dp),
                 text = message,
                 color = onSurfaceColor,
-                style = MaterialTheme.typography.bodyMedium
+                style = Style.Body1
             )
         }
     }

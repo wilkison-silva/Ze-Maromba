@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,7 +54,7 @@ fun NavBar(
                     Text(
                         text = title.orEmpty(),
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.titleLarge
+                        style = Style.Title1
                     )
                 }
             )
@@ -82,7 +83,7 @@ fun NavBar(
                         modifier = Modifier.padding(start = Spacing.space_12dp),
                         text = title.orEmpty(),
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.titleLarge
+                        style = Style.Title1
                     )
                 },
                 actions = {

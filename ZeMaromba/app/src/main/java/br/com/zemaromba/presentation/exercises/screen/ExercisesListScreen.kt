@@ -47,6 +47,7 @@ import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.components.search_bar.SearchBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListState
 import br.com.zemaromba.presentation.model.ExerciseView
@@ -94,7 +95,7 @@ fun ExercisesListScreen(
                 Spacer(modifier = Modifier.width(Spacing.space_4dp))
                 Text(
                     text = stringResource(R.string.fab_new_exercise),
-                    style = MaterialTheme.typography.labelLarge
+                    style = Style.Body1
                 )
             }
         },
@@ -117,7 +118,7 @@ fun ExercisesListScreen(
                 modifier = Modifier.padding(start = Spacing.space_20dp),
                 text = stringResource(R.string.filter_by),
                 color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.bodyMedium
+                style = Style.Body1
             )
             FilterChipsGroup(
                 modifier = Modifier
@@ -215,7 +216,7 @@ fun ExercisesListScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.button_title_filter),
-                        style = MaterialTheme.typography.bodyLarge
+                        style = Style.Button1
                     )
                 }
             }
@@ -275,7 +276,7 @@ fun ExerciseCardItem(
                         ),
                     text = exerciseName,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.titleLarge
+                    style = Style.Title2
                 )
                 Text(
                     modifier = Modifier
@@ -287,7 +288,7 @@ fun ExerciseCardItem(
                         ),
                     text = muscleGroups,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = Style.Body1
                 )
                 videoId?.let { videoIdOnYoutube ->
                     Row(
@@ -318,7 +319,7 @@ fun ExerciseCardItem(
                                 },
                             text = stringResource(R.string.exercise_demonstration_video),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
+                            style = Style.Body1
                         )
                     }
                 }
@@ -333,7 +334,7 @@ fun ExerciseCardItem(
             ) {
                 Icon(
                     painter = painterResource(id = favoriteIcon),
-                    contentDescription = "",
+                    contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }

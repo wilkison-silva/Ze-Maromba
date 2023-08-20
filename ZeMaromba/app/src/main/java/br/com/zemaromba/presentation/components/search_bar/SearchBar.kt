@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 
 @Composable
@@ -76,7 +77,8 @@ fun SearchBar(
                 onDone = {
                     focusManager.clearFocus()
                 }
-            )
+            ),
+            textStyle = Style.Body1
         )
         if (state.showHint) {
             Text(
@@ -89,7 +91,7 @@ fun SearchBar(
                     ),
                 text = stringResource(id = state.hint),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodyLarge
+                style = Style.Body1
             )
         }
     }

@@ -36,6 +36,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.home.screen.state.HomeState
 import br.com.zemaromba.presentation.model.MenuHome
@@ -171,7 +172,7 @@ fun MenuHomeItem(
                     Text(
                         text = title,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.titleLarge
+                        style = Style.Title1
                     )
                 }
                 Text(
@@ -184,12 +185,12 @@ fun MenuHomeItem(
                         ),
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = Style.Body1
                 )
             }
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = "",
+                contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .align(Alignment.CenterEnd)

@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.onboarding.screen.state.GetStartedState
 
@@ -73,14 +74,16 @@ fun GetStartedScreen(
                     text = title,
                     color = Color.White,
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 32.sp)
+                    style = Style.Title1,
+                    fontSize = 32.sp,
+                    lineHeight = 40.sp
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = description,
                     color = Color.LightGray,
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp)
+                    style = Style.Body1
                 )
             }
             Button(
@@ -99,7 +102,7 @@ fun GetStartedScreen(
                 Text(
                     text = buttonTitle,
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = Style.Button1
                 )
             }
         }

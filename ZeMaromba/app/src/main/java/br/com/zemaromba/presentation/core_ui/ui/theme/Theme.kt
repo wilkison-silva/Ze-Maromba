@@ -107,7 +107,6 @@ fun ZeMarombaTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         shapes = ZeMarombaShapes,
-        typography = Typography,
         content = content
     )
 }

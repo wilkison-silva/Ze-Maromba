@@ -36,6 +36,7 @@ import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.dialogs.SimpleDialog
 import br.com.zemaromba.presentation.components.navbar.CustomNavBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.screen.state.ExerciseManagementState
 import br.com.zemaromba.presentation.exercises.screen.state.MuscleGroupCheckBoxState
@@ -170,7 +171,7 @@ fun ExerciseManagementScreen(
                         end = Spacing.space_20dp
                     ),
                 text = stringResource(R.string.filter_muscle_group),
-                style = MaterialTheme.typography.bodyMedium
+                style = Style.Body1
             )
 
             MuscleGroupSelector(
@@ -229,7 +230,7 @@ fun MuscleGroupSelector(
                         Text(
                             text = stringResource(id = muscleGroupCheckBoxStateList[rowIndex * 2].nameRes),
                             color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.bodyLarge
+                            style = Style.Body1
                         )
                     }
                     if (muscleGroupCheckBoxStateList.size >= ((rowIndex * 2) + 2)) {

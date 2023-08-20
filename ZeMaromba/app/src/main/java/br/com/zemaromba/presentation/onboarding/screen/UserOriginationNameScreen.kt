@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.onboarding.screen.state.UserOriginationNameState
 import kotlinx.coroutines.delay
@@ -65,10 +66,10 @@ fun UserOriginationNameScreen(
             Text(
                 modifier = Modifier.padding(horizontal = Spacing.space_20dp),
                 text = title,
-                lineHeight = 40.sp,
                 color = MaterialTheme.colorScheme.onSurface,
+                style = Style.Title1,
+                lineHeight = 40.sp,
                 fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(Spacing.space_20dp))
@@ -102,16 +103,15 @@ fun UserOriginationNameScreen(
                         text = stringResource(R.string.your_name),
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                }
+                },
             )
             Spacer(modifier = Modifier.height(Spacing.space_20dp))
             Text(
                 modifier = Modifier.padding(horizontal = Spacing.space_20dp),
                 text = messageWarning,
                 color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = Style.Body1
             )
             Spacer(modifier = Modifier.height(Spacing.space_64dp))
             Button(
@@ -126,9 +126,7 @@ fun UserOriginationNameScreen(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 ),
-                onClick = {
-                    onNextButtonClick()
-                }
+                onClick = { onNextButtonClick() }
             ) {
                 if (state.showLoadingOnButton) {
                     CircularProgressIndicator(
@@ -139,8 +137,7 @@ fun UserOriginationNameScreen(
                 } else {
                     Text(
                         text = buttonTitle,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
+                        style = Style.Button1,
                         textAlign = TextAlign.Center
                     )
                 }

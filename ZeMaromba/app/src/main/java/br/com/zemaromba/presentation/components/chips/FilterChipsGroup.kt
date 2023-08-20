@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Style
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -43,7 +44,7 @@ fun FilterChipsGroup(
                 label = {
                     Text(
                         text = stringResource(id = exerciseFilters[index].type.nameRes),
-                        style = MaterialTheme.typography.labelLarge
+                        style = Style.Body1
                     )
                 },
                 selected = exerciseFilters[index].isSelected,

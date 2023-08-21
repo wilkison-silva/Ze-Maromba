@@ -247,7 +247,7 @@ fun MuscleGroupSelector(
                             Text(
                                 text = stringResource(id = muscleGroupCheckBoxStateList[rowIndex * 2 + 1].nameRes),
                                 color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.bodyLarge
+                                style = Style.Body1
                             )
                         }
                     }

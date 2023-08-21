@@ -210,10 +210,12 @@ fun TrainingCardItem(
                             bottom = Spacing.space_20dp,
                             end = Spacing.space_20dp
                         ),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.Top
                 ) {
                     Icon(
-                        modifier = Modifier.size(Spacing.space_16dp),
+                        modifier = Modifier
+                            .padding(top = Spacing.space_3dp)
+                            .size(Spacing.space_16dp),
                         painter = painterResource(id = R.drawable.ic_muscle_groups_chest),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant

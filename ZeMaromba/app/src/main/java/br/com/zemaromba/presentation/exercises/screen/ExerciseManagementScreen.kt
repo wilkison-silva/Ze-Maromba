@@ -35,12 +35,11 @@ import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.dialogs.SimpleDialog
 import br.com.zemaromba.presentation.components.navbar.CustomNavBar
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.screen.state.ExerciseManagementState
 import br.com.zemaromba.presentation.exercises.screen.state.MuscleGroupCheckBoxState
-
 
 @Composable
 fun ExerciseManagementScreen(
@@ -121,7 +120,7 @@ fun ExerciseManagementScreen(
             TextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = Spacing.space_20dp),
+                    .padding(all = Dimens.Space.space_20dp),
                 value = state.name,
                 onValueChange = {
                     onChangeName(it)
@@ -153,7 +152,7 @@ fun ExerciseManagementScreen(
                 CardInfo(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = Spacing.space_20dp),
+                        .padding(horizontal = Dimens.Space.space_20dp),
                     icon = R.drawable.ic_tips_and_updates,
                     message = stringResource(R.string.message_select_at_least_one_muscle_group),
                     borderColor = MaterialTheme.colorScheme.tertiary,
@@ -166,21 +165,21 @@ fun ExerciseManagementScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        top = Spacing.space_20dp,
-                        start = Spacing.space_20dp,
-                        end = Spacing.space_20dp
+                        top = Dimens.Space.space_20dp,
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp
                     ),
                 text = stringResource(R.string.filter_muscle_group),
-                style = Style.Body1
+                style = Styles.BodyTextNormal
             )
 
             MuscleGroupSelector(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        top = Spacing.space_20dp,
-                        start = Spacing.space_20dp,
-                        end = Spacing.space_20dp
+                        top = Dimens.Space.space_20dp,
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp
                     ),
                 muscleGroupCheckBoxStateList = state.muscleGroupCheckBoxStates,
                 onMuscleGroupSelected = { index, isSelected ->
@@ -200,13 +199,13 @@ fun MuscleGroupSelector(
 ) {
     Surface(
         modifier = modifier,
-        tonalElevation = Spacing.space_4dp,
+        tonalElevation = Dimens.Space.space_4dp,
         shape = MaterialTheme.shapes.large
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(all = Spacing.space_12dp),
+                .padding(all = Dimens.Space.space_12dp),
         ) {
             val itemCount = if (muscleGroupCheckBoxStateList.size % 2 == 0) {
                 muscleGroupCheckBoxStateList.size / 2
@@ -230,7 +229,7 @@ fun MuscleGroupSelector(
                         Text(
                             text = stringResource(id = muscleGroupCheckBoxStateList[rowIndex * 2].nameRes),
                             color = MaterialTheme.colorScheme.onSurface,
-                            style = Style.Body1
+                            style = Styles.BodyTextNormal
                         )
                     }
                     if (muscleGroupCheckBoxStateList.size >= ((rowIndex * 2) + 2)) {
@@ -247,7 +246,7 @@ fun MuscleGroupSelector(
                             Text(
                                 text = stringResource(id = muscleGroupCheckBoxStateList[rowIndex * 2 + 1].nameRes),
                                 color = MaterialTheme.colorScheme.onSurface,
-                                style = Style.Body1
+                                style = Styles.BodyTextNormal
                             )
                         }
                     }

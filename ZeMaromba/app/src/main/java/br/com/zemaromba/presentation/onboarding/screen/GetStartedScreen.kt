@@ -22,10 +22,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.onboarding.screen.state.GetStartedState
 
@@ -63,36 +62,34 @@ fun GetStartedScreen(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(
-                        start = Spacing.space_20dp,
-                        top = Spacing.space_20dp,
-                        end = Spacing.space_20dp
+                        start = Dimens.Space.space_20dp,
+                        top = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp
                     ),
-                verticalArrangement = Arrangement.spacedBy(Spacing.space_8dp)
+                verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp)
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = title,
                     color = Color.White,
                     textAlign = TextAlign.Center,
-                    style = Style.Title1,
-                    fontSize = 32.sp,
-                    lineHeight = 40.sp
+                    style = Styles.Title1Bold,
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = description,
                     color = Color.LightGray,
                     textAlign = TextAlign.Center,
-                    style = Style.Body1
+                    style = Styles.BodyTextNormal
                 )
             }
             Button(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(
-                        start = Spacing.space_20dp,
-                        end = Spacing.space_20dp,
-                        bottom = Spacing.space_40dp
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_40dp
                     )
                     .fillMaxWidth(),
                 onClick = {
@@ -102,7 +99,7 @@ fun GetStartedScreen(
                 Text(
                     text = buttonTitle,
                     textAlign = TextAlign.Center,
-                    style = Style.Button1
+                    style = Styles.ButtonText1
                 )
             }
         }

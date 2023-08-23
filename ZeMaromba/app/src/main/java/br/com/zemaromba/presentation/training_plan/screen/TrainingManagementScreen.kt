@@ -9,7 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,12 +31,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.dialogs.SimpleDialog
 import br.com.zemaromba.presentation.components.navbar.CustomNavBar
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingManagementState
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrainingManagementScreen(
     state: TrainingManagementState,
@@ -130,8 +128,8 @@ fun TrainingManagementScreen(
                     .fillMaxWidth()
                     .focusRequester(focusRequester)
                     .padding(
-                        horizontal = Spacing.space_20dp,
-                        vertical = Spacing.space_20dp
+                        horizontal = Dimens.Space.space_20dp,
+                        vertical = Dimens.Space.space_20dp
                     ),
                 value = state.name,
                 onValueChange = {

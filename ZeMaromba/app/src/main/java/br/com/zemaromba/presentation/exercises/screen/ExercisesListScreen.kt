@@ -46,8 +46,8 @@ import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.components.search_bar.SearchBar
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListState
 import br.com.zemaromba.presentation.model.ExerciseView
@@ -81,7 +81,7 @@ fun ExercisesListScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = Spacing.space_12dp),
+                modifier = Modifier.padding(bottom = Dimens.Space.space_12dp),
                 onClick = {
                     onNavigateToNewExercise()
                 },
@@ -92,10 +92,10 @@ fun ExercisesListScreen(
                     imageVector = Icons.Default.Add,
                     contentDescription = null
                 )
-                Spacer(modifier = Modifier.width(Spacing.space_4dp))
+                Spacer(modifier = Modifier.width(Dimens.Space.space_4dp))
                 Text(
                     text = stringResource(R.string.fab_new_exercise),
-                    style = Style.Body1
+                    style = Styles.CaptionBold
                 )
             }
         },
@@ -108,22 +108,22 @@ fun ExercisesListScreen(
             SearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = Spacing.space_20dp),
+                    .padding(all = Dimens.Space.space_20dp),
                 state = state.searchBarState,
                 onTextChange = {
                     onSearch(it)
                 }
             )
             Text(
-                modifier = Modifier.padding(start = Spacing.space_20dp),
+                modifier = Modifier.padding(start = Dimens.Space.space_20dp),
                 text = stringResource(R.string.filter_by),
                 color = MaterialTheme.colorScheme.onSurface,
-                style = Style.Body1
+                style = Styles.BodyTextNormal
             )
             FilterChipsGroup(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = Spacing.space_20dp),
+                    .padding(horizontal = Dimens.Space.space_20dp),
                 exerciseFilters = state.exerciseFilters,
                 onSelected = { exerciseFilter ->
                     onFilterChange(exerciseFilter)
@@ -133,13 +133,13 @@ fun ExercisesListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        horizontal = Spacing.space_20dp,
-                        vertical = Spacing.space_12dp
+                        horizontal = Dimens.Space.space_20dp,
+                        vertical = Dimens.Space.space_12dp
                     ),
-                thickness = Spacing.space_1dp
+                thickness = Dimens.Thickness.thickness_0dp
             )
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(Spacing.space_8dp),
+                verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
                 modifier = Modifier
             ) {
                 if (state.showNothingFound) {
@@ -147,7 +147,7 @@ fun ExercisesListScreen(
                         CardInfo(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = Spacing.space_20dp),
+                                .padding(horizontal = Dimens.Space.space_20dp),
                             icon = R.drawable.ic_warning,
                             message = stringResource(R.string.card_info_found_no_exercises),
                             borderColor = MaterialTheme.colorScheme.secondary,
@@ -179,7 +179,7 @@ fun ExercisesListScreen(
                         }
                     )
                     item {
-                        Spacer(modifier = Modifier.height(Spacing.space_96dp))
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
                     }
                 }
             }
@@ -216,7 +216,7 @@ fun ExercisesListScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.button_title_filter),
-                        style = Style.Button1
+                        style = Styles.ButtonText2
                     )
                 }
             }
@@ -224,10 +224,10 @@ fun ExercisesListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        top = Spacing.space_20dp,
-                        start = Spacing.space_20dp,
-                        end = Spacing.space_20dp,
-                        bottom = Spacing.space_40dp
+                        top = Dimens.Space.space_20dp,
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_40dp
                     ),
                 muscleGroupCheckBoxStateList = state.muscleGroupCheckBoxStates,
                 onMuscleGroupSelected = { index, isSelected ->
@@ -251,7 +251,7 @@ fun ExerciseCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = Spacing.space_20dp)
+            .padding(horizontal = Dimens.Space.space_20dp)
             .clickable {
                 onClick()
             },
@@ -269,40 +269,40 @@ fun ExerciseCardItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = Spacing.space_20dp,
-                            top = Spacing.space_20dp,
-                            bottom = Spacing.space_12dp,
-                            end = Spacing.space_64dp
+                            start = Dimens.Space.space_20dp,
+                            top = Dimens.Space.space_20dp,
+                            bottom = Dimens.Space.space_12dp,
+                            end = Dimens.Space.space_64dp
                         ),
                     text = exerciseName,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = Style.Title2
+                    style = Styles.BodyTextBold
                 )
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = Spacing.space_20dp,
-                            end = Spacing.space_64dp,
-                            bottom = Spacing.space_20dp
+                            start = Dimens.Space.space_20dp,
+                            end = Dimens.Space.space_64dp,
+                            bottom = Dimens.Space.space_20dp
                         ),
                     text = muscleGroups,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = Style.Body1
+                    style = Styles.CaptionNormal
                 )
                 videoId?.let { videoIdOnYoutube ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(
-                                start = Spacing.space_20dp,
-                                end = Spacing.space_64dp,
-                                bottom = Spacing.space_20dp
+                                start = Dimens.Space.space_20dp,
+                                end = Dimens.Space.space_64dp,
+                                bottom = Dimens.Space.space_20dp
                             ),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            modifier = Modifier.size(Spacing.space_20dp),
+                            modifier = Modifier.size(Dimens.Space.space_20dp),
                             painter = painterResource(id = R.drawable.ic_play_video_youtube),
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -311,15 +311,15 @@ fun ExerciseCardItem(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(
-                                    start = Spacing.space_20dp,
-                                    end = Spacing.space_20dp
+                                    start = Dimens.Space.space_20dp,
+                                    end = Dimens.Space.space_20dp
                                 )
                                 .clickable {
                                     onOpenDemonstrationVideo(videoIdOnYoutube)
                                 },
                             text = stringResource(R.string.exercise_demonstration_video),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = Style.Body1
+                            style = Styles.CaptionNormal
                         )
                     }
                 }
@@ -327,7 +327,7 @@ fun ExerciseCardItem(
             IconButton(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(end = Spacing.space_16dp),
+                    .padding(end = Dimens.Space.space_16dp),
                 onClick = {
                     onFavoriteClick()
                 }

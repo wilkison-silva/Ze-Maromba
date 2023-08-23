@@ -29,15 +29,14 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.onboarding.screen.state.UserOriginationNameState
 import kotlinx.coroutines.delay
@@ -64,22 +63,20 @@ fun UserOriginationNameScreen(
                 .background(color = MaterialTheme.colorScheme.surface)
         ) {
             Text(
-                modifier = Modifier.padding(horizontal = Spacing.space_20dp),
+                modifier = Modifier.padding(horizontal = Dimens.Space.space_20dp),
                 text = title,
                 color = MaterialTheme.colorScheme.onSurface,
-                style = Style.Title1,
-                lineHeight = 40.sp,
-                fontSize = 32.sp,
+                style = Styles.Title2Bold,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(Spacing.space_20dp))
+            Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
             LaunchedEffect(Unit) {
                 delay(200)
                 focusRequester.requestFocus()
             }
             OutlinedTextField(
                 modifier = Modifier
-                    .padding(horizontal = Spacing.space_32dp)
+                    .padding(horizontal = Dimens.Space.space_32dp)
                     .focusRequester(focusRequester)
                     .fillMaxWidth(),
                 value = state.name,
@@ -105,21 +102,21 @@ fun UserOriginationNameScreen(
                     )
                 },
             )
-            Spacer(modifier = Modifier.height(Spacing.space_20dp))
+            Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
             Text(
-                modifier = Modifier.padding(horizontal = Spacing.space_20dp),
+                modifier = Modifier.padding(horizontal = Dimens.Space.space_20dp),
                 text = messageWarning,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
-                style = Style.Body1
+                style = Styles.BodyTextNormal
             )
-            Spacer(modifier = Modifier.height(Spacing.space_64dp))
+            Spacer(modifier = Modifier.height(Dimens.Space.space_64dp))
             Button(
                 modifier = Modifier
                     .padding(
-                        start = Spacing.space_20dp,
-                        end = Spacing.space_20dp,
-                        bottom = Spacing.space_40dp
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_40dp
                     )
                     .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
@@ -131,13 +128,13 @@ fun UserOriginationNameScreen(
                 if (state.showLoadingOnButton) {
                     CircularProgressIndicator(
                         color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.size(Spacing.space_24dp),
-                        strokeWidth = Spacing.space_3dp
+                        modifier = Modifier.size(Dimens.Space.space_24dp),
+                        strokeWidth = Dimens.Space.space_3dp
                     )
                 } else {
                     Text(
                         text = buttonTitle,
-                        style = Style.Button1,
+                        style = Styles.ButtonText1,
                         textAlign = TextAlign.Center
                     )
                 }

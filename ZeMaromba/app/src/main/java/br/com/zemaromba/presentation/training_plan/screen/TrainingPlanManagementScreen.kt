@@ -9,14 +9,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -30,16 +28,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.dialogs.SimpleDialog
 import br.com.zemaromba.presentation.components.navbar.CustomNavBar
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingPlanManagementState
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrainingPlanManagementScreen(
     state: TrainingPlanManagementState,
@@ -131,7 +127,7 @@ fun TrainingPlanManagementScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(focusRequester)
-                    .padding(all = Spacing.space_20dp),
+                    .padding(all = Dimens.Space.space_20dp),
                 value = state.name,
                 onValueChange = {
                     onChangeName(it)

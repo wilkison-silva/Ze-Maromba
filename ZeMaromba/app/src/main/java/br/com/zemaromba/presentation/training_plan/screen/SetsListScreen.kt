@@ -40,8 +40,8 @@ import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.model.SetView
@@ -73,17 +73,17 @@ fun SetsListScreen(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = Spacing.space_20dp),
+                    .padding(all = Dimens.Space.space_20dp),
                 shape = MaterialTheme.shapes.medium,
                 onClick = {
                     onCreateSet()
                 }
             ) {
                 Text(
-                    modifier = Modifier.padding(vertical = Spacing.space_4dp),
+                    modifier = Modifier.padding(vertical = Dimens.Space.space_4dp),
                     text = stringResource(R.string.add_exercise),
                     textAlign = TextAlign.Center,
-                    style = Style.Button1
+                    style = Styles.ButtonText1
                 )
             }
         }
@@ -99,29 +99,29 @@ fun SetsListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        modifier = Modifier.size(Spacing.space_200dp),
+                        modifier = Modifier.size(Dimens.Space.space_200dp),
                         painter = painterResource(id = R.drawable.ic_dumbell_wrist),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
-                    Spacer(modifier = Modifier.height(Spacing.space_20dp))
+                    Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = Spacing.space_64dp),
+                            .padding(horizontal = Dimens.Space.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_set),
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = Style.Title3,
+                        style = Styles.Title5Bold,
                         textAlign = TextAlign.Center
                     )
                 }
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.space_12dp),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
                 ) {
                     item {
-                        Spacer(modifier = Modifier.height(Spacing.space_24dp))
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_24dp))
                     }
                     itemsIndexed(items = state.setListView,
                         itemContent = { _: Int, setView: SetView ->
@@ -140,7 +140,7 @@ fun SetsListScreen(
                         }
                     )
                     item {
-                        Spacer(modifier = Modifier.height(Spacing.space_96dp))
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
                     }
                 }
             }
@@ -158,7 +158,7 @@ fun SetCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = Spacing.space_20dp)
+            .padding(horizontal = Dimens.Space.space_20dp)
             .clickable {
                 onClick()
             },
@@ -175,14 +175,14 @@ fun SetCardItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        start = Spacing.space_20dp,
-                        top = Spacing.space_20dp,
-                        bottom = Spacing.space_28dp,
-                        end = Spacing.space_20dp
+                        start = Dimens.Space.space_20dp,
+                        top = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_28dp,
+                        end = Dimens.Space.space_20dp
                     ),
                 text = setView.exerciseView.name,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = Style.Title2,
+                style = Styles.Title3Bold,
                 textAlign = TextAlign.Center
             )
             IconWithText(
@@ -227,7 +227,7 @@ fun SetCardItem(
             }
             OutlinedButton(
                 modifier = Modifier
-                    .padding(all = Spacing.space_20dp)
+                    .padding(all = Dimens.Space.space_20dp)
                     .fillMaxWidth(),
                 shape = MaterialTheme.shapes.medium,
                 onClick = {
@@ -236,17 +236,17 @@ fun SetCardItem(
             ) {
                 if (setView.completed) {
                     Icon(
-                        modifier = Modifier.size(Spacing.space_20dp),
+                        modifier = Modifier.size(Dimens.Space.space_20dp),
                         painter = painterResource(id = R.drawable.ic_done),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.width(Spacing.space_8dp))
+                    Spacer(modifier = Modifier.width(Dimens.Space.space_8dp))
                 }
                 Text(
                     modifier = Modifier,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = Style.Body1,
+                    style = Styles.ButtonText2,
                     text = if (setView.completed) {
                         stringResource(R.string.set_completed)
                     } else {
@@ -268,22 +268,22 @@ fun IconWithText(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                start = Spacing.space_20dp,
-                bottom = Spacing.space_20dp,
-                end = Spacing.space_20dp
+                start = Dimens.Space.space_20dp,
+                bottom = Dimens.Space.space_20dp,
+                end = Dimens.Space.space_20dp
             ),
         verticalAlignment = Alignment.Top
     ) {
         drawableRes?.let {
             Icon(
                 modifier = Modifier
-                    .padding(top = Spacing.space_2dp)
-                    .size(Spacing.space_16dp),
+                    .padding(top = Dimens.Space.space_2dp)
+                    .size(Dimens.Space.space_16dp),
                 painter = painterResource(id = it),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            Spacer(modifier = Modifier.width(Spacing.space_12dp))
+            Spacer(modifier = Modifier.width(Dimens.Space.space_12dp))
         }
         Text(
             modifier = Modifier
@@ -294,7 +294,7 @@ fun IconWithText(
                 },
             text = labelAndDescription,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = Style.Body1,
+            style = Styles.CaptionNormal,
         )
     }
 }

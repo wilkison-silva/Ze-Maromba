@@ -25,8 +25,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 
 @Composable
@@ -46,7 +46,7 @@ fun SearchBar(
         Icon(
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(start = Spacing.space_20dp),
+                .padding(start = Dimens.Space.space_20dp),
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -56,8 +56,8 @@ fun SearchBar(
                 .fillMaxWidth()
                 .align(Alignment.CenterStart)
                 .padding(
-                    start = Spacing.space_44dp,
-                    end = Spacing.space_64dp
+                    start = Dimens.Space.space_44dp,
+                    end = Dimens.Space.space_64dp
                 ),
             value = state.text,
             onValueChange = {
@@ -78,7 +78,7 @@ fun SearchBar(
                     focusManager.clearFocus()
                 }
             ),
-            textStyle = Style.Body1
+            textStyle = Styles.BodyTextNormal
         )
         if (state.showHint) {
             Text(
@@ -86,12 +86,12 @@ fun SearchBar(
                     .fillMaxWidth()
                     .align(Alignment.CenterStart)
                     .padding(
-                        start = Spacing.space_64dp,
-                        end = Spacing.space_64dp
+                        start = Dimens.Space.space_64dp,
+                        end = Dimens.Space.space_64dp
                     ),
                 text = stringResource(id = state.hint),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = Style.Body1
+                style = Styles.BodyTextNormal
             )
         }
     }

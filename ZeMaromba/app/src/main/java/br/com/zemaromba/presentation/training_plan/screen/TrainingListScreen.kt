@@ -33,17 +33,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.TrainingSummaryView
 import br.com.zemaromba.presentation.training_plan.screen.state.TrainingListState
@@ -70,7 +67,7 @@ fun TrainingListScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = Spacing.space_12dp),
+                modifier = Modifier.padding(bottom = Dimens.Space.space_12dp),
                 onClick = { onCreateTraining() },
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -79,10 +76,10 @@ fun TrainingListScreen(
                     imageVector = Icons.Default.Add,
                     contentDescription = null
                 )
-                Spacer(modifier = Modifier.width(Spacing.space_4dp))
+                Spacer(modifier = Modifier.width(Dimens.Space.space_4dp))
                 Text(
                     text = stringResource(R.string.fab_new_training),
-                    style = Style.Body1
+                    style = Styles.CaptionBold
                 )
             }
         },
@@ -98,30 +95,30 @@ fun TrainingListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
-                        modifier = Modifier.size(Spacing.space_200dp),
+                        modifier = Modifier.size(Dimens.Space.space_200dp),
                         painter = painterResource(id = R.drawable.ic_training_list),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
-                    Spacer(modifier = Modifier.height(Spacing.space_20dp))
+                    Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = Spacing.space_64dp),
+                            .padding(horizontal = Dimens.Space.space_64dp),
                         text = stringResource(id = R.string.how_about_create_your_first_training),
                         color = MaterialTheme.colorScheme.onSurface,
                         textAlign = TextAlign.Center,
-                        style = Style.Title3
+                        style = Styles.Title5Bold
                     )
                 }
             }
         } else {
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(Spacing.space_12dp),
+                verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
                 modifier = Modifier.padding(paddingValues = contentPadding)
             ) {
                 item {
-                    Spacer(modifier = Modifier.height(Spacing.space_20dp))
+                    Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
                 }
                 itemsIndexed(
                     items = state.trainingSummaryViewList,
@@ -135,7 +132,7 @@ fun TrainingListScreen(
                     }
                 )
                 item {
-                    Spacer(modifier = Modifier.height(Spacing.space_96dp))
+                    Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
                 }
             }
         }
@@ -149,7 +146,7 @@ fun TrainingCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = Spacing.space_20dp)
+            .padding(horizontal = Dimens.Space.space_20dp)
             .clickable {
                 onClick()
             },
@@ -165,29 +162,29 @@ fun TrainingCardItem(
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = Spacing.space_20dp),
+                    .padding(all = Dimens.Space.space_20dp),
                 text = trainingSummaryView.name,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
-                style = Style.Title2
+                style = Styles.Title4Bold
             )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        start = Spacing.space_20dp,
-                        bottom = Spacing.space_20dp,
-                        end = Spacing.space_20dp
+                        start = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp
                     ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    modifier = Modifier.size(Spacing.space_16dp),
+                    modifier = Modifier.size(Dimens.Space.space_16dp),
                     painter = painterResource(id = R.drawable.ic_dumbell),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Spacer(modifier = Modifier.width(Spacing.space_20dp))
+                Spacer(modifier = Modifier.width(Dimens.Space.space_20dp))
                 Text(
                     text = if (trainingSummaryView.hasExercises) {
                         stringResource(
@@ -198,7 +195,7 @@ fun TrainingCardItem(
                         stringResource(id = R.string.training_summary_card_exercises_none)
                     },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = Style.Body1
+                    style = Styles.CaptionNormal
                 )
             }
             if (trainingSummaryView.hasExercises) {
@@ -206,36 +203,36 @@ fun TrainingCardItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = Spacing.space_20dp,
-                            bottom = Spacing.space_20dp,
-                            end = Spacing.space_20dp
+                            start = Dimens.Space.space_20dp,
+                            bottom = Dimens.Space.space_20dp,
+                            end = Dimens.Space.space_20dp
                         ),
                     verticalAlignment = Alignment.Top
                 ) {
                     Icon(
                         modifier = Modifier
-                            .padding(top = Spacing.space_3dp)
-                            .size(Spacing.space_16dp),
+                            .padding(top = Dimens.Space.space_3dp)
+                            .size(Dimens.Space.space_16dp),
                         painter = painterResource(id = R.drawable.ic_muscle_groups_chest),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.width(Spacing.space_20dp))
+                    Spacer(modifier = Modifier.width(Dimens.Space.space_20dp))
                     Text(
                         text = stringResource(R.string.training_card_muscle_groups_of) + trainingSummaryView.muscleGroups.map {
                             stringResource(id = it.nameRes)
                         }.joinToString(separator = ", "),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = Style.Body1
+                        style = Styles.CaptionNormal
                     )
                 }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = Spacing.space_20dp,
-                            bottom = Spacing.space_20dp,
-                            end = Spacing.space_20dp
+                            start = Dimens.Space.space_20dp,
+                            bottom = Dimens.Space.space_20dp,
+                            end = Dimens.Space.space_20dp
                         ),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End
@@ -244,7 +241,7 @@ fun TrainingCardItem(
                         modifier = Modifier
                             .width(IntrinsicSize.Max)
                             .border(
-                                width = Spacing.space_1dp,
+                                width = Dimens.Thickness.thickness_1dp,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 shape = CircleShape
                             )
@@ -253,8 +250,8 @@ fun TrainingCardItem(
                                 shape = CircleShape
                             )
                             .padding(
-                                horizontal = Spacing.space_16dp,
-                                vertical = Spacing.space_8dp
+                                horizontal = Dimens.Space.space_16dp,
+                                vertical = Dimens.Space.space_8dp
                             )
                     ) {
                         Text(
@@ -263,7 +260,7 @@ fun TrainingCardItem(
                                 trainingSummaryView.percentageDone
                             ),
                             color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            style = Style.Body1
+                            style = Styles.CaptionNormal
                         )
                     }
                 }

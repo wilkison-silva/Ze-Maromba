@@ -23,8 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.domain.model.ExerciseFilter
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -37,14 +37,14 @@ fun FilterChipsGroup(
 ) {
     FlowRow(
         modifier = modifier.background(color = surfaceColor),
-        horizontalArrangement = Arrangement.spacedBy(Spacing.space_8dp)
+        horizontalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp)
     ) {
         repeat(exerciseFilters.size) { index ->
             FilterChip(
                 label = {
                     Text(
                         text = stringResource(id = exerciseFilters[index].type.nameRes),
-                        style = Style.Body1
+                        style = Styles.CaptionBold
                     )
                 },
                 selected = exerciseFilters[index].isSelected,

@@ -2,8 +2,21 @@ package br.com.zemaromba.presentation.core_ui.ui.theme
 
 import androidx.compose.ui.unit.dp
 
-class Spacing {
-    companion object {
+object Dimens {
+    object Thickness {
+        val thickness_0dp = 0.dp
+        val thickness_1dp = 1.dp
+        val thickness_2dp = 2.dp
+    }
+    object TonalElevation {
+        val tonal_0dp = 0.dp
+        val tonal_1dp = 1.dp
+        val tonal_2dp = 2.dp
+        val tonal_3dp = 3.dp
+        val tonal_4dp = 4.dp
+        val tonal_5dp = 5.dp
+    }
+    object Space{
         val space_0dp = 0.dp
         val space_1dp = 1.dp
         val space_2dp = 2.dp

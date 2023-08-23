@@ -3,6 +3,7 @@ package br.com.zemaromba.presentation.home.screen
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,8 +36,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
-import br.com.zemaromba.presentation.core_ui.ui.theme.Spacing
-import br.com.zemaromba.presentation.core_ui.ui.theme.Style
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
+import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.home.screen.state.HomeState
 import br.com.zemaromba.presentation.model.MenuHome
@@ -72,7 +73,7 @@ fun HomeScreen(
                             }
                         },
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.titleLarge,
+                        style = Styles.Title3Bold,
                         textAlign = TextAlign.Start
                     )
                 },
@@ -101,7 +102,7 @@ fun HomeScreen(
                 .background(MaterialTheme.colorScheme.surface)
                 .verticalScroll(state = verticalScrollState)
         ) {
-            Spacer(modifier = Modifier.height(Spacing.space_20dp))
+            Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -116,7 +117,7 @@ fun HomeScreen(
                         onNavigate(MenuHome.TRAINING_PLAN_SCREEN)
                     }
                 )
-                Spacer(modifier = Modifier.height(Spacing.space_20dp))
+                Spacer(modifier = Modifier.height(Dimens.Space.space_12dp))
                 MenuHomeItem(
                     icon = R.drawable.ic_dumbell,
                     title = stringResource(R.string.exercises),
@@ -140,7 +141,7 @@ fun MenuHomeItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = Spacing.space_20dp)
+            .padding(horizontal = Dimens.Space.space_20dp)
             .clickable {
                 onClick()
             },
@@ -152,14 +153,15 @@ fun MenuHomeItem(
     ) {
         Box {
             Column(
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart),
+                verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp)
             ) {
                 Row(
                     modifier = Modifier.padding(
-                        start = Spacing.space_20dp,
-                        top = Spacing.space_20dp,
-                        bottom = Spacing.space_8dp,
-                        end = Spacing.space_20dp
+                        start = Dimens.Space.space_20dp,
+                        top = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_8dp,
+                        end = Dimens.Space.space_20dp
                     ),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -168,24 +170,24 @@ fun MenuHomeItem(
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.width(Spacing.space_20dp))
+                    Spacer(modifier = Modifier.width(Dimens.Space.space_20dp))
                     Text(
                         text = title,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = Style.Title1
+                        style = Styles.Title3Bold
                     )
                 }
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = Spacing.space_20dp,
-                            end = Spacing.space_64dp,
-                            bottom = Spacing.space_20dp
+                            start = Dimens.Space.space_20dp,
+                            end = Dimens.Space.space_64dp,
+                            bottom = Dimens.Space.space_20dp
                         ),
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = Style.Body1
+                    style = Styles.CaptionNormal
                 )
             }
             Icon(
@@ -194,7 +196,7 @@ fun MenuHomeItem(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(end = Spacing.space_16dp)
+                    .padding(end = Dimens.Space.space_16dp)
             )
         }
     }

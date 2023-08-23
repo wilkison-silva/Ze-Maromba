@@ -11,6 +11,9 @@ data class ExerciseManagementState(
             isSelected = false
         )
     },
+    val isEditable: Boolean = false,
+    val urlLink: String? = null,
+    val videoId: String? = null,
     val navigateBack: Boolean = false,
     val nameIsBlank: Boolean = false,
     val showMessageAboutMuscleGroup: Boolean = false,

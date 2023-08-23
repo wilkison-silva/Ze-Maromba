@@ -41,16 +41,18 @@ class ExercisesRepositoryImpl @Inject constructor(
         name: String,
         muscleGroupList: List<MuscleGroup>,
         urlLink: String?,
-        videoId: String?
+        videoId: String?,
+        isEditable: Boolean
     ) {
         if (id.orZero() == 0L) {
             val exerciseId = exerciseDao.insert(
                 exerciseEntity = ExerciseEntity(
                     id = id.orZero(),
                     name = name,
-                    favorite = false,
+                    isFavorite = false,
                     urlLink = urlLink,
-                    videoId = videoId
+                    videoId = videoId,
+                    isEditable = isEditable
                 )
             )
             muscleGroupList.forEach {
@@ -66,9 +68,10 @@ class ExercisesRepositoryImpl @Inject constructor(
                 exerciseEntity = ExerciseEntity(
                     id = id.orZero(),
                     name = name,
-                    favorite = false,
+                    isFavorite = false,
                     urlLink = urlLink,
-                    videoId = videoId
+                    videoId = videoId,
+                    isEditable = isEditable
                 )
             )
             muscleGroupList.forEach {

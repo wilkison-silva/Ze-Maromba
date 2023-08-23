@@ -388,7 +388,8 @@ fun ExercisesListScreenPreview() {
                 R.string.adductors
             ),
             urlLink = "www.youtube.com.br",
-            videoId = "123344"
+            videoId = "123344",
+            isEditable = true
         ),
         ExerciseView(
             id = 1,
@@ -396,7 +397,8 @@ fun ExercisesListScreenPreview() {
             favoriteIcon = R.drawable.ic_star_filled,
             muscleGroups = listOf(R.string.biceps),
             urlLink = null,
-            videoId = null
+            videoId = null,
+            isEditable = true
         ),
         ExerciseView(
             id = 2,
@@ -404,7 +406,8 @@ fun ExercisesListScreenPreview() {
             favoriteIcon = R.drawable.ic_star_border,
             muscleGroups = listOf(R.string.triceps),
             urlLink = null,
-            videoId = null
+            videoId = null,
+            isEditable = true
         ),
         ExerciseView(
             id = 3,
@@ -412,7 +415,8 @@ fun ExercisesListScreenPreview() {
             favoriteIcon = R.drawable.ic_star_border,
             muscleGroups = listOf(R.string.chest, R.string.triceps),
             urlLink = null,
-            videoId = null
+            videoId = null,
+            isEditable = true
         ),
     )
     ZeMarombaTheme {

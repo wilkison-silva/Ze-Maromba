@@ -369,7 +369,8 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667"
+                videoId = "12345667",
+                isEditable = true
             ),
             weight = 12.0,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
@@ -389,7 +390,8 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667"
+                videoId = "12345667",
+                isEditable = true
             ),
             weight = 12.0,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
@@ -409,7 +411,8 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667"
+                videoId = "12345667",
+                isEditable = true
             ),
             weight = 12.0,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",

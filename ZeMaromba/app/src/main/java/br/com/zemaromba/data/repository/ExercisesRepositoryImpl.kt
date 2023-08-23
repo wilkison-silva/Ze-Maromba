@@ -74,6 +74,7 @@ class ExercisesRepositoryImpl @Inject constructor(
                     isEditable = isEditable
                 )
             )
+            exerciseAndMuscleDao.deleteByExerciseId(exerciseId = id.orZero())
             muscleGroupList.forEach {
                 exerciseAndMuscleDao.insert(
                     ExerciseAndMuscleGroupEntity(

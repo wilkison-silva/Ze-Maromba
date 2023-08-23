@@ -14,11 +14,13 @@ data class ExerciseEntity(
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "favorite")
-    val favorite: Boolean,
+    val isFavorite: Boolean,
     @ColumnInfo(name = "url_video")
     val urlLink: String?,
     @ColumnInfo(name = "video_id")
     val videoId: String?,
+    @ColumnInfo(name = "editable")
+    val isEditable: Boolean,
 ) {
     fun toExercise(exercisesAndMuscleGroup: List<ExerciseAndMuscleGroupEntity>): Exercise {
         val muscleGroupList = mutableListOf<MuscleGroup>()
@@ -32,10 +34,11 @@ data class ExerciseEntity(
         return Exercise(
             id = this.id,
             name = this.name,
-            favorite = this.favorite,
+            isFavorite = this.isFavorite,
             muscleGroupList = muscleGroupList,
             urlLink = this.urlLink,
-            videoId = this.videoId
+            videoId = this.videoId,
+            isEditable = this.isEditable
         )
     }
 }

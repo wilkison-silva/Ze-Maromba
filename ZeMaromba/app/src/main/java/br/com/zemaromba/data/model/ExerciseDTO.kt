@@ -13,9 +13,10 @@ data class ExerciseDTO(
         return ExerciseEntity(
             id = this.id,
             name = this.name,
-            favorite = false,
+            isFavorite = false,
             urlLink = this.videoUrl,
-            videoId = this.videoId
+            videoId = this.videoId,
+            isEditable = false
         )
     }
 }

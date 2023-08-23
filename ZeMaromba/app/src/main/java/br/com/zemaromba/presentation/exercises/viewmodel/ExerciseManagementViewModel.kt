@@ -67,8 +67,9 @@ class ExerciseManagementViewModel @Inject constructor(
                         id = id,
                         name = name,
                         muscleGroupList = muscleGroupList,
-                        urlLink = null,
-                        videoId = null
+                        urlLink = _state.value.urlLink,
+                        videoId = _state.value.videoId,
+                        isEditable = _state.value.exerciseId == null
                     )
                     _state.update { it.copy(navigateBack = true) }
                 }
@@ -110,6 +111,9 @@ class ExerciseManagementViewModel @Inject constructor(
                         it.copy(
                             exerciseId = exercise.id,
                             name = exercise.name,
+                            isEditable = exercise.isEditable,
+                            urlLink = exercise.urlLink,
+                            videoId = exercise.videoId,
                             muscleGroupCheckBoxStates = it.muscleGroupCheckBoxStates.toMutableList().apply {
                                 this.forEachIndexed { index, muscleGroupCheckBox ->
                                     exercise.muscleGroupList.find { muscleGroup ->

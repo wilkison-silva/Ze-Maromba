@@ -77,19 +77,21 @@ fun ExerciseManagementScreen(
                 onBackIconClick = { onNavigateBack() },
                 actions = {
                     state.exerciseId?.let {
-                        IconButton(
-                            modifier = Modifier,
-                            onClick = {
-                                onShowAlertAboutRemoving(true)
-                            },
-                            content = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_delete),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        )
+                        if (state.isEditable) {
+                            IconButton(
+                                modifier = Modifier,
+                                onClick = {
+                                    onShowAlertAboutRemoving(true)
+                                },
+                                content = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_delete),
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            )
+                        }
                     }
                     IconButton(
                         modifier = Modifier,

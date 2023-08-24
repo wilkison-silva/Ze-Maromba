@@ -30,6 +30,7 @@ fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
     width: Int,
     openYoutube: (videoId: String) -> Unit,
+    onCreateNewSet: () -> Unit
 ) {
     navigation(
         startDestination = TrainingPlanRouter.TrainingPlanListScreen.route,
@@ -276,7 +277,7 @@ fun NavGraphBuilder.trainingPlanGraph(
 
                 },
                 onCreateSet = {
-
+                    onCreateNewSet()
                 },
                 onOpenSettings = {
                     navController.navigate(

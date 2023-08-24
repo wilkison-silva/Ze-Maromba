@@ -13,12 +13,14 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.navigation.router.ExerciseRouter
 import br.com.zemaromba.presentation.navigation.graph.exerciseGraph
 import br.com.zemaromba.presentation.model.MenuHome
+import br.com.zemaromba.presentation.navigation.graph.setGraph
 import br.com.zemaromba.presentation.navigation.router.HomeRouter
 import br.com.zemaromba.presentation.navigation.graph.homeGraph
 import br.com.zemaromba.presentation.navigation.router.OnBoardingRouter
 import br.com.zemaromba.presentation.navigation.graph.onBoardingGraph
 import br.com.zemaromba.presentation.navigation.router.TrainingPlanRouter
 import br.com.zemaromba.presentation.navigation.graph.trainingPlanGraph
+import br.com.zemaromba.presentation.navigation.router.SetRouter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,7 +76,14 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             openYoutube = { videoId: String ->
                                 openVideoInYoutubeOrBrowser(videoId = videoId)
+                            },
+                            onCreateNewSet = {
+                                navController.navigate(SetRouter.SetGraph.route)
                             }
+                        )
+                        setGraph(
+                            width = constraints.maxWidth,
+                            navController = navController,
                         )
                     }
                 }

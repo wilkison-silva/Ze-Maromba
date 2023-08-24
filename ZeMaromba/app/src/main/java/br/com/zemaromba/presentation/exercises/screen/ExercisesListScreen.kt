@@ -41,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.ExerciseFilter
+import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelectorBottomSheet
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
@@ -187,54 +188,13 @@ fun ExercisesListScreen(
     }
 
     if (state.showMuscleGroupBottomSheet) {
-        val skipPartiallyExpanded = remember { mutableStateOf(true) }
-        val scope = rememberCoroutineScope()
-        val bottomSheetState = rememberModalBottomSheetState(
-            skipPartiallyExpanded = skipPartiallyExpanded.value
-        )
-
-        ModalBottomSheet(
-            onDismissRequest = {
-                onApplySelectedMuscleGroups()
+        MuscleGroupSelectorBottomSheet(
+            onApplySelectedMuscleGroups = { onApplySelectedMuscleGroups() },
+            onMuscleGroupSelection = { index: Int, isSelected: Boolean ->
+                onMuscleGroupSelection(index, isSelected)
             },
-            sheetState = bottomSheetState,
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth(fraction = 0.4f),
-                    onClick = {
-                        scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
-                            if (!bottomSheetState.isVisible) {
-                                onApplySelectedMuscleGroups()
-                            }
-                        }
-                    }
-                ) {
-                    Text(
-                        text = stringResource(R.string.button_title_filter),
-                        style = Styles.ButtonText2
-                    )
-                }
-            }
-            MuscleGroupSelector(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        top = Dimens.Space.space_20dp,
-                        start = Dimens.Space.space_20dp,
-                        end = Dimens.Space.space_20dp,
-                        bottom = Dimens.Space.space_40dp
-                    ),
-                muscleGroupCheckBoxStateList = state.muscleGroupCheckBoxStates,
-                onMuscleGroupSelected = { index, isSelected ->
-                    onMuscleGroupSelection(index, isSelected)
-                }
-            )
-        }
+            muscleGroupCheckBoxStates = state.muscleGroupCheckBoxStates
+        )
     }
 }
 

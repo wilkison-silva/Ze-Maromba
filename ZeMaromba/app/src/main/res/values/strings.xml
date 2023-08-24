@@ -41,6 +41,7 @@
     <string name="fab_new_training_plan">Plano de treino</string>
     <string name="fab_new_training">Criar treino</string>
     <string name="title_exercises">Exercícios</string>
+    <string name="title_select_exercise">Selecione um exercício</string>
     <string name="title_hello">"Olá, "</string>
     <string name="my_training_plans">Planos de Treinos</string>
     <string name="exercises">Exercícios</string>

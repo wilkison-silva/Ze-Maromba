@@ -108,8 +108,8 @@ fun ExercisesListScreen(
         ) {
             SearchBar(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = Dimens.Space.space_20dp),
+                    .padding(all = Dimens.Space.space_20dp)
+                    .fillMaxWidth(),
                 state = state.searchBarState,
                 onTextChange = {
                     onSearch(it)

@@ -201,7 +201,7 @@ fun MuscleGroupSelector(
 ) {
     Surface(
         modifier = modifier,
-        tonalElevation = Dimens.Space.space_4dp,
+        tonalElevation = Dimens.TonalElevation.tonal_4dp,
         shape = MaterialTheme.shapes.large
     ) {
         Column(

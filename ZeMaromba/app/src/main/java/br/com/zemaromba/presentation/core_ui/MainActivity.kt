@@ -20,7 +20,7 @@ import br.com.zemaromba.presentation.navigation.router.OnBoardingRouter
 import br.com.zemaromba.presentation.navigation.graph.onBoardingGraph
 import br.com.zemaromba.presentation.navigation.router.TrainingPlanRouter
 import br.com.zemaromba.presentation.navigation.graph.trainingPlanGraph
-import br.com.zemaromba.presentation.navigation.router.SetRouter
+import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                                 openVideoInYoutubeOrBrowser(videoId = videoId)
                             },
                             onCreateNewSet = {
-                                navController.navigate(SetRouter.SetGraph.route)
+                                navController.navigate(SetCreationRouter.SetCreationGraph.route)
                             }
                         )
                         setGraph(

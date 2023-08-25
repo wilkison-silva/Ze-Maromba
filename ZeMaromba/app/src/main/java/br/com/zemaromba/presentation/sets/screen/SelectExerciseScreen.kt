@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -26,11 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelectorBottomSheet
+import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
@@ -43,7 +42,7 @@ import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.sets.screen.state.SelectExerciseState
 
 @Composable
-fun SetFlowScreen(
+fun SelectExerciseScreen(
     state: SelectExerciseState,
     onNavigateBack: () -> Unit,
     onSearch: (exerciseName: String) -> Unit,
@@ -63,22 +62,14 @@ fun SetFlowScreen(
             )
         },
         bottomBar = {
-            Button(
+            PrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(all = Dimens.Space.space_20dp),
-                shape = MaterialTheme.shapes.medium,
                 onClick = {
-
-                }
-            ) {
-                Text(
-                    modifier = Modifier.padding(vertical = Dimens.Space.space_4dp),
-                    text = "Avançar",
-                    textAlign = TextAlign.Center,
-                    style = Styles.ButtonText1
-                )
-            }
+                },
+                title = stringResource(id = R.string.next)
+            )
         }
     ) { contentPadding ->
         Column(
@@ -90,22 +81,86 @@ fun SetFlowScreen(
                 modifier = Modifier.fillMaxWidth(),
                 progress = 0.3f
             )
-//            ExerciseDetailsStep()
-            SelectExerciseStep(
-                state = state,
-                onSearch = {
+            SearchBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = Dimens.Space.space_20dp),
+                state = state.searchBarState,
+                onTextChange = {
                     onSearch(it)
-                },
-                onFilterChange = {
-                    onFilterChange(it)
-                },
-                onApplySelectedMuscleGroups = {
-                    onApplySelectedMuscleGroups()
-                },
-                onMuscleGroupSelection = { id, isSelected ->
-                    onMuscleGroupSelection(id, isSelected)
                 }
             )
+            Text(
+                modifier = Modifier.padding(start = Dimens.Space.space_20dp),
+                text = stringResource(R.string.filter_by),
+                color = MaterialTheme.colorScheme.onSurface,
+                style = Styles.BodyTextNormal
+            )
+            FilterChipsGroup(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Dimens.Space.space_20dp),
+                exerciseFilters = state.exerciseFilters,
+                onSelected = { exerciseFilter ->
+                    onFilterChange(exerciseFilter)
+                }
+            )
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = Dimens.Space.space_20dp,
+                        vertical = Dimens.Space.space_12dp
+                    ),
+                thickness = Dimens.Thickness.thickness_0dp
+            )
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
+                modifier = Modifier
+            ) {
+                if (state.showNothingFound) {
+                    item {
+                        CardInfo(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Dimens.Space.space_20dp),
+                            icon = R.drawable.ic_warning,
+                            message = stringResource(R.string.card_info_found_no_exercises),
+                            borderColor = MaterialTheme.colorScheme.secondary,
+                            surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
+                            onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    }
+                } else {
+                    itemsIndexed(
+                        items = state.exercisesList,
+                        itemContent = { _: Int, exerciseView: ExerciseView ->
+                            SelectableExerciseCardItem(
+                                exerciseName = exerciseView.name,
+                                muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
+                                    stringResource(id = muscleNameResource)
+                                }.joinToString(separator = ", "),
+                                favoriteIcon = exerciseView.favoriteIcon,
+                                onClick = {
+
+                                }
+                            )
+                        }
+                    )
+                    item {
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                    }
+                }
+            }
+            if (state.showMuscleGroupBottomSheet) {
+                MuscleGroupSelectorBottomSheet(
+                    onApplySelectedMuscleGroups = { onApplySelectedMuscleGroups() },
+                    onMuscleGroupSelection = { index: Int, isSelected: Boolean ->
+                        onMuscleGroupSelection(index, isSelected)
+                    },
+                    muscleGroupCheckBoxStates = state.muscleGroupCheckBoxStates
+                )
+            }
         }
     }
 }
@@ -169,106 +224,6 @@ private fun SelectableExerciseCardItem(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-    }
-}
-
-@Composable
-fun SelectExerciseStep(
-    state: SelectExerciseState,
-    onSearch: (exerciseName: String) -> Unit,
-    onFilterChange: (exerciseFilter: ExerciseFilter) -> Unit,
-    onApplySelectedMuscleGroups: () -> Unit,
-    onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit
-) {
-    SearchBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(all = Dimens.Space.space_20dp),
-        state = state.searchBarState,
-        onTextChange = {
-            onSearch(it)
-        }
-    )
-    Text(
-        modifier = Modifier.padding(start = Dimens.Space.space_20dp),
-        text = stringResource(R.string.filter_by),
-        color = MaterialTheme.colorScheme.onSurface,
-        style = Styles.BodyTextNormal
-    )
-    FilterChipsGroup(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimens.Space.space_20dp),
-        exerciseFilters = state.exerciseFilters,
-        onSelected = { exerciseFilter ->
-            onFilterChange(exerciseFilter)
-        }
-    )
-    Divider(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = Dimens.Space.space_20dp,
-                vertical = Dimens.Space.space_12dp
-            ),
-        thickness = Dimens.Thickness.thickness_0dp
-    )
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
-        modifier = Modifier
-    ) {
-        if (state.showNothingFound) {
-            item {
-                CardInfo(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = Dimens.Space.space_20dp),
-                    icon = R.drawable.ic_warning,
-                    message = stringResource(R.string.card_info_found_no_exercises),
-                    borderColor = MaterialTheme.colorScheme.secondary,
-                    surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
-                    onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-            }
-        } else {
-            itemsIndexed(
-                items = state.exercisesList,
-                itemContent = { _: Int, exerciseView: ExerciseView ->
-                    SelectableExerciseCardItem(
-                        exerciseName = exerciseView.name,
-                        muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
-                            stringResource(id = muscleNameResource)
-                        }.joinToString(separator = ", "),
-                        favoriteIcon = exerciseView.favoriteIcon,
-                        onClick = {
-
-                        }
-                    )
-                }
-            )
-            item {
-                Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
-            }
-        }
-    }
-    if (state.showMuscleGroupBottomSheet) {
-        MuscleGroupSelectorBottomSheet(
-            onApplySelectedMuscleGroups = { onApplySelectedMuscleGroups() },
-            onMuscleGroupSelection = { index: Int, isSelected: Boolean ->
-                onMuscleGroupSelection(index, isSelected)
-            },
-            muscleGroupCheckBoxStates = state.muscleGroupCheckBoxStates
-        )
-    }
-}
-
-@Composable
-fun ExerciseDetailsStep(
-
-) {
-    Column {
-        Text(text = "Nome do exercício")
-        Text(text = "Grupos musculares do exercício")
     }
 }
 
@@ -350,7 +305,7 @@ fun SetFlowScreenPreview() {
         ),
     )
     ZeMarombaTheme {
-        SetFlowScreen(
+        SelectExerciseScreen(
             state = SelectExerciseState(exercisesList = exercisesSampleList),
             onNavigateBack = {
 

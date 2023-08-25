@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -38,6 +37,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
@@ -70,22 +70,13 @@ fun SetsListScreen(
             )
         },
         bottomBar = {
-            Button(
+            PrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(all = Dimens.Space.space_20dp),
-                shape = MaterialTheme.shapes.medium,
-                onClick = {
-                    onCreateSet()
-                }
-            ) {
-                Text(
-                    modifier = Modifier.padding(vertical = Dimens.Space.space_4dp),
-                    text = stringResource(R.string.add_exercise),
-                    textAlign = TextAlign.Center,
-                    style = Styles.ButtonText1
-                )
-            }
+                onClick = { onCreateSet() },
+                title = stringResource(R.string.add_exercise)
+            )
         }
     ) { contentPadding ->
         Box(

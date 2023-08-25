@@ -1,31 +1,31 @@
 package br.com.zemaromba.presentation.navigation.graph
 
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
+import br.com.zemaromba.common.extensions.sharedViewModel
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.navigation.router.SetRouter
-import br.com.zemaromba.presentation.sets.screen.SetFlowScreen
-import br.com.zemaromba.presentation.sets.viewmodel.SetFlowViewModel
+import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
+import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
+import br.com.zemaromba.presentation.sets.viewmodel.CreateSetViewModel
 
 fun NavGraphBuilder.setGraph(
     navController: NavController,
     width: Int
 ) {
     navigation(
-        startDestination = SetRouter.SetCreationScreen.route,
-        route = SetRouter.SetGraph.route
+        startDestination = SetCreationRouter.SelectExercise.route,
+        route = SetCreationRouter.SetCreationGraph.route
     ) {
         composableWithTransitionAnimation(
-            route = SetRouter.SetCreationScreen.route,
+            route = SetCreationRouter.SelectExercise.route,
             width = width
         ) {
-            val viewModel: SetFlowViewModel = hiltViewModel()
+            val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
             val state = viewModel.state.collectAsStateWithLifecycle().value
-            SetFlowScreen(
+            SelectExerciseScreen(
                 state = state,
                 onNavigateBack = {
                     navController.popBackStack()

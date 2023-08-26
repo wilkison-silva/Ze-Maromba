@@ -12,16 +12,14 @@ import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
 import br.com.zemaromba.presentation.sets.viewmodel.CreateSetViewModel
 
 fun NavGraphBuilder.setGraph(
-    navController: NavController,
-    width: Int
+    navController: NavController
 ) {
     navigation(
         startDestination = SetCreationRouter.SelectExercise.route,
         route = SetCreationRouter.SetCreationGraph.route
     ) {
         composableWithTransitionAnimation(
-            route = SetCreationRouter.SelectExercise.route,
-            width = width
+            route = SetCreationRouter.SelectExercise.route
         ) {
             val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
             val state = viewModel.state.collectAsStateWithLifecycle().value

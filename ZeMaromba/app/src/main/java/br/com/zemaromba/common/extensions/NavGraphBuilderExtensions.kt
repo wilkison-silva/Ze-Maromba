@@ -1,11 +1,10 @@
 package br.com.zemaromba.common.extensions
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -18,34 +17,33 @@ fun NavGraphBuilder.composableWithTransitionAnimation(
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     durationMillis: Int = 500,
-    width: Int,
     content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
 ) {
     composable(
         route = route,
         enterTransition = {
-            slideInHorizontally(
-                initialOffsetX = { width },
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(durationMillis)
-            )
+            ) + fadeIn()
         },
         exitTransition = {
-            slideOutHorizontally(
-                targetOffsetX = { -width },
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(durationMillis)
-            )
+            ) + fadeOut()
         },
         popEnterTransition = {
-            slideInHorizontally(
-                initialOffsetX = { -width },
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(durationMillis)
-            )
+            ) + fadeIn()
         },
         popExitTransition = {
-            slideOutHorizontally(
-                targetOffsetX = { width },
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(durationMillis)
-            )
+            ) + fadeOut()
         },
         arguments = arguments,
         deepLinks = deepLinks,

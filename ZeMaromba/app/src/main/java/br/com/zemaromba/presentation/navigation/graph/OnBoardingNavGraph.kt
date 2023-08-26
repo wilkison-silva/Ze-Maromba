@@ -19,7 +19,6 @@ import br.com.zemaromba.presentation.onboarding.viewmodel.UserOriginationNameVie
 fun NavGraphBuilder.onBoardingGraph(
     navController: NavController,
     onFinishOnBoarding: () -> Unit,
-    width: Int
 ) {
     navigation(
         startDestination = OnBoardingRouter.GetStartedScreen.route,
@@ -27,7 +26,6 @@ fun NavGraphBuilder.onBoardingGraph(
     ) {
         composableWithTransitionAnimation(
             route = OnBoardingRouter.GetStartedScreen.route,
-            width = width
         ) {
             val viewModel: GetStartedViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -51,8 +49,7 @@ fun NavGraphBuilder.onBoardingGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = OnBoardingRouter.UserOriginationNameScreen.route,
-            width = width,
+            route = OnBoardingRouter.UserOriginationNameScreen.route
         ) {
             val viewModel: UserOriginationNameViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value

@@ -3,8 +3,8 @@ package br.com.zemaromba.presentation.core_ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ZeMarombaTheme {
-                BoxWithConstraints(
+                Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     val navController = rememberNavController()
@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
                     ) {
                         onBoardingGraph(
                             navController = navController,
-                            width = constraints.maxWidth,
                             onFinishOnBoarding = {
                                 navController.navigate(route = HomeRouter.HomeGraph.route) {
                                     popUpTo(OnBoardingRouter.OnBoardingGraph.route) {
@@ -49,7 +48,6 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                         homeGraph(
-                            width = constraints.maxWidth,
                             navigateTo = {
                                 when (it) {
                                     MenuHome.TRAINING_PLAN_SCREEN -> {
@@ -65,14 +63,12 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                         exerciseGraph(
-                            width = constraints.maxWidth,
                             navController = navController,
                             openYoutube = { videoId: String ->
                                 openVideoInYoutubeOrBrowser(videoId = videoId)
                             }
                         )
                         trainingPlanGraph(
-                            width = constraints.maxWidth,
                             navController = navController,
                             openYoutube = { videoId: String ->
                                 openVideoInYoutubeOrBrowser(videoId = videoId)
@@ -82,7 +78,6 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                         setGraph(
-                            width = constraints.maxWidth,
                             navController = navController,
                         )
                     }

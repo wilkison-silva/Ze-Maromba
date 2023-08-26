@@ -11,8 +11,7 @@ import br.com.zemaromba.presentation.home.screen.HomeScreen
 import br.com.zemaromba.presentation.home.viewmodel.HomeScreenViewModel
 
 fun NavGraphBuilder.homeGraph(
-    navigateTo: (menu: MenuHome) -> Unit,
-    width: Int
+    navigateTo: (menu: MenuHome) -> Unit
 ) {
     navigation(
         startDestination = HomeRouter.HomeScreen.route,
@@ -20,7 +19,6 @@ fun NavGraphBuilder.homeGraph(
     ) {
         composableWithTransitionAnimation(
             route = HomeRouter.HomeScreen.route,
-            width = width
         ) {
             val viewModel: HomeScreenViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value

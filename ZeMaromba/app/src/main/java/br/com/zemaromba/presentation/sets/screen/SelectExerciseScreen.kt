@@ -174,8 +174,8 @@ private fun SelectableExerciseCardItem(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(horizontal = Dimens.Space.space_20dp)
+            .fillMaxWidth()
             .clickable {
                 onClick()
             },
@@ -218,7 +218,7 @@ private fun SelectableExerciseCardItem(
             Icon(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(end = Dimens.Space.space_16dp),
+                    .padding(end = Dimens.Space.space_24dp),
                 painter = painterResource(id = favoriteIcon),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,

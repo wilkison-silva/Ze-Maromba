@@ -23,15 +23,13 @@ import br.com.zemaromba.presentation.navigation.router.ExerciseRouter.Params
 fun NavGraphBuilder.exerciseGraph(
     navController: NavController,
     openYoutube: (videoId: String) -> Unit,
-    width: Int
 ) {
     navigation(
         startDestination = ExerciseRouter.ExercisesListScreen.route,
         route = ExerciseRouter.ExerciseGraph.route
     ) {
         composableWithTransitionAnimation(
-            route = ExerciseRouter.ExercisesListScreen.route,
-            width = width
+            route = ExerciseRouter.ExercisesListScreen.route
         ) {
             val viewModel: ExercisesListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -92,7 +90,6 @@ fun NavGraphBuilder.exerciseGraph(
         }
         composableWithTransitionAnimation(
             route = ExerciseRouter.ExerciseManagementScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = Params.exerciseId) {
                     type = NavType.LongType

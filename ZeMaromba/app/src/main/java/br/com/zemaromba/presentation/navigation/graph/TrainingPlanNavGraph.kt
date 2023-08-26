@@ -28,7 +28,6 @@ import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingPlanManagem
 
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
-    width: Int,
     openYoutube: (videoId: String) -> Unit,
     onCreateNewSet: () -> Unit
 ) {
@@ -37,8 +36,7 @@ fun NavGraphBuilder.trainingPlanGraph(
         route = TrainingPlanRouter.TrainingPlanGraph.route
     ) {
         composableWithTransitionAnimation(
-            route = TrainingPlanRouter.TrainingPlanListScreen.route,
-            width = width
+            route = TrainingPlanRouter.TrainingPlanListScreen.route
         ) {
             val viewModel: TrainingPlanListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -63,7 +61,6 @@ fun NavGraphBuilder.trainingPlanGraph(
         }
         composableWithTransitionAnimation(
             route = TrainingPlanRouter.TrainingPlanManagementScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingPlanRouter.trainingPlanId) {
                     type = NavType.LongType
@@ -114,7 +111,6 @@ fun NavGraphBuilder.trainingPlanGraph(
         }
         composableWithTransitionAnimation(
             route = TrainingPlanRouter.TrainingsListScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingPlanRouter.trainingPlanId) {
                     type = NavType.LongType
@@ -171,7 +167,6 @@ fun NavGraphBuilder.trainingPlanGraph(
 
         composableWithTransitionAnimation(
             route = TrainingRouter.TrainingManagementScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingRouter.trainingId) {
                     type = NavType.LongType
@@ -236,7 +231,6 @@ fun NavGraphBuilder.trainingPlanGraph(
 
         composableWithTransitionAnimation(
             route = TrainingRouter.SetsListScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingRouter.trainingId) {
                     type = NavType.LongType

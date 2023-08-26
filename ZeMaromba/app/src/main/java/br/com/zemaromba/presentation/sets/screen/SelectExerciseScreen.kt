@@ -16,7 +16,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -32,6 +31,7 @@ import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelector
 import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
+import br.com.zemaromba.presentation.components.linear_progress_bar.LinearProgressBar
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.components.search_bar.SearchBar
@@ -77,9 +77,10 @@ fun SelectExerciseScreen(
                 .padding(paddingValues = contentPadding)
                 .fillMaxWidth()
         ) {
-            LinearProgressIndicator(
+            LinearProgressBar(
                 modifier = Modifier.fillMaxWidth(),
-                progress = 0.3f
+                initialProgress = 0.0f,
+                targetProgress = 0.3f
             )
             SearchBar(
                 modifier = Modifier

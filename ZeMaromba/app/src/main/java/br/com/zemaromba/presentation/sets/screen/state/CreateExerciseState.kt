@@ -8,7 +8,7 @@ import br.com.zemaromba.presentation.exercises.screen.state.MuscleGroupCheckBoxS
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
 import br.com.zemaromba.presentation.model.ExerciseView
 
-data class SelectExerciseState(
+data class CreateExerciseState(
     val exercisesList: List<ExerciseView> = listOf(),
     val searchBarState: SearchBarState = SearchBarState(hint = R.string.hint_searchbar_exercise),
     val exerciseFilters: List<ExerciseFilterChip> = listOf(
@@ -23,5 +23,17 @@ data class SelectExerciseState(
             isSelected = false
         )
     },
-    val showNothingFound: Boolean = false
-)
+    val showNothingFound: Boolean = false,
+    val selectedExercise: ExerciseView? = null,
+    val progressBarInitial: Float = 0.0f,
+    val progressBarTarget: Float = 0.33f,
+    val seriesValue: String = "",
+    val repetitionsValue: String = "",
+    val weightValue: String = "",
+    val restingTimeValue: String = ""
+) {
+    val isAllTextInputsNotEmpty = seriesValue.isNotBlank() &&
+            repetitionsValue.isNotBlank() &&
+            weightValue.isNotBlank() &&
+            restingTimeValue.isNotBlank()
+}

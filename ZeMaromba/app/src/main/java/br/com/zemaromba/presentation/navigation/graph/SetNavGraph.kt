@@ -8,6 +8,7 @@ import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.sharedViewModel
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
 import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
+import br.com.zemaromba.presentation.sets.screen.ExerciseDetailsScreen
 import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
 import br.com.zemaromba.presentation.sets.viewmodel.CreateSetViewModel
 
@@ -27,6 +28,18 @@ fun NavGraphBuilder.setGraph(
                 state = state,
                 onNavigateBack = {
                     navController.popBackStack()
+                },
+                onNavigateForward = {
+                    viewModel.updateProgressBar(
+                        initialProgress = 0.33f,
+                        targetProgress = 0.66f
+                    )
+                    navController.navigate(SetCreationRouter.ExerciseDetails.route)
+                },
+                onExerciseSelected = { exerciseId ->
+                    viewModel.onEvent(
+                        event = ExercisesListEvents.OnSelectExercise(id = exerciseId)
+                    )
                 },
                 onSearch = { exerciseName ->
                     viewModel.onEvent(
@@ -50,6 +63,34 @@ fun NavGraphBuilder.setGraph(
                             isSelected = isSelected
                         )
                     )
+                }
+            )
+        }
+        composableWithTransitionAnimation(
+            route = SetCreationRouter.ExerciseDetails.route
+        ) {
+            val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+            ExerciseDetailsScreen(
+                state = state,
+                onNavigateBack = {
+                    viewModel.updateProgressBar(
+                        initialProgress = 0.66f,
+                        targetProgress = 0.33f
+                    )
+                    navController.popBackStack()
+                },
+                onChangeSeries = { seriesValue ->
+                    viewModel.updateSeriesValue(value = seriesValue)
+                },
+                onChangeRepetition = { repetitionsValue ->
+                    viewModel.updateRepetitionsValue(value = repetitionsValue)
+                },
+                onChangeWeight = { weight ->
+                    viewModel.updateWeightValue(value = weight)
+                },
+                onChangeRestingTime = { restingTime ->
+                    viewModel.updateRestingTimeValue(value = restingTime)
                 }
             )
         }

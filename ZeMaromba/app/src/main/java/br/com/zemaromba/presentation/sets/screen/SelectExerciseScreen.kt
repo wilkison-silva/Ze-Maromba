@@ -1,6 +1,7 @@
 package br.com.zemaromba.presentation.sets.screen
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelectorBottomSheet
 import br.com.zemaromba.presentation.components.button.PrimaryButton
@@ -39,12 +41,14 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.ExerciseView
-import br.com.zemaromba.presentation.sets.screen.state.SelectExerciseState
+import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
 
 @Composable
 fun SelectExerciseScreen(
-    state: SelectExerciseState,
+    state: CreateExerciseState,
     onNavigateBack: () -> Unit,
+    onNavigateForward: () -> Unit,
+    onExerciseSelected: (exerciseId: Long) -> Unit,
     onSearch: (exerciseName: String) -> Unit,
     onFilterChange: (exerciseFilter: ExerciseFilter) -> Unit,
     onApplySelectedMuscleGroups: () -> Unit,
@@ -66,9 +70,9 @@ fun SelectExerciseScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(all = Dimens.Space.space_20dp),
-                onClick = {
-                },
-                title = stringResource(id = R.string.next)
+                onClick = { onNavigateForward() },
+                title = stringResource(id = R.string.next),
+                isEnabled = state.selectedExercise != null
             )
         }
     ) { contentPadding ->
@@ -79,8 +83,8 @@ fun SelectExerciseScreen(
         ) {
             LinearProgressBar(
                 modifier = Modifier.fillMaxWidth(),
-                initialProgress = 0.0f,
-                targetProgress = 0.3f
+                initialProgress = state.progressBarInitial,
+                targetProgress = state.progressBarTarget
             )
             SearchBar(
                 modifier = Modifier
@@ -143,8 +147,9 @@ fun SelectExerciseScreen(
                                 }.joinToString(separator = ", "),
                                 favoriteIcon = exerciseView.favoriteIcon,
                                 onClick = {
-
-                                }
+                                    onExerciseSelected(exerciseView.id)
+                                },
+                                isSelected = exerciseView.id == state.selectedExercise?.id.orZero()
                             )
                         }
                     )
@@ -171,7 +176,8 @@ private fun SelectableExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
     favoriteIcon: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    isSelected: Boolean
 ) {
     Card(
         modifier = Modifier
@@ -184,7 +190,15 @@ private fun SelectableExerciseCardItem(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        ),
+        border = if (isSelected) {
+            BorderStroke(
+                width = Dimens.Thickness.thickness_1dp,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        } else {
+            null
+        }
     ) {
         Box {
             Column(
@@ -261,7 +275,7 @@ private fun SelectableExerciseCardItem(
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun SetFlowScreenPreview() {
+fun SelectExerciseScreen() {
     val exercisesSampleList = listOf(
         ExerciseView(
             id = 4,
@@ -307,8 +321,14 @@ fun SetFlowScreenPreview() {
     )
     ZeMarombaTheme {
         SelectExerciseScreen(
-            state = SelectExerciseState(exercisesList = exercisesSampleList),
+            state = CreateExerciseState(exercisesList = exercisesSampleList),
             onNavigateBack = {
+
+            },
+            onNavigateForward = {
+
+            },
+            onExerciseSelected = {
 
             },
             onSearch = {

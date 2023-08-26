@@ -114,6 +114,12 @@ class ExercisesListViewModel @Inject constructor(
                 }
                 _state.update { it.copy(muscleGroupCheckBoxStates = checkBoxesState) }
             }
+
+            is ExercisesListEvents.OnSelectExercise -> {
+                /*
+                Intentionally Empty Block
+                */
+            }
         }
     }
 
@@ -266,6 +272,8 @@ sealed class ExercisesListEvents {
 
     data class OnMuscleGroupSelection(val id: Int, val isSelected: Boolean) :
         ExercisesListEvents()
+
+    data class OnSelectExercise(val id: Long) : ExercisesListEvents()
 }
 
 data class ExercisesListState(

@@ -8,7 +8,7 @@ import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.domain.repository.ExercisesRepository
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.sets.screen.state.SelectExerciseState
+import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
@@ -29,7 +29,7 @@ class CreateSetViewModel @Inject constructor(
     private val exercisesRepository: ExercisesRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(SelectExerciseState())
+    private val _state = MutableStateFlow(CreateExerciseState())
     val state = _state.asStateFlow()
 
     private var searchBarJob: Job? = null
@@ -52,12 +52,7 @@ class CreateSetViewModel @Inject constructor(
     fun onEvent(event: ExercisesListEvents) {
         when (event) {
             is ExercisesListEvents.OnFavoriteExercise -> {
-                viewModelScope.launch {
-                    exercisesRepository.updateExerciseFavoriteField(
-                        exerciseId = event.exerciseId,
-                        isFavorite = event.favoriteIcon != R.drawable.ic_star_filled
-                    )
-                }
+
             }
 
             is ExercisesListEvents.OnSearchExercise -> {
@@ -112,6 +107,21 @@ class CreateSetViewModel @Inject constructor(
                     this[event.id] = this[event.id].copy(isSelected = event.isSelected)
                 }
                 _state.update { it.copy(muscleGroupCheckBoxStates = checkBoxesState) }
+            }
+
+            is ExercisesListEvents.OnSelectExercise -> {
+                val selectedExercise = _state.value.exercisesList.find { exerciseView ->
+                    exerciseView.id == event.id
+                }
+                if (selectedExercise == _state.value.selectedExercise) {
+                    _state.update {
+                        it.copy(selectedExercise = null)
+                    }
+                } else {
+                    _state.update {
+                        it.copy(selectedExercise = selectedExercise)
+                    }
+                }
             }
         }
     }
@@ -248,5 +258,49 @@ class CreateSetViewModel @Inject constructor(
                     )
                 }
             }.launchIn(viewModelScope)
+    }
+
+    fun updateProgressBar(
+        initialProgress: Float,
+        targetProgress: Float
+    ) {
+        _state.update {
+            it.copy(
+                progressBarInitial = initialProgress,
+                progressBarTarget = targetProgress
+            )
+        }
+    }
+
+    fun updateSeriesValue(value: String) {
+        _state.update {
+            it.copy(
+                seriesValue = value
+            )
+        }
+    }
+
+    fun updateRepetitionsValue(value: String) {
+        _state.update {
+            it.copy(
+                repetitionsValue = value
+            )
+        }
+    }
+
+    fun updateWeightValue(value: String) {
+        _state.update {
+            it.copy(
+                weightValue = value
+            )
+        }
+    }
+
+    fun updateRestingTimeValue(value: String) {
+        _state.update {
+            it.copy(
+                restingTimeValue = value
+            )
+        }
     }
 }

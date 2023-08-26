@@ -73,4 +73,9 @@
     <string name="set_completed">Concluído</string>
     <string name="set_to_be_completed">Concluir exercício</string>
     <string name="add_exercise">Adicionar exercício</string>
+    <string name="title_config_exercise">Configure o exercício</string>
+    <string name="label_input_text_series">Séries</string>
+    <string name="label_input_text_repetitions">Repetições</string>
+    <string name="label_input_text_weight">Peso (Kg)</string>
+    <string name="label_input_text_resting_time">Descanso (s)</string>
 </resources>

@@ -9,6 +9,7 @@ import br.com.zemaromba.common.extensions.sharedViewModel
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
 import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
 import br.com.zemaromba.presentation.sets.screen.ExerciseDetailsScreen
+import br.com.zemaromba.presentation.sets.screen.ExerciseObservationScreen
 import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
 import br.com.zemaromba.presentation.sets.viewmodel.CreateSetViewModel
 
@@ -80,6 +81,13 @@ fun NavGraphBuilder.setGraph(
                     )
                     navController.popBackStack()
                 },
+                onNavigateForward = {
+                    viewModel.updateProgressBar(
+                        initialProgress = 0.66f,
+                        targetProgress = 1.0f
+                    )
+                    navController.navigate(SetCreationRouter.ExerciseObservation.route)
+                },
                 onChangeSeries = { seriesValue ->
                     viewModel.updateSeriesValue(value = seriesValue)
                 },
@@ -91,6 +99,25 @@ fun NavGraphBuilder.setGraph(
                 },
                 onChangeRestingTime = { restingTime ->
                     viewModel.updateRestingTimeValue(value = restingTime)
+                }
+            )
+        }
+        composableWithTransitionAnimation(
+            route = SetCreationRouter.ExerciseObservation.route
+        ) {
+            val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+            ExerciseObservationScreen(
+                state = state,
+                onNavigateBack = {
+                    viewModel.updateProgressBar(
+                        initialProgress = 1f,
+                        targetProgress = 0.66f
+                    )
+                    navController.popBackStack()
+                },
+                onChangeObservation = { observation ->
+                    viewModel.updateObservationValue(value = observation)
                 }
             )
         }

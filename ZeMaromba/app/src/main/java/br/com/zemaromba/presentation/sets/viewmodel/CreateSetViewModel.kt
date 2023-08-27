@@ -303,4 +303,12 @@ class CreateSetViewModel @Inject constructor(
             )
         }
     }
+
+    fun updateObservationValue(value: String) {
+        _state.update {
+            it.copy(
+                observation = value
+            )
+        }
+    }
 }

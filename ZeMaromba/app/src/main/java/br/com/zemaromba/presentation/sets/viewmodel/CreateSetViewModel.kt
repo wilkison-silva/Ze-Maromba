@@ -311,4 +311,16 @@ class CreateSetViewModel @Inject constructor(
             )
         }
     }
+
+    fun updateFillDetailsLater(value: Boolean) {
+        _state.update {
+            it.copy(
+                fillDetailsLater = value,
+                seriesValue = if (value) "0" else it.seriesValue,
+                repetitionsValue = if (value) "0" else it.repetitionsValue,
+                weightValue = if (value) "0" else it.weightValue,
+                restingTimeValue = if (value) "0" else it.restingTimeValue
+            )
+        }
+    }
 }

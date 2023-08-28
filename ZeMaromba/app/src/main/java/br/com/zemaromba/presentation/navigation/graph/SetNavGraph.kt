@@ -99,6 +99,9 @@ fun NavGraphBuilder.setGraph(
                 },
                 onChangeRestingTime = { restingTime ->
                     viewModel.updateRestingTimeValue(value = restingTime)
+                },
+                onFillDetailsLater = { fillDetailsLater ->
+                    viewModel.updateFillDetailsLater(value = fillDetailsLater)
                 }
             )
         }

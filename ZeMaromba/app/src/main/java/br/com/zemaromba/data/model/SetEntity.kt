@@ -30,24 +30,24 @@ data class SetEntity(
     @ColumnInfo(name = "exercise_id", index = true)
     val exerciseId: Long,
     @ColumnInfo(name = "training_id", index = true)
-    val training_id: Long,
+    val trainingId: Long,
     @ColumnInfo(name = "quantity")
     val quantity: Int,
     @ColumnInfo(name = "repetitions")
     val repetitions: Int,
     @ColumnInfo(name = "weight")
-    val weight: Double,
+    val weight: Int,
     @ColumnInfo(name = "observation")
     val observation: String,
     @ColumnInfo(name = "completed")
     val completed: Boolean,
     @ColumnInfo(name = "resting_time")
-    val restingTime: Double
+    val restingTime: Int
 ) {
     fun toSet(exercise: Exercise): Set {
         return Set(
             id = this.id,
-            trainingId = training_id,
+            trainingId = this.trainingId,
             quantity = this.quantity,
             repetitions = this.repetitions,
             exercise = exercise,

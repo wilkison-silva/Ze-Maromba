@@ -363,10 +363,10 @@ fun SetsListScreenPreview() {
                 videoId = "12345667",
                 isEditable = true
             ),
-            weight = 12.0,
+            weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
             completed = false,
-            restingTime = 60.0
+            restingTime = 60
         ),
         SetView(
             id = 0,
@@ -384,10 +384,10 @@ fun SetsListScreenPreview() {
                 videoId = "12345667",
                 isEditable = true
             ),
-            weight = 12.0,
+            weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
             completed = false,
-            restingTime = 60.0
+            restingTime = 60
         ),
         SetView(
             id = 0,
@@ -405,10 +405,10 @@ fun SetsListScreenPreview() {
                 videoId = "12345667",
                 isEditable = true
             ),
-            weight = 12.0,
+            weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
             completed = false,
-            restingTime = 60.0
+            restingTime = 60
         )
     )
     ZeMarombaTheme {

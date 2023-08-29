@@ -214,7 +214,7 @@ fun ExerciseDetailsScreen(
                     }
                 )
                 Text(
-                    text = "Preencher depois",
+                    text = stringResource(R.string.exercise_details_fill_later),
                     color = MaterialTheme.colorScheme.onSurface,
                     style = Styles.BodyTextNormal
                 )

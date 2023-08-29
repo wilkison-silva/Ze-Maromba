@@ -34,6 +34,7 @@ fun ExerciseObservationScreen(
     state: CreateExerciseState,
     onNavigateBack: () -> Unit,
     onChangeObservation: (observation: String) -> Unit,
+    onFinishCreation: () -> Unit
 ) {
     BackHandler {
         onNavigateBack()
@@ -55,7 +56,7 @@ fun ExerciseObservationScreen(
                     .fillMaxWidth()
                     .padding(all = Dimens.Space.space_20dp),
                 onClick = {
-
+                    onFinishCreation()
                 },
                 title = stringResource(id = R.string.button_finish)
             )
@@ -205,6 +206,9 @@ fun ExerciseObservationScreenPreview() {
 
             },
             onChangeObservation = {
+
+            },
+            onFinishCreation = {
 
             }
         )

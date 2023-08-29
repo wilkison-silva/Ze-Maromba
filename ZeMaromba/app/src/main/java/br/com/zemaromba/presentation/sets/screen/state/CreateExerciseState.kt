@@ -32,7 +32,9 @@ data class CreateExerciseState(
     val weightValue: String = "",
     val restingTimeValue: String = "",
     val observation: String = "",
-    val fillDetailsLater: Boolean = false
+    val fillDetailsLater: Boolean = false,
+    val trainingId: Long = 0,
+    val navigateBack: Boolean = false
 ) {
     val isAllTextInputsNotEmpty = seriesValue.isNotBlank() &&
             repetitionsValue.isNotBlank() &&

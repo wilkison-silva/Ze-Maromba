@@ -5,8 +5,8 @@ data class SetView(
     val quantity: Int,
     val repetitions: Int,
     val exerciseView: ExerciseView,
-    val weight: Double,
+    val weight: Int,
     val observation: String,
     val completed: Boolean,
-    val restingTime: Double
+    val restingTime: Int
 )

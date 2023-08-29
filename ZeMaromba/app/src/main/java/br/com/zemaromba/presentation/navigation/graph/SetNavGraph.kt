@@ -1,13 +1,19 @@
 package br.com.zemaromba.presentation.navigation.graph
 
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.navigation
+import androidx.navigation.NavType
+import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.sharedViewModel
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
 import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
+import br.com.zemaromba.presentation.navigation.router.TrainingRouter
 import br.com.zemaromba.presentation.sets.screen.ExerciseDetailsScreen
 import br.com.zemaromba.presentation.sets.screen.ExerciseObservationScreen
 import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
@@ -18,13 +24,27 @@ fun NavGraphBuilder.setGraph(
 ) {
     navigation(
         startDestination = SetCreationRouter.SelectExercise.route,
-        route = SetCreationRouter.SetCreationGraph.route
+        route = SetCreationRouter.SetCreationGraph.route,
+        arguments = listOf(
+            navArgument(name = "training_id") {
+                type = NavType.LongType
+            }
+        )
     ) {
         composableWithTransitionAnimation(
             route = SetCreationRouter.SelectExercise.route
         ) {
             val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
             val state = viewModel.state.collectAsStateWithLifecycle().value
+            val trainingId = remember {
+                it
+                    .arguments
+                    ?.getLong(SetCreationRouter.trainingId)
+                    .orZero()
+            }
+            LaunchedEffect(key1 = Unit) {
+                viewModel.setTrainingId(value = trainingId)
+            }
             SelectExerciseScreen(
                 state = state,
                 onNavigateBack = {
@@ -110,6 +130,14 @@ fun NavGraphBuilder.setGraph(
         ) {
             val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
             val state = viewModel.state.collectAsStateWithLifecycle().value
+            LaunchedEffect(key1 = state.navigateBack) {
+                if (state.navigateBack) {
+                    navController.popBackStack(
+                        route = TrainingRouter.SetsListScreen.route,
+                        inclusive = false
+                    )
+                }
+            }
             ExerciseObservationScreen(
                 state = state,
                 onNavigateBack = {
@@ -121,6 +149,9 @@ fun NavGraphBuilder.setGraph(
                 },
                 onChangeObservation = { observation ->
                     viewModel.updateObservationValue(value = observation)
+                },
+                onFinishCreation = {
+                    viewModel.createSet()
                 }
             )
         }

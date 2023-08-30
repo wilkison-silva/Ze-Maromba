@@ -64,7 +64,10 @@ fun SelectExerciseScreen(
                 onBackIconClick = { onNavigateBack() },
                 actionIconResId = null,
                 onActionIconClick = null,
-                title = stringResource(id = R.string.title_select_exercise)
+                title = stringResource(id = R.string.title_select_exercise),
+                hasProgressBar = true,
+                progressBarInitial = flowState.progressBarInitial,
+                progressBarTarget = flowState.progressBarTarget
             )
         },
         bottomBar = {
@@ -83,11 +86,6 @@ fun SelectExerciseScreen(
                 .padding(paddingValues = contentPadding)
                 .fillMaxWidth()
         ) {
-            LinearProgressBar(
-                modifier = Modifier.fillMaxWidth(),
-                initialProgress = flowState.progressBarInitial,
-                targetProgress = flowState.progressBarTarget
-            )
             SearchBar(
                 modifier = Modifier
                     .fillMaxWidth()

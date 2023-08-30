@@ -49,7 +49,10 @@ fun ExerciseObservationScreen(
                 onBackIconClick = { onNavigateBack() },
                 actionIconResId = null,
                 onActionIconClick = null,
-                title = stringResource(R.string.title_config_exercise)
+                title = stringResource(R.string.title_config_exercise),
+                hasProgressBar = true,
+                progressBarInitial = flowState.progressBarInitial,
+                progressBarTarget = flowState.progressBarTarget
             )
         },
         bottomBar = {
@@ -69,11 +72,6 @@ fun ExerciseObservationScreen(
                 .padding(paddingValues = contentPadding)
                 .fillMaxWidth()
         ) {
-            LinearProgressBar(
-                modifier = Modifier.fillMaxWidth(),
-                initialProgress = flowState.progressBarInitial,
-                targetProgress = flowState.progressBarTarget
-            )
             Text(
                 modifier = Modifier.padding(
                     start = Dimens.Space.space_20dp,

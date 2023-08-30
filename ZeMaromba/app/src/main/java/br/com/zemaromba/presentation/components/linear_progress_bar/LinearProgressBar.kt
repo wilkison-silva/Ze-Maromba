@@ -22,7 +22,7 @@ fun LinearProgressBar(
         targetValue = if (animationPlayed.value) targetProgress else initialProgress,
         animationSpec = tween(
             durationMillis = 1000,
-            delayMillis = 100
+            delayMillis = 300
         ),
         label = ""
     )

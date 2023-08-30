@@ -33,7 +33,6 @@ import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelector
 import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
-import br.com.zemaromba.presentation.components.linear_progress_bar.LinearProgressBar
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.components.search_bar.SearchBar

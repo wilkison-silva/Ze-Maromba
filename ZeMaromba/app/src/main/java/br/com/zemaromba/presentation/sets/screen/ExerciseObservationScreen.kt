@@ -18,15 +18,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
-import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.button.PrimaryButton
-import br.com.zemaromba.presentation.components.linear_progress_bar.LinearProgressBar
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
 import br.com.zemaromba.presentation.sets.screen.state.ExerciseObservationScreenState
 
@@ -142,49 +139,6 @@ fun ExerciseObservationScreen(
 )
 @Composable
 fun ExerciseObservationScreenPreview() {
-    val exercisesSampleList = listOf(
-        ExerciseView(
-            id = 4,
-            name = "Agachamento com barra livre",
-            favoriteIcon = R.drawable.ic_star_filled,
-            muscleGroups = listOf(
-                R.string.quadriceps,
-                R.string.hamstrings,
-                R.string.abdomen,
-                R.string.adductors
-            ),
-            urlLink = "www.youtube.com.br",
-            videoId = "123344",
-            isEditable = true
-        ),
-        ExerciseView(
-            id = 1,
-            name = "Bíceps Concentrado",
-            favoriteIcon = R.drawable.ic_star_filled,
-            muscleGroups = listOf(R.string.biceps),
-            urlLink = null,
-            videoId = null,
-            isEditable = true
-        ),
-        ExerciseView(
-            id = 2,
-            name = "Tríceps pulley",
-            favoriteIcon = R.drawable.ic_star_border,
-            muscleGroups = listOf(R.string.triceps),
-            urlLink = null,
-            videoId = null,
-            isEditable = true
-        ),
-        ExerciseView(
-            id = 3,
-            name = "Supino inclinado",
-            favoriteIcon = R.drawable.ic_star_border,
-            muscleGroups = listOf(R.string.chest, R.string.triceps),
-            urlLink = null,
-            videoId = null,
-            isEditable = true
-        ),
-    )
     ZeMarombaTheme {
         ExerciseObservationScreen(
             state = ExerciseObservationScreenState(),

@@ -1,17 +1,14 @@
 package br.com.zemaromba.presentation.sets.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.orFalse
-import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.domain.repository.ExercisesRepository
-import br.com.zemaromba.domain.repository.SetRepository
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
+import br.com.zemaromba.presentation.sets.screen.state.SelectExerciseScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
@@ -28,12 +25,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class CreateSetViewModel @Inject constructor(
-    private val exercisesRepository: ExercisesRepository,
-    private val setRepository: SetRepository
+class SelectExerciseViewModel @Inject constructor(
+    private val exercisesRepository: ExercisesRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(CreateExerciseState())
+    private val _state = MutableStateFlow(SelectExerciseScreenState())
     val state = _state.asStateFlow()
 
     private var searchBarJob: Job? = null
@@ -262,95 +258,5 @@ class CreateSetViewModel @Inject constructor(
                     )
                 }
             }.launchIn(viewModelScope)
-    }
-
-    fun updateProgressBar(
-        initialProgress: Float,
-        targetProgress: Float
-    ) {
-        _state.update {
-            it.copy(
-                progressBarInitial = initialProgress,
-                progressBarTarget = targetProgress
-            )
-        }
-    }
-
-    fun updateSeriesValue(value: String) {
-        _state.update {
-            it.copy(
-                seriesValue = value
-            )
-        }
-    }
-
-    fun updateRepetitionsValue(value: String) {
-        _state.update {
-            it.copy(
-                repetitionsValue = value
-            )
-        }
-    }
-
-    fun updateWeightValue(value: String) {
-        _state.update {
-            it.copy(
-                weightValue = value
-            )
-        }
-    }
-
-    fun updateRestingTimeValue(value: String) {
-        _state.update {
-            it.copy(
-                restingTimeValue = value
-            )
-        }
-    }
-
-    fun updateObservationValue(value: String) {
-        _state.update {
-            it.copy(
-                observation = value
-            )
-        }
-    }
-
-    fun updateFillDetailsLater(value: Boolean) {
-        _state.update {
-            it.copy(
-                fillDetailsLater = value,
-                seriesValue = if (value) "0" else it.seriesValue,
-                repetitionsValue = if (value) "0" else it.repetitionsValue,
-                weightValue = if (value) "0" else it.weightValue,
-                restingTimeValue = if (value) "0" else it.restingTimeValue
-            )
-        }
-    }
-
-    fun setTrainingId(value: Long) {
-        _state.update {
-            it.copy(trainingId = value)
-        }
-        Log.i("Testando", "setTrainingId: $value")
-    }
-
-    fun createSet() {
-        viewModelScope.launch {
-            setRepository.createSet(
-                id = 0,
-                exerciseId = _state.value.selectedExercise?.id.orZero(),
-                trainingId = _state.value.trainingId,
-                quantity = _state.value.seriesValue.toInt(),
-                repetitions = _state.value.repetitionsValue.toInt(),
-                weight = _state.value.weightValue.toInt(),
-                observation = _state.value.observation,
-                completed = false,
-                restingTime = _state.value.restingTimeValue.toInt()
-            )
-            _state.update {
-                it.copy(navigateBack = true)
-            }
-        }
     }
 }

@@ -34,10 +34,12 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
+import br.com.zemaromba.presentation.sets.screen.state.ExerciseDetailsScreenState
 
 @Composable
 fun ExerciseDetailsScreen(
-    state: CreateExerciseState,
+    state: ExerciseDetailsScreenState,
+    flowState: CreateExerciseState,
     onNavigateBack: () -> Unit,
     onNavigateForward: () -> Unit,
     onChangeSeries: (series: String) -> Unit,
@@ -80,15 +82,15 @@ fun ExerciseDetailsScreen(
         ) {
             LinearProgressBar(
                 modifier = Modifier.fillMaxWidth(),
-                initialProgress = state.progressBarInitial,
-                targetProgress = state.progressBarTarget
+                initialProgress = flowState.progressBarInitial,
+                targetProgress = flowState.progressBarTarget
             )
             Text(
                 modifier = Modifier.padding(
                     start = Dimens.Space.space_20dp,
                     top = Dimens.Space.space_20dp,
                 ),
-                text = state.selectedExercise?.name.orEmpty(),
+                text = flowState.selectedExercise?.name.orEmpty(),
                 color = MaterialTheme.colorScheme.onSurface,
                 style = Styles.Title3Normal
             )
@@ -97,7 +99,7 @@ fun ExerciseDetailsScreen(
                     start = Dimens.Space.space_20dp,
                     top = Dimens.Space.space_20dp
                 ),
-                text = state.selectedExercise?.muscleGroups?.map { muscleNameResource ->
+                text = flowState.selectedExercise?.muscleGroups?.map { muscleNameResource ->
                     stringResource(id = muscleNameResource)
                 }?.joinToString(separator = ", ") ?: "",
                 color = MaterialTheme.colorScheme.onSurface,
@@ -302,8 +304,8 @@ fun ExerciseDetailsScreenPreview() {
     )
     ZeMarombaTheme {
         ExerciseDetailsScreen(
-            state = CreateExerciseState(
-                exercisesList = exercisesSampleList,
+            state = ExerciseDetailsScreenState(),
+            flowState = CreateExerciseState(
                 selectedExercise = ExerciseView(
                     id = 1,
                     name = "Bíceps concentrado",

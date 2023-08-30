@@ -2,6 +2,7 @@ package br.com.zemaromba.presentation.navigation.graph
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -17,7 +18,10 @@ import br.com.zemaromba.presentation.navigation.router.TrainingRouter
 import br.com.zemaromba.presentation.sets.screen.ExerciseDetailsScreen
 import br.com.zemaromba.presentation.sets.screen.ExerciseObservationScreen
 import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
-import br.com.zemaromba.presentation.sets.viewmodel.CreateSetViewModel
+import br.com.zemaromba.presentation.sets.viewmodel.CreateSetFlowViewModel
+import br.com.zemaromba.presentation.sets.viewmodel.ExerciseDetailsViewModel
+import br.com.zemaromba.presentation.sets.viewmodel.ExerciseObservationViewModel
+import br.com.zemaromba.presentation.sets.viewmodel.SelectExerciseViewModel
 
 fun NavGraphBuilder.setGraph(
     navController: NavController
@@ -34,7 +38,9 @@ fun NavGraphBuilder.setGraph(
         composableWithTransitionAnimation(
             route = SetCreationRouter.SelectExercise.route
         ) {
-            val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
+            val flowViewModel = it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
+            val flowState = flowViewModel.state.collectAsStateWithLifecycle().value
+            val viewModel: SelectExerciseViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             val trainingId = remember {
                 it
@@ -42,20 +48,24 @@ fun NavGraphBuilder.setGraph(
                     ?.getLong(SetCreationRouter.trainingId)
                     .orZero()
             }
-            LaunchedEffect(key1 = Unit) {
-                viewModel.setTrainingId(value = trainingId)
-            }
             SelectExerciseScreen(
                 state = state,
+                flowState = flowState,
                 onNavigateBack = {
                     navController.popBackStack()
                 },
                 onNavigateForward = {
-                    viewModel.updateProgressBar(
-                        initialProgress = 0.33f,
-                        targetProgress = 0.66f
-                    )
-                    navController.navigate(SetCreationRouter.ExerciseDetails.route)
+                    viewModel.state.value.selectedExercise?.let { selectedExercise ->
+                        flowViewModel.updateProgressBar(
+                            initialProgress = 0.33f,
+                            targetProgress = 0.66f
+                        )
+                        flowViewModel.updateFlowData(
+                            selectedExercise = selectedExercise,
+                            trainingId = trainingId
+                        )
+                        navController.navigate(SetCreationRouter.ExerciseDetails.route)
+                    }
                 },
                 onExerciseSelected = { exerciseId ->
                     viewModel.onEvent(
@@ -90,21 +100,30 @@ fun NavGraphBuilder.setGraph(
         composableWithTransitionAnimation(
             route = SetCreationRouter.ExerciseDetails.route
         ) {
-            val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
+            val flowViewModel = it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
+            val flowState = flowViewModel.state.collectAsStateWithLifecycle().value
+            val viewModel: ExerciseDetailsViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             ExerciseDetailsScreen(
                 state = state,
+                flowState = flowState,
                 onNavigateBack = {
-                    viewModel.updateProgressBar(
+                    flowViewModel.updateProgressBar(
                         initialProgress = 0.66f,
                         targetProgress = 0.33f
                     )
                     navController.popBackStack()
                 },
                 onNavigateForward = {
-                    viewModel.updateProgressBar(
+                    flowViewModel.updateProgressBar(
                         initialProgress = 0.66f,
                         targetProgress = 1.0f
+                    )
+                    flowViewModel.updateFlowData(
+                        seriesValue = viewModel.state.value.seriesValue,
+                        repetitionsValue = viewModel.state.value.repetitionsValue,
+                        weightValue = viewModel.state.value.weightValue,
+                        restingTimeValue = viewModel.state.value.restingTimeValue
                     )
                     navController.navigate(SetCreationRouter.ExerciseObservation.route)
                 },
@@ -128,7 +147,9 @@ fun NavGraphBuilder.setGraph(
         composableWithTransitionAnimation(
             route = SetCreationRouter.ExerciseObservation.route
         ) {
-            val viewModel = it.sharedViewModel<CreateSetViewModel>(navController = navController)
+            val flowViewModel = it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
+            val flowState = flowViewModel.state.collectAsStateWithLifecycle().value
+            val viewModel: ExerciseObservationViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
             LaunchedEffect(key1 = state.navigateBack) {
                 if (state.navigateBack) {
@@ -140,8 +161,9 @@ fun NavGraphBuilder.setGraph(
             }
             ExerciseObservationScreen(
                 state = state,
+                flowState = flowState,
                 onNavigateBack = {
-                    viewModel.updateProgressBar(
+                    flowViewModel.updateProgressBar(
                         initialProgress = 1f,
                         targetProgress = 0.66f
                     )
@@ -151,7 +173,16 @@ fun NavGraphBuilder.setGraph(
                     viewModel.updateObservationValue(value = observation)
                 },
                 onFinishCreation = {
-                    viewModel.createSet()
+                    flowState.selectedExercise?.let { selectedExercise ->
+                        viewModel.createSet(
+                            selectedExercise = selectedExercise,
+                            trainingId = flowState.trainingId,
+                            series = flowState.seriesValue,
+                            repetitions = flowState.repetitionsValue,
+                            weight = flowState.weightValue,
+                            restingTime = flowState.restingTimeValue
+                        )
+                    }
                 }
             )
         }

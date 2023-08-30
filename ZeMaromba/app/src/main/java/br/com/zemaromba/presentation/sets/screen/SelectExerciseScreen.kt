@@ -42,10 +42,12 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
+import br.com.zemaromba.presentation.sets.screen.state.SelectExerciseScreenState
 
 @Composable
 fun SelectExerciseScreen(
-    state: CreateExerciseState,
+    state: SelectExerciseScreenState,
+    flowState: CreateExerciseState,
     onNavigateBack: () -> Unit,
     onNavigateForward: () -> Unit,
     onExerciseSelected: (exerciseId: Long) -> Unit,
@@ -83,8 +85,8 @@ fun SelectExerciseScreen(
         ) {
             LinearProgressBar(
                 modifier = Modifier.fillMaxWidth(),
-                initialProgress = state.progressBarInitial,
-                targetProgress = state.progressBarTarget
+                initialProgress = flowState.progressBarInitial,
+                targetProgress = flowState.progressBarTarget
             )
             SearchBar(
                 modifier = Modifier
@@ -275,7 +277,7 @@ private fun SelectableExerciseCardItem(
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun SelectExerciseScreen() {
+fun SelectExerciseScreenPreview() {
     val exercisesSampleList = listOf(
         ExerciseView(
             id = 4,
@@ -321,7 +323,8 @@ fun SelectExerciseScreen() {
     )
     ZeMarombaTheme {
         SelectExerciseScreen(
-            state = CreateExerciseState(exercisesList = exercisesSampleList),
+            state = SelectExerciseScreenState(exercisesList = exercisesSampleList),
+            flowState = CreateExerciseState(),
             onNavigateBack = {
 
             },

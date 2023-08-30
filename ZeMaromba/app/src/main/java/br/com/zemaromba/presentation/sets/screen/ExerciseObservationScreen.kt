@@ -28,10 +28,12 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
+import br.com.zemaromba.presentation.sets.screen.state.ExerciseObservationScreenState
 
 @Composable
 fun ExerciseObservationScreen(
-    state: CreateExerciseState,
+    state: ExerciseObservationScreenState,
+    flowState: CreateExerciseState,
     onNavigateBack: () -> Unit,
     onChangeObservation: (observation: String) -> Unit,
     onFinishCreation: () -> Unit
@@ -69,8 +71,8 @@ fun ExerciseObservationScreen(
         ) {
             LinearProgressBar(
                 modifier = Modifier.fillMaxWidth(),
-                initialProgress = state.progressBarInitial,
-                targetProgress = state.progressBarTarget
+                initialProgress = flowState.progressBarInitial,
+                targetProgress = flowState.progressBarTarget
             )
             Text(
                 modifier = Modifier.padding(
@@ -187,21 +189,8 @@ fun ExerciseObservationScreenPreview() {
     )
     ZeMarombaTheme {
         ExerciseObservationScreen(
-            state = CreateExerciseState(
-                exercisesList = exercisesSampleList,
-                selectedExercise = ExerciseView(
-                    id = 1,
-                    name = "Bíceps concentrado",
-                    favoriteIcon = R.drawable.ic_star_filled,
-                    muscleGroups = listOf(
-                        MuscleGroup.BICEPS.nameRes,
-                        MuscleGroup.FOREARM.nameRes
-                    ),
-                    urlLink = null,
-                    videoId = null,
-                    isEditable = false
-                )
-            ),
+            state = ExerciseObservationScreenState(),
+            flowState = CreateExerciseState(),
             onNavigateBack = {
 
             },

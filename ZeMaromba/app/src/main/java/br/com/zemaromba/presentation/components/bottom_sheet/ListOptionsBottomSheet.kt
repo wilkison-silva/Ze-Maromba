@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> ListOptionsBottomSheet(
-    title: String,
+    title: String?,
     bottomSheetOptions: List<BottomSheetOption<T>>,
     onClickOptionItem: (optionId: T) -> Unit,
     onDismiss: () -> Unit
@@ -35,30 +35,31 @@ fun <T> ListOptionsBottomSheet(
     val bottomSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = skipPartiallyExpanded.value
     )
-
     ModalBottomSheet(
         onDismissRequest = {
             onDismiss()
         },
         sheetState = bottomSheetState,
     ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = Dimens.Space.space_20dp,
-                    bottom = Dimens.Space.space_40dp,
-                    start = Dimens.Space.space_28dp,
-                    end = Dimens.Space.space_20dp,
-                ),
-            text = title,
-            textAlign = TextAlign.Left,
-            style = Styles.Title3Normal
-        )
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            thickness = Dimens.Thickness.thickness_0dp
-        )
+        if (!title.isNullOrBlank()) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_40dp,
+                        start = Dimens.Space.space_28dp,
+                        end = Dimens.Space.space_20dp,
+                    ),
+                text = title,
+                textAlign = TextAlign.Left,
+                style = Styles.Title3Normal
+            )
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                thickness = Dimens.Thickness.thickness_0dp
+            )
+        }
         LazyColumn(
             modifier = Modifier
                 .padding(bottom = Dimens.Space.space_64dp)

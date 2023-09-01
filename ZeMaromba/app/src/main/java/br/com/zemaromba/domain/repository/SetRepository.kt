@@ -21,4 +21,6 @@ interface SetRepository {
         restingTime: Int
     )
 
+    suspend fun deleteSet(id: Long): Boolean
+
 }

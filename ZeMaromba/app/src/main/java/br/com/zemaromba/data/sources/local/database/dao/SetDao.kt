@@ -24,8 +24,8 @@ interface SetDao {
     @Query("UPDATE `Set` SET completed = :completed WHERE `Set`.id = :setId")
     suspend fun completeSet(setId: Long, completed: Boolean)
 
-    @Delete
-    suspend fun delete(setEntity: SetEntity)
+    @Query("DELETE FROM `Set` WHERE `Set`.id = :setId")
+    suspend fun deleteById(setId: Long): Int
 
     @Transaction
     @Query("SELECT * FROM Exercise " +

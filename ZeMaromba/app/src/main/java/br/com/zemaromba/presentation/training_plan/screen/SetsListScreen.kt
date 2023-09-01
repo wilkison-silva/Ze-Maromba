@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.bottom_sheet.ListOptionsBottomSheet
 import br.com.zemaromba.presentation.components.button.PrimaryButton
@@ -63,7 +64,7 @@ fun SetsListScreen(
     onShowListOptionsBottomSheet: (setId: Long) -> Unit,
     onHideListOptionsBottomSheet: () -> Unit,
     onEditSet: () -> Unit,
-    onDeleteSet: () -> Unit
+    onDeleteSet: (setId: Long) -> Unit
 ) {
 
     Scaffold(
@@ -161,7 +162,7 @@ fun SetsListScreen(
             onClickOptionItem = { bottomSheetSetOptions: BottomSheetSetOptions ->
                 when (bottomSheetSetOptions) {
                     BottomSheetSetOptions.EDIT -> onEditSet()
-                    BottomSheetSetOptions.DELETE -> onDeleteSet()
+                    BottomSheetSetOptions.DELETE -> onDeleteSet(state.selectedSet?.id.orZero())
                 }
             },
             onDismiss = {

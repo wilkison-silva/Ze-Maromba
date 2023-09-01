@@ -8,6 +8,7 @@ import br.com.zemaromba.domain.repository.SetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flow
 
 class SetRepositoryImpl(
     private val setDao: SetDao,
@@ -65,5 +66,10 @@ class SetRepositoryImpl(
                 restingTime = restingTime
             )
         )
+    }
+
+    override suspend fun deleteSet(id: Long): Boolean {
+        val result = setDao.deleteById(setId = id)
+        return result == 1
     }
 }

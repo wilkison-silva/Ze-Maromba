@@ -293,8 +293,8 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onEditSet = {
                     viewModel.hideListOptionsBottomSheet()
                 },
-                onDeleteSet = {
-                    viewModel.hideListOptionsBottomSheet()
+                onDeleteSet = { setId: Long ->
+                    viewModel.deleteSet(setId = setId)
                 }
             )
         }

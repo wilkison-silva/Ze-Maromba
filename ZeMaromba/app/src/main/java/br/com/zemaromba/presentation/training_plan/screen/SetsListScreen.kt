@@ -46,6 +46,8 @@ import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.presentation.model.BottomSheetOption
+import br.com.zemaromba.presentation.model.BottomSheetSetOptions
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.model.SetView
 import br.com.zemaromba.presentation.training_plan.screen.state.SetListState
@@ -146,16 +148,20 @@ fun SetsListScreen(
     if (state.showListOptionsBottomSheet) {
         ListOptionsBottomSheet(
             title = state.selectedSet?.exerciseView?.name.orEmpty(),
-            textButtonNames = listOf(
-                "Editar",
-                "Excluir"
+            bottomSheetOptions = listOf(
+                BottomSheetOption(
+                    text = stringResource(R.string.bottom_sheet_options_edit),
+                    id = BottomSheetSetOptions.EDIT
+                ),
+                BottomSheetOption(
+                    text = stringResource(R.string.bottom_sheet_options_delete),
+                    id = BottomSheetSetOptions.DELETE
+                )
             ),
-            onClickOptionItem = { itemPosition: Int ->
-                if (itemPosition == 0) {
-                    onEditSet()
-                }
-                if (itemPosition == 1) {
-                    onDeleteSet()
+            onClickOptionItem = { bottomSheetSetOptions: BottomSheetSetOptions ->
+                when (bottomSheetSetOptions) {
+                    BottomSheetSetOptions.EDIT -> onEditSet()
+                    BottomSheetSetOptions.DELETE -> onDeleteSet()
                 }
             },
             onDismiss = {

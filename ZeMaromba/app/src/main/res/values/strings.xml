@@ -82,4 +82,6 @@
     <string name="label_input_text_resting_time">Descanso (s)</string>
     <string name="message_add_observation_if_needed">Adicione aqui uma observação se precisar</string>
     <string name="exercise_details_fill_later">Preencher depois</string>
+    <string name="bottom_sheet_options_edit">Editar</string>
+    <string name="bottom_sheet_options_delete">Excluir</string>
 </resources>

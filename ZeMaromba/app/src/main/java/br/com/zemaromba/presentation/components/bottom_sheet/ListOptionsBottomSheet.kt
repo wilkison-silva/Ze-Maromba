@@ -18,15 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
+import br.com.zemaromba.presentation.model.BottomSheetOption
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListOptionsBottomSheet(
+fun <T> ListOptionsBottomSheet(
     title: String,
-    textButtonNames: List<String>,
-    onClickOptionItem: (itemPosition: Int) -> Unit,
+    bottomSheetOptions: List<BottomSheetOption<T>>,
+    onClickOptionItem: (optionId: T) -> Unit,
     onDismiss: () -> Unit
 ) {
     val skipPartiallyExpanded = remember { mutableStateOf(true) }
@@ -64,8 +65,8 @@ fun ListOptionsBottomSheet(
                 .fillMaxWidth(),
         ) {
             itemsIndexed(
-                items = textButtonNames,
-                itemContent = { position: Int, textButtonName: String ->
+                items = bottomSheetOptions,
+                itemContent = { _, bottomSheetOption: BottomSheetOption<T> ->
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -77,7 +78,7 @@ fun ListOptionsBottomSheet(
                                     }
                                     .invokeOnCompletion {
                                         if (!bottomSheetState.isVisible) {
-                                            onClickOptionItem(position)
+                                            onClickOptionItem(bottomSheetOption.id)
                                         }
                                     }
                             }
@@ -86,7 +87,7 @@ fun ListOptionsBottomSheet(
                                 bottom = Dimens.Space.space_20dp,
                                 start = Dimens.Space.space_28dp
                             ),
-                        text = textButtonName,
+                        text = bottomSheetOption.text,
                         textAlign = TextAlign.Left,
                         style = Styles.ButtonText1
                     )

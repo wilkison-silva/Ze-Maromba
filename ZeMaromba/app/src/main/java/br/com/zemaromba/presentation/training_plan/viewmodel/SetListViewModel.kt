@@ -56,4 +56,25 @@ class SetListViewModel @Inject constructor(
         }
     }
 
+    fun showListOptionsBottomSheet(setId: Long) {
+        val setView = _state.value.setListView.find {
+            it.id == setId
+        }
+        _state.update {
+            it.copy(
+                selectedSet = setView,
+                showListOptionsBottomSheet = true
+            )
+        }
+    }
+
+    fun hideListOptionsBottomSheet() {
+        _state.update {
+            it.copy(
+                selectedSet = null,
+                showListOptionsBottomSheet = false
+            )
+        }
+    }
+
 }

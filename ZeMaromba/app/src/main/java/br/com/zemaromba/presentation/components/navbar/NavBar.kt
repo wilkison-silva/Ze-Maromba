@@ -1,6 +1,5 @@
 package br.com.zemaromba.presentation.components.navbar
 
-import android.widget.ProgressBar
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope

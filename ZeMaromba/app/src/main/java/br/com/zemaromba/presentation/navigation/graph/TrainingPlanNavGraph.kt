@@ -267,8 +267,11 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onOpenSet = {
-
+                onShowListOptionsBottomSheet = { setId ->
+                    viewModel.showListOptionsBottomSheet(setId = setId)
+                },
+                onHideListOptionsBottomSheet = {
+                    viewModel.hideListOptionsBottomSheet()
                 },
                 onCreateSet = {
                     onCreateNewSet(trainingId)
@@ -286,6 +289,12 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onCompleteSet = { setId, isCompleted ->
                     viewModel.completeSet(setId = setId, isCompleted = isCompleted)
+                },
+                onEditSet = {
+                    viewModel.hideListOptionsBottomSheet()
+                },
+                onDeleteSet = {
+                    viewModel.hideListOptionsBottomSheet()
                 }
             )
         }

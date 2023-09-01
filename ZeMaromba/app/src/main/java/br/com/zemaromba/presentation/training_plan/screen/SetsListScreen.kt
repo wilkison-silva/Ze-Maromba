@@ -2,7 +2,9 @@ package br.com.zemaromba.presentation.training_plan.screen
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +39,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.components.bottom_sheet.ListOptionsBottomSheet
 import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
@@ -51,11 +54,14 @@ import br.com.zemaromba.presentation.training_plan.screen.state.SetListState
 fun SetsListScreen(
     state: SetListState,
     onNavigateBack: () -> Unit,
-    onOpenSet: (setId: Long) -> Unit,
     onCreateSet: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenYoutubeApp: (videoId: String) -> Unit,
-    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit
+    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit,
+    onShowListOptionsBottomSheet: (setId: Long) -> Unit,
+    onHideListOptionsBottomSheet: () -> Unit,
+    onEditSet: () -> Unit,
+    onDeleteSet: () -> Unit
 ) {
 
     Scaffold(
@@ -118,8 +124,8 @@ fun SetsListScreen(
                         itemContent = { _: Int, setView: SetView ->
                             SetCardItem(
                                 setView = setView,
-                                onClick = {
-                                    onOpenSet(setView.id)
+                                onLongClick = {
+                                    onShowListOptionsBottomSheet(setView.id)
                                 },
                                 onOpenDemonstrationVideo = { videoId: String ->
                                     onOpenYoutubeApp(videoId)
@@ -137,22 +143,48 @@ fun SetsListScreen(
             }
         }
     }
+    if (state.showListOptionsBottomSheet) {
+        ListOptionsBottomSheet(
+            title = state.selectedSet?.exerciseView?.name.orEmpty(),
+            textButtonNames = listOf(
+                "Editar",
+                "Excluir"
+            ),
+            onClickOptionItem = { itemPosition: Int ->
+                if (itemPosition == 0) {
+                    onEditSet()
+                }
+                if (itemPosition == 1) {
+                    onDeleteSet()
+                }
+            },
+            onDismiss = {
+                onHideListOptionsBottomSheet()
+            }
+        )
+    }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SetCardItem(
     setView: SetView,
-    onClick: () -> Unit,
+    onLongClick: () -> Unit,
     onOpenDemonstrationVideo: (videoId: String) -> Unit,
-    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit
+    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = Dimens.Space.space_20dp)
-            .clickable {
-                onClick()
-            },
+            .combinedClickable(
+                onClick = {
+
+                },
+                onLongClick = {
+                    onLongClick()
+                }
+            ),
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -252,8 +284,42 @@ fun SetCardItem(
 @Composable
 fun IconWithText(
     @DrawableRes drawableRes: Int?,
+    labelAndDescription: AnnotatedString
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = Dimens.Space.space_20dp,
+                bottom = Dimens.Space.space_20dp,
+                end = Dimens.Space.space_20dp
+            ),
+        verticalAlignment = Alignment.Top
+    ) {
+        drawableRes?.let {
+            Icon(
+                modifier = Modifier
+                    .padding(top = Dimens.Space.space_2dp)
+                    .size(Dimens.Space.space_16dp),
+                painter = painterResource(id = it),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.width(Dimens.Space.space_12dp))
+        }
+        Text(
+            text = labelAndDescription,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = Styles.CaptionNormal,
+        )
+    }
+}
+
+@Composable
+fun IconWithText(
+    @DrawableRes drawableRes: Int?,
     labelAndDescription: AnnotatedString,
-    onClickText: (() -> Unit)? = null
+    onClickText: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -278,10 +344,8 @@ fun IconWithText(
         }
         Text(
             modifier = Modifier
-                .clickable(enabled = onClickText != null) {
-                    if (onClickText != null) {
-                        onClickText()
-                    }
+                .clickable {
+                    onClickText()
                 },
             text = labelAndDescription,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -420,9 +484,6 @@ fun SetsListScreenPreview() {
             onNavigateBack = {
 
             },
-            onOpenSet = {
-
-            },
             onCreateSet = {
 
             },
@@ -433,6 +494,18 @@ fun SetsListScreenPreview() {
 
             },
             onCompleteSet = { _, _ ->
+
+            },
+            onShowListOptionsBottomSheet = {
+
+            },
+            onHideListOptionsBottomSheet = {
+
+            },
+            onDeleteSet = {
+
+            },
+            onEditSet = {
 
             }
         )

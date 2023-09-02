@@ -2,6 +2,9 @@ package br.com.zemaromba.presentation.training_plan.screen
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -93,9 +96,14 @@ fun SetsListScreen(
                 .padding(contentPadding)
                 .fillMaxSize()
         ) {
-            if (state.showMessage) {
+            AnimatedVisibility(
+                modifier = Modifier.align(Alignment.Center),
+                visible = state.showMessage,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
                 Column(
-                    modifier = Modifier.align(Alignment.Center),
+                    modifier = Modifier,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
@@ -115,7 +123,13 @@ fun SetsListScreen(
                         textAlign = TextAlign.Center
                     )
                 }
-            } else {
+            }
+            AnimatedVisibility(
+                modifier = Modifier.fillMaxSize(),
+                visible = !state.showMessage,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),

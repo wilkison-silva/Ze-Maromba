@@ -25,4 +25,5 @@ data class SelectExerciseScreenState(
     },
     val showNothingFound: Boolean = false,
     val selectedExercise: ExerciseView? = null,
+    val scrollPosition: Int = 0
 )

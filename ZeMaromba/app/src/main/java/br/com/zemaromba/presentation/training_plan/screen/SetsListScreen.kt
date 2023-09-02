@@ -66,7 +66,7 @@ fun SetsListScreen(
     onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit,
     onShowListOptionsBottomSheet: (setId: Long) -> Unit,
     onHideListOptionsBottomSheet: () -> Unit,
-    onEditSet: () -> Unit,
+    onEditSet: (setId: Long) -> Unit,
     onDeleteSet: (setId: Long) -> Unit
 ) {
 
@@ -178,7 +178,7 @@ fun SetsListScreen(
             ),
             onClickOptionItem = { bottomSheetSetOptions: BottomSheetSetOptions ->
                 when (bottomSheetSetOptions) {
-                    BottomSheetSetOptions.EDIT -> onEditSet()
+                    BottomSheetSetOptions.EDIT -> onEditSet(state.selectedSet?.id.orZero())
                     BottomSheetSetOptions.DELETE -> onDeleteSet(state.selectedSet?.id.orZero())
                 }
             },

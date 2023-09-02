@@ -23,4 +23,6 @@ interface SetRepository {
 
     suspend fun deleteSet(id: Long): Boolean
 
+    suspend fun getSetById(id: Long): Set
+
 }

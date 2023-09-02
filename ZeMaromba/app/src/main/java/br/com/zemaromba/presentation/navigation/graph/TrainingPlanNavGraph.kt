@@ -29,7 +29,7 @@ import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingPlanManagem
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
     openYoutube: (videoId: String) -> Unit,
-    onCreateNewSet: (trainingId: Long) -> Unit
+    onCreateNewSet: (trainingId: Long, setId: Long) -> Unit
 ) {
     navigation(
         startDestination = TrainingPlanRouter.TrainingPlanListScreen.route,
@@ -274,7 +274,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                     viewModel.hideListOptionsBottomSheet()
                 },
                 onCreateSet = {
-                    onCreateNewSet(trainingId)
+                    onCreateNewSet(trainingId, 0)
                 },
                 onOpenSettings = {
                     navController.navigate(
@@ -290,8 +290,9 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onCompleteSet = { setId, isCompleted ->
                     viewModel.completeSet(setId = setId, isCompleted = isCompleted)
                 },
-                onEditSet = {
+                onEditSet = { setId: Long ->
                     viewModel.hideListOptionsBottomSheet()
+                    onCreateNewSet(trainingId, setId)
                 },
                 onDeleteSet = { setId: Long ->
                     viewModel.deleteSet(setId = setId)

@@ -30,7 +30,10 @@ fun NavGraphBuilder.setGraph(
         startDestination = SetCreationRouter.SelectExercise.route,
         route = SetCreationRouter.SetCreationGraph.route,
         arguments = listOf(
-            navArgument(name = "training_id") {
+            navArgument(name = SetCreationRouter.trainingId) {
+                type = NavType.LongType
+            },
+            navArgument(name = SetCreationRouter.setId) {
                 type = NavType.LongType
             }
         )
@@ -47,6 +50,29 @@ fun NavGraphBuilder.setGraph(
                     .arguments
                     ?.getLong(SetCreationRouter.trainingId)
                     .orZero()
+            }
+            val setId = remember {
+                it
+                    .arguments
+                    ?.getLong(SetCreationRouter.setId)
+                    .orZero()
+            }
+            LaunchedEffect(key1 = Unit) {
+                flowViewModel.retrieveSet(setId)
+            }
+            LaunchedEffect(key1 = flowState.isExerciseRetrieved) {
+                if (flowState.isExerciseRetrieved) {
+                    flowViewModel.state.value.selectedExercise?.let { selectedExercise ->
+                        viewModel.onEvent(
+                            event = ExercisesListEvents.OnSelectExercise(id = selectedExercise.id)
+                        )
+                        flowViewModel.updateFlowData(
+                            selectedExercise = selectedExercise,
+                            trainingId = trainingId
+                        )
+                        viewModel.updateScrollPosition()
+                    }
+                }
             }
             SelectExerciseScreen(
                 state = state,

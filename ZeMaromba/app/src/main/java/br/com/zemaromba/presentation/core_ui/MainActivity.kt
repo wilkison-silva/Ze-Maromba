@@ -73,11 +73,14 @@ class MainActivity : ComponentActivity() {
                             openYoutube = { videoId: String ->
                                 openVideoInYoutubeOrBrowser(videoId = videoId)
                             },
-                            onCreateNewSet = {
+                            onCreateNewSet = { trainingId, setId ->
                                 navController.navigate(
                                     route = SetCreationRouter
                                         .SetCreationGraph
-                                        .getRouteWithTrainingId(trainingId = it)
+                                        .getRouteWithTrainingId(
+                                            trainingId = trainingId,
+                                            setId = setId
+                                        )
                                 )
                             }
                         )

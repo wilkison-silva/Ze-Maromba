@@ -72,4 +72,16 @@ class SetRepositoryImpl(
         val result = setDao.deleteById(setId = id)
         return result == 1
     }
+
+    override suspend fun getSetById(id: Long): Set {
+        val setWithExercise = setDao.getSetWithExerciseBySetId(setId = id)
+        val exercise = exerciseDao
+            .getExerciseWithMuscleGroups(exerciseId = setWithExercise.exercise.id)
+            .map { exerciseAndMusclesMap ->
+                exerciseAndMusclesMap
+                    .key
+                    .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
+            }.first()
+        return setWithExercise.set.toSet(exercise)
+    }
 }

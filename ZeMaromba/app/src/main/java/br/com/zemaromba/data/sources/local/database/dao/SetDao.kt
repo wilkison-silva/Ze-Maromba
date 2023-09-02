@@ -33,4 +33,10 @@ interface SetDao {
             "WHERE `Set`.training_id = :trainingId")
     fun getSetsWithExerciseByTrainingId(trainingId: Long): Flow<List<SetWithExercise>>
 
+    @Transaction
+    @Query("SELECT * FROM Exercise " +
+            "JOIN `Set` ON `Set`.exercise_id = Exercise.exercise_id " +
+            "WHERE `Set`.id = :setId")
+    suspend fun getSetWithExerciseBySetId(setId: Long): SetWithExercise
+
 }

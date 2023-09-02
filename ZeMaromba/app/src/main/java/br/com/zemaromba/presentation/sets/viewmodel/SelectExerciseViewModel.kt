@@ -1,9 +1,11 @@
 package br.com.zemaromba.presentation.sets.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.orFalse
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.domain.repository.ExercisesRepository
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
@@ -47,6 +49,18 @@ class SelectExerciseViewModel @Inject constructor(
                 }
                 applyFilters()
             }.launchIn(viewModelScope)
+    }
+
+    fun updateScrollPosition() {
+        val scrollPosition = _state.value.selectedExercise?.let {
+            _state.value.exercisesList.indexOf(element = it)
+        }.orZero()
+        Log.i("Testando", "updateScrollPosition: $scrollPosition")
+        _state.update {
+            it.copy(
+                scrollPosition = scrollPosition
+            )
+        }
     }
 
     fun onEvent(event: ExercisesListEvents) {

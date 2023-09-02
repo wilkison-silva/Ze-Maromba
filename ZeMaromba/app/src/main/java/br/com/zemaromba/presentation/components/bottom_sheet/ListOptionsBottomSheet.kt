@@ -1,12 +1,16 @@
 package br.com.zemaromba.presentation.components.bottom_sheet
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -15,7 +19,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.model.BottomSheetOption
@@ -68,7 +75,7 @@ fun <T> ListOptionsBottomSheet(
             itemsIndexed(
                 items = bottomSheetOptions,
                 itemContent = { _, bottomSheetOption: BottomSheetOption<T> ->
-                    Text(
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
@@ -86,12 +93,24 @@ fun <T> ListOptionsBottomSheet(
                             .padding(
                                 top = Dimens.Space.space_20dp,
                                 bottom = Dimens.Space.space_20dp,
-                                start = Dimens.Space.space_28dp
+                                start = Dimens.Space.space_28dp,
+                                end = Dimens.Space.space_28dp
                             ),
-                        text = bottomSheetOption.text,
-                        textAlign = TextAlign.Left,
-                        style = Styles.ButtonText1
-                    )
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            modifier = Modifier,
+                            text = bottomSheetOption.text,
+                            textAlign = TextAlign.Left,
+                            style = Styles.ButtonText1
+                        )
+                        bottomSheetOption.iconRes?.let {
+                            Icon(
+                                painter = painterResource(id = it),
+                                contentDescription = null
+                            )
+                        }
+                    }
                     Divider(
                         modifier = Modifier.fillMaxWidth(),
                         thickness = Dimens.Thickness.thickness_0dp
@@ -115,7 +134,7 @@ fun <T> ListOptionsBottomSheet(
                                 }
                         }
                         .padding(vertical = Dimens.Space.space_20dp),
-                    text = "Fechar",
+                    text = stringResource(R.string.bottom_sheet_options_close),
                     textAlign = TextAlign.Center,
                     style = Styles.ButtonText2
                 )

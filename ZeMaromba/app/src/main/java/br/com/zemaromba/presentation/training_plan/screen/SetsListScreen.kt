@@ -151,12 +151,15 @@ fun SetsListScreen(
             title = state.selectedSet?.exerciseView?.name.orEmpty(),
             bottomSheetOptions = listOf(
                 BottomSheetOption(
+                    id = BottomSheetSetOptions.EDIT,
                     text = stringResource(R.string.bottom_sheet_options_edit),
-                    id = BottomSheetSetOptions.EDIT
+                    iconRes = R.drawable.ic_edit
+
                 ),
                 BottomSheetOption(
+                    id = BottomSheetSetOptions.DELETE,
                     text = stringResource(R.string.bottom_sheet_options_delete),
-                    id = BottomSheetSetOptions.DELETE
+                    iconRes = R.drawable.ic_delete
                 )
             ),
             onClickOptionItem = { bottomSheetSetOptions: BottomSheetSetOptions ->

@@ -62,7 +62,7 @@ fun NavGraphBuilder.setGraph(
                 flowViewModel.retrieveSet(setId)
             }
             LaunchedEffect(key1 = flowState.isExerciseRetrieved) {
-                if (flowState.isExerciseRetrieved) {
+                if (flowState.mustRetrieveExercise) {
                     flowViewModel.state.value.selectedExercise?.let { selectedExercise ->
                         viewModel.onEvent(
                             event = ExercisesListEvents.OnSelectExercise(id = selectedExercise.id)
@@ -71,6 +71,7 @@ fun NavGraphBuilder.setGraph(
                             selectedExercise = selectedExercise,
                             trainingId = trainingId
                         )
+                        flowViewModel.updateMustRetrieveExercise(value = false)
                         viewModel.updateScrollPosition()
                     }
                 }
@@ -91,6 +92,7 @@ fun NavGraphBuilder.setGraph(
                             selectedExercise = selectedExercise,
                             trainingId = trainingId
                         )
+                        flowViewModel.updateMustRetrieveExercise(value = false)
                         navController.navigate(SetCreationRouter.ExerciseDetails.route)
                     }
                 },

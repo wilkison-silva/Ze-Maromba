@@ -21,7 +21,7 @@ class CreateSetFlowViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     fun retrieveSet(setId: Long) {
-        if (setId > 0) {
+        if (setId > 0 && _state.value.mustRetrieveExercise) {
             viewModelScope.launch {
                 val setView = setRepository
                     .getSetById(id = setId)
@@ -50,6 +50,14 @@ class CreateSetFlowViewModel @Inject constructor(
             it.copy(
                 progressBarInitial = initialProgress,
                 progressBarTarget = targetProgress
+            )
+        }
+    }
+
+    fun updateMustRetrieveExercise(value: Boolean) {
+        _state.update {
+            it.copy(
+                mustRetrieveExercise = value
             )
         }
     }

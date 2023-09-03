@@ -125,7 +125,9 @@ fun SelectExerciseScreen(
 
             val lazyListState = rememberLazyListState()
             LaunchedEffect(key1 = state.scrollPosition) {
-                lazyListState.scrollToItem(index = state.scrollPosition)
+                if (state.scrollPosition > 0) {
+                    lazyListState.scrollToItem(index = state.scrollPosition)
+                }
             }
             LazyColumn(
                 state = lazyListState,

@@ -1,6 +1,5 @@
 package br.com.zemaromba.presentation.sets.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.R

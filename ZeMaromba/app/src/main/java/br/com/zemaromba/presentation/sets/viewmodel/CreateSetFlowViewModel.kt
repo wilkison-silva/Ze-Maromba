@@ -28,6 +28,7 @@ class CreateSetFlowViewModel @Inject constructor(
                     .toSetView()
                 _state.update {
                     it.copy(
+                        setId = setView.id,
                         selectedExercise = setView.exerciseView,
                         seriesValue = setView.quantity.toString(),
                         repetitionsValue = setView.repetitions.toString(),

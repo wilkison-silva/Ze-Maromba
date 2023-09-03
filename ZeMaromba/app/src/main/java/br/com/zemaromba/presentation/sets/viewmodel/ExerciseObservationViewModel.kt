@@ -29,6 +29,7 @@ class ExerciseObservationViewModel @Inject constructor(
     }
 
     fun createSet(
+        setId: Long,
         selectedExercise: ExerciseView,
         trainingId: Long,
         series: String,
@@ -38,7 +39,7 @@ class ExerciseObservationViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             setRepository.createSet(
-                id = 0,
+                id = setId,
                 exerciseId = selectedExercise.id,
                 trainingId = trainingId,
                 quantity = series.toInt(),

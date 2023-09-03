@@ -55,7 +55,6 @@ class SelectExerciseViewModel @Inject constructor(
         val scrollPosition = _state.value.selectedExercise?.let {
             _state.value.exercisesList.indexOf(element = it)
         }.orZero()
-        Log.i("Testando", "updateScrollPosition: $scrollPosition")
         _state.update {
             it.copy(
                 scrollPosition = scrollPosition

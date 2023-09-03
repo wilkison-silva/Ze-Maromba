@@ -41,7 +41,8 @@ fun NavGraphBuilder.setGraph(
         composableWithTransitionAnimation(
             route = SetCreationRouter.SelectExercise.route
         ) {
-            val flowViewModel = it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
+            val flowViewModel =
+                it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
             val flowState = flowViewModel.state.collectAsStateWithLifecycle().value
             val viewModel: SelectExerciseViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -126,10 +127,19 @@ fun NavGraphBuilder.setGraph(
         composableWithTransitionAnimation(
             route = SetCreationRouter.ExerciseDetails.route
         ) {
-            val flowViewModel = it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
+            val flowViewModel =
+                it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
             val flowState = flowViewModel.state.collectAsStateWithLifecycle().value
             val viewModel: ExerciseDetailsViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
+            LaunchedEffect(key1 = flowState.isExerciseRetrieved) {
+                if (flowState.isExerciseRetrieved) {
+                    viewModel.updateSeriesValue(value = flowState.seriesValue)
+                    viewModel.updateRepetitionsValue(value = flowState.repetitionsValue)
+                    viewModel.updateWeightValue(value = flowState.weightValue)
+                    viewModel.updateRestingTimeValue(value = flowState.restingTimeValue)
+                }
+            }
             ExerciseDetailsScreen(
                 state = state,
                 flowState = flowState,
@@ -173,10 +183,16 @@ fun NavGraphBuilder.setGraph(
         composableWithTransitionAnimation(
             route = SetCreationRouter.ExerciseObservation.route
         ) {
-            val flowViewModel = it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
+            val flowViewModel =
+                it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
             val flowState = flowViewModel.state.collectAsStateWithLifecycle().value
             val viewModel: ExerciseObservationViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
+            LaunchedEffect(key1 = flowState.isExerciseRetrieved) {
+                if (flowState.isExerciseRetrieved) {
+                    viewModel.updateObservationValue(value = flowState.observation)
+                }
+            }
             LaunchedEffect(key1 = state.navigateBack) {
                 if (state.navigateBack) {
                     navController.popBackStack(
@@ -201,6 +217,7 @@ fun NavGraphBuilder.setGraph(
                 onFinishCreation = {
                     flowState.selectedExercise?.let { selectedExercise ->
                         viewModel.createSet(
+                            setId = flowState.setId,
                             selectedExercise = selectedExercise,
                             trainingId = flowState.trainingId,
                             series = flowState.seriesValue,

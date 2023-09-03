@@ -1,5 +1,6 @@
 package br.com.zemaromba.data.repository
 
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.data.model.SetEntity
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.data.sources.local.database.dao.SetDao
@@ -53,19 +54,35 @@ class SetRepositoryImpl(
         completed: Boolean,
         restingTime: Int
     ) {
-        setDao.insert(
-            setEntity = SetEntity(
-                id = id,
-                exerciseId = exerciseId,
-                trainingId = trainingId,
-                repetitions = repetitions,
-                quantity = quantity,
-                weight = weight,
-                observation = observation,
-                completed = completed,
-                restingTime = restingTime
+        if (id.orZero() == 0L) {
+            setDao.insert(
+                setEntity = SetEntity(
+                    id = id,
+                    exerciseId = exerciseId,
+                    trainingId = trainingId,
+                    repetitions = repetitions,
+                    quantity = quantity,
+                    weight = weight,
+                    observation = observation,
+                    completed = completed,
+                    restingTime = restingTime
+                )
             )
-        )
+        } else {
+            setDao.update(
+                setEntity = SetEntity(
+                    id = id,
+                    exerciseId = exerciseId,
+                    trainingId = trainingId,
+                    repetitions = repetitions,
+                    quantity = quantity,
+                    weight = weight,
+                    observation = observation,
+                    completed = completed,
+                    restingTime = restingTime
+                )
+            )
+        }
     }
 
     override suspend fun deleteSet(id: Long): Boolean {

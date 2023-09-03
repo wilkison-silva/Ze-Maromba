@@ -12,5 +12,6 @@ data class CreateExerciseState(
     val restingTimeValue: String = "",
     val observation: String = "",
     val trainingId: Long = 0,
+    val setId: Long = 0,
     val isExerciseRetrieved: Boolean = false
 )

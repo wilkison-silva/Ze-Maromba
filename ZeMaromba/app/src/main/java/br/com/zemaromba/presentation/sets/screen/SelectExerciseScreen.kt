@@ -1,40 +1,40 @@
-package br.com.zemaromba.presentation.exercises.screen
+package br.com.zemaromba.presentation.sets.screen
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelectorBottomSheet
+import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
 import br.com.zemaromba.presentation.components.navbar.NavBar
@@ -43,23 +43,22 @@ import br.com.zemaromba.presentation.components.search_bar.SearchBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListState
 import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.sets.screen.state.CreateExerciseState
+import br.com.zemaromba.presentation.sets.screen.state.SelectExerciseScreenState
 
 @Composable
-fun ExercisesListScreen(
-    state: ExercisesListState,
+fun SelectExerciseScreen(
+    state: SelectExerciseScreenState,
+    flowState: CreateExerciseState,
     onNavigateBack: () -> Unit,
-    onNavigateToNewExercise: () -> Unit,
-    onOpenExercise: (exerciseId: Long) -> Unit,
-    onFavoriteExercise: (exerciseId: Long, icon: Int) -> Unit,
+    onNavigateForward: () -> Unit,
+    onExerciseSelected: (exerciseId: Long) -> Unit,
     onSearch: (exerciseName: String) -> Unit,
     onFilterChange: (exerciseFilter: ExerciseFilter) -> Unit,
     onApplySelectedMuscleGroups: () -> Unit,
-    onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
-    onOpenYoutubeApp: (videoId: String) -> Unit
+    onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit
 ) {
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -68,29 +67,22 @@ fun ExercisesListScreen(
                 onBackIconClick = { onNavigateBack() },
                 actionIconResId = null,
                 onActionIconClick = null,
-                title = stringResource(R.string.title_exercises)
+                title = stringResource(id = R.string.title_select_exercise),
+                hasProgressBar = true,
+                progressBarInitial = flowState.progressBarInitial,
+                progressBarTarget = flowState.progressBarTarget
             )
         },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = Dimens.Space.space_12dp),
-                onClick = {
-                    onNavigateToNewExercise()
-                },
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.width(Dimens.Space.space_4dp))
-                Text(
-                    text = stringResource(R.string.fab_new_exercise),
-                    style = Styles.CaptionBold
-                )
-            }
-        },
+        bottomBar = {
+            PrimaryButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = Dimens.Space.space_20dp),
+                onClick = { onNavigateForward() },
+                title = stringResource(id = R.string.next),
+                isEnabled = state.selectedExercise != null
+            )
+        }
     ) { contentPadding ->
         Column(
             modifier = Modifier
@@ -99,8 +91,8 @@ fun ExercisesListScreen(
         ) {
             SearchBar(
                 modifier = Modifier
-                    .padding(all = Dimens.Space.space_20dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(all = Dimens.Space.space_20dp),
                 state = state.searchBarState,
                 onTextChange = {
                     onSearch(it)
@@ -130,7 +122,15 @@ fun ExercisesListScreen(
                     ),
                 thickness = Dimens.Thickness.thickness_0dp
             )
+
+            val lazyListState = rememberLazyListState()
+            LaunchedEffect(key1 = state.scrollPosition) {
+                if (state.scrollPosition > 0) {
+                    lazyListState.scrollToItem(index = state.scrollPosition)
+                }
+            }
             LazyColumn(
+                state = lazyListState,
                 verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
                 modifier = Modifier
             ) {
@@ -151,22 +151,16 @@ fun ExercisesListScreen(
                     itemsIndexed(
                         items = state.exercisesList,
                         itemContent = { _: Int, exerciseView: ExerciseView ->
-                            ExerciseCardItem(
+                            SelectableExerciseCardItem(
                                 exerciseName = exerciseView.name,
                                 muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
                                     stringResource(id = muscleNameResource)
                                 }.joinToString(separator = ", "),
-                                videoId = exerciseView.videoId,
                                 favoriteIcon = exerciseView.favoriteIcon,
                                 onClick = {
-                                    onOpenExercise(exerciseView.id)
+                                    onExerciseSelected(exerciseView.id)
                                 },
-                                onFavoriteClick = {
-                                    onFavoriteExercise(exerciseView.id, exerciseView.favoriteIcon)
-                                },
-                                onOpenDemonstrationVideo = { videoId ->
-                                    onOpenYoutubeApp(videoId)
-                                }
+                                isSelected = exerciseView.id == state.selectedExercise?.id.orZero()
                             )
                         }
                     )
@@ -175,34 +169,31 @@ fun ExercisesListScreen(
                     }
                 }
             }
+            if (state.showMuscleGroupBottomSheet) {
+                MuscleGroupSelectorBottomSheet(
+                    onApplySelectedMuscleGroups = { onApplySelectedMuscleGroups() },
+                    onMuscleGroupSelection = { index: Int, isSelected: Boolean ->
+                        onMuscleGroupSelection(index, isSelected)
+                    },
+                    muscleGroupCheckBoxStates = state.muscleGroupCheckBoxStates
+                )
+            }
         }
-    }
-
-    if (state.showMuscleGroupBottomSheet) {
-        MuscleGroupSelectorBottomSheet(
-            onApplySelectedMuscleGroups = { onApplySelectedMuscleGroups() },
-            onMuscleGroupSelection = { index: Int, isSelected: Boolean ->
-                onMuscleGroupSelection(index, isSelected)
-            },
-            muscleGroupCheckBoxStates = state.muscleGroupCheckBoxStates
-        )
     }
 }
 
 @Composable
-fun ExerciseCardItem(
+private fun SelectableExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
-    videoId: String?,
     favoriteIcon: Int,
     onClick: () -> Unit,
-    onFavoriteClick: () -> Unit,
-    onOpenDemonstrationVideo: (videoId: String) -> Unit
+    isSelected: Boolean
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(horizontal = Dimens.Space.space_20dp)
+            .fillMaxWidth()
             .clickable {
                 onClick()
             },
@@ -210,7 +201,15 @@ fun ExerciseCardItem(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        ),
+        border = if (isSelected) {
+            BorderStroke(
+                width = Dimens.Thickness.thickness_1dp,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        } else {
+            null
+        }
     ) {
         Box {
             Column(
@@ -241,54 +240,15 @@ fun ExerciseCardItem(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = Styles.CaptionNormal
                 )
-                videoId?.let { videoIdOnYoutube ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                start = Dimens.Space.space_20dp,
-                                end = Dimens.Space.space_64dp,
-                                bottom = Dimens.Space.space_20dp
-                            ),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(Dimens.Space.space_20dp),
-                            painter = painterResource(id = R.drawable.ic_play_video_youtube),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    start = Dimens.Space.space_20dp,
-                                    end = Dimens.Space.space_20dp
-                                )
-                                .clickable {
-                                    onOpenDemonstrationVideo(videoIdOnYoutube)
-                                },
-                            text = stringResource(R.string.exercise_demonstration_video),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = Styles.CaptionNormal
-                        )
-                    }
-                }
             }
-            IconButton(
+            Icon(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .padding(end = Dimens.Space.space_16dp),
-                onClick = {
-                    onFavoriteClick()
-                }
-            ) {
-                Icon(
-                    painter = painterResource(id = favoriteIcon),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
+                    .padding(end = Dimens.Space.space_24dp),
+                painter = painterResource(id = favoriteIcon),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }
@@ -326,7 +286,7 @@ fun ExerciseCardItem(
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun ExercisesListScreenPreview() {
+fun SelectExerciseScreenPreview() {
     val exercisesSampleList = listOf(
         ExerciseView(
             id = 4,
@@ -371,18 +331,16 @@ fun ExercisesListScreenPreview() {
         ),
     )
     ZeMarombaTheme {
-        ExercisesListScreen(
-            state = ExercisesListState(exercisesList = exercisesSampleList),
+        SelectExerciseScreen(
+            state = SelectExerciseScreenState(exercisesList = exercisesSampleList),
+            flowState = CreateExerciseState(),
             onNavigateBack = {
 
             },
-            onNavigateToNewExercise = {
+            onNavigateForward = {
 
             },
-            onOpenExercise = {
-
-            },
-            onFavoriteExercise = { _, _ ->
+            onExerciseSelected = {
 
             },
             onSearch = {
@@ -395,9 +353,6 @@ fun ExercisesListScreenPreview() {
 
             },
             onMuscleGroupSelection = { _, _ ->
-
-            },
-            onOpenYoutubeApp = {
 
             }
         )

@@ -4,7 +4,9 @@ import br.com.zemaromba.presentation.model.SetView
 
 data class SetListState(
     val setListView: List<SetView> = emptyList(),
-    val trainingName: String = ""
+    val trainingName: String = "",
+    val showListOptionsBottomSheet: Boolean = false,
+    val selectedSet: SetView? = null
 ) {
     val showMessage: Boolean = setListView.isEmpty()
 }

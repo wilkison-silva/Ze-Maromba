@@ -80,25 +80,25 @@ class AppApplication : Application() {
                 setDao.insert(
                     SetEntity(
                         exerciseId = 1,
-                        training_id = 1,
+                        trainingId = 1,
                         quantity = 12,
                         repetitions = 4,
-                        weight = 12.0,
+                        weight = 12,
                         observation = "Sem forçar a articulação",
                         completed = false,
-                        restingTime = 60.0
+                        restingTime = 60
                     )
                 )
                 setDao.insert(
                     SetEntity(
                         exerciseId = 2,
-                        training_id = 1,
+                        trainingId = 1,
                         quantity = 12,
                         repetitions = 4,
-                        weight = 12.0,
+                        weight = 12,
                         observation = "Segurar o triângulo corretamente",
                         completed = false,
-                        restingTime = 60.0
+                        restingTime = 60
                     )
                 )
 
@@ -114,13 +114,13 @@ class AppApplication : Application() {
                 setDao.insert(
                     SetEntity(
                         exerciseId = 3,
-                        training_id = 2,
+                        trainingId = 2,
                         quantity = 12,
                         repetitions = 4,
-                        weight = 10.0,
+                        weight = 10,
                         observation = "Não fazer rosca direta",
                         completed = false,
-                        restingTime = 60.0
+                        restingTime = 60
                     )
                 )
 

@@ -24,13 +24,19 @@ interface SetDao {
     @Query("UPDATE `Set` SET completed = :completed WHERE `Set`.id = :setId")
     suspend fun completeSet(setId: Long, completed: Boolean)
 
-    @Delete
-    suspend fun delete(setEntity: SetEntity)
+    @Query("DELETE FROM `Set` WHERE `Set`.id = :setId")
+    suspend fun deleteById(setId: Long): Int
 
     @Transaction
     @Query("SELECT * FROM Exercise " +
             "JOIN `Set` ON `Set`.exercise_id = Exercise.exercise_id " +
             "WHERE `Set`.training_id = :trainingId")
     fun getSetsWithExerciseByTrainingId(trainingId: Long): Flow<List<SetWithExercise>>
+
+    @Transaction
+    @Query("SELECT * FROM Exercise " +
+            "JOIN `Set` ON `Set`.exercise_id = Exercise.exercise_id " +
+            "WHERE `Set`.id = :setId")
+    suspend fun getSetWithExerciseBySetId(setId: Long): SetWithExercise
 
 }

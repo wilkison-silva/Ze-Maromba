@@ -2,7 +2,12 @@ package br.com.zemaromba.presentation.training_plan.screen
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +21,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -37,12 +41,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.components.bottom_sheet.ListOptionsBottomSheet
+import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
+import br.com.zemaromba.presentation.model.BottomSheetOption
+import br.com.zemaromba.presentation.model.BottomSheetSetOptions
 import br.com.zemaromba.presentation.model.ExerciseView
 import br.com.zemaromba.presentation.model.SetView
 import br.com.zemaromba.presentation.training_plan.screen.state.SetListState
@@ -51,11 +60,14 @@ import br.com.zemaromba.presentation.training_plan.screen.state.SetListState
 fun SetsListScreen(
     state: SetListState,
     onNavigateBack: () -> Unit,
-    onOpenSet: (setId: Long) -> Unit,
     onCreateSet: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenYoutubeApp: (videoId: String) -> Unit,
-    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit
+    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit,
+    onShowListOptionsBottomSheet: (setId: Long) -> Unit,
+    onHideListOptionsBottomSheet: () -> Unit,
+    onEditSet: (setId: Long) -> Unit,
+    onDeleteSet: (setId: Long) -> Unit
 ) {
 
     Scaffold(
@@ -70,22 +82,13 @@ fun SetsListScreen(
             )
         },
         bottomBar = {
-            Button(
+            PrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(all = Dimens.Space.space_20dp),
-                shape = MaterialTheme.shapes.medium,
-                onClick = {
-                    onCreateSet()
-                }
-            ) {
-                Text(
-                    modifier = Modifier.padding(vertical = Dimens.Space.space_4dp),
-                    text = stringResource(R.string.add_exercise),
-                    textAlign = TextAlign.Center,
-                    style = Styles.ButtonText1
-                )
-            }
+                onClick = { onCreateSet() },
+                title = stringResource(R.string.add_exercise)
+            )
         }
     ) { contentPadding ->
         Box(
@@ -93,9 +96,14 @@ fun SetsListScreen(
                 .padding(contentPadding)
                 .fillMaxSize()
         ) {
-            if (state.showMessage) {
+            AnimatedVisibility(
+                modifier = Modifier.align(Alignment.Center),
+                visible = state.showMessage,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
                 Column(
-                    modifier = Modifier.align(Alignment.Center),
+                    modifier = Modifier,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(
@@ -115,7 +123,13 @@ fun SetsListScreen(
                         textAlign = TextAlign.Center
                     )
                 }
-            } else {
+            }
+            AnimatedVisibility(
+                modifier = Modifier.fillMaxSize(),
+                visible = !state.showMessage,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
@@ -127,8 +141,8 @@ fun SetsListScreen(
                         itemContent = { _: Int, setView: SetView ->
                             SetCardItem(
                                 setView = setView,
-                                onClick = {
-                                    onOpenSet(setView.id)
+                                onLongClick = {
+                                    onShowListOptionsBottomSheet(setView.id)
                                 },
                                 onOpenDemonstrationVideo = { videoId: String ->
                                     onOpenYoutubeApp(videoId)
@@ -146,22 +160,55 @@ fun SetsListScreen(
             }
         }
     }
+    if (state.showListOptionsBottomSheet) {
+        ListOptionsBottomSheet(
+            title = state.selectedSet?.exerciseView?.name.orEmpty(),
+            bottomSheetOptions = listOf(
+                BottomSheetOption(
+                    id = BottomSheetSetOptions.EDIT,
+                    text = stringResource(R.string.bottom_sheet_options_edit),
+                    iconRes = R.drawable.ic_edit
+
+                ),
+                BottomSheetOption(
+                    id = BottomSheetSetOptions.DELETE,
+                    text = stringResource(R.string.bottom_sheet_options_delete),
+                    iconRes = R.drawable.ic_delete
+                )
+            ),
+            onClickOptionItem = { bottomSheetSetOptions: BottomSheetSetOptions ->
+                when (bottomSheetSetOptions) {
+                    BottomSheetSetOptions.EDIT -> onEditSet(state.selectedSet?.id.orZero())
+                    BottomSheetSetOptions.DELETE -> onDeleteSet(state.selectedSet?.id.orZero())
+                }
+            },
+            onDismiss = {
+                onHideListOptionsBottomSheet()
+            }
+        )
+    }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SetCardItem(
     setView: SetView,
-    onClick: () -> Unit,
+    onLongClick: () -> Unit,
     onOpenDemonstrationVideo: (videoId: String) -> Unit,
-    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit
+    onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = Dimens.Space.space_20dp)
-            .clickable {
-                onClick()
-            },
+            .combinedClickable(
+                onClick = {
+
+                },
+                onLongClick = {
+                    onLongClick()
+                }
+            ),
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -261,8 +308,42 @@ fun SetCardItem(
 @Composable
 fun IconWithText(
     @DrawableRes drawableRes: Int?,
+    labelAndDescription: AnnotatedString
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = Dimens.Space.space_20dp,
+                bottom = Dimens.Space.space_20dp,
+                end = Dimens.Space.space_20dp
+            ),
+        verticalAlignment = Alignment.Top
+    ) {
+        drawableRes?.let {
+            Icon(
+                modifier = Modifier
+                    .padding(top = Dimens.Space.space_2dp)
+                    .size(Dimens.Space.space_16dp),
+                painter = painterResource(id = it),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.width(Dimens.Space.space_12dp))
+        }
+        Text(
+            text = labelAndDescription,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = Styles.CaptionNormal,
+        )
+    }
+}
+
+@Composable
+fun IconWithText(
+    @DrawableRes drawableRes: Int?,
     labelAndDescription: AnnotatedString,
-    onClickText: (() -> Unit)? = null
+    onClickText: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -287,10 +368,8 @@ fun IconWithText(
         }
         Text(
             modifier = Modifier
-                .clickable(enabled = onClickText != null) {
-                    if (onClickText != null) {
-                        onClickText()
-                    }
+                .clickable {
+                    onClickText()
                 },
             text = labelAndDescription,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -372,10 +451,10 @@ fun SetsListScreenPreview() {
                 videoId = "12345667",
                 isEditable = true
             ),
-            weight = 12.0,
+            weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
             completed = false,
-            restingTime = 60.0
+            restingTime = 60
         ),
         SetView(
             id = 0,
@@ -393,10 +472,10 @@ fun SetsListScreenPreview() {
                 videoId = "12345667",
                 isEditable = true
             ),
-            weight = 12.0,
+            weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
             completed = false,
-            restingTime = 60.0
+            restingTime = 60
         ),
         SetView(
             id = 0,
@@ -414,10 +493,10 @@ fun SetsListScreenPreview() {
                 videoId = "12345667",
                 isEditable = true
             ),
-            weight = 12.0,
+            weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
             completed = false,
-            restingTime = 60.0
+            restingTime = 60
         )
     )
     ZeMarombaTheme {
@@ -427,9 +506,6 @@ fun SetsListScreenPreview() {
                 trainingName = "Semana 09 - Dia 02"
             ),
             onNavigateBack = {
-
-            },
-            onOpenSet = {
 
             },
             onCreateSet = {
@@ -442,6 +518,18 @@ fun SetsListScreenPreview() {
 
             },
             onCompleteSet = { _, _ ->
+
+            },
+            onShowListOptionsBottomSheet = {
+
+            },
+            onHideListOptionsBottomSheet = {
+
+            },
+            onDeleteSet = {
+
+            },
+            onEditSet = {
 
             }
         )

@@ -2,6 +2,7 @@ package br.com.zemaromba.presentation.training_plan.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.repository.SetRepository
 import br.com.zemaromba.domain.repository.TrainingRepository
 import br.com.zemaromba.presentation.training_plan.screen.state.SetListState
@@ -56,4 +57,31 @@ class SetListViewModel @Inject constructor(
         }
     }
 
+    fun showListOptionsBottomSheet(setId: Long) {
+        val selectedSet = _state.value.setListView.find {
+            it.id == setId
+        }
+        _state.update {
+            it.copy(
+                selectedSet = selectedSet,
+                showListOptionsBottomSheet = true
+            )
+        }
+    }
+
+    fun hideListOptionsBottomSheet() {
+        _state.update {
+            it.copy(
+                selectedSet = null,
+                showListOptionsBottomSheet = false
+            )
+        }
+    }
+
+    fun deleteSet(setId: Long) {
+        viewModelScope.launch {
+            setRepository.deleteSet(id = setId)
+            hideListOptionsBottomSheet()
+        }
+    }
 }

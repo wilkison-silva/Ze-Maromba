@@ -6,6 +6,7 @@
     <string name="whats_your_name">Como podemos chamar você?</string>
     <string name="dont_you_worry_you_can_change_your_name_later">Não se preocupe, você poderá mudar esta informação depois.</string>
     <string name="next">Avançar</string>
+    <string name="button_finish">Finalizar</string>
     <string name="chest">Peitoral</string>
     <string name="dorsal">Dorsal</string>
     <string name="deltoides">Deltoides</string>
@@ -41,6 +42,7 @@
     <string name="fab_new_training_plan">Plano de treino</string>
     <string name="fab_new_training">Criar treino</string>
     <string name="title_exercises">Exercícios</string>
+    <string name="title_select_exercise">Selecione um exercício</string>
     <string name="title_hello">"Olá, "</string>
     <string name="my_training_plans">Planos de Treinos</string>
     <string name="exercises">Exercícios</string>
@@ -72,4 +74,15 @@
     <string name="set_completed">Concluído</string>
     <string name="set_to_be_completed">Concluir exercício</string>
     <string name="add_exercise">Adicionar exercício</string>
+    <string name="title_config_exercise">Configure o exercício</string>
+    <string name="label_input_text_series">Séries</string>
+    <string name="label_input_text_observation">Observação</string>
+    <string name="label_input_text_repetitions">Repetições</string>
+    <string name="label_input_text_weight">Peso (Kg)</string>
+    <string name="label_input_text_resting_time">Descanso (s)</string>
+    <string name="message_add_observation_if_needed">Adicione aqui uma observação se precisar</string>
+    <string name="exercise_details_fill_later">Preencher depois</string>
+    <string name="bottom_sheet_options_edit">Editar</string>
+    <string name="bottom_sheet_options_delete">Excluir</string>
+    <string name="bottom_sheet_options_close">Fechar</string>
 </resources>

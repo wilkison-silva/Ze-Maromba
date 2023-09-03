@@ -28,16 +28,15 @@ import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingPlanManagem
 
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,
-    width: Int,
     openYoutube: (videoId: String) -> Unit,
+    onCreateNewSet: (trainingId: Long, setId: Long) -> Unit
 ) {
     navigation(
         startDestination = TrainingPlanRouter.TrainingPlanListScreen.route,
         route = TrainingPlanRouter.TrainingPlanGraph.route
     ) {
         composableWithTransitionAnimation(
-            route = TrainingPlanRouter.TrainingPlanListScreen.route,
-            width = width
+            route = TrainingPlanRouter.TrainingPlanListScreen.route
         ) {
             val viewModel: TrainingPlanListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -62,7 +61,6 @@ fun NavGraphBuilder.trainingPlanGraph(
         }
         composableWithTransitionAnimation(
             route = TrainingPlanRouter.TrainingPlanManagementScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingPlanRouter.trainingPlanId) {
                     type = NavType.LongType
@@ -113,7 +111,6 @@ fun NavGraphBuilder.trainingPlanGraph(
         }
         composableWithTransitionAnimation(
             route = TrainingPlanRouter.TrainingsListScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingPlanRouter.trainingPlanId) {
                     type = NavType.LongType
@@ -170,7 +167,6 @@ fun NavGraphBuilder.trainingPlanGraph(
 
         composableWithTransitionAnimation(
             route = TrainingRouter.TrainingManagementScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingRouter.trainingId) {
                     type = NavType.LongType
@@ -235,7 +231,6 @@ fun NavGraphBuilder.trainingPlanGraph(
 
         composableWithTransitionAnimation(
             route = TrainingRouter.SetsListScreen.route,
-            width = width,
             arguments = listOf(
                 navArgument(name = TrainingRouter.trainingId) {
                     type = NavType.LongType
@@ -272,11 +267,14 @@ fun NavGraphBuilder.trainingPlanGraph(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
-                onOpenSet = {
-
+                onShowListOptionsBottomSheet = { setId ->
+                    viewModel.showListOptionsBottomSheet(setId = setId)
+                },
+                onHideListOptionsBottomSheet = {
+                    viewModel.hideListOptionsBottomSheet()
                 },
                 onCreateSet = {
-
+                    onCreateNewSet(trainingId, 0)
                 },
                 onOpenSettings = {
                     navController.navigate(
@@ -291,6 +289,13 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onCompleteSet = { setId, isCompleted ->
                     viewModel.completeSet(setId = setId, isCompleted = isCompleted)
+                },
+                onEditSet = { setId: Long ->
+                    viewModel.hideListOptionsBottomSheet()
+                    onCreateNewSet(trainingId, setId)
+                },
+                onDeleteSet = { setId: Long ->
+                    viewModel.deleteSet(setId = setId)
                 }
             )
         }

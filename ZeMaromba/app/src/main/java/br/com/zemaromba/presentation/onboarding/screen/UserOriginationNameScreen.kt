@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
@@ -111,7 +112,7 @@ fun UserOriginationNameScreen(
                 style = Styles.BodyTextNormal
             )
             Spacer(modifier = Modifier.height(Dimens.Space.space_64dp))
-            Button(
+            PrimaryButton(
                 modifier = Modifier
                     .padding(
                         start = Dimens.Space.space_20dp,
@@ -119,26 +120,10 @@ fun UserOriginationNameScreen(
                         bottom = Dimens.Space.space_40dp
                     )
                     .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                onClick = { onNextButtonClick() }
-            ) {
-                if (state.showLoadingOnButton) {
-                    CircularProgressIndicator(
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.size(Dimens.Space.space_24dp),
-                        strokeWidth = Dimens.Space.space_3dp
-                    )
-                } else {
-                    Text(
-                        text = buttonTitle,
-                        style = Styles.ButtonText1,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
+                onClick = { onNextButtonClick() },
+                title = buttonTitle,
+                showLoading = state.showLoadingOnButton
+            )
         }
     }
 }

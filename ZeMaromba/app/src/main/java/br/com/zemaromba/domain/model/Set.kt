@@ -8,10 +8,10 @@ data class Set(
     val quantity: Int,
     val repetitions: Int,
     val exercise: Exercise,
-    val weight: Double,
+    val weight: Int,
     val observation: String,
     val completed: Boolean,
-    val restingTime: Double
+    val restingTime: Int
 ) {
     fun toSetView(): SetView {
         return SetView(

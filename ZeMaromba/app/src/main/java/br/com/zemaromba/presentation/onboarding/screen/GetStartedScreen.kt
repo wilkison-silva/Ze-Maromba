@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
@@ -83,7 +84,7 @@ fun GetStartedScreen(
                     style = Styles.BodyTextNormal
                 )
             }
-            Button(
+            PrimaryButton(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(
@@ -92,16 +93,9 @@ fun GetStartedScreen(
                         bottom = Dimens.Space.space_40dp
                     )
                     .fillMaxWidth(),
-                onClick = {
-                    onButtonClick()
-                }
-            ) {
-                Text(
-                    text = buttonTitle,
-                    textAlign = TextAlign.Center,
-                    style = Styles.ButtonText1
-                )
-            }
+                onClick = { onButtonClick() },
+                title = buttonTitle
+            )
         }
     }
 }

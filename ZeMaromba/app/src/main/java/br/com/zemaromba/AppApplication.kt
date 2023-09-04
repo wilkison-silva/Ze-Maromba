@@ -54,7 +54,6 @@ class AppApplication : Application() {
                         }
                 }
 
-
                 //CRIA PLANO DE TREINO COM ID = 1
                 trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrão em 60 dias"))
 

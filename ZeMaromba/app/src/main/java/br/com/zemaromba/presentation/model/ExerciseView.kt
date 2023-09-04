@@ -10,5 +10,6 @@ data class ExerciseView(
     @StringRes val muscleGroups: List<Int>,
     val urlLink: String?,
     val videoId: String?,
-    val isEditable: Boolean
+    val mayExclude: Boolean,
+    val isNativeFromApp: Boolean
 )

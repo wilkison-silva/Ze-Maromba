@@ -20,7 +20,9 @@ data class ExerciseEntity(
     @ColumnInfo(name = "video_id")
     val videoId: String?,
     @ColumnInfo(name = "editable")
-    val isEditable: Boolean,
+    val mayExclude: Boolean,
+    @ColumnInfo(name = "native_from_app")
+    val isNativeFromApp: Boolean,
 ) {
     fun toExercise(exercisesAndMuscleGroup: List<ExerciseAndMuscleGroupEntity>): Exercise {
         val muscleGroupList = mutableListOf<MuscleGroup>()
@@ -38,7 +40,8 @@ data class ExerciseEntity(
             muscleGroupList = muscleGroupList,
             urlLink = this.urlLink,
             videoId = this.videoId,
-            isEditable = this.isEditable
+            mayExclude = this.mayExclude,
+            isNativeFromApp = this.isNativeFromApp
         )
     }
 }

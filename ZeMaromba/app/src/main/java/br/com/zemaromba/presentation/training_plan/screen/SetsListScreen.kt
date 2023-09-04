@@ -449,7 +449,8 @@ fun SetsListScreenPreview() {
                 ),
                 urlLink = "12345667",
                 videoId = "12345667",
-                isEditable = true
+                mayExclude = true,
+                isNativeFromApp = true
             ),
             weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
@@ -470,7 +471,8 @@ fun SetsListScreenPreview() {
                 ),
                 urlLink = "12345667",
                 videoId = "12345667",
-                isEditable = true
+                mayExclude = true,
+                isNativeFromApp = true
             ),
             weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",
@@ -491,7 +493,8 @@ fun SetsListScreenPreview() {
                 ),
                 urlLink = "12345667",
                 videoId = "12345667",
-                isEditable = true
+                mayExclude = true,
+                isNativeFromApp = true
             ),
             weight = 12,
             observation = "Lorem ipsum dolor Bla bla What im doing here, urusai desu Primeira série com peso maximo depois drop-set",

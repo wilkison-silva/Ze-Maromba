@@ -340,7 +340,8 @@ fun ExercisesListScreenPreview() {
             ),
             urlLink = "www.youtube.com.br",
             videoId = "123344",
-            isEditable = true
+            mayExclude = true,
+            isNativeFromApp = true
         ),
         ExerciseView(
             id = 1,
@@ -349,7 +350,8 @@ fun ExercisesListScreenPreview() {
             muscleGroups = listOf(R.string.biceps),
             urlLink = null,
             videoId = null,
-            isEditable = true
+            mayExclude = true,
+            isNativeFromApp = true
         ),
         ExerciseView(
             id = 2,
@@ -358,7 +360,8 @@ fun ExercisesListScreenPreview() {
             muscleGroups = listOf(R.string.triceps),
             urlLink = null,
             videoId = null,
-            isEditable = true
+            mayExclude = true,
+            isNativeFromApp = true
         ),
         ExerciseView(
             id = 3,
@@ -367,7 +370,8 @@ fun ExercisesListScreenPreview() {
             muscleGroups = listOf(R.string.chest, R.string.triceps),
             urlLink = null,
             videoId = null,
-            isEditable = true
+            mayExclude = true,
+            isNativeFromApp = true
         ),
     )
     ZeMarombaTheme {

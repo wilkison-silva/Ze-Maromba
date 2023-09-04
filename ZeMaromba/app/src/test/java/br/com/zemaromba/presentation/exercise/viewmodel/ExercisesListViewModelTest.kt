@@ -422,7 +422,7 @@ class ExercisesListViewModelTest {
             muscleGroupList = listOf(MuscleGroup.BICEPS),
             urlLink = null,
             videoId = null,
-            isEditable = true
+            mayExclude = true
         ),
         Exercise(
             id = 1,
@@ -431,7 +431,7 @@ class ExercisesListViewModelTest {
             muscleGroupList = listOf(MuscleGroup.BICEPS, MuscleGroup.FOREARM),
             urlLink = null,
             videoId = null,
-            isEditable = true
+            mayExclude = true
         ),
         Exercise(
             id = 2,
@@ -440,7 +440,7 @@ class ExercisesListViewModelTest {
             muscleGroupList = listOf(MuscleGroup.ABDUCTORS, MuscleGroup.LUMBAR, MuscleGroup.GLUTES),
             urlLink = null,
             videoId = null,
-            isEditable = true
+            mayExclude = true
         )
     )
 }

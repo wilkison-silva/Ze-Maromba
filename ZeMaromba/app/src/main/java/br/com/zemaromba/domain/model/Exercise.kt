@@ -10,7 +10,8 @@ data class Exercise(
     val muscleGroupList: List<MuscleGroup>,
     val urlLink: String?,
     val videoId: String?,
-    val isEditable: Boolean
+    val mayExclude: Boolean,
+    val isNativeFromApp: Boolean
 ) {
     fun toExerciseView(): ExerciseView {
         return ExerciseView(
@@ -20,7 +21,8 @@ data class Exercise(
             muscleGroups = this.muscleGroupList.map { muscleGroup -> muscleGroup.nameRes },
             urlLink = this.urlLink,
             videoId = this.videoId,
-            isEditable = this.isEditable
+            mayExclude = this.mayExclude,
+            isNativeFromApp = this.isNativeFromApp
         )
     }
 }

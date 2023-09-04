@@ -270,7 +270,8 @@ fun ExerciseDetailsScreenPreview() {
                     ),
                     urlLink = null,
                     videoId = null,
-                    isEditable = false
+                    mayExclude = false,
+                    isNativeFromApp = true
                 )
             ),
             onNavigateBack = {

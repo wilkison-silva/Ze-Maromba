@@ -39,7 +39,8 @@ class ExercisesRepositoryImpl @Inject constructor(
         muscleGroupList: List<MuscleGroup>,
         urlLink: String?,
         videoId: String?,
-        isEditable: Boolean
+        mayExclude: Boolean,
+        isNativeFromApp: Boolean
     ) {
         if (id.orZero() == 0L) {
             exerciseDao.insertExerciseWithMuscleGroupRef(
@@ -49,7 +50,8 @@ class ExercisesRepositoryImpl @Inject constructor(
                     isFavorite = false,
                     urlLink = urlLink,
                     videoId = videoId,
-                    isEditable = isEditable
+                    mayExclude = mayExclude,
+                    isNativeFromApp = isNativeFromApp
                 ),
                 muscleGroupList = muscleGroupList
             )
@@ -61,7 +63,9 @@ class ExercisesRepositoryImpl @Inject constructor(
                     isFavorite = false,
                     urlLink = urlLink,
                     videoId = videoId,
-                    isEditable = isEditable
+                    mayExclude = mayExclude,
+                    isNativeFromApp = isNativeFromApp
+
                 ),
                 muscleGroupList = muscleGroupList
             )

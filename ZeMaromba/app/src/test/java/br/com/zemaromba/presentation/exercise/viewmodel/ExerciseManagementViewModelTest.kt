@@ -92,7 +92,7 @@ class ExerciseManagementViewModelTest {
                     muscleGroupList = listOf(selectedMuscleGroup),
                     videoId = null,
                     urlLink = null,
-                    isEditable = true
+                    mayExclude = true
                 )
             }.returns(Unit)
             viewModel.onEvent(event = ExerciseManagementEvents.OnEnterName(exerciseName = name))
@@ -184,6 +184,6 @@ class ExerciseManagementViewModelTest {
         muscleGroupList = listOf(MuscleGroup.BICEPS),
         videoId = "fakeId",
         urlLink = "fakeurl",
-        isEditable = true
+        mayExclude = true
     )
 }

@@ -3,13 +3,13 @@ package br.com.zemaromba
 import android.app.Application
 import br.com.zemaromba.common.extensions.convertJsonFileToString
 import br.com.zemaromba.common.extensions.isDatabaseCreated
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.parseJsonStringToClassObject
-import br.com.zemaromba.data.sources.local.database.dao.ExerciseAndMuscleDao
+import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.data.sources.local.database.dao.SetDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingPlanDao
-import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.model.ExerciseDTO
 import br.com.zemaromba.data.model.SetEntity
 import br.com.zemaromba.data.model.TrainingEntity
@@ -35,9 +35,6 @@ class AppApplication : Application() {
     @Inject
     lateinit var exerciseDao: ExerciseDao
 
-    @Inject
-    lateinit var exerciseAndMuscleDao: ExerciseAndMuscleDao
-
     override fun onCreate() {
         super.onCreate()
 
@@ -52,19 +49,19 @@ class AppApplication : Application() {
                 context.convertJsonFileToString(fileName = fileName)?.let { jsonFileString ->
                     parseJsonStringToClassObject<List<ExerciseDTO>>(jsonFileString)
                         .forEach { exerciseDto ->
-                            val id =
-                                exerciseDao.insert(exerciseEntity = exerciseDto.toExerciseEntity())
-                            exerciseDto.muscleGroups.forEach { muscleGroup ->
-                                exerciseAndMuscleDao.insert(
-                                    exerciseAndMuscleRef = ExerciseAndMuscleGroupEntity(
-                                        exerciseId = id,
-                                        muscleName = muscleGroup.name
-                                    )
-                                )
-                            }
+                            exerciseDao.insertExerciseWithMuscleGroupRef(
+                                exerciseEntity = exerciseDto.toExerciseEntity(),
+                                onExerciseInserted = { exerciseId ->
+                                    exerciseDto.muscleGroups.map {
+                                        ExerciseAndMuscleGroupEntity(
+                                            exerciseId = exerciseId,
+                                            muscleName = it.name
+                                        )
+                                    }
+                                }
+                            )
                         }
                 }
-
 
                 //CRIA PLANO DE TREINO COM ID = 1
                 trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrão em 60 dias"))

@@ -16,7 +16,8 @@ interface ExercisesRepository {
         muscleGroupList: List<MuscleGroup>,
         urlLink: String?,
         videoId: String?,
-        isEditable: Boolean
+        mayExclude: Boolean,
+        isNativeFromApp: Boolean
     )
 
     fun deleteExercise(exerciseId: Long): Flow<Boolean>

@@ -16,7 +16,8 @@ data class ExerciseDTO(
             isFavorite = false,
             urlLink = this.videoUrl,
             videoId = this.videoId,
-            isEditable = false
+            mayExclude = false,
+            isNativeFromApp = true
         )
     }
 }

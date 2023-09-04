@@ -77,7 +77,7 @@ fun ExerciseManagementScreen(
                 onBackIconClick = { onNavigateBack() },
                 actions = {
                     state.exerciseId?.let {
-                        if (state.isEditable) {
+                        if (state.mayExclude) {
                             IconButton(
                                 modifier = Modifier,
                                 onClick = {

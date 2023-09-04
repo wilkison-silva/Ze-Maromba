@@ -69,7 +69,8 @@ class ExerciseManagementViewModel @Inject constructor(
                         muscleGroupList = muscleGroupList,
                         urlLink = _state.value.urlLink,
                         videoId = _state.value.videoId,
-                        isEditable = _state.value.exerciseId == null
+                        mayExclude = !_state.value.isNativeFromApp,
+                        isNativeFromApp = _state.value.isNativeFromApp
                     )
                     _state.update { it.copy(navigateBack = true) }
                 }
@@ -111,7 +112,8 @@ class ExerciseManagementViewModel @Inject constructor(
                         it.copy(
                             exerciseId = exercise.id,
                             name = exercise.name,
-                            isEditable = exercise.isEditable,
+                            mayExclude = exercise.mayExclude,
+                            isNativeFromApp = exercise.isNativeFromApp,
                             urlLink = exercise.urlLink,
                             videoId = exercise.videoId,
                             muscleGroupCheckBoxStates = it.muscleGroupCheckBoxStates.toMutableList().apply {

@@ -1,14 +1,11 @@
 package br.com.zemaromba.data.sources.local.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
 import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.model.ExerciseEntity
-import br.com.zemaromba.data.model.relations.SetWithExercise
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,9 +16,6 @@ interface ExerciseDao {
 
     @Update
     suspend fun update(exerciseEntity: ExerciseEntity)
-
-    @Delete
-    suspend fun delete(exerciseEntity: ExerciseEntity)
 
     @Query("DELETE FROM Exercise WHERE Exercise.exercise_id = :exerciseId")
     suspend fun deleteById(exerciseId: Long): Int
@@ -38,9 +32,5 @@ interface ExerciseDao {
             "ON Exercise.exercise_id = ExerciseAndMuscleGroup.exercise_id " +
             "WHERE Exercise.exercise_id = :exerciseId")
     suspend fun getExerciseWithMuscleGroups(exerciseId: Long): Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>
-
-    @Transaction
-    @Query("SELECT * FROM Exercise")
-    fun getSetWithExercise(): Flow<List<SetWithExercise>>
 
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.data.sources.local.database.AppDatabase
-import br.com.zemaromba.data.sources.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.data.sources.local.database.dao.SetDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
@@ -39,12 +38,6 @@ object CoreDataModule {
     @Singleton
     fun provideExerciseDao(appDatabase: AppDatabase): ExerciseDao {
         return appDatabase.exerciseDao
-    }
-
-    @Provides
-    @Singleton
-    fun provideExerciseAndMuscleDao(appDatabase: AppDatabase): ExerciseAndMuscleDao {
-        return appDatabase.exerciseAndMuscleDao
     }
 
     @Provides

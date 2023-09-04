@@ -1,9 +1,7 @@
 package br.com.zemaromba.data.repository
 
 import br.com.zemaromba.common.extensions.orZero
-import br.com.zemaromba.data.sources.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
-import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.model.ExerciseEntity
 import br.com.zemaromba.domain.model.Exercise
 import br.com.zemaromba.domain.model.MuscleGroup
@@ -14,8 +12,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 
 class ExercisesRepositoryImpl @Inject constructor(
-    private val exerciseDao: ExerciseDao,
-    private val exerciseAndMuscleDao: ExerciseAndMuscleDao
+    private val exerciseDao: ExerciseDao
 ) : ExercisesRepository {
 
     override fun getExercisesWithMuscles(): Flow<List<Exercise>> = callbackFlow {
@@ -45,7 +42,7 @@ class ExercisesRepositoryImpl @Inject constructor(
         isEditable: Boolean
     ) {
         if (id.orZero() == 0L) {
-            val exerciseId = exerciseDao.insert(
+            exerciseDao.insertExerciseWithMuscleGroupRef(
                 exerciseEntity = ExerciseEntity(
                     id = id.orZero(),
                     name = name,
@@ -53,18 +50,11 @@ class ExercisesRepositoryImpl @Inject constructor(
                     urlLink = urlLink,
                     videoId = videoId,
                     isEditable = isEditable
-                )
+                ),
+                muscleGroupList = muscleGroupList
             )
-            muscleGroupList.forEach {
-                exerciseAndMuscleDao.insert(
-                    ExerciseAndMuscleGroupEntity(
-                        exerciseId = exerciseId,
-                        muscleName = it.name
-                    )
-                )
-            }
         } else {
-            exerciseDao.update(
+            exerciseDao.updateExerciseWithMuscleGroupRef(
                 exerciseEntity = ExerciseEntity(
                     id = id.orZero(),
                     name = name,
@@ -72,17 +62,9 @@ class ExercisesRepositoryImpl @Inject constructor(
                     urlLink = urlLink,
                     videoId = videoId,
                     isEditable = isEditable
-                )
+                ),
+                muscleGroupList = muscleGroupList
             )
-            exerciseAndMuscleDao.deleteByExerciseId(exerciseId = id.orZero())
-            muscleGroupList.forEach {
-                exerciseAndMuscleDao.insert(
-                    ExerciseAndMuscleGroupEntity(
-                        exerciseId = id.orZero(),
-                        muscleName = it.name
-                    )
-                )
-            }
         }
     }
 

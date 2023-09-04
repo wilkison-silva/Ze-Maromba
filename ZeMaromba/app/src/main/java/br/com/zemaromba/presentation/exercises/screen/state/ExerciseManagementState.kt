@@ -12,6 +12,7 @@ data class ExerciseManagementState(
         )
     },
     val isEditable: Boolean = false,
+    val isOriginalFromApp: Boolean = false,
     val urlLink: String? = null,
     val videoId: String? = null,
     val navigateBack: Boolean = false,

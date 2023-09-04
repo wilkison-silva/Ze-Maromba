@@ -7,7 +7,6 @@ import androidx.room.Transaction
 import androidx.room.Update
 import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.model.ExerciseEntity
-import br.com.zemaromba.domain.model.MuscleGroup
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -36,7 +35,7 @@ interface ExerciseDao {
     suspend fun getExerciseWithMuscleGroups(exerciseId: Long): Map<ExerciseEntity, List<ExerciseAndMuscleGroupEntity>>
 
     @Insert
-    suspend fun insertMuscleGroupRef(exerciseAndMuscleRef: List<ExerciseAndMuscleGroupEntity>)
+    suspend fun insertMuscleGroupRef(exerciseAndMuscleRefList: List<ExerciseAndMuscleGroupEntity>)
 
     @Query("DELETE FROM ExerciseAndMuscleGroup WHERE ExerciseAndMuscleGroup.exercise_id = :exerciseId")
     suspend fun deleteExerciseAndMuscleGroupRefByExerciseId(exerciseId: Long)
@@ -44,34 +43,23 @@ interface ExerciseDao {
     @Transaction
     suspend fun insertExerciseWithMuscleGroupRef(
         exerciseEntity: ExerciseEntity,
-        muscleGroupList: List<MuscleGroup>
+        onExerciseInserted: (exerciseId: Long) -> List<ExerciseAndMuscleGroupEntity>,
     ) {
         val exerciseId = insert(exerciseEntity = exerciseEntity)
-        muscleGroupList.map {
-            ExerciseAndMuscleGroupEntity(
-                exerciseId = exerciseId,
-                muscleName = it.name
-            )
-        }.also {
-            insertMuscleGroupRef(exerciseAndMuscleRef = it)
-        }
+        val exerciseAndMuscleRefList = onExerciseInserted(exerciseId)
+        insertMuscleGroupRef(exerciseAndMuscleRefList = exerciseAndMuscleRefList)
     }
 
     @Transaction
     suspend fun updateExerciseWithMuscleGroupRef(
         exerciseEntity: ExerciseEntity,
-        muscleGroupList: List<MuscleGroup>
+        onExerciseUpdated: () -> List<ExerciseAndMuscleGroupEntity>,
     ) {
         update(exerciseEntity = exerciseEntity)
         deleteExerciseAndMuscleGroupRefByExerciseId(exerciseId = exerciseEntity.id)
-        muscleGroupList.map {
-            ExerciseAndMuscleGroupEntity(
-                exerciseId = exerciseEntity.id,
-                muscleName = it.name
-            )
-        }.also {
-            insertMuscleGroupRef(exerciseAndMuscleRef = it)
-        }
+        val exerciseAndMuscleRefList = onExerciseUpdated()
+        insertMuscleGroupRef(exerciseAndMuscleRefList = exerciseAndMuscleRefList)
+
     }
 
 }

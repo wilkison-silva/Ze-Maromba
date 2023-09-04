@@ -1,6 +1,7 @@
 package br.com.zemaromba.data.repository
 
 import br.com.zemaromba.common.extensions.orZero
+import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.data.model.ExerciseEntity
 import br.com.zemaromba.domain.model.Exercise
@@ -27,10 +28,12 @@ class ExercisesRepositoryImpl @Inject constructor(
     }
 
     override fun getExerciseWithMuscles(exerciseId: Long): Flow<Exercise> = flow {
-         emit(exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
-            .map { exerciseAndMusclesMap ->
-                exerciseAndMusclesMap.key.toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
-            }.first())
+        emit(
+            exerciseDao.getExerciseWithMuscleGroups(exerciseId = exerciseId)
+                .map { exerciseAndMusclesMap ->
+                    exerciseAndMusclesMap.key.toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
+                }.first()
+        )
     }
 
     override suspend fun createExercise(
@@ -53,7 +56,14 @@ class ExercisesRepositoryImpl @Inject constructor(
                     mayExclude = mayExclude,
                     isNativeFromApp = isNativeFromApp
                 ),
-                muscleGroupList = muscleGroupList
+                onExerciseInserted = { exerciseId: Long ->
+                    muscleGroupList.map {
+                        ExerciseAndMuscleGroupEntity(
+                            exerciseId = exerciseId,
+                            muscleName = it.name
+                        )
+                    }
+                }
             )
         } else {
             exerciseDao.updateExerciseWithMuscleGroupRef(
@@ -67,7 +77,14 @@ class ExercisesRepositoryImpl @Inject constructor(
                     isNativeFromApp = isNativeFromApp
 
                 ),
-                muscleGroupList = muscleGroupList
+                onExerciseUpdated = {
+                    muscleGroupList.map {
+                        ExerciseAndMuscleGroupEntity(
+                            exerciseId = id.orZero(),
+                            muscleName = it.name
+                        )
+                    }
+                }
             )
         }
     }

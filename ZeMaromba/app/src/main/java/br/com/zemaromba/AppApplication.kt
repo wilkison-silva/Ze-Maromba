@@ -3,7 +3,9 @@ package br.com.zemaromba
 import android.app.Application
 import br.com.zemaromba.common.extensions.convertJsonFileToString
 import br.com.zemaromba.common.extensions.isDatabaseCreated
+import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.parseJsonStringToClassObject
+import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.data.sources.local.database.dao.SetDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
@@ -49,7 +51,14 @@ class AppApplication : Application() {
                         .forEach { exerciseDto ->
                             exerciseDao.insertExerciseWithMuscleGroupRef(
                                 exerciseEntity = exerciseDto.toExerciseEntity(),
-                                muscleGroupList = exerciseDto.muscleGroups
+                                onExerciseInserted = { exerciseId ->
+                                    exerciseDto.muscleGroups.map {
+                                        ExerciseAndMuscleGroupEntity(
+                                            exerciseId = exerciseId,
+                                            muscleName = it.name
+                                        )
+                                    }
+                                }
                             )
                         }
                 }

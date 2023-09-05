@@ -65,13 +65,13 @@ class MainActivity : ComponentActivity() {
                         exerciseGraph(
                             navController = navController,
                             openYoutube = { videoId: String ->
-                                openVideoInYoutubeOrBrowser(videoId = videoId)
+                                openVideoInYoutubeOrBrowser(urlLink = videoId)
                             }
                         )
                         trainingPlanGraph(
                             navController = navController,
                             openYoutube = { videoId: String ->
-                                openVideoInYoutubeOrBrowser(videoId = videoId)
+                                openVideoInYoutubeOrBrowser(urlLink = videoId)
                             },
                             onCreateNewSet = { trainingId, setId ->
                                 navController.navigate(

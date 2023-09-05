@@ -24,6 +24,14 @@ class ExerciseManagementViewModel @Inject constructor(
     private val _state = MutableStateFlow(ExerciseManagementState())
     val state = _state.asStateFlow()
 
+    fun updateUrlLinkValue(url: String) {
+        _state.update {
+            it.copy(
+                urlLink = url
+            )
+        }
+    }
+
     fun onEvent(event: ExerciseManagementEvents) {
         when (event) {
             is ExerciseManagementEvents.OnEnterName -> {

@@ -117,6 +117,9 @@ fun NavGraphBuilder.exerciseGraph(
                     viewModel
                         .onEvent(event = ExerciseManagementEvents.OnEnterName(exerciseName = newName))
                 },
+                onChangeUrlLink = {
+                    viewModel.updateUrlLinkValue(url = it)
+                },
                 onSaveExercise = {
                     viewModel.onEvent(event = ExerciseManagementEvents.OnSaveExercise)
                 },

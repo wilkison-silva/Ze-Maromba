@@ -265,7 +265,7 @@ fun SetCardItem(
                     caption = setView.observation
                 )
             )
-            setView.exerciseView.videoId?.let { videoIdOnYoutube ->
+            setView.exerciseView.urlLink?.let { videoIdOnYoutube ->
                 IconWithText(
                     drawableRes = R.drawable.ic_play_video_youtube,
                     labelAndDescription = AnnotatedString(text = stringResource(R.string.set_how_to_do_this_exercise)),

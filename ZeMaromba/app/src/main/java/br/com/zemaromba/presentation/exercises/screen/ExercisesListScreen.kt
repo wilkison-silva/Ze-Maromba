@@ -157,7 +157,7 @@ fun ExercisesListScreen(
                                 muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
                                     stringResource(id = muscleNameResource)
                                 }.joinToString(separator = ", "),
-                                videoId = exerciseView.videoId,
+                                urlLink = exerciseView.urlLink,
                                 favoriteIcon = exerciseView.favoriteIcon,
                                 onClick = {
                                     onOpenExercise(exerciseView.id)
@@ -194,7 +194,7 @@ fun ExercisesListScreen(
 fun ExerciseCardItem(
     exerciseName: String,
     muscleGroups: String,
-    videoId: String?,
+    urlLink: String?,
     favoriteIcon: Int,
     onClick: () -> Unit,
     onFavoriteClick: () -> Unit,
@@ -243,7 +243,7 @@ fun ExerciseCardItem(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = Styles.CaptionNormal
                 )
-                videoId?.let { videoIdOnYoutube ->
+                urlLink?.let { urlLink ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -268,7 +268,7 @@ fun ExerciseCardItem(
                                     end = Dimens.Space.space_20dp
                                 )
                                 .clickable {
-                                    onOpenDemonstrationVideo(videoIdOnYoutube)
+                                    onOpenDemonstrationVideo(urlLink)
                                 },
                             text = stringResource(R.string.exercise_demonstration_video),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,

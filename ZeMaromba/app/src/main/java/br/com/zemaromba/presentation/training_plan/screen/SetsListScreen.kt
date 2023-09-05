@@ -349,12 +349,16 @@ fun IconWithText(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(
                 start = Dimens.Space.space_20dp,
-                bottom = Dimens.Space.space_20dp,
-                end = Dimens.Space.space_20dp
-            ),
+                end = Dimens.Space.space_20dp,
+                bottom = Dimens.Space.space_20dp
+            )
+            .clip(shape = MaterialTheme.shapes.extraSmall)
+            .clickable {
+                onClickText()
+            }
+            .padding(all = Dimens.Space.space_2dp),
         verticalAlignment = Alignment.Top
     ) {
         drawableRes?.let {
@@ -369,10 +373,7 @@ fun IconWithText(
             Spacer(modifier = Modifier.width(Dimens.Space.space_12dp))
         }
         Text(
-            modifier = Modifier
-                .clickable {
-                    onClickText()
-                },
+            modifier = Modifier,
             text = labelAndDescription,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = Styles.CaptionNormal,

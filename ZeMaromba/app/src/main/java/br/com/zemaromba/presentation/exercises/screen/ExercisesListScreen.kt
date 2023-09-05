@@ -246,12 +246,16 @@ fun ExerciseCardItem(
                 urlLink?.let { urlLink ->
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(
                                 start = Dimens.Space.space_20dp,
                                 end = Dimens.Space.space_64dp,
                                 bottom = Dimens.Space.space_20dp
-                            ),
+                            )
+                            .clip(shape = MaterialTheme.shapes.extraSmall)
+                            .clickable {
+                                onOpenDemonstrationVideo(urlLink)
+                            }
+                            .padding(all = Dimens.Space.space_2dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -262,14 +266,10 @@ fun ExerciseCardItem(
                         )
                         Text(
                             modifier = Modifier
-                                .fillMaxWidth()
                                 .padding(
                                     start = Dimens.Space.space_20dp,
                                     end = Dimens.Space.space_20dp
-                                )
-                                .clickable {
-                                    onOpenDemonstrationVideo(urlLink)
-                                },
+                                ),
                             text = stringResource(R.string.exercise_demonstration_video),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = Styles.CaptionNormal

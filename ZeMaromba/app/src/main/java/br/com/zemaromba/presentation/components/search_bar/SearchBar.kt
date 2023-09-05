@@ -1,5 +1,8 @@
 package br.com.zemaromba.presentation.components.search_bar
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -57,7 +60,11 @@ fun SearchBar(
             )
         },
         trailingIcon = {
-            if (state.text.isNotBlank()) {
+            AnimatedVisibility(
+                visible = state.text.isNotBlank(),
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
                 Icon(
                     modifier = Modifier
                         .padding(end = Dimens.Space.space_12dp)

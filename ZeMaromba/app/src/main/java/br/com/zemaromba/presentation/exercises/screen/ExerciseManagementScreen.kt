@@ -162,40 +162,41 @@ fun ExerciseManagementScreen(
                 }
             )
 
-            if (!state.isNativeFromApp) {
-                TextField(
-                    modifier = Modifier
-                        .padding(
-                            start = Dimens.Space.space_20dp,
-                            end = Dimens.Space.space_20dp,
-                            bottom = Dimens.Space.space_12dp
-                        )
-                        .fillMaxWidth(),
-                    value = state.urlLink.orEmpty(),
-                    onValueChange = {
-                        onChangeUrlLink(it)
-                    },
-                    label = {
-                        Text(text = stringResource(R.string.video_url))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            modifier = Modifier.size(Dimens.Space.space_20dp),
-                            painter = painterResource(id = R.drawable.ic_play_video_youtube),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    },
-                    singleLine = true,
-                    maxLines = 1,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = { focusManager.clearFocus() }
+
+            TextField(
+                modifier = Modifier
+                    .padding(
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_12dp
                     )
+                    .fillMaxWidth(),
+                enabled = !state.isNativeFromApp,
+                value = state.urlLink.orEmpty(),
+                onValueChange = {
+                    onChangeUrlLink(it)
+                },
+                label = {
+                    Text(text = stringResource(R.string.video_url))
+                },
+                leadingIcon = {
+                    Icon(
+                        modifier = Modifier.size(Dimens.Space.space_20dp),
+                        painter = painterResource(id = R.drawable.ic_play_video_youtube),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                },
+                singleLine = true,
+                maxLines = 1,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus() }
                 )
-            }
+            )
+
 
             AnimatedVisibility(visible = state.showMessageAboutMuscleGroup) {
                 CardInfo(

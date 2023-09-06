@@ -38,6 +38,7 @@ import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelectorBottomSheet
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
+import br.com.zemaromba.presentation.components.loaders.SimpleLoader
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.components.search_bar.SearchBar
@@ -131,48 +132,61 @@ fun ExercisesListScreen(
                     ),
                 thickness = Dimens.Thickness.thickness_0dp
             )
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
-                modifier = Modifier
-            ) {
-                if (state.showNothingFound) {
-                    item {
-                        CardInfo(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = Dimens.Space.space_20dp),
-                            icon = R.drawable.ic_warning,
-                            message = stringResource(R.string.card_info_found_no_exercises),
-                            borderColor = MaterialTheme.colorScheme.secondary,
-                            surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
-                            onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                    }
-                } else {
-                    itemsIndexed(
-                        items = state.exercisesList,
-                        itemContent = { _: Int, exerciseView: ExerciseView ->
-                            ExerciseCardItem(
-                                exerciseName = exerciseView.name,
-                                muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
-                                    stringResource(id = muscleNameResource)
-                                }.joinToString(separator = ", "),
-                                urlLink = exerciseView.urlLink,
-                                favoriteIcon = exerciseView.favoriteIcon,
-                                onClick = {
-                                    onOpenExercise(exerciseView.id)
-                                },
-                                onFavoriteClick = {
-                                    onFavoriteExercise(exerciseView.id, exerciseView.favoriteIcon)
-                                },
-                                onOpenDemonstrationVideo = { videoId ->
-                                    onOpenYoutubeApp(videoId)
-                                }
+
+            if (state.isLoading) {
+                SimpleLoader(
+                    modifier = Modifier
+                        .padding(top = Dimens.Space.space_20dp)
+                        .fillMaxSize(),
+                    message = stringResource(R.string.message_loading_content)
+                )
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
+                    modifier = Modifier
+                ) {
+                    if (state.showNothingFound) {
+                        item {
+                            CardInfo(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = Dimens.Space.space_20dp),
+                                icon = R.drawable.ic_warning,
+                                message = stringResource(R.string.card_info_found_no_exercises),
+                                borderColor = MaterialTheme.colorScheme.secondary,
+                                surfaceColor = MaterialTheme.colorScheme.secondaryContainer,
+                                onSurfaceColor = MaterialTheme.colorScheme.onSecondaryContainer
                             )
                         }
-                    )
-                    item {
-                        Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                    } else {
+                        itemsIndexed(
+                            items = state.exercisesList,
+                            itemContent = { _: Int, exerciseView: ExerciseView ->
+                                ExerciseCardItem(
+                                    exerciseName = exerciseView.name,
+                                    muscleGroups = exerciseView.muscleGroups.map { muscleNameResource ->
+                                        stringResource(id = muscleNameResource)
+                                    }.joinToString(separator = ", "),
+                                    urlLink = exerciseView.urlLink,
+                                    favoriteIcon = exerciseView.favoriteIcon,
+                                    onClick = {
+                                        onOpenExercise(exerciseView.id)
+                                    },
+                                    onFavoriteClick = {
+                                        onFavoriteExercise(
+                                            exerciseView.id,
+                                            exerciseView.favoriteIcon
+                                        )
+                                    },
+                                    onOpenDemonstrationVideo = { videoId ->
+                                        onOpenYoutubeApp(videoId)
+                                    }
+                                )
+                            }
+                        )
+                        item {
+                            Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                        }
                     }
                 }
             }

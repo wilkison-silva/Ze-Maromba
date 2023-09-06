@@ -35,6 +35,7 @@ object Dimens {
         val space_48dp = 48.dp
         val space_64dp = 64.dp
         val space_96dp = 96.dp
+        val space_108dp = 108.dp
         val space_128dp = 128.dp
         val space_200dp = 200.dp
         val space_256dp = 256.dp

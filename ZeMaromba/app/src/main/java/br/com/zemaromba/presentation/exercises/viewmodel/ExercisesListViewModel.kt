@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -40,11 +41,19 @@ class ExercisesListViewModel @Inject constructor(
     init {
         exercisesRepository
             .getExercisesWithMuscles()
+            .onStart {
+                _state.update {
+                    it.copy(isLoading = true)
+                }
+            }
             .onEach { exercises ->
                 _state.update {
-                    it.copy(exercisesList = exercises.map { exercise ->
-                        exercise.toExerciseView()
-                    })
+                    it.copy(
+                        exercisesList = exercises.map { exercise ->
+                            exercise.toExerciseView()
+                        },
+                        isLoading = false
+                    )
                 }
                 applyFilters()
             }.launchIn(viewModelScope)
@@ -291,7 +300,8 @@ data class ExercisesListState(
             isSelected = false
         )
     },
-    val showNothingFound: Boolean = false
+    val showNothingFound: Boolean = false,
+    val isLoading: Boolean = true
 )
 
 data class ExerciseFilterChip(

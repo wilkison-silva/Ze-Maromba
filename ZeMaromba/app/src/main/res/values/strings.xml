@@ -86,4 +86,5 @@
     <string name="bottom_sheet_options_edit">Editar</string>
     <string name="bottom_sheet_options_delete">Excluir</string>
     <string name="bottom_sheet_options_close">Fechar</string>
+    <string name="message_loading_content">Carregando conteúdo...</string>
 </resources>

@@ -29,7 +29,10 @@ class TrainingPlanListViewModel @Inject constructor(
             .onEach { trainingPlanList ->
                 val trainingPlanViewList = trainingPlanList.map { it.toTrainingPlanView() }
                 _state.update {
-                    it.copy(trainingPlanList = trainingPlanViewList)
+                    it.copy(
+                        trainingPlanList = trainingPlanViewList,
+                        isLoading = false
+                    )
                 }
             }.launchIn(viewModelScope)
     }

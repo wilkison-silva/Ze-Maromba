@@ -42,9 +42,12 @@ class ExercisesListViewModel @Inject constructor(
             .getExercisesWithMuscles()
             .onEach { exercises ->
                 _state.update {
-                    it.copy(exercisesList = exercises.map { exercise ->
-                        exercise.toExerciseView()
-                    })
+                    it.copy(
+                        exercisesList = exercises.map { exercise ->
+                            exercise.toExerciseView()
+                        },
+                        isLoading = false
+                    )
                 }
                 applyFilters()
             }.launchIn(viewModelScope)
@@ -291,7 +294,8 @@ data class ExercisesListState(
             isSelected = false
         )
     },
-    val showNothingFound: Boolean = false
+    val showNothingFound: Boolean = false,
+    val isLoading: Boolean = true
 )
 
 data class ExerciseFilterChip(

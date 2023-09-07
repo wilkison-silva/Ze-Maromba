@@ -31,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -45,6 +46,7 @@ import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.bottom_sheet.ListOptionsBottomSheet
 import br.com.zemaromba.presentation.components.button.PrimaryButton
+import br.com.zemaromba.presentation.components.loaders.SimpleLoader
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
@@ -91,70 +93,80 @@ fun SetsListScreen(
             )
         }
     ) { contentPadding ->
-        Box(
-            modifier = Modifier
-                .padding(contentPadding)
-                .fillMaxSize()
-        ) {
-            AnimatedVisibility(
-                modifier = Modifier.align(Alignment.Center),
-                visible = state.showMessage,
-                enter = fadeIn(),
-                exit = fadeOut()
+        if (state.isLoadingTraining || state.isRetrievingSets) {
+            SimpleLoader(
+                modifier = Modifier
+                    .padding(contentPadding)
+                    .padding(top = Dimens.Space.space_48dp)
+                    .fillMaxSize(),
+                message = stringResource(R.string.message_loading_content)
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .padding(contentPadding)
+                    .fillMaxSize()
             ) {
-                Column(
-                    modifier = Modifier,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                AnimatedVisibility(
+                    modifier = Modifier.align(Alignment.Center),
+                    visible = state.showMessage,
+                    enter = fadeIn(),
+                    exit = fadeOut()
                 ) {
-                    Icon(
-                        modifier = Modifier.size(Dimens.Space.space_200dp),
-                        painter = painterResource(id = R.drawable.ic_dumbell_wrist),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                    Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Dimens.Space.space_64dp),
-                        text = stringResource(id = R.string.how_about_create_your_first_set),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = Styles.Title5Bold,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-            AnimatedVisibility(
-                modifier = Modifier.fillMaxSize(),
-                visible = !state.showMessage,
-                enter = fadeIn(),
-                exit = fadeOut()
-            ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
-                ) {
-                    item {
-                        Spacer(modifier = Modifier.height(Dimens.Space.space_24dp))
+                    Column(
+                        modifier = Modifier,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(Dimens.Space.space_200dp),
+                            painter = painterResource(id = R.drawable.ic_dumbell_wrist),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Dimens.Space.space_64dp),
+                            text = stringResource(id = R.string.how_about_create_your_first_set),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = Styles.Title5Bold,
+                            textAlign = TextAlign.Center
+                        )
                     }
-                    itemsIndexed(items = state.setListView,
-                        itemContent = { _: Int, setView: SetView ->
-                            SetCardItem(
-                                setView = setView,
-                                onLongClick = {
-                                    onShowListOptionsBottomSheet(setView.id)
-                                },
-                                onOpenDemonstrationVideo = { videoId: String ->
-                                    onOpenYoutubeApp(videoId)
-                                },
-                                onCompleteSet = { setId: Long, isCompleted: Boolean ->
-                                    onCompleteSet(setId, isCompleted)
-                                }
-                            )
+                }
+                AnimatedVisibility(
+                    modifier = Modifier.fillMaxSize(),
+                    visible = !state.showMessage,
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
+                    ) {
+                        item {
+                            Spacer(modifier = Modifier.height(Dimens.Space.space_24dp))
                         }
-                    )
-                    item {
-                        Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                        itemsIndexed(items = state.setListView,
+                            itemContent = { _: Int, setView: SetView ->
+                                SetCardItem(
+                                    setView = setView,
+                                    onLongClick = {
+                                        onShowListOptionsBottomSheet(setView.id)
+                                    },
+                                    onOpenDemonstrationVideo = { videoId: String ->
+                                        onOpenYoutubeApp(videoId)
+                                    },
+                                    onCompleteSet = { setId: Long, isCompleted: Boolean ->
+                                        onCompleteSet(setId, isCompleted)
+                                    }
+                                )
+                            }
+                        )
+                        item {
+                            Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                        }
                     }
                 }
             }
@@ -199,8 +211,9 @@ fun SetCardItem(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(horizontal = Dimens.Space.space_20dp)
+            .fillMaxWidth()
+            .clip(shape = MaterialTheme.shapes.small)
             .combinedClickable(
                 onClick = {
 
@@ -263,7 +276,7 @@ fun SetCardItem(
                     caption = setView.observation
                 )
             )
-            setView.exerciseView.videoId?.let { videoIdOnYoutube ->
+            setView.exerciseView.urlLink?.let { videoIdOnYoutube ->
                 IconWithText(
                     drawableRes = R.drawable.ic_play_video_youtube,
                     labelAndDescription = AnnotatedString(text = stringResource(R.string.set_how_to_do_this_exercise)),
@@ -347,12 +360,16 @@ fun IconWithText(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(
                 start = Dimens.Space.space_20dp,
-                bottom = Dimens.Space.space_20dp,
-                end = Dimens.Space.space_20dp
-            ),
+                end = Dimens.Space.space_20dp,
+                bottom = Dimens.Space.space_20dp
+            )
+            .clip(shape = MaterialTheme.shapes.extraSmall)
+            .clickable {
+                onClickText()
+            }
+            .padding(all = Dimens.Space.space_2dp),
         verticalAlignment = Alignment.Top
     ) {
         drawableRes?.let {
@@ -367,10 +384,7 @@ fun IconWithText(
             Spacer(modifier = Modifier.width(Dimens.Space.space_12dp))
         }
         Text(
-            modifier = Modifier
-                .clickable {
-                    onClickText()
-                },
+            modifier = Modifier,
             text = labelAndDescription,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = Styles.CaptionNormal,
@@ -448,7 +462,6 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667",
                 mayExclude = true,
                 isNativeFromApp = true
             ),
@@ -470,7 +483,6 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667",
                 mayExclude = true,
                 isNativeFromApp = true
             ),
@@ -492,7 +504,6 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667",
                 mayExclude = true,
                 isNativeFromApp = true
             ),

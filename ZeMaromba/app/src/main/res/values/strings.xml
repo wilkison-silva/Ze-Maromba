@@ -26,6 +26,7 @@
     <string name="message_select_at_least_one_muscle_group">Selecione pelo menos 1 grupo muscular, assim seu exercício fica completo!</string>
     <string name="filter_muscle_group">Grupos musculares:</string>
     <string name="name">Nome</string>
+    <string name="video_url">Url de vídeo</string>
     <string name="example_exercise">Ex: Supino inclinado</string>
     <string name="hint_put_your_name">Informar nome!</string>
     <string name="button_continue">Continuar</string>
@@ -85,4 +86,5 @@
     <string name="bottom_sheet_options_edit">Editar</string>
     <string name="bottom_sheet_options_delete">Excluir</string>
     <string name="bottom_sheet_options_close">Fechar</string>
+    <string name="message_loading_content">Carregando conteúdo...</string>
 </resources>

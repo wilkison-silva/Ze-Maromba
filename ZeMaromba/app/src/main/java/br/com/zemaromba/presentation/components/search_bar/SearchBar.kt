@@ -1,7 +1,12 @@
 package br.com.zemaromba.presentation.components.search_bar
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,6 +28,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 
@@ -47,10 +53,29 @@ fun SearchBar(
         },
         leadingIcon = {
             Icon(
+                modifier = Modifier.padding(start = Dimens.Space.space_12dp),
                 painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
+        },
+        trailingIcon = {
+            AnimatedVisibility(
+                visible = state.text.isNotBlank(),
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .padding(end = Dimens.Space.space_12dp)
+                        .clickable {
+                            onTextChange("")
+                        },
+                    painter = painterResource(id = R.drawable.ic_cancel),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         },
         placeholder = {
             Text(

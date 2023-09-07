@@ -6,7 +6,6 @@ data class ExerciseDTO(
     val id: Long,
     val name: String,
     val videoUrl: String,
-    val videoId: String,
     val muscleGroups: List<MuscleGroup>
 ) {
     fun toExerciseEntity(): ExerciseEntity {
@@ -15,7 +14,6 @@ data class ExerciseDTO(
             name = this.name,
             isFavorite = false,
             urlLink = this.videoUrl,
-            videoId = this.videoId,
             mayExclude = false,
             isNativeFromApp = true
         )

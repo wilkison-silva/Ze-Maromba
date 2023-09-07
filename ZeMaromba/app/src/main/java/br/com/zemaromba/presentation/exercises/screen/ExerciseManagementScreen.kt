@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -45,6 +46,7 @@ import br.com.zemaromba.presentation.exercises.screen.state.MuscleGroupCheckBoxS
 fun ExerciseManagementScreen(
     state: ExerciseManagementState,
     onChangeName: (newName: String) -> Unit,
+    onChangeUrlLink: (url: String) -> Unit,
     onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
     onSaveExercise: () -> Unit,
     onDeleteExercise: () -> Unit,
@@ -121,8 +123,13 @@ fun ExerciseManagementScreen(
             val focusManager = LocalFocusManager.current
             TextField(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = Dimens.Space.space_20dp),
+                    .padding(
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp,
+                        top = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_12dp
+                    )
+                    .fillMaxWidth(),
                 value = state.name,
                 onValueChange = {
                     onChangeName(it)
@@ -130,17 +137,22 @@ fun ExerciseManagementScreen(
                 label = {
                     Text(text = stringResource(R.string.name))
                 },
+                leadingIcon = {
+                    Icon(
+                        modifier = Modifier.size(Dimens.Space.space_20dp),
+                        painter = painterResource(id = R.drawable.ic_dumbell),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                },
                 placeholder = {
                     Text(text = stringResource(R.string.example_exercise))
                 },
                 singleLine = true,
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done,
+                    imeAction = ImeAction.Next,
                     capitalization = KeyboardCapitalization.Sentences
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = { focusManager.clearFocus() }
                 ),
                 isError = state.nameIsBlank,
                 supportingText = {
@@ -149,6 +161,42 @@ fun ExerciseManagementScreen(
                     }
                 }
             )
+
+
+            TextField(
+                modifier = Modifier
+                    .padding(
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_12dp
+                    )
+                    .fillMaxWidth(),
+                enabled = !state.isNativeFromApp,
+                value = state.urlLink.orEmpty(),
+                onValueChange = {
+                    onChangeUrlLink(it)
+                },
+                label = {
+                    Text(text = stringResource(R.string.video_url))
+                },
+                leadingIcon = {
+                    Icon(
+                        modifier = Modifier.size(Dimens.Space.space_20dp),
+                        painter = painterResource(id = R.drawable.ic_play_video_youtube),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                },
+                singleLine = true,
+                maxLines = 1,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus() }
+                )
+            )
+
 
             AnimatedVisibility(visible = state.showMessageAboutMuscleGroup) {
                 CardInfo(
@@ -167,7 +215,7 @@ fun ExerciseManagementScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        top = Dimens.Space.space_20dp,
+                        top = Dimens.Space.space_12dp,
                         start = Dimens.Space.space_20dp,
                         end = Dimens.Space.space_20dp
                     ),
@@ -181,7 +229,8 @@ fun ExerciseManagementScreen(
                     .padding(
                         top = Dimens.Space.space_20dp,
                         start = Dimens.Space.space_20dp,
-                        end = Dimens.Space.space_20dp
+                        end = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_20dp
                     ),
                 muscleGroupCheckBoxStateList = state.muscleGroupCheckBoxStates,
                 onMuscleGroupSelected = { index, isSelected ->
@@ -304,6 +353,9 @@ fun ExercisesManagementScreenPreview() {
             },
             onChangeName = {
                 state.value = state.value.copy(name = it)
+            },
+            onChangeUrlLink = {
+                state.value = state.value.copy(urlLink = it)
             },
             onMuscleGroupSelection = { id, isSelected ->
                 state.value = state.value.copy(

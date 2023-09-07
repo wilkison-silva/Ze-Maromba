@@ -31,12 +31,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.components.loaders.SimpleLoader
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
@@ -84,55 +86,66 @@ fun TrainingListScreen(
             }
         },
     ) { contentPadding ->
-        if (state.showMessage) {
-            Box(
+        if (state.isLoadingTrainingList || state.isRetrievingTrainingPlan) {
+            SimpleLoader(
                 modifier = Modifier
-                    .padding(contentPadding)
+                    .padding(paddingValues = contentPadding)
+                    .padding(top = Dimens.Space.space_48dp)
                     .fillMaxSize()
-            ) {
-                Column(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        modifier = Modifier.size(Dimens.Space.space_200dp),
-                        painter = painterResource(id = R.drawable.ic_training_list),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                    Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Dimens.Space.space_64dp),
-                        text = stringResource(id = R.string.how_about_create_your_first_training),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.Center,
-                        style = Styles.Title5Bold
-                    )
-                }
-            }
+                ,
+                message = stringResource(R.string.message_loading_content)
+            )
         } else {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
-                modifier = Modifier.padding(paddingValues = contentPadding)
-            ) {
-                item {
-                    Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
-                }
-                itemsIndexed(
-                    items = state.trainingSummaryViewList,
-                    itemContent = { _: Int, trainingSummaryView: TrainingSummaryView ->
-                        TrainingCardItem(
-                            trainingSummaryView = trainingSummaryView,
-                            onClick = {
-                                onOpenTraining(trainingSummaryView.id)
-                            }
+            if (state.showMessage) {
+                Box(
+                    modifier = Modifier
+                        .padding(contentPadding)
+                        .fillMaxSize()
+                ) {
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(Dimens.Space.space_200dp),
+                            painter = painterResource(id = R.drawable.ic_training_list),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Dimens.Space.space_64dp),
+                            text = stringResource(id = R.string.how_about_create_your_first_training),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            textAlign = TextAlign.Center,
+                            style = Styles.Title5Bold
                         )
                     }
-                )
-                item {
-                    Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                }
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
+                    modifier = Modifier.padding(paddingValues = contentPadding)
+                ) {
+                    item {
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
+                    }
+                    itemsIndexed(
+                        items = state.trainingSummaryViewList,
+                        itemContent = { _: Int, trainingSummaryView: TrainingSummaryView ->
+                            TrainingCardItem(
+                                trainingSummaryView = trainingSummaryView,
+                                onClick = {
+                                    onOpenTraining(trainingSummaryView.id)
+                                }
+                            )
+                        }
+                    )
+                    item {
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                    }
                 }
             }
         }
@@ -145,8 +158,9 @@ fun TrainingCardItem(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(horizontal = Dimens.Space.space_20dp)
+            .fillMaxWidth()
+            .clip(shape = MaterialTheme.shapes.small)
             .clickable {
                 onClick()
             },

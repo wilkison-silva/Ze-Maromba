@@ -9,7 +9,6 @@ data class ExerciseView(
     @DrawableRes val favoriteIcon: Int,
     @StringRes val muscleGroups: List<Int>,
     val urlLink: String?,
-    val videoId: String?,
     val mayExclude: Boolean,
     val isNativeFromApp: Boolean
 )

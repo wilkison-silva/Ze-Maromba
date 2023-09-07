@@ -462,7 +462,6 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667",
                 mayExclude = true,
                 isNativeFromApp = true
             ),
@@ -484,7 +483,6 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667",
                 mayExclude = true,
                 isNativeFromApp = true
             ),
@@ -506,7 +504,6 @@ fun SetsListScreenPreview() {
                     MuscleGroup.FOREARM.nameRes
                 ),
                 urlLink = "12345667",
-                videoId = "12345667",
                 mayExclude = true,
                 isNativeFromApp = true
             ),

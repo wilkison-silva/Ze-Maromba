@@ -52,7 +52,6 @@ class ExercisesRepositoryImpl @Inject constructor(
                     name = name,
                     isFavorite = false,
                     urlLink = urlLink,
-                    videoId = videoId,
                     mayExclude = mayExclude,
                     isNativeFromApp = isNativeFromApp
                 ),
@@ -72,7 +71,6 @@ class ExercisesRepositoryImpl @Inject constructor(
                     name = name,
                     isFavorite = false,
                     urlLink = urlLink,
-                    videoId = videoId,
                     mayExclude = mayExclude,
                     isNativeFromApp = isNativeFromApp
 

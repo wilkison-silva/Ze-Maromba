@@ -9,7 +9,6 @@ data class Exercise(
     val isFavorite: Boolean,
     val muscleGroupList: List<MuscleGroup>,
     val urlLink: String?,
-    val videoId: String?,
     val mayExclude: Boolean,
     val isNativeFromApp: Boolean
 ) {
@@ -20,7 +19,6 @@ data class Exercise(
             favoriteIcon = if (this.isFavorite) R.drawable.ic_star_filled else R.drawable.ic_star_border,
             muscleGroups = this.muscleGroupList.map { muscleGroup -> muscleGroup.nameRes },
             urlLink = this.urlLink,
-            videoId = this.videoId,
             mayExclude = this.mayExclude,
             isNativeFromApp = this.isNativeFromApp
         )

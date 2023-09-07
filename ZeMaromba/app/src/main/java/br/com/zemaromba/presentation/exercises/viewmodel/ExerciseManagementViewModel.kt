@@ -123,7 +123,6 @@ class ExerciseManagementViewModel @Inject constructor(
                             mayExclude = exercise.mayExclude,
                             isNativeFromApp = exercise.isNativeFromApp,
                             urlLink = exercise.urlLink,
-                            videoId = exercise.videoId,
                             muscleGroupCheckBoxStates = it.muscleGroupCheckBoxStates.toMutableList().apply {
                                 this.forEachIndexed { index, muscleGroupCheckBox ->
                                     exercise.muscleGroupList.find { muscleGroup ->

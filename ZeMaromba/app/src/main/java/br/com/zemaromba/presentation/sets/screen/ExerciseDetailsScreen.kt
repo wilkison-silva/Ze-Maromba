@@ -269,7 +269,6 @@ fun ExerciseDetailsScreenPreview() {
                         MuscleGroup.FOREARM.nameRes
                     ),
                     urlLink = null,
-                    videoId = null,
                     mayExclude = false,
                     isNativeFromApp = true
                 )

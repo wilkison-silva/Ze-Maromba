@@ -355,7 +355,6 @@ fun ExercisesListScreenPreview() {
                 R.string.adductors
             ),
             urlLink = "www.youtube.com.br",
-            videoId = "123344",
             mayExclude = true,
             isNativeFromApp = true
         ),
@@ -365,7 +364,6 @@ fun ExercisesListScreenPreview() {
             favoriteIcon = R.drawable.ic_star_filled,
             muscleGroups = listOf(R.string.biceps),
             urlLink = null,
-            videoId = null,
             mayExclude = true,
             isNativeFromApp = true
         ),
@@ -375,7 +373,6 @@ fun ExercisesListScreenPreview() {
             favoriteIcon = R.drawable.ic_star_border,
             muscleGroups = listOf(R.string.triceps),
             urlLink = null,
-            videoId = null,
             mayExclude = true,
             isNativeFromApp = true
         ),
@@ -385,7 +382,6 @@ fun ExercisesListScreenPreview() {
             favoriteIcon = R.drawable.ic_star_border,
             muscleGroups = listOf(R.string.chest, R.string.triceps),
             urlLink = null,
-            videoId = null,
             mayExclude = true,
             isNativeFromApp = true
         ),

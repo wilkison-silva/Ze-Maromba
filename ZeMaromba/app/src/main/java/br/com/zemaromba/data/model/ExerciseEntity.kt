@@ -17,8 +17,6 @@ data class ExerciseEntity(
     val isFavorite: Boolean,
     @ColumnInfo(name = "url_video")
     val urlLink: String?,
-    @ColumnInfo(name = "video_id")
-    val videoId: String?,
     @ColumnInfo(name = "editable")
     val mayExclude: Boolean,
     @ColumnInfo(name = "native_from_app")
@@ -39,7 +37,6 @@ data class ExerciseEntity(
             isFavorite = this.isFavorite,
             muscleGroupList = muscleGroupList,
             urlLink = this.urlLink,
-            videoId = this.videoId,
             mayExclude = this.mayExclude,
             isNativeFromApp = this.isNativeFromApp
         )

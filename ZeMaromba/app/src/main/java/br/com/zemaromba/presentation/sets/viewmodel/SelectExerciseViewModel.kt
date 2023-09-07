@@ -42,9 +42,12 @@ class SelectExerciseViewModel @Inject constructor(
             .getExercisesWithMuscles()
             .onEach { exercises ->
                 _state.update {
-                    it.copy(exercisesList = exercises.map { exercise ->
-                        exercise.toExerciseView()
-                    })
+                    it.copy(
+                        exercisesList = exercises.map { exercise ->
+                            exercise.toExerciseView()
+                        },
+                        isLoading = false
+                    )
                 }
                 applyFilters()
             }.launchIn(viewModelScope)

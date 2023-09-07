@@ -99,48 +99,48 @@ fun ExercisesListScreen(
                 .padding(paddingValues = contentPadding)
                 .fillMaxWidth()
         ) {
-            SearchBar(
-                modifier = Modifier
-                    .padding(all = Dimens.Space.space_20dp)
-                    .fillMaxWidth(),
-                state = state.searchBarState,
-                onTextChange = {
-                    onSearch(it)
-                }
-            )
-            Text(
-                modifier = Modifier.padding(start = Dimens.Space.space_20dp),
-                text = stringResource(R.string.filter_by),
-                color = MaterialTheme.colorScheme.onSurface,
-                style = Styles.BodyTextNormal
-            )
-            FilterChipsGroup(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Dimens.Space.space_20dp),
-                exerciseFilters = state.exerciseFilters,
-                onSelected = { exerciseFilter ->
-                    onFilterChange(exerciseFilter)
-                }
-            )
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        horizontal = Dimens.Space.space_20dp,
-                        vertical = Dimens.Space.space_12dp
-                    ),
-                thickness = Dimens.Thickness.thickness_0dp
-            )
-
             if (state.isLoading) {
                 SimpleLoader(
                     modifier = Modifier
-                        .padding(top = Dimens.Space.space_20dp)
-                        .fillMaxSize(),
+                        .padding(top = Dimens.Space.space_48dp)
+                        .fillMaxSize()
+                    ,
                     message = stringResource(R.string.message_loading_content)
                 )
             } else {
+                SearchBar(
+                    modifier = Modifier
+                        .padding(all = Dimens.Space.space_20dp)
+                        .fillMaxWidth(),
+                    state = state.searchBarState,
+                    onTextChange = {
+                        onSearch(it)
+                    }
+                )
+                Text(
+                    modifier = Modifier.padding(start = Dimens.Space.space_20dp),
+                    text = stringResource(R.string.filter_by),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = Styles.BodyTextNormal
+                )
+                FilterChipsGroup(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Dimens.Space.space_20dp),
+                    exerciseFilters = state.exerciseFilters,
+                    onSelected = { exerciseFilter ->
+                        onFilterChange(exerciseFilter)
+                    }
+                )
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = Dimens.Space.space_20dp,
+                            vertical = Dimens.Space.space_12dp
+                        ),
+                    thickness = Dimens.Thickness.thickness_0dp
+                )
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
                     modifier = Modifier

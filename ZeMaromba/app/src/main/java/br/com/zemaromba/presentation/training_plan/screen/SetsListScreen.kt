@@ -46,6 +46,7 @@ import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.bottom_sheet.ListOptionsBottomSheet
 import br.com.zemaromba.presentation.components.button.PrimaryButton
+import br.com.zemaromba.presentation.components.loaders.SimpleLoader
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
@@ -92,70 +93,80 @@ fun SetsListScreen(
             )
         }
     ) { contentPadding ->
-        Box(
-            modifier = Modifier
-                .padding(contentPadding)
-                .fillMaxSize()
-        ) {
-            AnimatedVisibility(
-                modifier = Modifier.align(Alignment.Center),
-                visible = state.showMessage,
-                enter = fadeIn(),
-                exit = fadeOut()
+        if (state.isLoadingTraining || state.isRetrievingSets) {
+            SimpleLoader(
+                modifier = Modifier
+                    .padding(contentPadding)
+                    .padding(top = Dimens.Space.space_48dp)
+                    .fillMaxSize(),
+                message = stringResource(R.string.message_loading_content)
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .padding(contentPadding)
+                    .fillMaxSize()
             ) {
-                Column(
-                    modifier = Modifier,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                AnimatedVisibility(
+                    modifier = Modifier.align(Alignment.Center),
+                    visible = state.showMessage,
+                    enter = fadeIn(),
+                    exit = fadeOut()
                 ) {
-                    Icon(
-                        modifier = Modifier.size(Dimens.Space.space_200dp),
-                        painter = painterResource(id = R.drawable.ic_dumbell_wrist),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                    Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Dimens.Space.space_64dp),
-                        text = stringResource(id = R.string.how_about_create_your_first_set),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        style = Styles.Title5Bold,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-            AnimatedVisibility(
-                modifier = Modifier.fillMaxSize(),
-                visible = !state.showMessage,
-                enter = fadeIn(),
-                exit = fadeOut()
-            ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
-                ) {
-                    item {
-                        Spacer(modifier = Modifier.height(Dimens.Space.space_24dp))
+                    Column(
+                        modifier = Modifier,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(Dimens.Space.space_200dp),
+                            painter = painterResource(id = R.drawable.ic_dumbell_wrist),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = Dimens.Space.space_64dp),
+                            text = stringResource(id = R.string.how_about_create_your_first_set),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = Styles.Title5Bold,
+                            textAlign = TextAlign.Center
+                        )
                     }
-                    itemsIndexed(items = state.setListView,
-                        itemContent = { _: Int, setView: SetView ->
-                            SetCardItem(
-                                setView = setView,
-                                onLongClick = {
-                                    onShowListOptionsBottomSheet(setView.id)
-                                },
-                                onOpenDemonstrationVideo = { videoId: String ->
-                                    onOpenYoutubeApp(videoId)
-                                },
-                                onCompleteSet = { setId: Long, isCompleted: Boolean ->
-                                    onCompleteSet(setId, isCompleted)
-                                }
-                            )
+                }
+                AnimatedVisibility(
+                    modifier = Modifier.fillMaxSize(),
+                    visible = !state.showMessage,
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
+                    ) {
+                        item {
+                            Spacer(modifier = Modifier.height(Dimens.Space.space_24dp))
                         }
-                    )
-                    item {
-                        Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                        itemsIndexed(items = state.setListView,
+                            itemContent = { _: Int, setView: SetView ->
+                                SetCardItem(
+                                    setView = setView,
+                                    onLongClick = {
+                                        onShowListOptionsBottomSheet(setView.id)
+                                    },
+                                    onOpenDemonstrationVideo = { videoId: String ->
+                                        onOpenYoutubeApp(videoId)
+                                    },
+                                    onCompleteSet = { setId: Long, isCompleted: Boolean ->
+                                        onCompleteSet(setId, isCompleted)
+                                    }
+                                )
+                            }
+                        )
+                        item {
+                            Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
+                        }
                     }
                 }
             }

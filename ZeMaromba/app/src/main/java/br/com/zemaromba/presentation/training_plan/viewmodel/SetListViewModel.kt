@@ -2,7 +2,6 @@ package br.com.zemaromba.presentation.training_plan.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.repository.SetRepository
 import br.com.zemaromba.domain.repository.TrainingRepository
 import br.com.zemaromba.presentation.training_plan.screen.state.SetListState
@@ -28,7 +27,10 @@ class SetListViewModel @Inject constructor(
             .getTrainingById(id = trainingId)
             .onEach { training ->
                 _state.update {
-                    it.copy(trainingName = training.name)
+                    it.copy(
+                        trainingName = training.name,
+                        isLoadingTraining = false
+                    )
                 }
             }.launchIn(viewModelScope)
     }
@@ -42,7 +44,10 @@ class SetListViewModel @Inject constructor(
                         val setsView = sets.map { set ->
                             set.toSetView()
                         }
-                        it.copy(setListView = setsView)
+                        it.copy(
+                            setListView = setsView,
+                            isRetrievingSets = false
+                        )
                     }
                 }.launchIn(viewModelScope)
         }

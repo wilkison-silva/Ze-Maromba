@@ -30,7 +30,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", 'DATABASE_NAME', "\"ze_maromba_app_database_debug\""
+            buildConfigField "String", 'DATABASE_NAME', "\"ze_maromba_app_database_release\""
         }
     }
     compileOptions {

@@ -28,6 +28,7 @@
     <string name="name">Nome</string>
     <string name="video_url">Url de vídeo</string>
     <string name="example_exercise">Ex: Supino inclinado</string>
+    <string name="first_name">Seu primeiro nome</string>
     <string name="hint_put_your_name">Informar nome!</string>
     <string name="button_continue">Continuar</string>
     <string name="button_cancel">Cancelar</string>
@@ -55,7 +56,6 @@
     <string name="button_title_filter">Filtrar</string>
     <string name="card_info_found_no_exercises">Uma pena. Não encontramos nada parecido com os filtros aplicados.</string>
     <string name="exercise_demonstration_video">Demonstração do exercício.</string>
-    <string name="training_plan">Plano de treino</string>
     <string name="how_about_create_your_first_training_plan">Que tal criar seu primeiro plano de treino?</string>
     <string name="how_about_create_your_first_training">Nenhum treino ainda neste plano. Vamos criar um?</string>
     <string name="how_about_create_your_first_set">Nenhum exercício ainda neste treino. Vamos adicionar?</string>
@@ -86,5 +86,6 @@
     <string name="bottom_sheet_options_edit">Editar</string>
     <string name="bottom_sheet_options_delete">Excluir</string>
     <string name="bottom_sheet_options_close">Fechar</string>
-    <string name="message_loading_content">Carregando conteúdo...</string>
+    <string name="message_loading_content">Carregando conteúdo…</string>
+    <string name="settings">Configurações</string>
 </resources>

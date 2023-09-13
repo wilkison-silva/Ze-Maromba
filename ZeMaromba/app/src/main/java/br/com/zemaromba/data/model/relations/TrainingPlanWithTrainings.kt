@@ -2,7 +2,6 @@ package br.com.zemaromba.data.model.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import br.com.zemaromba.data.model.SetEntity
 import br.com.zemaromba.data.model.TrainingEntity
 import br.com.zemaromba.data.model.TrainingPlanEntity
 

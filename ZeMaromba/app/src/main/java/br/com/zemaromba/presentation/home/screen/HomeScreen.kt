@@ -48,7 +48,8 @@ import br.com.zemaromba.presentation.model.MenuHome
 @Composable
 fun HomeScreen(
     state: HomeState,
-    onNavigate: (menu: MenuHome) -> Unit
+    onNavigate: (menu: MenuHome) -> Unit,
+    onIconAccountSettingClick: () -> Unit
 ) {
 
     val verticalScrollState = rememberScrollState()
@@ -83,7 +84,7 @@ fun HomeScreen(
                     IconButton(
                         modifier = Modifier,
                         onClick = {
-
+                            onIconAccountSettingClick()
                         },
                         content = {
                             Icon(
@@ -245,6 +246,9 @@ fun HomeScreenPreview() {
             state = HomeState(userName = "Wilkison"),
             onNavigate = {
 
+            },
+            onIconAccountSettingClick = {
+                
             }
         )
     }

@@ -9,23 +9,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -40,7 +33,6 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.onboarding.screen.state.UserOriginationNameState
-import kotlinx.coroutines.delay
 
 @Composable
 fun UserOriginationNameScreen(
@@ -51,7 +43,6 @@ fun UserOriginationNameScreen(
     buttonTitle: String,
     onNextButtonClick: () -> Unit
 ) {
-    val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     Box(
         modifier = Modifier
@@ -71,14 +62,9 @@ fun UserOriginationNameScreen(
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
-            LaunchedEffect(Unit) {
-                delay(200)
-                focusRequester.requestFocus()
-            }
             OutlinedTextField(
                 modifier = Modifier
                     .padding(horizontal = Dimens.Space.space_32dp)
-                    .focusRequester(focusRequester)
                     .fillMaxWidth(),
                 value = state.name,
                 singleLine = true,

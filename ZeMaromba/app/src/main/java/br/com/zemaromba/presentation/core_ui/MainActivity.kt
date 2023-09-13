@@ -10,16 +10,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.navigation.router.ExerciseRouter
 import br.com.zemaromba.presentation.navigation.graph.exerciseGraph
-import br.com.zemaromba.presentation.model.MenuHome
-import br.com.zemaromba.presentation.navigation.graph.setGraph
-import br.com.zemaromba.presentation.navigation.router.HomeRouter
 import br.com.zemaromba.presentation.navigation.graph.homeGraph
-import br.com.zemaromba.presentation.navigation.router.OnBoardingRouter
 import br.com.zemaromba.presentation.navigation.graph.onBoardingGraph
-import br.com.zemaromba.presentation.navigation.router.TrainingPlanRouter
+import br.com.zemaromba.presentation.navigation.graph.setGraph
 import br.com.zemaromba.presentation.navigation.graph.trainingPlanGraph
+import br.com.zemaromba.presentation.navigation.router.HomeRouter
+import br.com.zemaromba.presentation.navigation.router.OnBoardingRouter
 import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,21 +44,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         )
-                        homeGraph(
-                            navigateTo = {
-                                when (it) {
-                                    MenuHome.TRAINING_PLAN_SCREEN -> {
-                                        navController.navigate(
-                                            route = TrainingPlanRouter.TrainingPlanGraph.route
-                                        )
-                                    }
-
-                                    MenuHome.EXERCISES_SCREEN -> {
-                                        navController.navigate(ExerciseRouter.ExerciseGraph.route)
-                                    }
-                                }
-                            }
-                        )
+                        homeGraph(navController = navController)
                         exerciseGraph(
                             navController = navController,
                             openYoutube = { videoId: String ->
@@ -84,9 +67,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         )
-                        setGraph(
-                            navController = navController,
-                        )
+                        setGraph(navController = navController)
                     }
                 }
             }

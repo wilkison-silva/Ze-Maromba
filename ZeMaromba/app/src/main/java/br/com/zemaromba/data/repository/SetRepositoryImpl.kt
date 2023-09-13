@@ -9,7 +9,6 @@ import br.com.zemaromba.domain.repository.SetRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
 
 class SetRepositoryImpl(
     private val setDao: SetDao,

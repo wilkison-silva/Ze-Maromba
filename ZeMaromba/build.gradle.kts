@@ -1,5 +1,5 @@
 plugins {
-    id("com.google.devtools.ksp") version "1.9.0-1.0.13" apply false
+    id(Dependencies.Google.DevTools.Ksp.plugin) version Dependencies.Google.DevTools.Ksp.version apply false
 }
 buildscript {
     repositories {
@@ -7,9 +7,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.48")
-        classpath("com.android.tools.build:gradle:8.1.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
+        classpath(Dependencies.Google.Dagger.Hilt.classpath)
+        classpath(Dependencies.Gradle.classpath)
+        classpath(Dependencies.Kotlin.classpath)
     }
 }
 tasks.register("clean", Delete::class) {

@@ -1,20 +1,20 @@
 plugins {
     id("com.android.application")
-    kotlin("android")
-    id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp")
+    id(Dependencies.Kotlin.plugin)
+    id(Dependencies.Google.Dagger.Hilt.plugin)
+    id(Dependencies.Google.DevTools.Ksp.plugin)
 }
 
 android {
-    namespace = "br.com.zemaromba"
-    compileSdk = 34
+    namespace = Dependencies.Project.nameSpace
+    compileSdk = Dependencies.Project.compileSdk
 
     defaultConfig {
-        applicationId = "br.com.zemaromba"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Dependencies.Project.applicationId
+        minSdk = Dependencies.Project.minSdk
+        targetSdk = Dependencies.Project.targetSdk
+        versionCode = Dependencies.Project.versionCode
+        versionName = Dependencies.Project.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -29,6 +29,9 @@ android {
                 name = "DATABASE_NAME",
                 value = "\"ze_maromba_app_database_debug\""
             )
+            manifestPlaceholders["app_name"] = "Zé Maromba Debug"
+            manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher_debug"
+            manifestPlaceholders["appIconRound"] = "@mipmap/ic_launcher_debug_round"
         }
         getByName("release") {
             isMinifyEnabled = false
@@ -42,6 +45,9 @@ android {
                 name = "DATABASE_NAME",
                 value = "\"ze_maromba_app_database_debug\""
             )
+            manifestPlaceholders["app_name"] = "Zé Maromba"
+            manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher"
+            manifestPlaceholders["appIconRound"] = "@mipmap/ic_launcher_round"
         }
     }
     compileOptions {
@@ -49,14 +55,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     buildFeatures {
         compose = true
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
+        kotlinCompilerExtensionVersion = Dependencies.Project.kotlinCompilerExtensionVersion
     }
     packaging {
         resources {
@@ -67,52 +73,69 @@ android {
 
 dependencies {
 
-    val kotlinBom = platform("org.jetbrains.kotlin:kotlin-bom:1.9.0")
+    //-- Kotlin Region
+    val kotlinBom = platform(Dependencies.Kotlin.implementationKotlinBom)
     implementation(kotlinBom)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-    val composeBom = platform("androidx.compose:compose-bom:2023.09.00")
+    //--End Region
+
+    //-- Android
+    implementation(Dependencies.Android.Lifecycle.implementationLifeCycleRuntime)
+    implementation(Dependencies.Android.Activity.implementation)
+    implementation(Dependencies.Android.Lifecycle.implementationLifeCycleRuntimeCompose)
+    //TODO Remover quando esta lib estiver inserida na ComposeBom
+    //Android Compose Navigation
+    implementation(Dependencies.Android.Navigation.implementation)
+    //--End Region
+
+    //-- End Region
+
+    //-- Compose Region
+    val composeBom = platform(Dependencies.Android.Compose.Bom.implementation)
     implementation(composeBom)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(composeBom)
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation(Dependencies.Android.Compose.Ui.implementationUi)
+    implementation(Dependencies.Android.Compose.Ui.implementationUiGraphics)
+    implementation(Dependencies.Android.Compose.Ui.implementationUiToolingPreview)
+    implementation(Dependencies.Android.Compose.Material.implementationMaterial)
+    //--End Region
 
-    //HILT
-    implementation("com.google.dagger:hilt-android:2.48")
-    ksp("com.google.dagger:hilt-compiler:2.48")
-    ksp("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    //-- Dagger Hilt Region
+    implementation(Dependencies.Google.Dagger.Hilt.implementationHiltAndroid)
+    ksp(Dependencies.Google.Dagger.Hilt.implementationHiltCompiler)
+    ksp(Dependencies.Android.Hilt.implementationHiltCompiler)
+    implementation(Dependencies.Android.Hilt.implementationHiltNavigationCompose)
+    //-- End Region
 
-    // Room
-    val roomVersion = "2.5.2"
-    implementation("androidx.room:room-ktx:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion")
+    //-- Room Region
+    implementation(Dependencies.Android.Room.implementationRoomKtx)
+    ksp(Dependencies.Android.Room.implementationRoomCompiler)
+    //-- End Region
 
-    //DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    //-- DataStore Region
+    implementation(Dependencies.Android.DataStore.implementation)
+    //-- End Region
 
-    //MockK
-    val mockkVersion = "1.13.5"
-    testImplementation("io.mockk:mockk-android:${mockkVersion}")
-    testImplementation("io.mockk:mockk-agent:${mockkVersion}")
+    //-- Test Region
 
+    //JUnit
+    testImplementation(Dependencies.Test.JUnit.implementation)
     //Android X Architecture Components Tests
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation(Dependencies.Android.Arch.Core.implementation)
     //Coroutines Test
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3")
+    testImplementation(Dependencies.Kotlin.Test.implementationCoroutinesTest)
+    //MockK
+    testImplementation(Dependencies.Test.MockK.implementationMockkAndroid)
+    testImplementation(Dependencies.Test.MockK.implementationMockkAgent)
+    //Compose Ui Test
+    androidTestImplementation(composeBom)
+    androidTestImplementation(Dependencies.Android.Compose.Ui.Test.implementationUiTestJUnit4)
+    debugImplementation(Dependencies.Android.Compose.Ui.Test.implementationUiTooling)
+    debugImplementation(Dependencies.Android.Compose.Ui.Test.implementationUiTestManifest)
+
+    //-- End Region
+
     //GSON
-    implementation("com.google.code.gson:gson:2.9.0")
-    //TODO Remover quando esta lib estiver na ComposeBom - Android Compose Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.2")
+    implementation(Dependencies.Google.Gson.implementation)
+
     //Lottie Compose
-    implementation("com.airbnb.android:lottie-compose:6.1.0")
+    implementation(Dependencies.Airbnb.Lottie.implementation)
 }

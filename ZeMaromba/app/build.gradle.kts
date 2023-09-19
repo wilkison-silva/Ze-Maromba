@@ -29,9 +29,6 @@ android {
                 name = "DATABASE_NAME",
                 value = "\"ze_maromba_app_database_debug\""
             )
-            manifestPlaceholders["app_name"] = "Zé Maromba Debug"
-            manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher_debug"
-            manifestPlaceholders["appIconRound"] = "@mipmap/ic_launcher_debug_round"
         }
         getByName("release") {
             isMinifyEnabled = false
@@ -45,9 +42,27 @@ android {
                 name = "DATABASE_NAME",
                 value = "\"ze_maromba_app_database_debug\""
             )
-            manifestPlaceholders["app_name"] = "Zé Maromba"
-            manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher"
-            manifestPlaceholders["appIconRound"] = "@mipmap/ic_launcher_round"
+        }
+
+        flavorDimensions.add("ze_maromba")
+
+        productFlavors {
+            register("internal") {
+                dimension = "ze_maromba"
+
+                applicationIdSuffix = ".internal"
+                manifestPlaceholders["app_name"] = "Zé Maromba Internal"
+                manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher_debug"
+                manifestPlaceholders["appIconRound"] = "@mipmap/ic_launcher_debug_round"
+            }
+
+            register("prod") {
+                dimension = "ze_maromba"
+
+                manifestPlaceholders["app_name"] = "Zé Maromba"
+                manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher"
+                manifestPlaceholders["appIconRound"] = "@mipmap/ic_launcher_round"
+            }
         }
     }
     compileOptions {

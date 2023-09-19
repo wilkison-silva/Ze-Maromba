@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "ZeMaromba"
-include ':app'
+include (":app")

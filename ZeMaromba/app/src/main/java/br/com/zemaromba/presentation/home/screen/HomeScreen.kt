@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -129,6 +131,12 @@ fun HomeScreen(
                         onNavigate(MenuHome.EXERCISES_SCREEN)
                     }
                 )
+                Spacer(modifier = Modifier.height(Dimens.Space.space_12dp))
+                FutureFeature(
+                    icon = R.drawable.ic_graph,
+                    title = stringResource(R.string.title_historics),
+                    description = stringResource(R.string.description_historic_feature)
+                )
             }
         }
     }
@@ -170,7 +178,7 @@ fun MenuHomeItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        modifier = Modifier.size(Dimens.Space.space_32dp),
+                        modifier = Modifier.size(Dimens.Space.space_28dp),
                         painter = painterResource(id = icon),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -202,6 +210,86 @@ fun MenuHomeItem(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = Dimens.Space.space_16dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun FutureFeature(
+    icon: Int,
+    title: String,
+    description: String,
+) {
+    Card(
+        modifier = Modifier
+            .padding(horizontal = Dimens.Space.space_20dp)
+            .fillMaxWidth()
+            .clip(shape = MaterialTheme.shapes.small),
+        shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+        )
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(
+                        start = Dimens.Space.space_20dp,
+                        top = Dimens.Space.space_20dp,
+                        bottom = Dimens.Space.space_8dp,
+                        end = Dimens.Space.space_20dp
+                    ).fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row {
+                    Icon(
+                        modifier = Modifier.size(Dimens.Space.space_28dp),
+                        painter = painterResource(id = icon),
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.width(Dimens.Space.space_20dp))
+                    Text(
+                        text = title,
+                        style = Styles.Title3Bold
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .clip(shape = CircleShape)
+                        .background(color = MaterialTheme.colorScheme.primary)
+                        .padding(horizontal = Dimens.Space.space_12dp, vertical = Dimens.Space.space_4dp),
+                    horizontalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(Dimens.Space.space_16dp),
+                        painter = painterResource(id = R.drawable.ic_computer_terminal),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                    Text(
+                        text = stringResource(R.string.coming_soon),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = Styles.CaptionBold
+                    )
+                }
+            }
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = Dimens.Space.space_20dp,
+                        end = Dimens.Space.space_64dp,
+                        bottom = Dimens.Space.space_20dp
+                    ),
+                text = description,
+                style = Styles.CaptionNormal
             )
         }
     }
@@ -248,7 +336,7 @@ fun HomeScreenPreview() {
 
             },
             onIconAccountSettingClick = {
-                
+
             }
         )
     }

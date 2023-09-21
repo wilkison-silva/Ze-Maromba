@@ -43,6 +43,7 @@
     <string name="fab_new_training_plan">Plano de treino</string>
     <string name="fab_new_training">Criar treino</string>
     <string name="title_exercises">Exercícios</string>
+    <string name="title_configurations">Configurações</string>
     <string name="title_select_exercise">Selecione um exercício</string>
     <string name="title_hello">"Olá, "</string>
     <string name="my_training_plans">Planos de Treinos</string>
@@ -90,4 +91,12 @@
     <string name="title_historics">Históricos</string>
     <string name="description_historic_feature">Aqui você encontra seus históricos de medidas corporais e cargas de exercícios</string>
     <string name="coming_soon">Em breve</string>
+    <string name="config_menu_item_profile_subtitle">Altere suas informações pessoais como nome, peso e medidas</string>
+    <string name="config_menu_item_profile_title">Perfil</string>
+    <string name="config_menu_item_theme_subtitle">Configure a aparência do seu app</string>
+    <string name="config_menu_item_theme_title">Temas</string>
+    <string name="config_menu_item_contact_subtitle">Envie uma mensagem pra nós: bugs, sugestões e melhorias</string>
+    <string name="config_menu_item_contact_title">Contato</string>
+    <string name="app_version">Versão do aplicativo</string>
+    <string name="version">Versão %1$s</string>
 </resources>

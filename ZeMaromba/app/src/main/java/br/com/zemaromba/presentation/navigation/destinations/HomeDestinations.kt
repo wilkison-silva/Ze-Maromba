@@ -6,6 +6,6 @@ sealed class HomeDestinations(val route: String) {
     data object UserManagementScreen : HomeDestinations("$baseGraphRoute/user_management")
 
     companion object Params {
-        const val baseGraphRoute = "home"
+        private const val baseGraphRoute = "home"
     }
 }

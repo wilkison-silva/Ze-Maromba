@@ -14,6 +14,7 @@ import br.com.zemaromba.presentation.home.viewmodel.HomeScreenViewModel
 import br.com.zemaromba.presentation.home.viewmodel.UserManagementViewModel
 import br.com.zemaromba.presentation.navigation.destinations.ExerciseDestinations
 import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
+import br.com.zemaromba.presentation.navigation.destinations.UserConfigurationsDestinations
 
 fun NavGraphBuilder.homeGraph(
     navController: NavController
@@ -44,7 +45,7 @@ fun NavGraphBuilder.homeGraph(
                     }
                 },
                 onIconAccountSettingClick = {
-                    navController.navigate(HomeDestinations.UserManagementScreen.route)
+                    navController.navigate(UserConfigurationsDestinations.UserConfigurationsGraph.route)
                 }
             )
         }

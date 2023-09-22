@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.configuration.screen
+package br.com.zemaromba.presentation.user_configurations.screen
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
@@ -65,7 +65,7 @@ fun ConfigurationListScreen(
                 title = R.string.config_menu_item_profile_title,
                 subtitle = R.string.config_menu_item_profile_subtitle,
                 onClick = {
-
+                    onNavigateToUserAccountConfigs()
                 }
             )
             ConfigurationItem(

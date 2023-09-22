@@ -7,6 +7,6 @@ sealed class OnBoardingDestinations(val route: String) {
         route = "$baseGraphRoute/user_origination_name"
     )
     companion object Params {
-        const val baseGraphRoute = "on_boarding"
+        private const val baseGraphRoute = "on_boarding"
     }
 }

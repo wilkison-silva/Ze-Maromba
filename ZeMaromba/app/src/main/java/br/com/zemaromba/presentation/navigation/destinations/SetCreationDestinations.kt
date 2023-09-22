@@ -11,7 +11,7 @@ sealed class SetCreationDestinations(val route: String) {
     data object ExerciseObservation : SetCreationDestinations(route = "$baseGraphRoute/exercise_observation")
 
     companion object Params {
-        const val baseGraphRoute = "sets"
+        private const val baseGraphRoute = "sets"
         const val trainingId = "training_id"
         const val setId = "set_id"
     }

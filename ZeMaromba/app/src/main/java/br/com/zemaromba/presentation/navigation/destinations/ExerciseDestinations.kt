@@ -12,7 +12,7 @@ sealed class ExerciseDestinations(val route: String) {
     }
 
     companion object Params {
-        const val baseGraphRoute = "exercises"
+        private const val baseGraphRoute = "exercises"
         const val exerciseId = "exercise_id"
     }
 }

@@ -259,14 +259,14 @@ fun SetCardItem(
                 drawableRes = R.drawable.ic_weight,
                 labelAndDescription = labelWithCaption(
                     label = stringResource(R.string.set_weight),
-                    caption = "${setView.weight} Kg"
+                    caption = stringResource(R.string.weight, setView.weight)
                 )
             )
             IconWithText(
                 drawableRes = R.drawable.ic_stopwatch,
                 labelAndDescription = labelWithCaption(
                     label = stringResource(R.string.set_resting_time),
-                    caption = "${setView.restingTime} segundos"
+                    caption = stringResource(R.string.seconds, setView.restingTime)
                 )
             )
             IconWithText(

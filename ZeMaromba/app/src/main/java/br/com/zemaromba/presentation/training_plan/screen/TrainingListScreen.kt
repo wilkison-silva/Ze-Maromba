@@ -202,7 +202,7 @@ fun TrainingCardItem(
                 Text(
                     text = if (trainingSummaryView.hasExercises) {
                         stringResource(
-                            id = R.string.training_summary_card_exercises_quantity,
+                            id = trainingSummaryView.exerciseText,
                             trainingSummaryView.exercisesQuantity
                         )
                     } else {

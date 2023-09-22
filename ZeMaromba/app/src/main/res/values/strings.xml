@@ -62,8 +62,9 @@
     <string name="customized_training_plans">Planos de treinos personalizados</string>
     <string name="example_name_training_plan">Foco em massa magra</string>
     <string name="example_name_training">Treino para pernas</string>
-    <string name="training_summary_card_exercises_quantity">%1d exercícios</string>
-    <string name="training_summary_card_exercises_none">Sem exercícios adicionados</string>
+    <string name="training_summary_card_exercises_quantity_plural">%1d exercícios</string>
+    <string name="training_summary_card_exercises_quantity_singular">%1d exercício</string>
+    <string name="training_summary_card_exercises_none">Nenhum exercício adicionado</string>
     <string name="training_card_muscle_groups_of">"Grupos musculares: "</string>
     <string name="training_summary_card_percentage_done">%1$d%% concluído</string>
     <string name="set_series">Séries</string>
@@ -99,4 +100,6 @@
     <string name="config_menu_item_contact_title">Contato</string>
     <string name="app_version">Versão do aplicativo</string>
     <string name="version">Versão %1$s</string>
+    <string name="weight">%1$s Kg</string>
+    <string name="seconds">%1$s segundos</string>
 </resources>

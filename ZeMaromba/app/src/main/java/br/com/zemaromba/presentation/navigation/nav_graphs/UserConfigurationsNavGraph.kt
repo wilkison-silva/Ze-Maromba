@@ -9,7 +9,9 @@ import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.presentation.navigation.destinations.HomeDestinations
 import br.com.zemaromba.presentation.navigation.destinations.UserConfigurationsDestinations
 import br.com.zemaromba.presentation.user_configurations.screen.ConfigurationListScreen
+import br.com.zemaromba.presentation.user_configurations.screen.ThemeSelectionScreen
 import br.com.zemaromba.presentation.user_configurations.screen.UserManagementScreen
+import br.com.zemaromba.presentation.user_configurations.viewmodel.ThemeSelectionViewModel
 import br.com.zemaromba.presentation.user_configurations.viewmodel.UserManagementViewModel
 
 fun NavGraphBuilder.userConfigurationsGraph(
@@ -27,10 +29,10 @@ fun NavGraphBuilder.userConfigurationsGraph(
                     navController.popBackStack()
                 },
                 onNavigateToUserAccountConfigs = {
-                    navController.navigate(HomeDestinations.UserManagementScreen.route)
+                    navController.navigate(UserConfigurationsDestinations.UserManagementScreen.route)
                 },
                 onNavigateToThemeConfigs = {
-
+                    navController.navigate(UserConfigurationsDestinations.ThemeConfigurationListScreen.route)
                 },
                 onNavigateToContacts = {
 
@@ -39,7 +41,7 @@ fun NavGraphBuilder.userConfigurationsGraph(
         }
 
         composableWithTransitionAnimation(
-            route = HomeDestinations.UserManagementScreen.route,
+            route = UserConfigurationsDestinations.UserManagementScreen.route,
         ) {
             val viewModel: UserManagementViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -58,5 +60,21 @@ fun NavGraphBuilder.userConfigurationsGraph(
             )
         }
 
+        composableWithTransitionAnimation(
+            route = UserConfigurationsDestinations.ThemeConfigurationListScreen.route,
+        ) {
+            val viewModel: ThemeSelectionViewModel = hiltViewModel()
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+
+            ThemeSelectionScreen(
+                state = state,
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onClickItem = {
+                    viewModel.onSelectedTheme(theme = it)
+                },
+            )
+        }
     }
 }

@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import br.com.zemaromba.presentation.model.Theme
 
 private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -82,21 +83,34 @@ private val DarkColors = darkColorScheme(
 
 @Composable
 fun ZeMarombaTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    theme: Theme = Theme.LIGHT,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    val colorScheme = when (theme) {
+        Theme.LIGHT -> {
+            LightColors
         }
 
-        darkTheme -> DarkColors
-        else -> LightColors
+        Theme.DARK -> {
+            DarkColors
+        }
+
+        Theme.DYNAMIC -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val context = LocalContext.current
+                if (isSystemInDarkTheme()) {
+                    dynamicDarkColorScheme(context)
+                } else {
+                    dynamicLightColorScheme(context)
+                }
+            } else {
+                LightColors
+            }
+        }
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
+        val darkTheme = isSystemInDarkTheme()
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.surface.toArgb()

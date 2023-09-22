@@ -38,7 +38,7 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 fun ConfigurationListScreen(
     onNavigateBack: () -> Unit,
     onNavigateToUserAccountConfigs: () -> Unit,
-    onNavigateToThemeConfigs: (exerciseId: Long) -> Unit,
+    onNavigateToThemeConfigs: () -> Unit,
     onNavigateToContacts: () -> Unit
 ) {
     Scaffold(
@@ -73,7 +73,7 @@ fun ConfigurationListScreen(
                 title = R.string.config_menu_item_theme_title,
                 subtitle = R.string.config_menu_item_theme_subtitle,
                 onClick = {
-
+                    onNavigateToThemeConfigs()
                 }
             )
             ConfigurationItem(
@@ -194,7 +194,7 @@ fun VersionItem(
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-fun ExercisesListScreenPreview() {
+fun ConfigurationListScreenPreview() {
     ZeMarombaTheme {
         ConfigurationListScreen(
             onNavigateBack = {

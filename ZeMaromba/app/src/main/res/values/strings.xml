@@ -102,4 +102,7 @@
     <string name="version">Versão %1$s</string>
     <string name="weight">%1$s Kg</string>
     <string name="seconds">%1$s segundos</string>
+    <string name="light_theme_name">Tema claro</string>
+    <string name="dark_theme_name">Tema escuro</string>
+    <string name="dynamic_theme_name">Tema dinâmico</string>
 </resources>

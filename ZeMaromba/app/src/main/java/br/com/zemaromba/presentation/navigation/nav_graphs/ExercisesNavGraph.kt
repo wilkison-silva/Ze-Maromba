@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.navigation.graph
+package br.com.zemaromba.presentation.navigation.nav_graphs
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -17,19 +17,19 @@ import br.com.zemaromba.presentation.exercises.screen.event.ExerciseManagementEv
 import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseManagementViewModel
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListViewModel
-import br.com.zemaromba.presentation.navigation.router.ExerciseRouter
-import br.com.zemaromba.presentation.navigation.router.ExerciseRouter.Params
+import br.com.zemaromba.presentation.navigation.destinations.ExerciseDestinations
+import br.com.zemaromba.presentation.navigation.destinations.ExerciseDestinations.Params
 
 fun NavGraphBuilder.exerciseGraph(
     navController: NavController,
     openYoutube: (videoId: String) -> Unit,
 ) {
     navigation(
-        startDestination = ExerciseRouter.ExercisesListScreen.route,
-        route = ExerciseRouter.ExerciseGraph.route
+        startDestination = ExerciseDestinations.ExercisesListScreen.route,
+        route = ExerciseDestinations.ExerciseGraph.route
     ) {
         composableWithTransitionAnimation(
-            route = ExerciseRouter.ExercisesListScreen.route
+            route = ExerciseDestinations.ExercisesListScreen.route
         ) {
             val viewModel: ExercisesListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -40,14 +40,14 @@ fun NavGraphBuilder.exerciseGraph(
                 },
                 onNavigateToNewExercise = {
                     navController.navigate(
-                        route = ExerciseRouter.ExerciseManagementScreen.getRouteWithExerciseId(
+                        route = ExerciseDestinations.ExerciseManagementScreen.getRouteWithExerciseId(
                             exerciseId = 0
                         )
                     )
                 },
                 onOpenExercise = { exerciseId ->
                     navController.navigate(
-                        route = ExerciseRouter.ExerciseManagementScreen.getRouteWithExerciseId(
+                        route = ExerciseDestinations.ExerciseManagementScreen.getRouteWithExerciseId(
                             exerciseId = exerciseId
                         )
                     )
@@ -89,7 +89,7 @@ fun NavGraphBuilder.exerciseGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = ExerciseRouter.ExerciseManagementScreen.route,
+            route = ExerciseDestinations.ExerciseManagementScreen.route,
             arguments = listOf(
                 navArgument(name = Params.exerciseId) {
                     type = NavType.LongType

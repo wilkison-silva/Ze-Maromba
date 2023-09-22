@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.navigation.graph
+package br.com.zemaromba.presentation.navigation.nav_graphs
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -13,8 +13,8 @@ import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.sharedViewModel
 import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
-import br.com.zemaromba.presentation.navigation.router.TrainingRouter
+import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
+import br.com.zemaromba.presentation.navigation.destinations.TrainingDestinations
 import br.com.zemaromba.presentation.sets.screen.ExerciseDetailsScreen
 import br.com.zemaromba.presentation.sets.screen.ExerciseObservationScreen
 import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
@@ -23,23 +23,23 @@ import br.com.zemaromba.presentation.sets.viewmodel.ExerciseDetailsViewModel
 import br.com.zemaromba.presentation.sets.viewmodel.ExerciseObservationViewModel
 import br.com.zemaromba.presentation.sets.viewmodel.SelectExerciseViewModel
 
-fun NavGraphBuilder.setGraph(
+fun NavGraphBuilder.setsGraph(
     navController: NavController
 ) {
     navigation(
-        startDestination = SetCreationRouter.SelectExercise.route,
-        route = SetCreationRouter.SetCreationGraph.route,
+        startDestination = SetCreationDestinations.SelectExercise.route,
+        route = SetCreationDestinations.SetCreationGraph.route,
         arguments = listOf(
-            navArgument(name = SetCreationRouter.trainingId) {
+            navArgument(name = SetCreationDestinations.trainingId) {
                 type = NavType.LongType
             },
-            navArgument(name = SetCreationRouter.setId) {
+            navArgument(name = SetCreationDestinations.setId) {
                 type = NavType.LongType
             }
         )
     ) {
         composableWithTransitionAnimation(
-            route = SetCreationRouter.SelectExercise.route
+            route = SetCreationDestinations.SelectExercise.route
         ) {
             val flowViewModel =
                 it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
@@ -49,13 +49,13 @@ fun NavGraphBuilder.setGraph(
             val trainingId = remember {
                 it
                     .arguments
-                    ?.getLong(SetCreationRouter.trainingId)
+                    ?.getLong(SetCreationDestinations.trainingId)
                     .orZero()
             }
             val setId = remember {
                 it
                     .arguments
-                    ?.getLong(SetCreationRouter.setId)
+                    ?.getLong(SetCreationDestinations.setId)
                     .orZero()
             }
             LaunchedEffect(key1 = Unit) {
@@ -93,7 +93,7 @@ fun NavGraphBuilder.setGraph(
                             trainingId = trainingId
                         )
                         flowViewModel.updateMustRetrieveExercise(value = false)
-                        navController.navigate(SetCreationRouter.ExerciseDetails.route)
+                        navController.navigate(SetCreationDestinations.ExerciseDetails.route)
                     }
                 },
                 onExerciseSelected = { exerciseId ->
@@ -127,7 +127,7 @@ fun NavGraphBuilder.setGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = SetCreationRouter.ExerciseDetails.route
+            route = SetCreationDestinations.ExerciseDetails.route
         ) {
             val flowViewModel =
                 it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
@@ -163,7 +163,7 @@ fun NavGraphBuilder.setGraph(
                         weightValue = viewModel.state.value.weightValue,
                         restingTimeValue = viewModel.state.value.restingTimeValue
                     )
-                    navController.navigate(SetCreationRouter.ExerciseObservation.route)
+                    navController.navigate(SetCreationDestinations.ExerciseObservation.route)
                 },
                 onChangeSeries = { seriesValue ->
                     viewModel.updateSeriesValue(value = seriesValue)
@@ -183,7 +183,7 @@ fun NavGraphBuilder.setGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = SetCreationRouter.ExerciseObservation.route
+            route = SetCreationDestinations.ExerciseObservation.route
         ) {
             val flowViewModel =
                 it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
@@ -198,7 +198,7 @@ fun NavGraphBuilder.setGraph(
             LaunchedEffect(key1 = state.navigateBack) {
                 if (state.navigateBack) {
                     navController.popBackStack(
-                        route = TrainingRouter.SetsListScreen.route,
+                        route = TrainingDestinations.SetsListScreen.route,
                         inclusive = false
                     )
                 }

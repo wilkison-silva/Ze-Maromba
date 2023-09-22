@@ -10,14 +10,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.navigation.graph.exerciseGraph
-import br.com.zemaromba.presentation.navigation.graph.homeGraph
-import br.com.zemaromba.presentation.navigation.graph.onBoardingGraph
-import br.com.zemaromba.presentation.navigation.graph.setGraph
-import br.com.zemaromba.presentation.navigation.graph.trainingPlanGraph
-import br.com.zemaromba.presentation.navigation.router.HomeRouter
-import br.com.zemaromba.presentation.navigation.router.OnBoardingRouter
-import br.com.zemaromba.presentation.navigation.router.SetCreationRouter
+import br.com.zemaromba.presentation.navigation.nav_graphs.exerciseGraph
+import br.com.zemaromba.presentation.navigation.nav_graphs.homeGraph
+import br.com.zemaromba.presentation.navigation.nav_graphs.onBoardingGraph
+import br.com.zemaromba.presentation.navigation.nav_graphs.setsGraph
+import br.com.zemaromba.presentation.navigation.nav_graphs.trainingPlanGraph
+import br.com.zemaromba.presentation.navigation.destinations.HomeDestinations
+import br.com.zemaromba.presentation.navigation.destinations.OnBoardingDestinations
+import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,13 +32,13 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = OnBoardingRouter.OnBoardingGraph.route
+                        startDestination = OnBoardingDestinations.OnBoardingGraph.route
                     ) {
                         onBoardingGraph(
                             navController = navController,
                             onFinishOnBoarding = {
-                                navController.navigate(route = HomeRouter.HomeGraph.route) {
-                                    popUpTo(OnBoardingRouter.OnBoardingGraph.route) {
+                                navController.navigate(route = HomeDestinations.HomeGraph.route) {
+                                    popUpTo(OnBoardingDestinations.OnBoardingGraph.route) {
                                         inclusive = true
                                     }
                                 }
@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                             },
                             onCreateNewSet = { trainingId, setId ->
                                 navController.navigate(
-                                    route = SetCreationRouter
+                                    route = SetCreationDestinations
                                         .SetCreationGraph
                                         .getRouteWithTrainingId(
                                             trainingId = trainingId,
@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         )
-                        setGraph(navController = navController)
+                        setsGraph(navController = navController)
                     }
                 }
             }

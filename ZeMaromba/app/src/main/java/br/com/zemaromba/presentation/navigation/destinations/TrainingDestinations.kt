@@ -1,8 +1,8 @@
-package br.com.zemaromba.presentation.navigation.router
+package br.com.zemaromba.presentation.navigation.destinations
 
-sealed class TrainingRouter(val route: String) {
+sealed class TrainingDestinations(val route: String) {
 
-    object TrainingManagementScreen : TrainingRouter(
+    data object TrainingManagementScreen : TrainingDestinations(
         route = "$baseGraphRoute/management/{$trainingId}/{$trainingPlanId}"
     ) {
         fun getRouteWithTrainingId(trainingId: Long, trainingPlanId: Long): String {
@@ -10,7 +10,7 @@ sealed class TrainingRouter(val route: String) {
         }
     }
 
-    object SetsListScreen : TrainingRouter(
+    data object SetsListScreen : TrainingDestinations(
         route = "$baseGraphRoute/sets_list/{$trainingId}/{$trainingPlanId}"
     ) {
         fun getRouteWithParameters(trainingId: Long, trainingPlanId: Long): String {

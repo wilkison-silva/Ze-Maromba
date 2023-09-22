@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.navigation.graph
+package br.com.zemaromba.presentation.navigation.nav_graphs
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -11,8 +11,8 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
-import br.com.zemaromba.presentation.navigation.router.TrainingPlanRouter
-import br.com.zemaromba.presentation.navigation.router.TrainingRouter
+import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
+import br.com.zemaromba.presentation.navigation.destinations.TrainingDestinations
 import br.com.zemaromba.presentation.training_plan.screen.SetsListScreen
 import br.com.zemaromba.presentation.training_plan.screen.TrainingListScreen
 import br.com.zemaromba.presentation.training_plan.screen.TrainingManagementScreen
@@ -32,11 +32,11 @@ fun NavGraphBuilder.trainingPlanGraph(
     onCreateNewSet: (trainingId: Long, setId: Long) -> Unit
 ) {
     navigation(
-        startDestination = TrainingPlanRouter.TrainingPlanListScreen.route,
-        route = TrainingPlanRouter.TrainingPlanGraph.route
+        startDestination = TrainingPlanDestinations.TrainingPlanListScreen.route,
+        route = TrainingPlanDestinations.TrainingPlanGraph.route
     ) {
         composableWithTransitionAnimation(
-            route = TrainingPlanRouter.TrainingPlanListScreen.route
+            route = TrainingPlanDestinations.TrainingPlanListScreen.route
         ) {
             val viewModel: TrainingPlanListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -47,12 +47,12 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenTrainingPlan = { trainingPlanId ->
                     navController.navigate(
-                        route = TrainingPlanRouter.TrainingsListScreen.getRoute(trainingPlanId = trainingPlanId)
+                        route = TrainingPlanDestinations.TrainingsListScreen.getRoute(trainingPlanId = trainingPlanId)
                     )
                 },
                 onCreateTrainingPlan = {
                     navController.navigate(
-                        route = TrainingPlanRouter.TrainingPlanManagementScreen.getRouteWithTrainingPlanId(
+                        route = TrainingPlanDestinations.TrainingPlanManagementScreen.getRouteWithTrainingPlanId(
                             trainingPlanId = 0
                         )
                     )
@@ -60,9 +60,9 @@ fun NavGraphBuilder.trainingPlanGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = TrainingPlanRouter.TrainingPlanManagementScreen.route,
+            route = TrainingPlanDestinations.TrainingPlanManagementScreen.route,
             arguments = listOf(
-                navArgument(name = TrainingPlanRouter.trainingPlanId) {
+                navArgument(name = TrainingPlanDestinations.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -71,7 +71,7 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingPlanRouter.trainingPlanId)
+                    ?.getLong(TrainingPlanDestinations.trainingPlanId)
                     .orZero()
             }
             val viewModel: TrainingPlanManagementViewModel = hiltViewModel()
@@ -103,16 +103,16 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onDeleteFinished = {
                     navController.popBackStack(
-                        route = TrainingPlanRouter.TrainingPlanListScreen.route,
+                        route = TrainingPlanDestinations.TrainingPlanListScreen.route,
                         inclusive = false
                     )
                 }
             )
         }
         composableWithTransitionAnimation(
-            route = TrainingPlanRouter.TrainingsListScreen.route,
+            route = TrainingPlanDestinations.TrainingsListScreen.route,
             arguments = listOf(
-                navArgument(name = TrainingPlanRouter.trainingPlanId) {
+                navArgument(name = TrainingPlanDestinations.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -121,7 +121,7 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingPlanRouter.trainingPlanId)
+                    ?.getLong(TrainingPlanDestinations.trainingPlanId)
                     .orZero()
             }
             val viewModel: TrainingListViewModel = hiltViewModel()
@@ -139,7 +139,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenTraining = {
                     navController.navigate(
-                        route = TrainingRouter.SetsListScreen.getRouteWithParameters(
+                        route = TrainingDestinations.SetsListScreen.getRouteWithParameters(
                             trainingId = it,
                             trainingPlanId = trainingPlanId
                         )
@@ -147,7 +147,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onCreateTraining = {
                     navController.navigate(
-                        route = TrainingRouter.TrainingManagementScreen.getRouteWithTrainingId(
+                        route = TrainingDestinations.TrainingManagementScreen.getRouteWithTrainingId(
                             trainingId = 0,
                             trainingPlanId = trainingPlanId
                         )
@@ -155,7 +155,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenSettings = {
                     navController.navigate(
-                        route = TrainingPlanRouter.TrainingPlanManagementScreen.getRouteWithTrainingPlanId(
+                        route = TrainingPlanDestinations.TrainingPlanManagementScreen.getRouteWithTrainingPlanId(
                             trainingPlanId = trainingPlanId
                         )
                     )
@@ -166,13 +166,13 @@ fun NavGraphBuilder.trainingPlanGraph(
 
 
         composableWithTransitionAnimation(
-            route = TrainingRouter.TrainingManagementScreen.route,
+            route = TrainingDestinations.TrainingManagementScreen.route,
             arguments = listOf(
-                navArgument(name = TrainingRouter.trainingId) {
+                navArgument(name = TrainingDestinations.trainingId) {
                     type = NavType.LongType
                     defaultValue = 0
                 },
-                navArgument(name = TrainingRouter.trainingPlanId) {
+                navArgument(name = TrainingDestinations.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -181,13 +181,13 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingRouter.trainingId)
+                    ?.getLong(TrainingDestinations.trainingId)
                     .orZero()
             }
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingRouter.trainingPlanId)
+                    ?.getLong(TrainingDestinations.trainingPlanId)
                     .orZero()
             }
             val viewModel: TrainingManagementViewModel = hiltViewModel()
@@ -222,7 +222,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onDeleteFinished = {
                     navController.popBackStack(
-                        route = TrainingPlanRouter.TrainingPlanListScreen.route,
+                        route = TrainingPlanDestinations.TrainingPlanListScreen.route,
                         inclusive = false
                     )
                 }
@@ -230,13 +230,13 @@ fun NavGraphBuilder.trainingPlanGraph(
         }
 
         composableWithTransitionAnimation(
-            route = TrainingRouter.SetsListScreen.route,
+            route = TrainingDestinations.SetsListScreen.route,
             arguments = listOf(
-                navArgument(name = TrainingRouter.trainingId) {
+                navArgument(name = TrainingDestinations.trainingId) {
                     type = NavType.LongType
                     defaultValue = 0
                 },
-                navArgument(name = TrainingRouter.trainingPlanId) {
+                navArgument(name = TrainingDestinations.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -245,13 +245,13 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingRouter.trainingId)
+                    ?.getLong(TrainingDestinations.trainingId)
                     .orZero()
             }
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingRouter.trainingPlanId)
+                    ?.getLong(TrainingDestinations.trainingPlanId)
                     .orZero()
             }
             val viewModel: SetListViewModel = hiltViewModel()
@@ -278,7 +278,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenSettings = {
                     navController.navigate(
-                        route = TrainingRouter.TrainingManagementScreen.getRouteWithTrainingId(
+                        route = TrainingDestinations.TrainingManagementScreen.getRouteWithTrainingId(
                             trainingId = trainingId,
                             trainingPlanId = trainingPlanId
                         )

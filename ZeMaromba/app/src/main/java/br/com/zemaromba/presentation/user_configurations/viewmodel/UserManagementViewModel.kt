@@ -1,9 +1,9 @@
-package br.com.zemaromba.presentation.home.viewmodel
+package br.com.zemaromba.presentation.user_configurations.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.domain.repository.UserRepository
-import br.com.zemaromba.presentation.home.screen.state.UserManagementState
+import br.com.zemaromba.presentation.user_configurations.screen.state.UserManagementState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Locale
 import javax.inject.Inject

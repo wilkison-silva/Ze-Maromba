@@ -6,13 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
-import br.com.zemaromba.presentation.navigation.destinations.HomeDestinations
-import br.com.zemaromba.presentation.model.MenuHome
 import br.com.zemaromba.presentation.home.screen.HomeScreen
-import br.com.zemaromba.presentation.home.screen.UserManagementScreen
 import br.com.zemaromba.presentation.home.viewmodel.HomeScreenViewModel
-import br.com.zemaromba.presentation.home.viewmodel.UserManagementViewModel
+import br.com.zemaromba.presentation.model.MenuHome
 import br.com.zemaromba.presentation.navigation.destinations.ExerciseDestinations
+import br.com.zemaromba.presentation.navigation.destinations.HomeDestinations
 import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
 import br.com.zemaromba.presentation.navigation.destinations.UserConfigurationsDestinations
 
@@ -42,30 +40,14 @@ fun NavGraphBuilder.homeGraph(
                         MenuHome.EXERCISES_SCREEN -> {
                             navController.navigate(ExerciseDestinations.ExerciseGraph.route)
                         }
-                    }
-                },
-                onIconAccountSettingClick = {
-                    navController.navigate(UserConfigurationsDestinations.UserConfigurationsGraph.route)
-                }
-            )
-        }
-        composableWithTransitionAnimation(
-            route = HomeDestinations.UserManagementScreen.route,
-        ) {
-            val viewModel: UserManagementViewModel = hiltViewModel()
-            val state = viewModel.state.collectAsStateWithLifecycle().value
 
-            UserManagementScreen(
-                state = state,
-                onChangeName = {
-                    viewModel.onEnterNewName(name = it)
-                },
-                onSaveName = {
-                    viewModel.onSaveName()
-                },
-                onNavigateBack = {
-                    navController.popBackStack()
-                },
+                        MenuHome.USER_CONFIGURATIONS -> {
+                            navController.navigate(
+                                route = UserConfigurationsDestinations.UserConfigurationsGraph.route
+                            )
+                        }
+                    }
+                }
             )
         }
     }

@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.home.screen
+package br.com.zemaromba.presentation.user_configurations.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -31,7 +31,7 @@ import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.navbar.CustomNavBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.home.screen.state.UserManagementState
+import br.com.zemaromba.presentation.user_configurations.screen.state.UserManagementState
 
 @Composable
 fun UserManagementScreen(
@@ -95,8 +95,8 @@ fun UserManagementScreen(
                 },
                 leadingIcon = {
                     Icon(
-                        modifier = Modifier.size(Dimens.Space.space_20dp),
-                        painter = painterResource(id = R.drawable.ic_dumbell),
+                        modifier = Modifier.size(Dimens.Space.space_24dp),
+                        painter = painterResource(id = R.drawable.ic_person),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )

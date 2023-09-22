@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.home.screen.state
+package br.com.zemaromba.presentation.user_configurations.screen.state
 
 data class UserManagementState(
     val name: String = "",

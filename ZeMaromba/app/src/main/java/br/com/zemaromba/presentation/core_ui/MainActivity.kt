@@ -12,8 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.model.Theme
-import br.com.zemaromba.presentation.navigation.nav_graphs.exerciseGraph
+import br.com.zemaromba.presentation.features.exercises.navigation.exerciseGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.homeGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.onBoardingGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.setsGraph

@@ -11,20 +11,21 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
+import br.com.zemaromba.presentation.features.training_plan.screen.SetsListScreen
+import br.com.zemaromba.presentation.features.training_plan.screen.TrainingListScreen
+import br.com.zemaromba.presentation.features.training_plan.screen.TrainingManagementScreen
+import br.com.zemaromba.presentation.features.training_plan.screen.TrainingPlanListScreen
+import br.com.zemaromba.presentation.features.training_plan.screen.TrainingPlanManagementScreen
+import br.com.zemaromba.presentation.features.training_plan.screen.event.TrainingManagementEvents
+import br.com.zemaromba.presentation.features.training_plan.screen.event.TrainingPlanManagementEvents
+import br.com.zemaromba.presentation.features.training_plan.viewmodel.SetListViewModel
+import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingListViewModel
+import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingManagementViewModel
+import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingPlanListViewModel
+import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingPlanManagementViewModel
 import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
 import br.com.zemaromba.presentation.navigation.destinations.TrainingDestinations
-import br.com.zemaromba.presentation.training_plan.screen.SetsListScreen
-import br.com.zemaromba.presentation.training_plan.screen.TrainingListScreen
-import br.com.zemaromba.presentation.training_plan.screen.TrainingManagementScreen
-import br.com.zemaromba.presentation.training_plan.screen.TrainingPlanListScreen
-import br.com.zemaromba.presentation.training_plan.screen.TrainingPlanManagementScreen
-import br.com.zemaromba.presentation.training_plan.screen.event.TrainingManagementEvents
-import br.com.zemaromba.presentation.training_plan.screen.event.TrainingPlanManagementEvents
-import br.com.zemaromba.presentation.training_plan.viewmodel.SetListViewModel
-import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingListViewModel
-import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingManagementViewModel
-import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingPlanListViewModel
-import br.com.zemaromba.presentation.training_plan.viewmodel.TrainingPlanManagementViewModel
+
 
 fun NavGraphBuilder.trainingPlanGraph(
     navController: NavController,

@@ -9,12 +9,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
+import br.com.zemaromba.presentation.features.onboarding.screen.GetStartedScreen
+import br.com.zemaromba.presentation.features.onboarding.screen.UserOriginationNameScreen
+import br.com.zemaromba.presentation.features.onboarding.screen.event.UserOriginationNameEvents
+import br.com.zemaromba.presentation.features.onboarding.viewmodel.GetStartedViewModel
+import br.com.zemaromba.presentation.features.onboarding.viewmodel.UserOriginationNameViewModel
 import br.com.zemaromba.presentation.navigation.destinations.OnBoardingDestinations
-import br.com.zemaromba.presentation.onboarding.screen.GetStartedScreen
-import br.com.zemaromba.presentation.onboarding.screen.UserOriginationNameScreen
-import br.com.zemaromba.presentation.onboarding.screen.event.UserOriginationNameEvents
-import br.com.zemaromba.presentation.onboarding.viewmodel.GetStartedViewModel
-import br.com.zemaromba.presentation.onboarding.viewmodel.UserOriginationNameViewModel
 
 fun NavGraphBuilder.onBoardingGraph(
     navController: NavController,

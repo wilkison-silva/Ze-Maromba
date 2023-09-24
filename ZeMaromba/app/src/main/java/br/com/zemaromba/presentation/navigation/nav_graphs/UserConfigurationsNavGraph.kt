@@ -6,13 +6,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
-import br.com.zemaromba.presentation.navigation.destinations.HomeDestinations
+import br.com.zemaromba.presentation.features.user_configurations.screen.ConfigurationListScreen
+import br.com.zemaromba.presentation.features.user_configurations.screen.ThemeSelectionScreen
+import br.com.zemaromba.presentation.features.user_configurations.screen.UserManagementScreen
+import br.com.zemaromba.presentation.features.user_configurations.viewmodel.ThemeSelectionViewModel
+import br.com.zemaromba.presentation.features.user_configurations.viewmodel.UserManagementViewModel
 import br.com.zemaromba.presentation.navigation.destinations.UserConfigurationsDestinations
-import br.com.zemaromba.presentation.user_configurations.screen.ConfigurationListScreen
-import br.com.zemaromba.presentation.user_configurations.screen.ThemeSelectionScreen
-import br.com.zemaromba.presentation.user_configurations.screen.UserManagementScreen
-import br.com.zemaromba.presentation.user_configurations.viewmodel.ThemeSelectionViewModel
-import br.com.zemaromba.presentation.user_configurations.viewmodel.UserManagementViewModel
 
 fun NavGraphBuilder.userConfigurationsGraph(
     navController: NavController

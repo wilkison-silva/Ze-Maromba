@@ -12,16 +12,17 @@ import androidx.navigation.navArgument
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.sharedViewModel
-import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListEvents
+import br.com.zemaromba.presentation.features.sets.screen.ExerciseDetailsScreen
+import br.com.zemaromba.presentation.features.sets.screen.ExerciseObservationScreen
+import br.com.zemaromba.presentation.features.sets.screen.SelectExerciseScreen
+import br.com.zemaromba.presentation.features.sets.viewmodel.CreateSetFlowViewModel
+import br.com.zemaromba.presentation.features.sets.viewmodel.ExerciseDetailsViewModel
+import br.com.zemaromba.presentation.features.sets.viewmodel.ExerciseObservationViewModel
+import br.com.zemaromba.presentation.features.sets.viewmodel.SelectExerciseViewModel
 import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
 import br.com.zemaromba.presentation.navigation.destinations.TrainingDestinations
-import br.com.zemaromba.presentation.sets.screen.ExerciseDetailsScreen
-import br.com.zemaromba.presentation.sets.screen.ExerciseObservationScreen
-import br.com.zemaromba.presentation.sets.screen.SelectExerciseScreen
-import br.com.zemaromba.presentation.sets.viewmodel.CreateSetFlowViewModel
-import br.com.zemaromba.presentation.sets.viewmodel.ExerciseDetailsViewModel
-import br.com.zemaromba.presentation.sets.viewmodel.ExerciseObservationViewModel
-import br.com.zemaromba.presentation.sets.viewmodel.SelectExerciseViewModel
+
 
 fun NavGraphBuilder.setsGraph(
     navController: NavController

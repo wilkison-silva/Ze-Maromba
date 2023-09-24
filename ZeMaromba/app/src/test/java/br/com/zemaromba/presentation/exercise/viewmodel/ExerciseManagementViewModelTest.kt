@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zemaromba.domain.model.Exercise
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.domain.repository.ExercisesRepository
-import br.com.zemaromba.presentation.exercises.screen.event.ExerciseManagementEvents
-import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseManagementViewModel
+import br.com.zemaromba.presentation.features.exercises.screen.event.ExerciseManagementEvents
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExerciseManagementViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

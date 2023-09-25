@@ -25,7 +25,7 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
-import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseFilterChip
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExerciseFilterChip
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable

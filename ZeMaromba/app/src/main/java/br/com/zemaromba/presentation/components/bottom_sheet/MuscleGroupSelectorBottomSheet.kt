@@ -14,8 +14,8 @@ import androidx.compose.ui.res.stringResource
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
-import br.com.zemaromba.presentation.exercises.screen.MuscleGroupSelector
-import br.com.zemaromba.presentation.exercises.screen.state.MuscleGroupCheckBoxState
+import br.com.zemaromba.presentation.features.exercises.screen.MuscleGroupSelector
+import br.com.zemaromba.presentation.features.exercises.screen.state.MuscleGroupCheckBoxState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

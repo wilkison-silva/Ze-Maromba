@@ -6,8 +6,8 @@ import br.com.zemaromba.domain.model.Exercise
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.domain.repository.ExercisesRepository
-import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListViewModel
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListEvents
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

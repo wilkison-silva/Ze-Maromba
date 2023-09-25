@@ -9,19 +9,16 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import br.com.zemaromba.common.extensions.addRouterParameters
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
+import br.com.zemaromba.presentation.core_ui.navigation.BaseRouter
 import br.com.zemaromba.presentation.features.exercises.screen.ExerciseManagementScreen
 import br.com.zemaromba.presentation.features.exercises.screen.ExercisesListScreen
 import br.com.zemaromba.presentation.features.exercises.screen.event.ExerciseManagementEvents
 import br.com.zemaromba.presentation.features.exercises.viewmodel.ExerciseManagementViewModel
 import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListEvents
 import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListViewModel
-
-abstract class Router {
-    abstract val routePattern: String
-    abstract fun getFullRoute(vararg args: String): String
-}
 
 private object ExerciseDestinations {
 
@@ -31,38 +28,35 @@ private object ExerciseDestinations {
         const val exerciseId = "exercise_id"
     }
 
-    sealed class Destinations : Router() {
-        data object ExerciseGraph : Destinations() {
+    sealed class Router : BaseRouter() {
+
+        data object ExerciseGraph : Router() {
 
             override val routePattern: String
                 get() = baseGraphRoute
 
-            override fun getFullRoute(vararg args: String): String {
+            override fun buildRoute(vararg args: String): String {
                 return routePattern
             }
         }
 
-        data object ExercisesListScreen : Destinations() {
+        data object ExercisesListScreen : Router() {
 
             override val routePattern: String
                 get() = "$baseGraphRoute/exercises_list"
 
-            override fun getFullRoute(vararg args: String): String {
+            override fun buildRoute(vararg args: String): String {
                 return routePattern
             }
         }
 
-        data object ExerciseManagementScreen : Destinations() {
+        data object ExerciseManagementScreen : Router() {
 
             override val routePattern: String
                 get() = "$baseGraphRoute/exercise_management/{${Parameters.exerciseId}}"
 
-            override fun getFullRoute(vararg args: String): String {
-                var finalRoute = "$baseGraphRoute/exercise_management"
-                args.forEach { arg ->
-                    finalRoute += "/$arg"
-                }
-                return finalRoute
+            override fun buildRoute(vararg args: String): String {
+                return "$baseGraphRoute/exercise_management".addRouterParameters(*args)
             }
         }
     }
@@ -70,19 +64,19 @@ private object ExerciseDestinations {
 }
 
 fun NavController.navigateToExerciseGraph() {
-    this.navigate(route = ExerciseDestinations.Destinations.ExerciseGraph.getFullRoute())
+    this.navigate(route = ExerciseDestinations.Router.ExerciseGraph.buildRoute())
 }
 
-fun NavGraphBuilder.exerciseGraph(
+fun NavGraphBuilder.addExerciseGraph(
     navController: NavController,
     openYoutube: (videoId: String) -> Unit,
 ) {
     navigation(
-        route = ExerciseDestinations.Destinations.ExerciseGraph.routePattern,
-        startDestination = ExerciseDestinations.Destinations.ExercisesListScreen.routePattern,
+        route = ExerciseDestinations.Router.ExerciseGraph.routePattern,
+        startDestination = ExerciseDestinations.Router.ExercisesListScreen.routePattern,
     ) {
         composableWithTransitionAnimation(
-            route = ExerciseDestinations.Destinations.ExercisesListScreen.routePattern
+            route = ExerciseDestinations.Router.ExercisesListScreen.routePattern
         ) {
             val viewModel: ExercisesListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -93,12 +87,18 @@ fun NavGraphBuilder.exerciseGraph(
                 },
                 onNavigateToNewExercise = {
                     navController.navigate(
-                        route = ExerciseDestinations.Destinations.ExerciseManagementScreen.getFullRoute("0")
+                        route = ExerciseDestinations
+                            .Router
+                            .ExerciseManagementScreen
+                            .buildRoute("0")
                     )
                 },
                 onOpenExercise = { exerciseId ->
                     navController.navigate(
-                        route = ExerciseDestinations.Destinations.ExerciseManagementScreen.getFullRoute(exerciseId.toString())
+                        route = ExerciseDestinations
+                            .Router
+                            .ExerciseManagementScreen
+                            .buildRoute(exerciseId.toString())
                     )
                 },
                 onFavoriteExercise = { exerciseId, favoriteIcon ->
@@ -138,7 +138,7 @@ fun NavGraphBuilder.exerciseGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = ExerciseDestinations.Destinations.ExerciseManagementScreen.routePattern,
+            route = ExerciseDestinations.Router.ExerciseManagementScreen.routePattern,
             arguments = listOf(
                 navArgument(name = ExerciseDestinations.Parameters.exerciseId) {
                     type = NavType.LongType

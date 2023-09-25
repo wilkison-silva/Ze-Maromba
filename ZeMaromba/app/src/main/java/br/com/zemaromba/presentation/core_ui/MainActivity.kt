@@ -12,12 +12,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.features.exercises.navigation.exerciseGraph
-import br.com.zemaromba.presentation.navigation.nav_graphs.homeGraph
+import br.com.zemaromba.presentation.features.exercises.navigation.PopUpToDestination
+import br.com.zemaromba.presentation.features.exercises.navigation.addExerciseGraph
+import br.com.zemaromba.presentation.features.home.navigation.addHomeGraph
+import br.com.zemaromba.presentation.features.home.navigation.navigateToHomeGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.onBoardingGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.setsGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.trainingPlanGraph
-import br.com.zemaromba.presentation.navigation.destinations.HomeDestinations
 import br.com.zemaromba.presentation.navigation.destinations.OnBoardingDestinations
 import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
 import br.com.zemaromba.presentation.navigation.nav_graphs.userConfigurationsGraph
@@ -46,16 +47,17 @@ class MainActivity : ComponentActivity() {
                         onBoardingGraph(
                             navController = navController,
                             onFinishOnBoarding = {
-                                navController.navigate(route = HomeDestinations.HomeGraph.route) {
-                                    popUpTo(OnBoardingDestinations.OnBoardingGraph.route) {
+                                navController.navigateToHomeGraph(
+                                    popUpToDestination = PopUpToDestination(
+                                        route = OnBoardingDestinations.OnBoardingGraph.route,
                                         inclusive = true
-                                    }
-                                }
+                                    )
+                                )
                             }
                         )
-                        homeGraph(navController = navController)
+                        addHomeGraph(navController = navController)
                         userConfigurationsGraph(navController = navController)
-                        exerciseGraph(
+                        addExerciseGraph(
                             navController = navController,
                             openYoutube = { videoId: String ->
                                 openVideoInYoutubeOrBrowser(urlLink = videoId)

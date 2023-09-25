@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.features.sets.screen.state
+package br.com.zemaromba.presentation.features.sets_creation.screen.state
 
 import br.com.zemaromba.presentation.model.ExerciseView
 

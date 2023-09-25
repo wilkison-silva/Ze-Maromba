@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.features.sets.viewmodel
+package br.com.zemaromba.presentation.features.sets_creation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +9,7 @@ import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.domain.repository.ExercisesRepository
 import br.com.zemaromba.presentation.features.exercises.viewmodel.ExerciseFilterChip
 import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.features.sets.screen.state.SelectExerciseScreenState
+import br.com.zemaromba.presentation.features.sets_creation.screen.state.SelectExerciseScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds

@@ -11,17 +11,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
-import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.core_ui.navigation.PopUpToDestination
+import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.features.exercises.navigation.addExerciseGraph
 import br.com.zemaromba.presentation.features.home.navigation.addHomeGraph
 import br.com.zemaromba.presentation.features.home.navigation.navigateToHomeGraph
 import br.com.zemaromba.presentation.features.onboarding.navigation.addOnBoardingGraph
 import br.com.zemaromba.presentation.features.onboarding.navigation.getOnBoardingGraphRoute
-import br.com.zemaromba.presentation.navigation.nav_graphs.setsGraph
-import br.com.zemaromba.presentation.navigation.nav_graphs.trainingPlanGraph
-import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
+import br.com.zemaromba.presentation.features.sets_creation.navigation.addSetsCreationGraph
+import br.com.zemaromba.presentation.features.sets_creation.navigation.navigateToSetsCreationGraph
 import br.com.zemaromba.presentation.features.user_configurations.navigation.addUserConfigurationsGraph
+import br.com.zemaromba.presentation.navigation.nav_graphs.trainingPlanGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,17 +69,13 @@ class MainActivity : ComponentActivity() {
                                 openVideoInYoutubeOrBrowser(urlLink = videoId)
                             },
                             onCreateNewSet = { trainingId, setId ->
-                                navController.navigate(
-                                    route = SetCreationDestinations
-                                        .SetCreationGraph
-                                        .getRouteWithTrainingId(
-                                            trainingId = trainingId,
-                                            setId = setId
-                                        )
+                                navController.navigateToSetsCreationGraph(
+                                    trainingId = trainingId,
+                                    setId = setId
                                 )
                             }
                         )
-                        setsGraph(navController = navController)
+                        addSetsCreationGraph(navController = navController)
                     }
                 }
             }

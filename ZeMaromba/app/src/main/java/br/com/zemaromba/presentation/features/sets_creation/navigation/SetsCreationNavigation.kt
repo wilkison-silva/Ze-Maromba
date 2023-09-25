@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.navigation.nav_graphs
+package br.com.zemaromba.presentation.features.sets_creation.navigation
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -9,38 +9,98 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import br.com.zemaromba.common.extensions.addRouterParameters
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.common.extensions.sharedViewModel
+import br.com.zemaromba.presentation.core_ui.navigation.BaseRouter
 import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.features.sets.screen.ExerciseDetailsScreen
-import br.com.zemaromba.presentation.features.sets.screen.ExerciseObservationScreen
-import br.com.zemaromba.presentation.features.sets.screen.SelectExerciseScreen
-import br.com.zemaromba.presentation.features.sets.viewmodel.CreateSetFlowViewModel
-import br.com.zemaromba.presentation.features.sets.viewmodel.ExerciseDetailsViewModel
-import br.com.zemaromba.presentation.features.sets.viewmodel.ExerciseObservationViewModel
-import br.com.zemaromba.presentation.features.sets.viewmodel.SelectExerciseViewModel
-import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
+import br.com.zemaromba.presentation.features.sets_creation.screen.ExerciseDetailsScreen
+import br.com.zemaromba.presentation.features.sets_creation.screen.ExerciseObservationScreen
+import br.com.zemaromba.presentation.features.sets_creation.screen.SelectExerciseScreen
+import br.com.zemaromba.presentation.features.sets_creation.viewmodel.CreateSetFlowViewModel
+import br.com.zemaromba.presentation.features.sets_creation.viewmodel.ExerciseDetailsViewModel
+import br.com.zemaromba.presentation.features.sets_creation.viewmodel.ExerciseObservationViewModel
+import br.com.zemaromba.presentation.features.sets_creation.viewmodel.SelectExerciseViewModel
 import br.com.zemaromba.presentation.navigation.destinations.TrainingDestinations
 
+private object SetsCreationNavigation {
 
-fun NavGraphBuilder.setsGraph(
+    private const val baseGraphRoute = "sets"
+
+    object Parameters {
+        const val trainingId = "training_id"
+        const val setId = "set_id"
+    }
+
+    sealed class Router : BaseRouter() {
+        data object SetCreationGraph : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/{${Parameters.trainingId}}/{${Parameters.setId}}"
+
+            override fun buildRoute(vararg args: String): String {
+                return baseGraphRoute.addRouterParameters(*args)
+            }
+        }
+
+        data object SelectExercise : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/set_creation"
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+
+        data object ExerciseDetails : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/exercise_details"
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+
+        data object ExerciseObservation : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/exercise_observation"
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+    }
+}
+
+fun NavController.navigateToSetsCreationGraph(trainingId: Long, setId: Long) {
+    this.navigate(
+        route = SetsCreationNavigation
+            .Router
+            .SetCreationGraph
+            .buildRoute(
+                trainingId.toString(),
+                setId.toString()
+            )
+    )
+}
+
+fun NavGraphBuilder.addSetsCreationGraph(
     navController: NavController
 ) {
     navigation(
-        startDestination = SetCreationDestinations.SelectExercise.route,
-        route = SetCreationDestinations.SetCreationGraph.route,
+        route = SetsCreationNavigation.Router.SetCreationGraph.routePattern,
+        startDestination = SetsCreationNavigation.Router.SelectExercise.routePattern,
         arguments = listOf(
-            navArgument(name = SetCreationDestinations.trainingId) {
+            navArgument(name = SetsCreationNavigation.Parameters.trainingId) {
                 type = NavType.LongType
             },
-            navArgument(name = SetCreationDestinations.setId) {
+            navArgument(name = SetsCreationNavigation.Parameters.setId) {
                 type = NavType.LongType
             }
         )
     ) {
         composableWithTransitionAnimation(
-            route = SetCreationDestinations.SelectExercise.route
+            route = SetsCreationNavigation.Router.SelectExercise.routePattern
         ) {
             val flowViewModel =
                 it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
@@ -50,13 +110,13 @@ fun NavGraphBuilder.setsGraph(
             val trainingId = remember {
                 it
                     .arguments
-                    ?.getLong(SetCreationDestinations.trainingId)
+                    ?.getLong(SetsCreationNavigation.Parameters.trainingId)
                     .orZero()
             }
             val setId = remember {
                 it
                     .arguments
-                    ?.getLong(SetCreationDestinations.setId)
+                    ?.getLong(SetsCreationNavigation.Parameters.setId)
                     .orZero()
             }
             LaunchedEffect(key1 = Unit) {
@@ -94,7 +154,7 @@ fun NavGraphBuilder.setsGraph(
                             trainingId = trainingId
                         )
                         flowViewModel.updateMustRetrieveExercise(value = false)
-                        navController.navigate(SetCreationDestinations.ExerciseDetails.route)
+                        navController.navigate(SetsCreationNavigation.Router.ExerciseDetails.routePattern)
                     }
                 },
                 onExerciseSelected = { exerciseId ->
@@ -128,7 +188,7 @@ fun NavGraphBuilder.setsGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = SetCreationDestinations.ExerciseDetails.route
+            route = SetsCreationNavigation.Router.ExerciseDetails.routePattern
         ) {
             val flowViewModel =
                 it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)
@@ -164,7 +224,7 @@ fun NavGraphBuilder.setsGraph(
                         weightValue = viewModel.state.value.weightValue,
                         restingTimeValue = viewModel.state.value.restingTimeValue
                     )
-                    navController.navigate(SetCreationDestinations.ExerciseObservation.route)
+                    navController.navigate(SetsCreationNavigation.Router.ExerciseObservation.routePattern)
                 },
                 onChangeSeries = { seriesValue ->
                     viewModel.updateSeriesValue(value = seriesValue)
@@ -184,7 +244,7 @@ fun NavGraphBuilder.setsGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = SetCreationDestinations.ExerciseObservation.route
+            route = SetsCreationNavigation.Router.ExerciseObservation.routePattern
         ) {
             val flowViewModel =
                 it.sharedViewModel<CreateSetFlowViewModel>(navController = navController)

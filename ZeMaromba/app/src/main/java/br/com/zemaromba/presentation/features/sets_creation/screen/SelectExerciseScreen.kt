@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.features.sets.screen
+package br.com.zemaromba.presentation.features.sets_creation.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
@@ -43,8 +43,8 @@ import br.com.zemaromba.presentation.components.search_bar.SearchBar
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.features.sets.screen.state.CreateExerciseState
-import br.com.zemaromba.presentation.features.sets.screen.state.SelectExerciseScreenState
+import br.com.zemaromba.presentation.features.sets_creation.screen.state.CreateExerciseState
+import br.com.zemaromba.presentation.features.sets_creation.screen.state.SelectExerciseScreenState
 import br.com.zemaromba.presentation.model.ExerciseView
 
 @Composable

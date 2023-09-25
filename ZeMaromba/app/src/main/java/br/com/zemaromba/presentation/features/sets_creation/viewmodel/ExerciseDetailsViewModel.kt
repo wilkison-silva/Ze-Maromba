@@ -1,7 +1,7 @@
-package br.com.zemaromba.presentation.features.sets.viewmodel
+package br.com.zemaromba.presentation.features.sets_creation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import br.com.zemaromba.presentation.features.sets.screen.state.ExerciseDetailsScreenState
+import br.com.zemaromba.presentation.features.sets_creation.screen.state.ExerciseDetailsScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

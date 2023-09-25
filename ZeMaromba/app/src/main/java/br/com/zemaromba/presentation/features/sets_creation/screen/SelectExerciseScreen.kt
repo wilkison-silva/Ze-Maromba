@@ -45,7 +45,7 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.features.sets_creation.screen.state.CreateExerciseState
 import br.com.zemaromba.presentation.features.sets_creation.screen.state.SelectExerciseScreenState
-import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
 
 @Composable
 fun SelectExerciseScreen(

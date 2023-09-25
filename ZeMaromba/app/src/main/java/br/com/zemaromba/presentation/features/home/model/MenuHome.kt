@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.model
+package br.com.zemaromba.presentation.features.home.model
 
 enum class MenuHome {
     TRAINING_PLAN_SCREEN,

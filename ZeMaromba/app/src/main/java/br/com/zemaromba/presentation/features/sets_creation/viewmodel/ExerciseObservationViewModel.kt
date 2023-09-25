@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.domain.repository.SetRepository
 import br.com.zemaromba.presentation.features.sets_creation.screen.state.ExerciseObservationScreenState
-import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -3,7 +3,7 @@ package br.com.zemaromba.presentation.core_ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.zemaromba.domain.repository.UserRepository
-import br.com.zemaromba.presentation.model.Theme
+import br.com.zemaromba.presentation.features.user_configurations.model.Theme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

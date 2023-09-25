@@ -1,8 +1,8 @@
 package br.com.zemaromba.presentation.features.user_configurations.screen.state
 
 import br.com.zemaromba.R
-import br.com.zemaromba.presentation.model.SelectableThemeItemView
-import br.com.zemaromba.presentation.model.Theme
+import br.com.zemaromba.presentation.features.user_configurations.model.SelectableThemeItemView
+import br.com.zemaromba.presentation.features.user_configurations.model.Theme
 
 data class ThemeSelectionScreenState(
     val selectableThemeItems: List<SelectableThemeItemView> = listOf(

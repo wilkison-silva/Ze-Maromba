@@ -9,7 +9,7 @@ import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.domain.repository.ExercisesRepository
 import br.com.zemaromba.presentation.components.search_bar.SearchBarState
 import br.com.zemaromba.presentation.features.exercises.screen.state.MuscleGroupCheckBoxState
-import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds

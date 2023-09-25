@@ -39,7 +39,7 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.features.training_plan.screen.state.TrainingPlanState
-import br.com.zemaromba.presentation.model.TrainingPlanView
+import br.com.zemaromba.presentation.features.training_plan.model.TrainingPlanView
 
 @Composable
 fun TrainingPlanListScreen(

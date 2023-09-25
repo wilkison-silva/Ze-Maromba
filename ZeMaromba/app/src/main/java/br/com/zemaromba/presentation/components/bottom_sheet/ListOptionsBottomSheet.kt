@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
-import br.com.zemaromba.presentation.model.BottomSheetOption
+import br.com.zemaromba.presentation.components.bottom_sheet.model.BottomSheetOption
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

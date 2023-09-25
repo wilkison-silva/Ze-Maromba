@@ -12,14 +12,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.features.exercises.navigation.PopUpToDestination
+import br.com.zemaromba.presentation.core_ui.navigation.PopUpToDestination
 import br.com.zemaromba.presentation.features.exercises.navigation.addExerciseGraph
 import br.com.zemaromba.presentation.features.home.navigation.addHomeGraph
 import br.com.zemaromba.presentation.features.home.navigation.navigateToHomeGraph
-import br.com.zemaromba.presentation.navigation.nav_graphs.onBoardingGraph
+import br.com.zemaromba.presentation.features.onboarding.navigation.addOnBoardingGraph
+import br.com.zemaromba.presentation.features.onboarding.navigation.getOnBoardingGraphRoute
 import br.com.zemaromba.presentation.navigation.nav_graphs.setsGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.trainingPlanGraph
-import br.com.zemaromba.presentation.navigation.destinations.OnBoardingDestinations
 import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
 import br.com.zemaromba.presentation.navigation.nav_graphs.userConfigurationsGraph
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,14 +42,14 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = OnBoardingDestinations.OnBoardingGraph.route
+                        startDestination = getOnBoardingGraphRoute()
                     ) {
-                        onBoardingGraph(
+                        addOnBoardingGraph(
                             navController = navController,
                             onFinishOnBoarding = {
                                 navController.navigateToHomeGraph(
                                     popUpToDestination = PopUpToDestination(
-                                        route = OnBoardingDestinations.OnBoardingGraph.route,
+                                        route = getOnBoardingGraphRoute(),
                                         inclusive = true
                                     )
                                 )

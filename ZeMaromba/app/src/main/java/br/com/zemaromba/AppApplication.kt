@@ -1,7 +1,7 @@
 package br.com.zemaromba
 
 import android.app.Application
-import androidx.compose.foundation.isSystemInDarkTheme
+import android.content.res.Configuration
 import br.com.zemaromba.common.extensions.convertJsonFileToString
 import br.com.zemaromba.common.extensions.isDatabaseCreated
 import br.com.zemaromba.common.extensions.parseJsonStringToClassObject
@@ -14,7 +14,6 @@ import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.data.sources.local.database.dao.SetDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingPlanDao
-import br.com.zemaromba.domain.repository.SetRepository
 import br.com.zemaromba.domain.repository.UserRepository
 import br.com.zemaromba.presentation.model.Theme
 import dagger.hilt.android.HiltAndroidApp
@@ -50,7 +49,16 @@ class AppApplication : Application() {
     private fun createExercisesIfNecessary() {
         if (!isDatabaseCreated(BuildConfig.DATABASE_NAME)) {
             CoroutineScope(Dispatchers.IO).launch {
-                userRepository.saveTheme(themeName = Theme.LIGHT.name)
+                val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+                when (currentNightMode) {
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        userRepository.saveTheme(themeName = Theme.LIGHT.name)
+                    }
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        userRepository.saveTheme(themeName = Theme.DARK.name)
+                    }
+                }
+
                 val fileName = "exercises_with_muscle_groups.json"
                 val context = this@AppApplication
                 context.convertJsonFileToString(fileName = fileName)?.let { jsonFileString ->

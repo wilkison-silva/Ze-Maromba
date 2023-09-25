@@ -110,7 +110,7 @@ fun ZeMarombaTheme(
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
-        val darkTheme = isSystemInDarkTheme()
+        val darkTheme = (theme == Theme.DYNAMIC && isSystemInDarkTheme()) || (theme == Theme.DARK)
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.surface.toArgb()

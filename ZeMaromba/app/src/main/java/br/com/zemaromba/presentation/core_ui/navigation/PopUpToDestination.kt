@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.features.exercises.navigation
+package br.com.zemaromba.presentation.core_ui.navigation
 
 data class PopUpToDestination(
     val route: String,

@@ -4,17 +4,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptionsBuilder
-import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.presentation.core_ui.navigation.BaseRouter
-import br.com.zemaromba.presentation.features.exercises.navigation.PopUpToDestination
+import br.com.zemaromba.presentation.core_ui.navigation.PopUpToDestination
 import br.com.zemaromba.presentation.features.exercises.navigation.navigateToExerciseGraph
 import br.com.zemaromba.presentation.features.home.screen.HomeScreen
 import br.com.zemaromba.presentation.features.home.viewmodel.HomeScreenViewModel
 import br.com.zemaromba.presentation.model.MenuHome
-import br.com.zemaromba.presentation.navigation.destinations.OnBoardingDestinations
 import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
 import br.com.zemaromba.presentation.navigation.destinations.UserConfigurationsDestinations
 

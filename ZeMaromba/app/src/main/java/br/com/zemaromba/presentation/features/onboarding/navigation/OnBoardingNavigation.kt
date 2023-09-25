@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.navigation.nav_graphs
+package br.com.zemaromba.presentation.features.onboarding.navigation
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.res.stringResource
@@ -9,23 +9,65 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
+import br.com.zemaromba.presentation.core_ui.navigation.BaseRouter
 import br.com.zemaromba.presentation.features.onboarding.screen.GetStartedScreen
 import br.com.zemaromba.presentation.features.onboarding.screen.UserOriginationNameScreen
 import br.com.zemaromba.presentation.features.onboarding.screen.event.UserOriginationNameEvents
 import br.com.zemaromba.presentation.features.onboarding.viewmodel.GetStartedViewModel
 import br.com.zemaromba.presentation.features.onboarding.viewmodel.UserOriginationNameViewModel
-import br.com.zemaromba.presentation.navigation.destinations.OnBoardingDestinations
 
-fun NavGraphBuilder.onBoardingGraph(
+private object OnBoardingDestinations {
+
+    const val baseGraphRoute = "on_boarding"
+
+    sealed class Router : BaseRouter() {
+        data object OnBoardingGraph : Router() {
+            override val routePattern: String
+                get() = baseGraphRoute
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+
+        data object GetStartedScreen : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/get_started"
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+
+        data object UserOriginationNameScreen : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/user_origination_name"
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+    }
+}
+
+fun getOnBoardingGraphRoute(): String {
+    return OnBoardingDestinations.Router.OnBoardingGraph.routePattern
+}
+
+fun NavController.navigateToOnBoardingGraph() {
+    this.navigate(route = OnBoardingDestinations.Router.OnBoardingGraph.buildRoute())
+}
+
+fun NavGraphBuilder.addOnBoardingGraph(
     navController: NavController,
     onFinishOnBoarding: () -> Unit,
 ) {
     navigation(
-        startDestination = OnBoardingDestinations.GetStartedScreen.route,
-        route = OnBoardingDestinations.OnBoardingGraph.route
+        route = OnBoardingDestinations.Router.OnBoardingGraph.routePattern,
+        startDestination = OnBoardingDestinations.Router.GetStartedScreen.routePattern,
     ) {
         composableWithTransitionAnimation(
-            route = OnBoardingDestinations.GetStartedScreen.route,
+            route = OnBoardingDestinations.Router.GetStartedScreen.routePattern,
         ) {
             val viewModel: GetStartedViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -40,8 +82,18 @@ fun NavGraphBuilder.onBoardingGraph(
                 description = stringResource(R.string.description_screen_get_started),
                 buttonTitle = stringResource(R.string.button_title_get_started),
                 onButtonClick = {
-                    navController.navigate(route = OnBoardingDestinations.UserOriginationNameScreen.route) {
-                        popUpTo(route = OnBoardingDestinations.GetStartedScreen.route) {
+                    navController.navigate(
+                        route = OnBoardingDestinations
+                            .Router
+                            .UserOriginationNameScreen
+                            .buildRoute()
+                    ) {
+                        popUpTo(
+                            route = OnBoardingDestinations
+                                .Router
+                                .GetStartedScreen
+                                .buildRoute()
+                        ) {
                             inclusive = true
                         }
                     }
@@ -49,7 +101,7 @@ fun NavGraphBuilder.onBoardingGraph(
             )
         }
         composableWithTransitionAnimation(
-            route = OnBoardingDestinations.UserOriginationNameScreen.route
+            route = OnBoardingDestinations.Router.UserOriginationNameScreen.routePattern
         ) {
             val viewModel: UserOriginationNameViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value

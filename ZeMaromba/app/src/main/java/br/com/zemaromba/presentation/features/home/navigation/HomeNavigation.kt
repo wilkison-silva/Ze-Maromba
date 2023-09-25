@@ -11,8 +11,8 @@ import br.com.zemaromba.presentation.core_ui.navigation.PopUpToDestination
 import br.com.zemaromba.presentation.features.exercises.navigation.navigateToExerciseGraph
 import br.com.zemaromba.presentation.features.home.screen.HomeScreen
 import br.com.zemaromba.presentation.features.home.viewmodel.HomeScreenViewModel
+import br.com.zemaromba.presentation.features.training_plan.navigation.navigateToTrainingPlanGraph
 import br.com.zemaromba.presentation.model.MenuHome
-import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
 import br.com.zemaromba.presentation.features.user_configurations.navigation.navigateToUserConfigurationsGraph
 
 private object HomeDestinations {
@@ -75,9 +75,7 @@ fun NavGraphBuilder.addHomeGraph(
                 onNavigate = {
                     when (it) {
                         MenuHome.TRAINING_PLAN_SCREEN -> {
-                            navController.navigate(
-                                route = TrainingPlanDestinations.TrainingPlanGraph.route
-                            )
+                            navController.navigateToTrainingPlanGraph()
                         }
 
                         MenuHome.EXERCISES_SCREEN -> {

@@ -22,7 +22,6 @@ import br.com.zemaromba.presentation.features.sets_creation.viewmodel.CreateSetF
 import br.com.zemaromba.presentation.features.sets_creation.viewmodel.ExerciseDetailsViewModel
 import br.com.zemaromba.presentation.features.sets_creation.viewmodel.ExerciseObservationViewModel
 import br.com.zemaromba.presentation.features.sets_creation.viewmodel.SelectExerciseViewModel
-import br.com.zemaromba.presentation.navigation.destinations.TrainingDestinations
 
 private object SetsCreationNavigation {
 
@@ -259,8 +258,8 @@ fun NavGraphBuilder.addSetsCreationGraph(
             LaunchedEffect(key1 = state.navigateBack) {
                 if (state.navigateBack) {
                     navController.popBackStack(
-                        route = TrainingDestinations.SetsListScreen.route,
-                        inclusive = false
+                        route = SetsCreationNavigation.Router.SetCreationGraph.routePattern,
+                        inclusive = true
                     )
                 }
             }

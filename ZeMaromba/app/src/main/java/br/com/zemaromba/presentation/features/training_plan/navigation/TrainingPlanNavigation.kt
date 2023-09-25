@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.navigation.nav_graphs
+package br.com.zemaromba.presentation.features.training_plan.navigation
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -9,8 +9,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import br.com.zemaromba.common.extensions.addRouterParameters
 import br.com.zemaromba.common.extensions.composableWithTransitionAnimation
 import br.com.zemaromba.common.extensions.orZero
+import br.com.zemaromba.presentation.core_ui.navigation.BaseRouter
 import br.com.zemaromba.presentation.features.training_plan.screen.SetsListScreen
 import br.com.zemaromba.presentation.features.training_plan.screen.TrainingListScreen
 import br.com.zemaromba.presentation.features.training_plan.screen.TrainingManagementScreen
@@ -23,21 +25,94 @@ import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingLi
 import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingManagementViewModel
 import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingPlanListViewModel
 import br.com.zemaromba.presentation.features.training_plan.viewmodel.TrainingPlanManagementViewModel
-import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
-import br.com.zemaromba.presentation.navigation.destinations.TrainingDestinations
 
+private object TrainingPlanDestinations {
 
-fun NavGraphBuilder.trainingPlanGraph(
+    private const val baseGraphRoute = "training_plan"
+
+    object Parameters {
+        const val trainingPlanId = "training_plan_id"
+        const val trainingId = "training_id"
+    }
+
+    sealed class Router : BaseRouter() {
+
+        data object TrainingPlanGraph : Router() {
+            override val routePattern: String
+                get() = baseGraphRoute
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+
+        data object TrainingPlanListScreen : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/list"
+
+            override fun buildRoute(vararg args: String): String {
+                return routePattern
+            }
+        }
+
+        data object TrainingPlanManagementScreen : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/management/{${Parameters.trainingPlanId}}"
+
+            override fun buildRoute(vararg args: String): String {
+                return "$baseGraphRoute/management".addRouterParameters(*args)
+            }
+        }
+
+        data object TrainingsListScreen : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/trainings_list/{${Parameters.trainingPlanId}}"
+
+            override fun buildRoute(vararg args: String): String {
+                return "$baseGraphRoute/trainings_list".addRouterParameters(*args)
+            }
+        }
+
+        data object TrainingManagementScreen : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/training/management/{${Parameters.trainingId}}/{${Parameters.trainingPlanId}}"
+
+            override fun buildRoute(vararg args: String): String {
+                return "$baseGraphRoute/training/management".addRouterParameters(*args)
+            }
+        }
+
+        data object SetsListScreen : Router() {
+            override val routePattern: String
+                get() = "$baseGraphRoute/training/sets_list/{${Parameters.trainingId}}/{${Parameters.trainingPlanId}}"
+
+            override fun buildRoute(vararg args: String): String {
+                return "$baseGraphRoute/training/sets_list".addRouterParameters(*args)
+            }
+        }
+
+    }
+}
+
+fun NavController.navigateToTrainingPlanGraph() {
+    this.navigate(
+        route = TrainingPlanDestinations
+            .Router.TrainingPlanGraph
+            .routePattern
+    )
+}
+
+fun NavGraphBuilder.addTrainingPlanGraph(
     navController: NavController,
-    openYoutube: (videoId: String) -> Unit,
+    openYoutube: (urlLink: String) -> Unit,
     onCreateNewSet: (trainingId: Long, setId: Long) -> Unit
 ) {
     navigation(
-        startDestination = TrainingPlanDestinations.TrainingPlanListScreen.route,
-        route = TrainingPlanDestinations.TrainingPlanGraph.route
+        route = TrainingPlanDestinations.Router.TrainingPlanGraph.routePattern,
+        startDestination = TrainingPlanDestinations.Router.TrainingPlanListScreen.routePattern,
     ) {
         composableWithTransitionAnimation(
-            route = TrainingPlanDestinations.TrainingPlanListScreen.route
+            route = TrainingPlanDestinations.Router.TrainingPlanListScreen.routePattern
         ) {
             val viewModel: TrainingPlanListViewModel = hiltViewModel()
             val state = viewModel.state.collectAsStateWithLifecycle().value
@@ -48,22 +123,26 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenTrainingPlan = { trainingPlanId ->
                     navController.navigate(
-                        route = TrainingPlanDestinations.TrainingsListScreen.getRoute(trainingPlanId = trainingPlanId)
+                        route = TrainingPlanDestinations
+                            .Router
+                            .TrainingsListScreen
+                            .buildRoute(trainingPlanId.toString())
                     )
                 },
                 onCreateTrainingPlan = {
                     navController.navigate(
-                        route = TrainingPlanDestinations.TrainingPlanManagementScreen.getRouteWithTrainingPlanId(
-                            trainingPlanId = 0
-                        )
+                        route = TrainingPlanDestinations
+                            .Router
+                            .TrainingPlanManagementScreen
+                            .buildRoute("0")
                     )
                 }
             )
         }
         composableWithTransitionAnimation(
-            route = TrainingPlanDestinations.TrainingPlanManagementScreen.route,
+            route = TrainingPlanDestinations.Router.TrainingPlanManagementScreen.routePattern,
             arguments = listOf(
-                navArgument(name = TrainingPlanDestinations.trainingPlanId) {
+                navArgument(name = TrainingPlanDestinations.Parameters.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -72,7 +151,7 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingPlanDestinations.trainingPlanId)
+                    ?.getLong(TrainingPlanDestinations.Parameters.trainingPlanId)
                     .orZero()
             }
             val viewModel: TrainingPlanManagementViewModel = hiltViewModel()
@@ -104,16 +183,16 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onDeleteFinished = {
                     navController.popBackStack(
-                        route = TrainingPlanDestinations.TrainingPlanListScreen.route,
+                        route = TrainingPlanDestinations.Router.TrainingPlanListScreen.routePattern,
                         inclusive = false
                     )
                 }
             )
         }
         composableWithTransitionAnimation(
-            route = TrainingPlanDestinations.TrainingsListScreen.route,
+            route = TrainingPlanDestinations.Router.TrainingsListScreen.routePattern,
             arguments = listOf(
-                navArgument(name = TrainingPlanDestinations.trainingPlanId) {
+                navArgument(name = TrainingPlanDestinations.Parameters.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -122,7 +201,7 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingPlanDestinations.trainingPlanId)
+                    ?.getLong(TrainingPlanDestinations.Parameters.trainingPlanId)
                     .orZero()
             }
             val viewModel: TrainingListViewModel = hiltViewModel()
@@ -140,25 +219,32 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenTraining = {
                     navController.navigate(
-                        route = TrainingDestinations.SetsListScreen.getRouteWithParameters(
-                            trainingId = it,
-                            trainingPlanId = trainingPlanId
-                        )
+                        route = TrainingPlanDestinations
+                            .Router
+                            .SetsListScreen
+                            .buildRoute(
+                                it.toString(),
+                                trainingPlanId.toString()
+                            )
                     )
                 },
                 onCreateTraining = {
                     navController.navigate(
-                        route = TrainingDestinations.TrainingManagementScreen.getRouteWithTrainingId(
-                            trainingId = 0,
-                            trainingPlanId = trainingPlanId
-                        )
+                        route = TrainingPlanDestinations
+                            .Router
+                            .TrainingManagementScreen
+                            .buildRoute(
+                                "0",
+                                trainingPlanId.toString()
+                            )
                     )
                 },
                 onOpenSettings = {
                     navController.navigate(
-                        route = TrainingPlanDestinations.TrainingPlanManagementScreen.getRouteWithTrainingPlanId(
-                            trainingPlanId = trainingPlanId
-                        )
+                        route = TrainingPlanDestinations
+                            .Router
+                            .TrainingPlanManagementScreen
+                            .buildRoute(trainingPlanId.toString())
                     )
                 }
             )
@@ -167,13 +253,13 @@ fun NavGraphBuilder.trainingPlanGraph(
 
 
         composableWithTransitionAnimation(
-            route = TrainingDestinations.TrainingManagementScreen.route,
+            route = TrainingPlanDestinations.Router.TrainingManagementScreen.routePattern,
             arguments = listOf(
-                navArgument(name = TrainingDestinations.trainingId) {
+                navArgument(name = TrainingPlanDestinations.Parameters.trainingId) {
                     type = NavType.LongType
                     defaultValue = 0
                 },
-                navArgument(name = TrainingDestinations.trainingPlanId) {
+                navArgument(name = TrainingPlanDestinations.Parameters.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -182,13 +268,13 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingDestinations.trainingId)
+                    ?.getLong(TrainingPlanDestinations.Parameters.trainingId)
                     .orZero()
             }
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingDestinations.trainingPlanId)
+                    ?.getLong(TrainingPlanDestinations.Parameters.trainingPlanId)
                     .orZero()
             }
             val viewModel: TrainingManagementViewModel = hiltViewModel()
@@ -223,7 +309,7 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onDeleteFinished = {
                     navController.popBackStack(
-                        route = TrainingPlanDestinations.TrainingPlanListScreen.route,
+                        route = TrainingPlanDestinations.Router.TrainingPlanListScreen.routePattern,
                         inclusive = false
                     )
                 }
@@ -231,13 +317,13 @@ fun NavGraphBuilder.trainingPlanGraph(
         }
 
         composableWithTransitionAnimation(
-            route = TrainingDestinations.SetsListScreen.route,
+            route = TrainingPlanDestinations.Router.SetsListScreen.routePattern,
             arguments = listOf(
-                navArgument(name = TrainingDestinations.trainingId) {
+                navArgument(name = TrainingPlanDestinations.Parameters.trainingId) {
                     type = NavType.LongType
                     defaultValue = 0
                 },
-                navArgument(name = TrainingDestinations.trainingPlanId) {
+                navArgument(name = TrainingPlanDestinations.Parameters.trainingPlanId) {
                     type = NavType.LongType
                     defaultValue = 0
                 }
@@ -246,13 +332,13 @@ fun NavGraphBuilder.trainingPlanGraph(
             val trainingId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingDestinations.trainingId)
+                    ?.getLong(TrainingPlanDestinations.Parameters.trainingId)
                     .orZero()
             }
             val trainingPlanId = remember {
                 it
                     .arguments
-                    ?.getLong(TrainingDestinations.trainingPlanId)
+                    ?.getLong(TrainingPlanDestinations.Parameters.trainingPlanId)
                     .orZero()
             }
             val viewModel: SetListViewModel = hiltViewModel()
@@ -279,14 +365,17 @@ fun NavGraphBuilder.trainingPlanGraph(
                 },
                 onOpenSettings = {
                     navController.navigate(
-                        route = TrainingDestinations.TrainingManagementScreen.getRouteWithTrainingId(
-                            trainingId = trainingId,
-                            trainingPlanId = trainingPlanId
-                        )
+                        route = TrainingPlanDestinations
+                            .Router
+                            .TrainingManagementScreen
+                            .buildRoute(
+                                trainingId.toString(),
+                                trainingPlanId.toString()
+                            )
                     )
                 },
-                onOpenYoutubeApp = { videoId ->
-                    openYoutube(videoId)
+                onOpenYoutubeApp = { urlLink ->
+                    openYoutube(urlLink)
                 },
                 onCompleteSet = { setId, isCompleted ->
                     viewModel.completeSet(setId = setId, isCompleted = isCompleted)

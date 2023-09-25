@@ -64,7 +64,7 @@ fun SetsListScreen(
     onNavigateBack: () -> Unit,
     onCreateSet: () -> Unit,
     onOpenSettings: () -> Unit,
-    onOpenYoutubeApp: (videoId: String) -> Unit,
+    onOpenYoutubeApp: (urlLink: String) -> Unit,
     onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit,
     onShowListOptionsBottomSheet: (setId: Long) -> Unit,
     onHideListOptionsBottomSheet: () -> Unit,
@@ -155,8 +155,8 @@ fun SetsListScreen(
                                     onLongClick = {
                                         onShowListOptionsBottomSheet(setView.id)
                                     },
-                                    onOpenDemonstrationVideo = { videoId: String ->
-                                        onOpenYoutubeApp(videoId)
+                                    onOpenDemonstrationVideo = { urlLink: String ->
+                                        onOpenYoutubeApp(urlLink)
                                     },
                                     onCompleteSet = { setId: Long, isCompleted: Boolean ->
                                         onCompleteSet(setId, isCompleted)
@@ -206,7 +206,7 @@ fun SetsListScreen(
 fun SetCardItem(
     setView: SetView,
     onLongClick: () -> Unit,
-    onOpenDemonstrationVideo: (videoId: String) -> Unit,
+    onOpenDemonstrationVideo: (urlLink: String) -> Unit,
     onCompleteSet: (setId: Long, isCompleted: Boolean) -> Unit,
 ) {
     Card(
@@ -276,12 +276,12 @@ fun SetCardItem(
                     caption = setView.observation
                 )
             )
-            setView.exerciseView.urlLink?.let { videoIdOnYoutube ->
+            setView.exerciseView.urlLink?.let { urlLink ->
                 IconWithText(
                     drawableRes = R.drawable.ic_play_video_youtube,
                     labelAndDescription = AnnotatedString(text = stringResource(R.string.set_how_to_do_this_exercise)),
                     onClickText = {
-                        onOpenDemonstrationVideo(videoIdOnYoutube)
+                        onOpenDemonstrationVideo(urlLink)
                     }
                 )
             }

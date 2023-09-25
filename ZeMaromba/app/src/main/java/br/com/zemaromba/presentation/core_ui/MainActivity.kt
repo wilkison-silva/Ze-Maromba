@@ -21,7 +21,7 @@ import br.com.zemaromba.presentation.features.onboarding.navigation.getOnBoardin
 import br.com.zemaromba.presentation.features.sets_creation.navigation.addSetsCreationGraph
 import br.com.zemaromba.presentation.features.sets_creation.navigation.navigateToSetsCreationGraph
 import br.com.zemaromba.presentation.features.user_configurations.navigation.addUserConfigurationsGraph
-import br.com.zemaromba.presentation.navigation.nav_graphs.trainingPlanGraph
+import br.com.zemaromba.presentation.features.training_plan.navigation.addTrainingPlanGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,12 +33,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val state = mainViewModel.state.collectAsStateWithLifecycle().value
-            ZeMarombaTheme(
-                theme = state.selectedTheme
-            ) {
-                Surface(
-                    modifier = Modifier.fillMaxSize()
-                ) {
+            ZeMarombaTheme(theme = state.selectedTheme) {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
@@ -63,10 +59,10 @@ class MainActivity : ComponentActivity() {
                                 openVideoInYoutubeOrBrowser(urlLink = videoId)
                             }
                         )
-                        trainingPlanGraph(
+                        addTrainingPlanGraph(
                             navController = navController,
-                            openYoutube = { videoId: String ->
-                                openVideoInYoutubeOrBrowser(urlLink = videoId)
+                            openYoutube = { urlLink: String ->
+                                openVideoInYoutubeOrBrowser(urlLink = urlLink)
                             },
                             onCreateNewSet = { trainingId, setId ->
                                 navController.navigateToSetsCreationGraph(

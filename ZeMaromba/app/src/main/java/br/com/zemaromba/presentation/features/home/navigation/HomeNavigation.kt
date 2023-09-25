@@ -13,7 +13,7 @@ import br.com.zemaromba.presentation.features.home.screen.HomeScreen
 import br.com.zemaromba.presentation.features.home.viewmodel.HomeScreenViewModel
 import br.com.zemaromba.presentation.model.MenuHome
 import br.com.zemaromba.presentation.navigation.destinations.TrainingPlanDestinations
-import br.com.zemaromba.presentation.navigation.destinations.UserConfigurationsDestinations
+import br.com.zemaromba.presentation.features.user_configurations.navigation.navigateToUserConfigurationsGraph
 
 private object HomeDestinations {
 
@@ -85,9 +85,7 @@ fun NavGraphBuilder.addHomeGraph(
                         }
 
                         MenuHome.USER_CONFIGURATIONS -> {
-                            navController.navigate(
-                                route = UserConfigurationsDestinations.UserConfigurationsGraph.route
-                            )
+                            navController.navigateToUserConfigurationsGraph()
                         }
                     }
                 }

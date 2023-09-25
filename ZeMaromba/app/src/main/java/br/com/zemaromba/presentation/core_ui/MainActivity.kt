@@ -21,7 +21,7 @@ import br.com.zemaromba.presentation.features.onboarding.navigation.getOnBoardin
 import br.com.zemaromba.presentation.navigation.nav_graphs.setsGraph
 import br.com.zemaromba.presentation.navigation.nav_graphs.trainingPlanGraph
 import br.com.zemaromba.presentation.navigation.destinations.SetCreationDestinations
-import br.com.zemaromba.presentation.navigation.nav_graphs.userConfigurationsGraph
+import br.com.zemaromba.presentation.features.user_configurations.navigation.addUserConfigurationsGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                         addHomeGraph(navController = navController)
-                        userConfigurationsGraph(navController = navController)
+                        addUserConfigurationsGraph(navController = navController)
                         addExerciseGraph(
                             navController = navController,
                             openYoutube = { videoId: String ->

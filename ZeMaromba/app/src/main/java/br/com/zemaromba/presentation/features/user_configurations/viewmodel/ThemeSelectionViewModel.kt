@@ -1,8 +1,11 @@
 package br.com.zemaromba.presentation.features.user_configurations.viewmodel
 
+import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.zemaromba.R
 import br.com.zemaromba.domain.repository.UserRepository
+import br.com.zemaromba.presentation.features.user_configurations.model.SelectableThemeItemView
 import br.com.zemaromba.presentation.features.user_configurations.screen.state.ThemeSelectionScreenState
 import br.com.zemaromba.presentation.features.user_configurations.model.Theme
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +26,23 @@ class ThemeSelectionViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            val themesListWithDynamicTheme = listOf(
+                SelectableThemeItemView(
+                    name = R.string.light_theme_name,
+                    isSelected = false,
+                    themeType = Theme.LIGHT
+                ),
+                SelectableThemeItemView(
+                    name = R.string.dark_theme_name,
+                    isSelected = false,
+                    themeType = Theme.DARK
+                )
+            )
+            _state.update {
+                it.copy(selectableThemeItems = themesListWithDynamicTheme)
+            }
+        }
         getSelectedTheme()
     }
 
@@ -32,14 +52,10 @@ class ThemeSelectionViewModel @Inject constructor(
             .onEach { themeName ->
                 val theme = Theme.valueOf(themeName)
                 val newThemeList = _state.value.selectableThemeItems.map {
-                    it.copy(
-                        isSelected = it.themeType == theme
-                    )
+                    it.copy(isSelected = it.themeType == theme)
                 }
                 _state.update {
-                    it.copy(
-                        selectableThemeItems = newThemeList
-                    )
+                    it.copy(selectableThemeItems = newThemeList)
                 }
             }.launchIn(viewModelScope)
     }

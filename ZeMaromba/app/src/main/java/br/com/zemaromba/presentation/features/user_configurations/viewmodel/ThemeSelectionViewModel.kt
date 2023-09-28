@@ -26,24 +26,16 @@ class ThemeSelectionViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            val themesListWithDynamicTheme = listOf(
-                SelectableThemeItemView(
-                    name = R.string.light_theme_name,
-                    isSelected = false,
-                    themeType = Theme.LIGHT
-                ),
-                SelectableThemeItemView(
-                    name = R.string.dark_theme_name,
-                    isSelected = false,
-                    themeType = Theme.DARK
-                )
-            )
+        checkIfAndroidVersionSupportsDynamicTheme()
+        getSelectedTheme()
+    }
+
+    private fun checkIfAndroidVersionSupportsDynamicTheme() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             _state.update {
-                it.copy(selectableThemeItems = themesListWithDynamicTheme)
+                it.copy(selectableThemeItems = ThemeSelectionScreenState.completeThemesList)
             }
         }
-        getSelectedTheme()
     }
 
     private fun getSelectedTheme() {

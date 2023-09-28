@@ -47,7 +47,7 @@ fun ThemeSelectionScreen(
                 onBackIconClick = { onNavigateBack() },
                 actionIconResId = null,
                 onActionIconClick = null,
-                title = stringResource(R.string.title_configurations)
+                title = stringResource(R.string.themes)
             )
         }
     ) { contentPadding ->

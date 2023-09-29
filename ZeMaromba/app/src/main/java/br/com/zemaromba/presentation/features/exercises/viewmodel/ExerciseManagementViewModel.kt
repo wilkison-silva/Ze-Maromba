@@ -46,7 +46,6 @@ class ExerciseManagementViewModel @Inject constructor(
             is ExerciseManagementEvents.OnSaveExercise -> {
                 val id = state.value.exerciseId
 
-
                 if (state.value.name.isBlank()) {
                     _state.update { it.copy(nameIsBlank = true) }
                     return
@@ -76,7 +75,6 @@ class ExerciseManagementViewModel @Inject constructor(
                         name = name,
                         muscleGroupList = muscleGroupList,
                         urlLink = _state.value.urlLink,
-                        videoId = _state.value.videoId,
                         mayExclude = !_state.value.isNativeFromApp,
                         isNativeFromApp = _state.value.isNativeFromApp
                     )

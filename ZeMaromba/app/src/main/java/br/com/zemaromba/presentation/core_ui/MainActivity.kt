@@ -1,5 +1,6 @@
 package br.com.zemaromba.presentation.core_ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
 import br.com.zemaromba.presentation.core_ui.navigation.PopUpToDestination
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
@@ -52,7 +54,12 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                         addHomeGraph(navController = navController)
-                        addUserConfigurationsGraph(navController = navController)
+                        addUserConfigurationsGraph(
+                            navController = navController,
+                            onContactByEmail = {
+                                sendEmailIntentToApps()
+                            }
+                        )
                         addExerciseGraph(
                             navController = navController,
                             openYoutube = { videoId: String ->
@@ -74,6 +81,17 @@ class MainActivity : ComponentActivity() {
                         addSetsCreationGraph(navController = navController)
                     }
                 }
+            }
+        }
+    }
+
+    private fun sendEmailIntentToApps() {
+        Intent(Intent.ACTION_SEND).also {
+            it.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.suggests_and_bugs))
+            it.putExtra(Intent.EXTRA_EMAIL, arrayOf("wilkisonmartinsdasilva@gmail.com"))
+            it.type = "text/plain"
+            if (it.resolveActivity(packageManager) != null) {
+                startActivity(it)
             }
         }
     }

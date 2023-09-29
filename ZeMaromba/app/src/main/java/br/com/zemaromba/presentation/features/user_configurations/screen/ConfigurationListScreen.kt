@@ -39,7 +39,7 @@ fun ConfigurationListScreen(
     onNavigateBack: () -> Unit,
     onNavigateToUserAccountConfigs: () -> Unit,
     onNavigateToThemeConfigs: () -> Unit,
-    onNavigateToContacts: () -> Unit
+    onContactByEmailClick: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -81,7 +81,7 @@ fun ConfigurationListScreen(
                 title = R.string.config_menu_item_contact_title,
                 subtitle = R.string.config_menu_item_contact_subtitle,
                 onClick = {
-
+                    onContactByEmailClick()
                 }
             )
             VersionItem(version = BuildConfig.VERSION_NAME)
@@ -206,7 +206,7 @@ fun ConfigurationListScreenPreview() {
             onNavigateToThemeConfigs = {
 
             },
-            onNavigateToContacts = {
+            onContactByEmailClick = {
 
             }
         )

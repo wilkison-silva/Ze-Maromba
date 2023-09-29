@@ -257,7 +257,7 @@ fun ExerciseCardItem(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = Styles.CaptionNormal
                 )
-                urlLink?.let { urlLink ->
+                if(!urlLink.isNullOrBlank()) {
                     Row(
                         modifier = Modifier
                             .padding(

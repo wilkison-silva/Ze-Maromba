@@ -61,7 +61,8 @@ fun NavController.navigateToUserConfigurationsGraph() {
 }
 
 fun NavGraphBuilder.addUserConfigurationsGraph(
-    navController: NavController
+    navController: NavController,
+    onContactByEmail: () -> Unit
 ) {
     navigation(
         route = UserConfigurationsDestinations.Router.UserConfigurationsGraph.routePattern,
@@ -80,8 +81,8 @@ fun NavGraphBuilder.addUserConfigurationsGraph(
                 onNavigateToThemeConfigs = {
                     navController.navigate(UserConfigurationsDestinations.Router.ThemeConfigurationListScreen.buildRoute())
                 },
-                onNavigateToContacts = {
-
+                onContactByEmailClick = {
+                    onContactByEmail()
                 }
             )
         }

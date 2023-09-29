@@ -1,7 +1,7 @@
 package br.com.zemaromba.domain.model
 
 import br.com.zemaromba.R
-import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
 
 data class Exercise(
     val id: Long,

@@ -41,7 +41,6 @@ class ExercisesRepositoryImpl @Inject constructor(
         name: String,
         muscleGroupList: List<MuscleGroup>,
         urlLink: String?,
-        videoId: String?,
         mayExclude: Boolean,
         isNativeFromApp: Boolean
     ) {

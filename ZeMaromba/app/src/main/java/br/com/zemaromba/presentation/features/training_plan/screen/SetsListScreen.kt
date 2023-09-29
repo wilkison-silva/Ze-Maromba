@@ -53,10 +53,10 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.features.training_plan.screen.state.SetListState
-import br.com.zemaromba.presentation.model.BottomSheetOption
-import br.com.zemaromba.presentation.model.BottomSheetSetOptions
-import br.com.zemaromba.presentation.model.ExerciseView
-import br.com.zemaromba.presentation.model.SetView
+import br.com.zemaromba.presentation.components.bottom_sheet.model.BottomSheetOption
+import br.com.zemaromba.presentation.components.bottom_sheet.model.BottomSheetSetOptions
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
+import br.com.zemaromba.presentation.features.training_plan.model.SetView
 
 @Composable
 fun SetsListScreen(

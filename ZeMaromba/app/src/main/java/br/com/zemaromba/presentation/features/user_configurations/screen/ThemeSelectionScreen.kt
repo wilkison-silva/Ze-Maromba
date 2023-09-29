@@ -30,8 +30,8 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.features.user_configurations.screen.state.ThemeSelectionScreenState
-import br.com.zemaromba.presentation.model.SelectableThemeItemView
-import br.com.zemaromba.presentation.model.Theme
+import br.com.zemaromba.presentation.features.user_configurations.model.SelectableThemeItemView
+import br.com.zemaromba.presentation.features.user_configurations.model.Theme
 
 @Composable
 fun ThemeSelectionScreen(
@@ -47,7 +47,7 @@ fun ThemeSelectionScreen(
                 onBackIconClick = { onNavigateBack() },
                 actionIconResId = null,
                 onActionIconClick = null,
-                title = stringResource(R.string.title_configurations)
+                title = stringResource(R.string.themes)
             )
         }
     ) { contentPadding ->

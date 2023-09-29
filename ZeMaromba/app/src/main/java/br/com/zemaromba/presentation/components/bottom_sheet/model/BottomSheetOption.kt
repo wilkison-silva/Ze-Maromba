@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.model
+package br.com.zemaromba.presentation.components.bottom_sheet.model
 
 import androidx.annotation.DrawableRes
 

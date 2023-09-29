@@ -15,7 +15,7 @@ import br.com.zemaromba.data.sources.local.database.dao.SetDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingPlanDao
 import br.com.zemaromba.domain.repository.UserRepository
-import br.com.zemaromba.presentation.model.Theme
+import br.com.zemaromba.presentation.features.user_configurations.model.Theme
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope

@@ -65,7 +65,7 @@ fun UserManagementScreen(
                         }
                     )
                 },
-                title = stringResource(R.string.settings),
+                title = stringResource(R.string.title_profile),
             )
         }
     ) { contentPadding ->

@@ -1,6 +1,6 @@
 package br.com.zemaromba.presentation.features.training_plan.screen.state
 
-import br.com.zemaromba.presentation.model.SetView
+import br.com.zemaromba.presentation.features.training_plan.model.SetView
 
 data class SetListState(
     val setListView: List<SetView> = emptyList(),

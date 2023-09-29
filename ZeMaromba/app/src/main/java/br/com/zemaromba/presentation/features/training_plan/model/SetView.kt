@@ -1,4 +1,6 @@
-package br.com.zemaromba.presentation.model
+package br.com.zemaromba.presentation.features.training_plan.model
+
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
 
 data class SetView(
     val id: Long,

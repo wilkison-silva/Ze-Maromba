@@ -1,6 +1,6 @@
 package br.com.zemaromba.presentation.features.training_plan.screen.state
 
-import br.com.zemaromba.presentation.model.TrainingSummaryView
+import br.com.zemaromba.presentation.features.training_plan.model.TrainingSummaryView
 
 data class TrainingListState(
     val trainingSummaryViewList: List<TrainingSummaryView> = emptyList(),

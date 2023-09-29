@@ -1,6 +1,6 @@
 package br.com.zemaromba.presentation.features.sets_creation.screen.state
 
-import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
 
 data class CreateExerciseState(
     val selectedExercise: ExerciseView? = null,

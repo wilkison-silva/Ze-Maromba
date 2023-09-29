@@ -1,6 +1,6 @@
 package br.com.zemaromba.domain.model
 
-import br.com.zemaromba.presentation.model.SetView
+import br.com.zemaromba.presentation.features.training_plan.model.SetView
 
 data class Set(
     val id: Long,

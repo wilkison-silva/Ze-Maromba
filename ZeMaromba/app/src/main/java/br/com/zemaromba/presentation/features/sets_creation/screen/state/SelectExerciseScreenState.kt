@@ -6,7 +6,7 @@ import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.presentation.components.search_bar.SearchBarState
 import br.com.zemaromba.presentation.features.exercises.screen.state.MuscleGroupCheckBoxState
 import br.com.zemaromba.presentation.features.exercises.viewmodel.ExerciseFilterChip
-import br.com.zemaromba.presentation.model.ExerciseView
+import br.com.zemaromba.presentation.features.exercises.model.ExerciseView
 
 data class SelectExerciseScreenState(
     val exercisesList: List<ExerciseView> = listOf(),

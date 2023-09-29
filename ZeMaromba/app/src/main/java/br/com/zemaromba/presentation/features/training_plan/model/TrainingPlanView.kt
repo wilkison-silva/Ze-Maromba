@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.model
+package br.com.zemaromba.presentation.features.training_plan.model
 
 data class TrainingPlanView(
     val id: Long,

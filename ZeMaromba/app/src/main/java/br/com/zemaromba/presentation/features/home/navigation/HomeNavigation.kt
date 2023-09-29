@@ -12,7 +12,7 @@ import br.com.zemaromba.presentation.features.exercises.navigation.navigateToExe
 import br.com.zemaromba.presentation.features.home.screen.HomeScreen
 import br.com.zemaromba.presentation.features.home.viewmodel.HomeScreenViewModel
 import br.com.zemaromba.presentation.features.training_plan.navigation.navigateToTrainingPlanGraph
-import br.com.zemaromba.presentation.model.MenuHome
+import br.com.zemaromba.presentation.features.home.model.MenuHome
 import br.com.zemaromba.presentation.features.user_configurations.navigation.navigateToUserConfigurationsGraph
 
 private object HomeDestinations {

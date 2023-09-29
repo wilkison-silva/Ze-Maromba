@@ -88,7 +88,8 @@
     <string name="bottom_sheet_options_delete">Excluir</string>
     <string name="bottom_sheet_options_close">Fechar</string>
     <string name="message_loading_content">Carregando conteúdo…</string>
-    <string name="settings">Configurações</string>
+    <string name="title_profile">Perfil</string>
+    <string name="themes">Temas</string>
     <string name="title_historics">Históricos</string>
     <string name="description_historic_feature">Aqui você encontra seus históricos de medidas corporais e cargas de exercícios</string>
     <string name="coming_soon">Em breve</string>
@@ -105,4 +106,5 @@
     <string name="light_theme_name">Tema claro</string>
     <string name="dark_theme_name">Tema escuro</string>
     <string name="dynamic_theme_name">Tema dinâmico</string>
+    <string name="suggests_and_bugs">Sugestões e bugs</string>
 </resources>

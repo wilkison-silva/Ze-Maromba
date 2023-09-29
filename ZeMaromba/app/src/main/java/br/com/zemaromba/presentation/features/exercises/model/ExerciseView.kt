@@ -1,4 +1,4 @@
-package br.com.zemaromba.presentation.model
+package br.com.zemaromba.presentation.features.exercises.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

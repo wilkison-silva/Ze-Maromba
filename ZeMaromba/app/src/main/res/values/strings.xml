@@ -27,8 +27,10 @@
     <string name="name">Nome</string>
     <string name="video_url">Url de vídeo</string>
     <string name="example_exercise">Ex: Supino inclinado</string>
+    <string name="example_url">Ex: https://www.youtube.com</string>
     <string name="first_name">Seu primeiro nome</string>
     <string name="hint_put_your_name">Informar nome!</string>
+    <string name="hint_put_valid_url">Informar url válida!</string>
     <string name="button_continue">Continuar</string>
     <string name="button_cancel">Cancelar</string>
     <string name="warning">Aviso</string>

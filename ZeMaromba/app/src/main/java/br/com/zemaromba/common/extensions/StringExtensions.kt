@@ -8,3 +8,8 @@ fun String.addRouterParameters(vararg args: String): String {
     }
     return finalRoute
 }
+
+fun String.isValidUrl(): Boolean {
+    val urlPattern = "^(https?|http)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"
+    return this.contains(urlPattern.toRegex())
+}

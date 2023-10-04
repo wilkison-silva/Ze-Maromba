@@ -1,83 +1,97 @@
 package br.com.zemaromba.presentation.core_ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.openVideoInYoutubeOrBrowser
+import br.com.zemaromba.presentation.core_ui.navigation.PopUpToDestination
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
-import br.com.zemaromba.presentation.navigation.router.ExerciseRouter
-import br.com.zemaromba.presentation.navigation.graph.exerciseGraph
-import br.com.zemaromba.presentation.model.MenuHome
-import br.com.zemaromba.presentation.navigation.router.HomeRouter
-import br.com.zemaromba.presentation.navigation.graph.homeGraph
-import br.com.zemaromba.presentation.navigation.router.OnBoardingRouter
-import br.com.zemaromba.presentation.navigation.graph.onBoardingGraph
-import br.com.zemaromba.presentation.navigation.router.TrainingPlanRouter
-import br.com.zemaromba.presentation.navigation.graph.trainingPlanGraph
+import br.com.zemaromba.presentation.features.exercises.navigation.addExerciseGraph
+import br.com.zemaromba.presentation.features.home.navigation.addHomeGraph
+import br.com.zemaromba.presentation.features.home.navigation.navigateToHomeGraph
+import br.com.zemaromba.presentation.features.onboarding.navigation.addOnBoardingGraph
+import br.com.zemaromba.presentation.features.onboarding.navigation.getOnBoardingGraphRoute
+import br.com.zemaromba.presentation.features.sets_creation.navigation.addSetsCreationGraph
+import br.com.zemaromba.presentation.features.sets_creation.navigation.navigateToSetsCreationGraph
+import br.com.zemaromba.presentation.features.user_configurations.navigation.addUserConfigurationsGraph
+import br.com.zemaromba.presentation.features.training_plan.navigation.addTrainingPlanGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ZeMarombaTheme {
-                BoxWithConstraints(
-                    modifier = Modifier.fillMaxSize()
-                ) {
+            val mainViewModel: MainActivityViewModel = hiltViewModel()
+            val state = mainViewModel.state.collectAsStateWithLifecycle().value
+
+            ZeMarombaTheme(theme = state.selectedTheme) {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = OnBoardingRouter.OnBoardingGraph.route
+                        startDestination = getOnBoardingGraphRoute()
                     ) {
-                        onBoardingGraph(
+                        addOnBoardingGraph(
                             navController = navController,
-                            width = constraints.maxWidth,
                             onFinishOnBoarding = {
-                                navController.navigate(route = HomeRouter.HomeGraph.route) {
-                                    popUpTo(OnBoardingRouter.OnBoardingGraph.route) {
+                                navController.navigateToHomeGraph(
+                                    popUpToDestination = PopUpToDestination(
+                                        route = getOnBoardingGraphRoute(),
                                         inclusive = true
-                                    }
-                                }
+                                    )
+                                )
                             }
                         )
-                        homeGraph(
-                            width = constraints.maxWidth,
-                            navigateTo = {
-                                when (it) {
-                                    MenuHome.TRAINING_PLAN_SCREEN -> {
-                                        navController.navigate(
-                                            route = TrainingPlanRouter.TrainingPlanGraph.route
-                                        )
-                                    }
-
-                                    MenuHome.EXERCISES_SCREEN -> {
-                                        navController.navigate(ExerciseRouter.ExerciseGraph.route)
-                                    }
-                                }
+                        addHomeGraph(navController = navController)
+                        addUserConfigurationsGraph(
+                            navController = navController,
+                            onContactByEmail = {
+                                sendEmailIntentToApps()
                             }
                         )
-                        exerciseGraph(
-                            width = constraints.maxWidth,
+                        addExerciseGraph(
                             navController = navController,
                             openYoutube = { videoId: String ->
-                                openVideoInYoutubeOrBrowser(videoId = videoId)
+                                openVideoInYoutubeOrBrowser(urlLink = videoId)
                             }
                         )
-                        trainingPlanGraph(
-                            width = constraints.maxWidth,
+                        addTrainingPlanGraph(
                             navController = navController,
-                            openYoutube = { videoId: String ->
-                                openVideoInYoutubeOrBrowser(videoId = videoId)
+                            openYoutube = { urlLink: String ->
+                                openVideoInYoutubeOrBrowser(urlLink = urlLink)
+                            },
+                            onCreateNewSet = { trainingId, setId ->
+                                navController.navigateToSetsCreationGraph(
+                                    trainingId = trainingId,
+                                    setId = setId
+                                )
                             }
                         )
+                        addSetsCreationGraph(navController = navController)
                     }
                 }
+            }
+        }
+    }
+
+    private fun sendEmailIntentToApps() {
+        Intent(Intent.ACTION_SEND).also {
+            it.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.suggests_and_bugs))
+            it.putExtra(Intent.EXTRA_EMAIL, arrayOf("wilkisonmartinsdasilva@gmail.com"))
+            it.type = "text/plain"
+            if (it.resolveActivity(packageManager) != null) {
+                startActivity(it)
             }
         }
     }

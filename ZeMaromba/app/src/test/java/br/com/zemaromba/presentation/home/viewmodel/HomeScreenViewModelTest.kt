@@ -2,7 +2,6 @@ package br.com.zemaromba.presentation.home.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zemaromba.domain.repository.UserRepository
-import br.com.zemaromba.presentation.home.viewmodel.HomeScreenViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

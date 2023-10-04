@@ -2,7 +2,6 @@ package br.com.zemaromba.data.sources.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import br.com.zemaromba.data.sources.local.database.dao.ExerciseAndMuscleDao
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.data.sources.local.database.dao.SetDao
 import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
@@ -27,7 +26,6 @@ import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val exerciseDao: ExerciseDao
-    abstract val exerciseAndMuscleDao: ExerciseAndMuscleDao
     abstract val setDao: SetDao
     abstract val trainingDao: TrainingDao
     abstract val trainingPlanDao: TrainingPlanDao

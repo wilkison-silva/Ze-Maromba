@@ -1,19 +1,21 @@
 package br.com.zemaromba
 
 import android.app.Application
+import android.content.res.Configuration
 import br.com.zemaromba.common.extensions.convertJsonFileToString
 import br.com.zemaromba.common.extensions.isDatabaseCreated
 import br.com.zemaromba.common.extensions.parseJsonStringToClassObject
-import br.com.zemaromba.data.sources.local.database.dao.ExerciseAndMuscleDao
-import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
-import br.com.zemaromba.data.sources.local.database.dao.SetDao
-import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
-import br.com.zemaromba.data.sources.local.database.dao.TrainingPlanDao
 import br.com.zemaromba.data.model.ExerciseAndMuscleGroupEntity
 import br.com.zemaromba.data.model.ExerciseDTO
 import br.com.zemaromba.data.model.SetEntity
 import br.com.zemaromba.data.model.TrainingEntity
 import br.com.zemaromba.data.model.TrainingPlanEntity
+import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
+import br.com.zemaromba.data.sources.local.database.dao.SetDao
+import br.com.zemaromba.data.sources.local.database.dao.TrainingDao
+import br.com.zemaromba.data.sources.local.database.dao.TrainingPlanDao
+import br.com.zemaromba.domain.repository.UserRepository
+import br.com.zemaromba.presentation.features.user_configurations.model.Theme
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +38,7 @@ class AppApplication : Application() {
     lateinit var exerciseDao: ExerciseDao
 
     @Inject
-    lateinit var exerciseAndMuscleDao: ExerciseAndMuscleDao
+    lateinit var userRepository: UserRepository
 
     override fun onCreate() {
         super.onCreate()
@@ -47,24 +49,34 @@ class AppApplication : Application() {
     private fun createExercisesIfNecessary() {
         if (!isDatabaseCreated(BuildConfig.DATABASE_NAME)) {
             CoroutineScope(Dispatchers.IO).launch {
+                val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+                when (currentNightMode) {
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        userRepository.saveTheme(themeName = Theme.LIGHT.name)
+                    }
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        userRepository.saveTheme(themeName = Theme.DARK.name)
+                    }
+                }
+
                 val fileName = "exercises_with_muscle_groups.json"
                 val context = this@AppApplication
                 context.convertJsonFileToString(fileName = fileName)?.let { jsonFileString ->
                     parseJsonStringToClassObject<List<ExerciseDTO>>(jsonFileString)
                         .forEach { exerciseDto ->
-                            val id =
-                                exerciseDao.insert(exerciseEntity = exerciseDto.toExerciseEntity())
-                            exerciseDto.muscleGroups.forEach { muscleGroup ->
-                                exerciseAndMuscleDao.insert(
-                                    exerciseAndMuscleRef = ExerciseAndMuscleGroupEntity(
-                                        exerciseId = id,
-                                        muscleName = muscleGroup.name
-                                    )
-                                )
-                            }
+                            exerciseDao.insertExerciseWithMuscleGroupRef(
+                                exerciseEntity = exerciseDto.toExerciseEntity(),
+                                onExerciseInserted = { exerciseId ->
+                                    exerciseDto.muscleGroups.map {
+                                        ExerciseAndMuscleGroupEntity(
+                                            exerciseId = exerciseId,
+                                            muscleName = it.name
+                                        )
+                                    }
+                                }
+                            )
                         }
                 }
-
 
                 //CRIA PLANO DE TREINO COM ID = 1
                 trainingPlanDao.insert(TrainingPlanEntity(name = "Monstrão em 60 dias"))
@@ -80,25 +92,25 @@ class AppApplication : Application() {
                 setDao.insert(
                     SetEntity(
                         exerciseId = 1,
-                        training_id = 1,
+                        trainingId = 1,
                         quantity = 12,
                         repetitions = 4,
-                        weight = 12.0,
+                        weight = 12,
                         observation = "Sem forçar a articulação",
                         completed = false,
-                        restingTime = 60.0
+                        restingTime = 60
                     )
                 )
                 setDao.insert(
                     SetEntity(
                         exerciseId = 2,
-                        training_id = 1,
+                        trainingId = 1,
                         quantity = 12,
                         repetitions = 4,
-                        weight = 12.0,
+                        weight = 12,
                         observation = "Segurar o triângulo corretamente",
                         completed = false,
-                        restingTime = 60.0
+                        restingTime = 60
                     )
                 )
 
@@ -114,13 +126,13 @@ class AppApplication : Application() {
                 setDao.insert(
                     SetEntity(
                         exerciseId = 3,
-                        training_id = 2,
+                        trainingId = 2,
                         quantity = 12,
                         repetitions = 4,
-                        weight = 10.0,
+                        weight = 10,
                         observation = "Não fazer rosca direta",
                         completed = false,
-                        restingTime = 60.0
+                        restingTime = 60
                     )
                 )
 

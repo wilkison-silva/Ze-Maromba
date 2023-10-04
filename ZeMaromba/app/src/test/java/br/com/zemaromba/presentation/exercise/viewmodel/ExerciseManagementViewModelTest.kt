@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zemaromba.domain.model.Exercise
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.domain.repository.ExercisesRepository
-import br.com.zemaromba.presentation.exercises.screen.event.ExerciseManagementEvents
-import br.com.zemaromba.presentation.exercises.viewmodel.ExerciseManagementViewModel
+import br.com.zemaromba.presentation.features.exercises.screen.event.ExerciseManagementEvents
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExerciseManagementViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -91,7 +91,8 @@ class ExerciseManagementViewModelTest {
                     name = name,
                     muscleGroupList = listOf(selectedMuscleGroup),
                     videoId = null,
-                    urlLink = null
+                    urlLink = null,
+                    mayExclude = true
                 )
             }.returns(Unit)
             viewModel.onEvent(event = ExerciseManagementEvents.OnEnterName(exerciseName = name))
@@ -179,9 +180,10 @@ class ExerciseManagementViewModelTest {
     private val exercise = Exercise(
         id = 1,
         name = "Biceps na barra W",
-        favorite = true,
+        isFavorite = true,
         muscleGroupList = listOf(MuscleGroup.BICEPS),
         videoId = "fakeId",
-        urlLink = "fakeurl"
+        urlLink = "fakeurl",
+        mayExclude = true
     )
 }

@@ -1,6 +1,6 @@
 package br.com.zemaromba.domain.model
 
-import br.com.zemaromba.presentation.model.SetView
+import br.com.zemaromba.presentation.features.training_plan.model.SetView
 
 data class Set(
     val id: Long,
@@ -8,10 +8,10 @@ data class Set(
     val quantity: Int,
     val repetitions: Int,
     val exercise: Exercise,
-    val weight: Double,
+    val weight: Int,
     val observation: String,
     val completed: Boolean,
-    val restingTime: Double
+    val restingTime: Int
 ) {
     fun toSetView(): SetView {
         return SetView(

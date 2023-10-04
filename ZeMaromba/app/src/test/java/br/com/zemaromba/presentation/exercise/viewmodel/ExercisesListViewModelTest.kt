@@ -6,8 +6,8 @@ import br.com.zemaromba.domain.model.Exercise
 import br.com.zemaromba.domain.model.ExerciseFilter
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.domain.repository.ExercisesRepository
-import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListEvents
-import br.com.zemaromba.presentation.exercises.viewmodel.ExercisesListViewModel
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListEvents
+import br.com.zemaromba.presentation.features.exercises.viewmodel.ExercisesListViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -176,7 +176,7 @@ class ExercisesListViewModelTest {
             advanceUntilIdle()
 
             val filteredList = exercisesList
-                .filter { exercise -> exercise.favorite }
+                .filter { exercise -> exercise.isFavorite }
                 .map { it.toExerciseView() }
 
 
@@ -286,7 +286,7 @@ class ExercisesListViewModelTest {
 
             val filteredList = exercisesList
                 .filter { it.muscleGroupList.contains(selectedMuscleGroup) }
-                .filter { it.favorite }
+                .filter { it.isFavorite }
                 .map { it.toExerciseView() }
 
             assertEquals(false, viewModel.state.value.exerciseFilters[0].isSelected)
@@ -329,7 +329,7 @@ class ExercisesListViewModelTest {
 
             val filteredList = exercisesList
                 .filter { it.muscleGroupList.contains(selectedMuscleGroup) }
-                .filter { it.favorite }
+                .filter { it.isFavorite }
                 .map { it.toExerciseView() }
 
             assertEquals(false, viewModel.state.value.exerciseFilters[0].isSelected)
@@ -418,26 +418,29 @@ class ExercisesListViewModelTest {
         Exercise(
             id = 1,
             name = "Bíceps na polia",
-            favorite = false,
+            isFavorite = false,
             muscleGroupList = listOf(MuscleGroup.BICEPS),
             urlLink = null,
-            videoId = null
+            videoId = null,
+            mayExclude = true
         ),
         Exercise(
             id = 1,
             name = "Rosca na barra W",
-            favorite = true,
+            isFavorite = true,
             muscleGroupList = listOf(MuscleGroup.BICEPS, MuscleGroup.FOREARM),
             urlLink = null,
-            videoId = null
+            videoId = null,
+            mayExclude = true
         ),
         Exercise(
             id = 2,
             name = "Agachamento livre",
-            favorite = true,
+            isFavorite = true,
             muscleGroupList = listOf(MuscleGroup.ABDUCTORS, MuscleGroup.LUMBAR, MuscleGroup.GLUTES),
             urlLink = null,
-            videoId = null
+            videoId = null,
+            mayExclude = true
         )
     )
 }

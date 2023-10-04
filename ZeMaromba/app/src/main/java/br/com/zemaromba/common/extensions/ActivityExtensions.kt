@@ -6,13 +6,13 @@ import android.content.Intent
 import android.net.Uri
 
 
-fun Activity.openVideoInYoutubeOrBrowser(videoId: String) {
+fun Activity.openVideoInYoutubeOrBrowser(urlLink: String) {
     val appIntent = Intent(
-        Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$videoId")
+        Intent.ACTION_VIEW, Uri.parse(urlLink)
     )
     val webIntent = Intent(
         Intent.ACTION_VIEW,
-        Uri.parse("http://www.youtube.com/watch?v=$videoId")
+        Uri.parse(urlLink)
     )
     try {
         startActivity(appIntent)

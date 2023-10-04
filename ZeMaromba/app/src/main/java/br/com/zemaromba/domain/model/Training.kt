@@ -1,6 +1,6 @@
 package br.com.zemaromba.domain.model
 
-import br.com.zemaromba.presentation.model.TrainingSummaryView
+import br.com.zemaromba.presentation.features.training_plan.model.TrainingSummaryView
 
 data class Training(
     val id: Long,

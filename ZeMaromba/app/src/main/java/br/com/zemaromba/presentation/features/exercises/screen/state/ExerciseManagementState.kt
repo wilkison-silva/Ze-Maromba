@@ -14,6 +14,7 @@ data class ExerciseManagementState(
     val mayExclude: Boolean = false,
     val isNativeFromApp: Boolean = false,
     val urlLink: String? = null,
+    val urlHasError: Boolean = false,
     val navigateBack: Boolean = false,
     val nameIsBlank: Boolean = false,
     val showMessageAboutMuscleGroup: Boolean = false,

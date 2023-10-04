@@ -187,6 +187,9 @@ fun ExerciseManagementScreen(
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
+                placeholder = {
+                    Text(text = stringResource(R.string.example_url))
+                },
                 singleLine = true,
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(
@@ -194,7 +197,13 @@ fun ExerciseManagementScreen(
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = { focusManager.clearFocus() }
-                )
+                ),
+                isError = state.urlHasError,
+                supportingText = {
+                    if (state.urlHasError) {
+                        Text(text = stringResource(R.string.hint_put_valid_url))
+                    }
+                }
             )
 
 

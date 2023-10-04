@@ -2,6 +2,7 @@ package br.com.zemaromba.presentation.features.exercises.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.zemaromba.common.extensions.isValidUrl
 import br.com.zemaromba.domain.model.MuscleGroup
 import br.com.zemaromba.domain.repository.ExercisesRepository
 import br.com.zemaromba.presentation.features.exercises.screen.event.ExerciseManagementEvents
@@ -27,7 +28,8 @@ class ExerciseManagementViewModel @Inject constructor(
     fun updateUrlLinkValue(url: String) {
         _state.update {
             it.copy(
-                urlLink = url
+                urlLink = url,
+                urlHasError = false
             )
         }
     }
@@ -57,6 +59,15 @@ class ExerciseManagementViewModel @Inject constructor(
                         it.toString()
                 }
 
+                val typedUrl = _state.value.urlLink.orEmpty()
+                if (typedUrl.isNotBlank()) {
+                    if (!typedUrl.isValidUrl()) {
+                        _state.update {
+                            it.copy(urlHasError = true)
+                        }
+                        return
+                    }
+                }
                 val muscleGroupList = state.value.muscleGroupCheckBoxStates
                     .filter { it.isSelected }
                     .mapNotNull { muscleGroupCheckBox ->
@@ -121,15 +132,16 @@ class ExerciseManagementViewModel @Inject constructor(
                             mayExclude = exercise.mayExclude,
                             isNativeFromApp = exercise.isNativeFromApp,
                             urlLink = exercise.urlLink,
-                            muscleGroupCheckBoxStates = it.muscleGroupCheckBoxStates.toMutableList().apply {
-                                this.forEachIndexed { index, muscleGroupCheckBox ->
-                                    exercise.muscleGroupList.find { muscleGroup ->
-                                        muscleGroup.nameRes == muscleGroupCheckBox.nameRes
-                                    }?.let {
-                                        this[index].isSelected = true
+                            muscleGroupCheckBoxStates = it.muscleGroupCheckBoxStates.toMutableList()
+                                .apply {
+                                    this.forEachIndexed { index, muscleGroupCheckBox ->
+                                        exercise.muscleGroupList.find { muscleGroup ->
+                                            muscleGroup.nameRes == muscleGroupCheckBox.nameRes
+                                        }?.let {
+                                            this[index].isSelected = true
+                                        }
                                     }
                                 }
-                            }
                         )
                     }
                 }.launchIn(viewModelScope)

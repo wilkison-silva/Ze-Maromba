@@ -55,7 +55,7 @@ fun GetStartedScreen(
                 modifier = Modifier
                     .fillMaxSize(),
                 contentScale = ContentScale.Crop,
-                painter = painterResource(id = R.drawable.image_exercise_welcome),
+                painter = painterResource(id = R.drawable.image_onboarding),
                 contentDescription = null
             )
             Column(

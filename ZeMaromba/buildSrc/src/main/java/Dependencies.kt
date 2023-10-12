@@ -97,7 +97,8 @@ object Dependencies {
             private const val group = "androidx.lifecycle"
             private const val version = "2.6.2"
             const val implementationLifeCycleRuntime = "$group:lifecycle-runtime-ktx:$version"
-            const val implementationLifeCycleRuntimeCompose = "$group:lifecycle-runtime-compose:$version"
+            const val implementationLifeCycleRuntimeCompose =
+                "$group:lifecycle-runtime-compose:$version"
         }
 
         object Navigation {
@@ -143,6 +144,15 @@ object Dependencies {
             private const val version = "2.9.0"
 
             const val implementation = "$group:gson:$version"
+        }
+
+        object Gms {
+            private const val group = "com.google.android.gms"
+
+            object PlayServicesAds {
+                private const val version = "22.4.0"
+                const val implementation = "$group:play-services-ads:$version"
+            }
         }
     }
 

@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.components.ads.AdmobBanner
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
 import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
@@ -96,6 +97,9 @@ fun HomeScreen(
                     )
                 }
             )
+        },
+        bottomBar = {
+            AdmobBanner()
         }
     ) { contentPadding ->
         Column(
@@ -241,7 +245,8 @@ fun FutureFeature(
                         top = Dimens.Space.space_20dp,
                         bottom = Dimens.Space.space_8dp,
                         end = Dimens.Space.space_20dp
-                    ).fillMaxWidth(),
+                    )
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -261,7 +266,10 @@ fun FutureFeature(
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .background(color = MaterialTheme.colorScheme.primary)
-                        .padding(horizontal = Dimens.Space.space_12dp, vertical = Dimens.Space.space_4dp),
+                        .padding(
+                            horizontal = Dimens.Space.space_12dp,
+                            vertical = Dimens.Space.space_4dp
+                        ),
                     horizontalArrangement = Arrangement.spacedBy(Dimens.Space.space_8dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {

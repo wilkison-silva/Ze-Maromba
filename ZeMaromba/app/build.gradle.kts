@@ -37,9 +37,7 @@ android {
             )
         }
         getByName("release") {
-            manifestPlaceholders += mapOf()
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -56,7 +54,6 @@ android {
                 name = "BANNER_HOME",
                 value = "\"ca-app-pub-6866653583885292/3160769431\""
             )
-            signingConfig = signingConfigs.getByName("debug")
         }
 
         flavorDimensions.add("ze_maromba")

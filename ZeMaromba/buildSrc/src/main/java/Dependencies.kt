@@ -6,8 +6,8 @@ object Dependencies {
         const val applicationId = "br.com.zemaromba"
         const val minSdk = 24
         const val targetSdk = 34
-        const val versionCode = 5
-        const val versionName = "1.1.0"
+        const val versionCode = 6
+        const val versionName = "1.1.1"
         const val kotlinCompilerExtensionVersion = "1.5.0"
     }
 

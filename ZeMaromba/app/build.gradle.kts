@@ -29,9 +29,17 @@ android {
                 name = "DATABASE_NAME",
                 value = "\"ze_maromba_app_database_debug\""
             )
+            manifestPlaceholders["admob_app_id"] = "ca-app-pub-3940256099942544~3347511713"
+            buildConfigField(
+                type = "String",
+                name = "BANNER_HOME",
+                value = "\"ca-app-pub-3940256099942544/6300978111\""
+            )
         }
         getByName("release") {
-            isMinifyEnabled = false
+            manifestPlaceholders += mapOf()
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -40,8 +48,15 @@ android {
             buildConfigField(
                 type = "String",
                 name = "DATABASE_NAME",
-                value = "\"ze_maromba_app_database_debug\""
+                value = "\"ze_maromba_app_database_prod\""
             )
+            manifestPlaceholders["admob_app_id"] = "ca-app-pub-6866653583885292~2984319270"
+            buildConfigField(
+                type = "String",
+                name = "BANNER_HOME",
+                value = "\"ca-app-pub-6866653583885292/3160769431\""
+            )
+            signingConfig = signingConfigs.getByName("debug")
         }
 
         flavorDimensions.add("ze_maromba")
@@ -153,4 +168,7 @@ dependencies {
 
     //Lottie Compose
     implementation(Dependencies.Airbnb.Lottie.implementation)
+
+    //Google AdMob
+    implementation(Dependencies.Google.Gms.PlayServicesAds.implementation)
 }

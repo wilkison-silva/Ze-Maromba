@@ -10,6 +10,7 @@ import br.com.zemaromba.data.model.ExerciseDTO
 import br.com.zemaromba.data.sources.local.database.dao.ExerciseDao
 import br.com.zemaromba.domain.repository.UserRepository
 import br.com.zemaromba.presentation.features.user_configurations.model.Theme
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +30,11 @@ class AppApplication : Application() {
         super.onCreate()
 
         createExercisesIfNecessary()
+        googleAdmobInit()
+    }
+
+    private fun googleAdmobInit() {
+        MobileAds.initialize(this) {}
     }
 
     private fun createExercisesIfNecessary() {
@@ -62,7 +68,6 @@ class AppApplication : Application() {
                             )
                         }
                 }
-
             }
         }
     }

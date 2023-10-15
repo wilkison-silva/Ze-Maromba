@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.R
 import br.com.zemaromba.presentation.components.ads.AdmobBanner
 import br.com.zemaromba.presentation.core_ui.ui.theme.Dimens
@@ -99,7 +100,10 @@ fun HomeScreen(
             )
         },
         bottomBar = {
-            AdmobBanner()
+            AdmobBanner(
+                modifier = Modifier.fillMaxWidth(),
+                bannerUnitId = BuildConfig.BANNER_HOME
+            )
         }
     ) { contentPadding ->
         Column(

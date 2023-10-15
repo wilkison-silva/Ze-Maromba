@@ -35,6 +35,11 @@ android {
                 name = "BANNER_HOME",
                 value = "\"ca-app-pub-3940256099942544/6300978111\""
             )
+            buildConfigField(
+                type = "String",
+                name = "BANNER_EXERCISE_FEATURE",
+                value = "\"ca-app-pub-3940256099942544/6300978111\""
+            )
         }
         getByName("release") {
             isMinifyEnabled = false
@@ -53,6 +58,11 @@ android {
                 type = "String",
                 name = "BANNER_HOME",
                 value = "\"ca-app-pub-6866653583885292/3160769431\""
+            )
+            buildConfigField(
+                type = "String",
+                name = "BANNER_EXERCISE_FEATURE",
+                value = "\"ca-app-pub-6866653583885292/5677006154\""
             )
         }
 

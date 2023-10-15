@@ -29,9 +29,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.ExerciseFilter
+import br.com.zemaromba.presentation.components.ads.AdmobBanner
 import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelectorBottomSheet
 import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.cards.CardInfo
@@ -98,8 +100,6 @@ fun SelectExerciseScreen(
                     message = stringResource(R.string.message_loading_content)
                 )
             } else {
-
-
                 SearchBar(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -109,8 +109,16 @@ fun SelectExerciseScreen(
                         onSearch(it)
                     }
                 )
+                AdmobBanner(
+                    modifier = Modifier.fillMaxWidth(),
+                    bannerUnitId = BuildConfig.BANNER_SELECT_EXERCISE_FOR_SET_CREATION
+                )
                 Text(
-                    modifier = Modifier.padding(start = Dimens.Space.space_20dp),
+                    modifier = Modifier
+                        .padding(
+                            start = Dimens.Space.space_20dp,
+                            top = Dimens.Space.space_8dp
+                        ),
                     text = stringResource(R.string.filter_by),
                     color = MaterialTheme.colorScheme.onSurface,
                     style = Styles.BodyTextNormal

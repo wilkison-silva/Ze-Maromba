@@ -33,8 +33,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.ExerciseFilter
+import br.com.zemaromba.presentation.components.ads.AdmobBanner
 import br.com.zemaromba.presentation.components.bottom_sheet.MuscleGroupSelectorBottomSheet
 import br.com.zemaromba.presentation.components.cards.CardInfo
 import br.com.zemaromba.presentation.components.chips.FilterChipsGroup
@@ -61,7 +63,6 @@ fun ExercisesListScreen(
     onMuscleGroupSelection: (id: Int, isSelected: Boolean) -> Unit,
     onOpenYoutubeApp: (videoId: String) -> Unit
 ) {
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -117,8 +118,16 @@ fun ExercisesListScreen(
                         onSearch(it)
                     }
                 )
+                AdmobBanner(
+                    modifier = Modifier.fillMaxWidth(),
+                    bannerUnitId = BuildConfig.BANNER_EXERCISE_FEATURE
+                )
                 Text(
-                    modifier = Modifier.padding(start = Dimens.Space.space_20dp),
+                    modifier = Modifier
+                        .padding(
+                            start = Dimens.Space.space_20dp,
+                            top = Dimens.Space.space_8dp
+                        ),
                     text = stringResource(R.string.filter_by),
                     color = MaterialTheme.colorScheme.onSurface,
                     style = Styles.BodyTextNormal
@@ -388,7 +397,10 @@ fun ExercisesListScreenPreview() {
     )
     ZeMarombaTheme {
         ExercisesListScreen(
-            state = ExercisesListState(exercisesList = exercisesSampleList),
+            state = ExercisesListState(
+                exercisesList = exercisesSampleList,
+                isLoading = false
+            ),
             onNavigateBack = {
 
             },

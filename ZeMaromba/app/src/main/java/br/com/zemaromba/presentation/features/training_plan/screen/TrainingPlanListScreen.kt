@@ -24,6 +24,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,7 +34,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.R
+import br.com.zemaromba.presentation.components.ads.AdmobBanner
 import br.com.zemaromba.presentation.components.loaders.SimpleLoader
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
@@ -40,6 +45,7 @@ import br.com.zemaromba.presentation.core_ui.ui.theme.Styles
 import br.com.zemaromba.presentation.core_ui.ui.theme.ZeMarombaTheme
 import br.com.zemaromba.presentation.features.training_plan.screen.state.TrainingPlanState
 import br.com.zemaromba.presentation.features.training_plan.model.TrainingPlanView
+import kotlinx.coroutines.launch
 
 @Composable
 fun TrainingPlanListScreen(
@@ -48,7 +54,6 @@ fun TrainingPlanListScreen(
     onOpenTrainingPlan: (trainingPlanId: Long) -> Unit,
     onCreateTrainingPlan: () -> Unit
 ) {
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -123,6 +128,10 @@ fun TrainingPlanListScreen(
                 ) {
                     item {
                         Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
+                        AdmobBanner(
+                            modifier = Modifier.fillMaxWidth(),
+                            bannerUnitId = BuildConfig.BANNER_TRAINING_PLAN_LIST
+                        )
                     }
                     itemsIndexed(
                         items = state.trainingPlanList,

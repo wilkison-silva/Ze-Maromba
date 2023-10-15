@@ -36,8 +36,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.R
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.components.ads.AdmobBanner
 import br.com.zemaromba.presentation.components.loaders.SimpleLoader
 import br.com.zemaromba.presentation.components.navbar.NavBar
 import br.com.zemaromba.presentation.components.navbar.NavBarType
@@ -131,6 +133,10 @@ fun TrainingListScreen(
                 ) {
                     item {
                         Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
+                        AdmobBanner(
+                            modifier = Modifier.fillMaxWidth(),
+                            bannerUnitId = BuildConfig.BANNER_TRAINING_LIST
+                        )
                     }
                     itemsIndexed(
                         items = state.trainingSummaryViewList,

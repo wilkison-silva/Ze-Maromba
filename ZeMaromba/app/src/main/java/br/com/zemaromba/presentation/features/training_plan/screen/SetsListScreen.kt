@@ -41,9 +41,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.zemaromba.BuildConfig
 import br.com.zemaromba.R
 import br.com.zemaromba.common.extensions.orZero
 import br.com.zemaromba.domain.model.MuscleGroup
+import br.com.zemaromba.presentation.components.ads.AdmobBanner
 import br.com.zemaromba.presentation.components.bottom_sheet.ListOptionsBottomSheet
 import br.com.zemaromba.presentation.components.button.PrimaryButton
 import br.com.zemaromba.presentation.components.loaders.SimpleLoader
@@ -146,7 +148,11 @@ fun SetsListScreen(
                         verticalArrangement = Arrangement.spacedBy(Dimens.Space.space_12dp),
                     ) {
                         item {
-                            Spacer(modifier = Modifier.height(Dimens.Space.space_24dp))
+                            Spacer(modifier = Modifier.height(Dimens.Space.space_20dp))
+                            AdmobBanner(
+                                modifier = Modifier.fillMaxWidth(),
+                                bannerUnitId = BuildConfig.BANNER_SETS_LIST
+                            )
                         }
                         itemsIndexed(items = state.setListView,
                             itemContent = { _: Int, setView: SetView ->
@@ -165,6 +171,10 @@ fun SetsListScreen(
                             }
                         )
                         item {
+                            AdmobBanner(
+                                modifier = Modifier.fillMaxWidth(),
+                                bannerUnitId = BuildConfig.BANNER_SETS_LIST
+                            )
                             Spacer(modifier = Modifier.height(Dimens.Space.space_96dp))
                         }
                     }

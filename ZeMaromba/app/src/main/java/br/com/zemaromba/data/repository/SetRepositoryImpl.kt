@@ -16,20 +16,19 @@ class SetRepositoryImpl(
 ) : SetRepository {
 
     override fun getSetsByTrainingId(trainingId: Long): Flow<List<Set>> = callbackFlow {
-
         setDao
-            .getSetsWithExerciseByTrainingId(trainingId = trainingId)
-            .collectLatest { setsWithExercises ->
-                val sets = setsWithExercises.map { setWithExercise ->
+            .getSetByTrainingId(trainingId = trainingId)
+            .collectLatest { setEntityList ->
+                val sets = setEntityList.map { setEntity ->
                     val exercise =
                         exerciseDao
-                            .getExerciseWithMuscleGroups(exerciseId = setWithExercise.exercise.id)
+                            .getExerciseWithMuscleGroups(exerciseId = setEntity.exerciseId)
                             .map { exerciseAndMusclesMap ->
                                 exerciseAndMusclesMap
                                     .key
                                     .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
                             }.first()
-                    setWithExercise.set.toSet(exercise)
+                    setEntity.toSet(exercise)
                 }
                 trySend(sets)
             }
@@ -90,14 +89,14 @@ class SetRepositoryImpl(
     }
 
     override suspend fun getSetById(id: Long): Set {
-        val setWithExercise = setDao.getSetWithExerciseBySetId(setId = id)
+        val setEntity = setDao.getSet(setId = id).first()
         val exercise = exerciseDao
-            .getExerciseWithMuscleGroups(exerciseId = setWithExercise.exercise.id)
+            .getExerciseWithMuscleGroups(exerciseId = setEntity.exerciseId)
             .map { exerciseAndMusclesMap ->
                 exerciseAndMusclesMap
                     .key
                     .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
             }.first()
-        return setWithExercise.set.toSet(exercise)
+        return setEntity.toSet(exercise)
     }
 }

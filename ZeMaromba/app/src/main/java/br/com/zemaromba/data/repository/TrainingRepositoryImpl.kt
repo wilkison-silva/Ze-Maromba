@@ -19,19 +19,19 @@ class TrainingRepositoryImpl(
 
     override fun getTrainingById(id: Long): Flow<Training> = flow {
         val trainingEntity = trainingDao.getTrainingById(trainingId = id)
-        val setsWithExercises = setDao
-            .getSetsWithExerciseByTrainingId(trainingId = trainingEntity.trainingPlanId)
+        val setsEntityList = setDao
+            .getSetByTrainingId(trainingId = trainingEntity.trainingPlanId)
             .first()
-        val sets = setsWithExercises.map {
+        val sets = setsEntityList.map {
             val exercise =
                 exerciseDao
-                    .getExerciseWithMuscleGroups(exerciseId = it.exercise.id)
+                    .getExerciseWithMuscleGroups(exerciseId = it.exerciseId)
                     .map { exerciseAndMusclesMap ->
                         exerciseAndMusclesMap
                             .key
                             .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
                     }.first()
-            it.set.toSet(exercise)
+            it.toSet(exercise)
         }
         emit(trainingEntity.toTraining(sets = sets))
     }

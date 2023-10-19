@@ -66,20 +66,20 @@ class TrainingPlanRepositoryImpl(
 
         val trainingList = mutableListOf<Training>()
         trainingPlanWithTrainings.trainingList.forEach { trainingEntity ->
-            val setsWithExercises = setDao
-                .getSetsWithExerciseByTrainingId(trainingId = trainingEntity.id)
+            val setsEntityList = setDao
+                .getSetByTrainingId(trainingId = trainingEntity.id)
                 .first()
 
-            val sets = setsWithExercises.map {
+            val sets = setsEntityList.map {
                 val exercise =
                     exerciseDao
-                        .getExerciseWithMuscleGroups(exerciseId = it.exercise.id)
+                        .getExerciseWithMuscleGroups(exerciseId = it.exerciseId)
                         .map { exerciseAndMusclesMap ->
                             exerciseAndMusclesMap
                                 .key
                                 .toExercise(exercisesAndMuscleGroup = exerciseAndMusclesMap.value)
                         }.first()
-                it.set.toSet(exercise)
+                it.toSet(exercise)
             }
             val training = trainingEntity.toTraining(sets)
             trainingList.add(training)

@@ -6,7 +6,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import br.com.zemaromba.data.model.SetEntity
-import br.com.zemaromba.data.model.relations.SetWithExercise
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -24,16 +23,10 @@ interface SetDao {
     @Query("DELETE FROM `Set` WHERE `Set`.id = :setId")
     suspend fun deleteById(setId: Long): Int
 
-    @Transaction
-    @Query("SELECT * FROM Exercise " +
-            "JOIN `Set` ON `Set`.exercise_id = Exercise.exercise_id " +
-            "WHERE `Set`.training_id = :trainingId")
-    fun getSetsWithExerciseByTrainingId(trainingId: Long): Flow<List<SetWithExercise>>
+    @Query("SELECT * FROM `Set` WHERE `Set`.training_id = :trainingId")
+    fun getSetByTrainingId(trainingId: Long): Flow<List<SetEntity>>
 
-    @Transaction
-    @Query("SELECT * FROM Exercise " +
-            "JOIN `Set` ON `Set`.exercise_id = Exercise.exercise_id " +
-            "WHERE `Set`.id = :setId")
-    suspend fun getSetWithExerciseBySetId(setId: Long): SetWithExercise
+    @Query("SELECT * FROM `Set` WHERE `Set`.id = :setId")
+    suspend fun getSet(setId: Long): List<SetEntity>
 
 }

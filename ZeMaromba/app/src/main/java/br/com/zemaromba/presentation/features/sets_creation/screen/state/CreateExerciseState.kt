@@ -13,6 +13,7 @@ data class CreateExerciseState(
     val observation: String = "",
     val trainingId: Long = 0,
     val setId: Long = 0,
+    val isSetCompleted: Boolean = false,
     val mustRetrieveExercise: Boolean = true,
     val isExerciseRetrieved: Boolean = false,
 )

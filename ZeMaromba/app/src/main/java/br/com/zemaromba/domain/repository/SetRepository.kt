@@ -9,7 +9,7 @@ interface SetRepository {
 
     suspend fun completeSet(setId: Long, isCompleted: Boolean)
 
-    suspend fun createSet(
+    suspend fun createOrUpdateSet(
         id: Long,
         exerciseId: Long,
         trainingId: Long,

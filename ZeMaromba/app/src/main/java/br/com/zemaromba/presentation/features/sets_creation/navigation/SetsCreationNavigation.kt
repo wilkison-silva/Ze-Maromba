@@ -278,14 +278,15 @@ fun NavGraphBuilder.addSetsCreationGraph(
                 },
                 onFinishCreation = {
                     flowState.selectedExercise?.let { selectedExercise ->
-                        viewModel.createSet(
+                        viewModel.createOrUpdateSet(
                             setId = flowState.setId,
                             selectedExercise = selectedExercise,
                             trainingId = flowState.trainingId,
                             series = flowState.seriesValue,
                             repetitions = flowState.repetitionsValue,
                             weight = flowState.weightValue,
-                            restingTime = flowState.restingTimeValue
+                            restingTime = flowState.restingTimeValue,
+                            isSetCompleted = flowState.isSetCompleted
                         )
                     }
                 }

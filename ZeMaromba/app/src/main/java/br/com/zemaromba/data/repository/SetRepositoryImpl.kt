@@ -41,7 +41,7 @@ class SetRepositoryImpl(
         )
     }
 
-    override suspend fun createSet(
+    override suspend fun createOrUpdateSet(
         id: Long,
         exerciseId: Long,
         trainingId: Long,

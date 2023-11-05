@@ -28,17 +28,18 @@ class ExerciseObservationViewModel @Inject constructor(
         }
     }
 
-    fun createSet(
+    fun createOrUpdateSet(
         setId: Long,
         selectedExercise: ExerciseView,
         trainingId: Long,
         series: String,
         repetitions: String,
         weight: String,
-        restingTime: String
+        restingTime: String,
+        isSetCompleted: Boolean
     ) {
         viewModelScope.launch {
-            setRepository.createSet(
+            setRepository.createOrUpdateSet(
                 id = setId,
                 exerciseId = selectedExercise.id,
                 trainingId = trainingId,
@@ -46,7 +47,7 @@ class ExerciseObservationViewModel @Inject constructor(
                 repetitions = repetitions.toInt(),
                 weight = weight.toInt(),
                 observation = _state.value.observation,
-                completed = false,
+                completed = isSetCompleted,
                 restingTime = restingTime.toInt()
             )
             _state.update {

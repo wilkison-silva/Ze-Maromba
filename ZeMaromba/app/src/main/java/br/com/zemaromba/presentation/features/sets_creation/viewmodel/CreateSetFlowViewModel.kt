@@ -35,6 +35,7 @@ class CreateSetFlowViewModel @Inject constructor(
                         weightValue = setView.weight.toString(),
                         restingTimeValue = setView.restingTime.toString(),
                         observation = setView.observation,
+                        isSetCompleted = setView.completed,
                         isExerciseRetrieved = true
                     )
                 }
